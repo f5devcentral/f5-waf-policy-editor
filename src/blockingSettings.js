@@ -1,6 +1,8 @@
 import React from 'react';
 import setToValue from './helpers.js';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -10,6 +12,7 @@ export default class BlockingSettings extends React.Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.addViolation = this.addViolation.bind(this);
+        this.removeViolation = this.removeViolation.bind(this);
     }
     handleChange(e) {
         let policy = Object.assign(Object.create(Object.getPrototypeOf(this.props.policy)), this.props.policy)
@@ -31,13 +34,22 @@ export default class BlockingSettings extends React.Component {
         policy.policy["blocking-settings"] = { "violations": violations };
         this.props.onChange(policy);
     }
+    removeViolation(e) {
+        let policy = Object.assign(Object.create(Object.getPrototypeOf(this.props.policy)), this.props.policy)
+        if (policy.policy.["blocking-settings"].violations.length > 1) {
+            policy.policy.["blocking-settings"].violations.splice(e.target.id, 1)
+        } else {
+            delete policy.policy.["blocking-settings"]
+        }
+        this.props.onChange(policy);
+    }
     render() {
         return (
             <div>
                 <h2>Blocking Settings</h2>
                 <Form>
                     <ViolationsList violations={this.props.policy.getAllViolations()} onClick={this.addViolation}></ViolationsList>
-                    <Violations policy={this.props.policy} onChange={this.handleChange}></Violations>
+                    <Violations policy={this.props.policy} onChange={this.handleChange} onRemove={this.removeViolation}></Violations>
                 </Form >
             </div>
         );
@@ -47,7 +59,7 @@ export default class BlockingSettings extends React.Component {
 class ViolationsList extends React.Component {
     render() {
         return (
-            <Form.Row>
+            <Row>
                 <Dropdown>
                     <Dropdown.Toggle id="dropdown-basic">Violations</Dropdown.Toggle>
                     <Dropdown.Menu>
@@ -56,7 +68,7 @@ class ViolationsList extends React.Component {
                         ))}
                     </Dropdown.Menu>
                 </Dropdown>
-            </Form.Row>
+            </Row>
         )
     }
 }
@@ -64,61 +76,53 @@ class Violations extends React.Component {
     render() {
         return (
             <div>
-                <Form.Row>
-                    <Col>
-                        Violation
-            </Col>
-                    <Col>
-                        Alarm
-            </Col>
-                    <Col>
-                        Block
-            </Col>
-                    <Col>
-                        Learn
-            </Col>
-                </Form.Row>
+                <Row>
+                    <Col>Violation</Col>
+                    <Col>Alarm</Col>
+                    <Col>Block</Col>
+                    <Col>Learn</Col>
+                    <Col></Col>
+                </Row>
                 {this.props.policy.policy?.["blocking-settings"]?.violations?.map((violation) => (
-                    <Form.Row key={violation.name}>
-                        <Col>
-                            <InputGroup size="sm">
-                                <InputGroup.Prepend>
-                                    <InputGroup.Text>{this.props.policy.getAllViolations().find(v => v.name === violation.name)?.title}</InputGroup.Text>
-                                </InputGroup.Prepend>
-                            </InputGroup>
-                        </Col>
-                        <Col>
-                            <InputGroup size="sm">
+                    <Row key={violation.name}>
+                        <InputGroup size="sm">
+                            <Col>
+                                {this.props.policy.getAllViolations().find(v => v.name === violation.name)?.title}
+                            </Col>
+                            <Col>
                                 <Form.Check
-                                    type="checkbox"
                                     id={"blocking-settings.violations[" + this.props.policy.policy["blocking-settings"].violations.indexOf(violation) + "].alarm"}
                                     checked={violation.alarm || false}
-                                    onChange={e => this.props.onChange(e)}
-                                />
-                            </InputGroup>
-                        </Col>
-                        <Col>
-                            <InputGroup size="sm">
+                                    onChange={e => this.props.onChange(e)}>
+                                </Form.Check>
+                            </Col>
+                            <Col>
                                 <Form.Check
                                     type="checkbox"
                                     id={"blocking-settings.violations[" + this.props.policy.policy["blocking-settings"].violations.indexOf(violation) + "].block"}
                                     checked={violation.block || false}
-                                    onChange={e => this.props.onChange(e)}
-                                />
-                            </InputGroup>
-                        </Col>
-                        <Col>
-                            <InputGroup size="sm">
+                                    onChange={e => this.props.onChange(e)}>
+                                </Form.Check>
+                            </Col>
+                            <Col>
                                 <Form.Check
                                     type="checkbox"
                                     id={"blocking-settings.violations[" + this.props.policy.policy["blocking-settings"].violations.indexOf(violation) + "].learn"}
                                     checked={violation.learn || false}
-                                    onChange={e => this.props.onChange(e)}
-                                />
-                            </InputGroup>
-                        </Col>
-                    </Form.Row>
-                ))}
+                                    onChange={e => this.props.onChange(e)}>
+                                </Form.Check>
+                            </Col>
+                            <Col>
+                                <Button size="sm"
+                                    id={this.props.policy.policy["blocking-settings"].violations.indexOf(violation)}
+                                    onClick={e => this.props.onRemove(e)}>
+                                    Remove
+                                </Button>
+                            </Col>
+                        </InputGroup>
+                    </Row>
+                ))
+                }
             </div>
         )
     }
