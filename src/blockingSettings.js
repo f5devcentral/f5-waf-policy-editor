@@ -36,8 +36,9 @@ export default class BlockingSettings extends React.Component {
     }
     removeViolation(e) {
         let policy = Object.assign(Object.create(Object.getPrototypeOf(this.props.policy)), this.props.policy)
-        if (policy.policy.["blocking-settings"].violations.length > 1) {
-            policy.policy.["blocking-settings"].violations.splice(e.target.id, 1)
+        policy.policy.["blocking-settings"].violations.splice(e.target.id, 1)
+        if (Object.keys(policy.policy.["blocking-settings"]).length > 1) {
+            delete policy.policy.["blocking-settings"].violations
         } else {
             delete policy.policy.["blocking-settings"]
         }
