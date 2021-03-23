@@ -9,7 +9,7 @@ import Col from 'react-bootstrap/Col';
 
 import Menu from './menu.js';
 import Config from './config.js';
-import Policy from 'f5-waf-policy';
+import { Policy, isValidPolicy } from 'f5-waf-policy';
 import { isJSON } from './helpers.js';
 
 const defaultPolicy = {
@@ -17,7 +17,7 @@ const defaultPolicy = {
     "name": "policy_name",
     "template": { "name": "POLICY_TEMPLATE_NGINX_BASE" },
     "applicationLanguage": "utf-8",
-    "enforcementMode": "blocking",
+    "enforcementMode": "blocking"
   }
 };
 
@@ -28,6 +28,7 @@ class App extends React.Component {
       policy: new Policy(defaultPolicy),
       textArea: JSON.stringify(new Policy(defaultPolicy), undefined, 4),
       visibleComponent: "General",
+      isValid: new Policy(defaultPolicy).isValid()
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleMenuClick = this.handleMenuClick.bind(this);
@@ -35,6 +36,7 @@ class App extends React.Component {
 
   handleChange(policy) {
     this.setState((state) => ({
+      isValid: isValidPolicy(policy),
       policy: new Policy(policy),
       textArea: JSON.stringify(policy.toPolicy(), undefined, 4)
     }));
@@ -42,12 +44,17 @@ class App extends React.Component {
 
   handleTextChange(e) {
     this.setState(() => {
-      return { textArea: e.target.value };
+      return {
+        textArea: e.target.value,
+      };
     });
-    if (isJSON(e.target.value)) {
-      this.setState(() => {
-        return { policy: new Policy(JSON.parse(e.target.value)) };
+    if (isJSON(e.target.value) && isValidPolicy(JSON.parse(e.target.value))) {
+      this.setState({
+        isValid: true,
+        policy: new Policy(JSON.parse(e.target.value))
       });
+    } else {
+      this.setState({ isValid: false });
     }
   }
 
@@ -80,7 +87,7 @@ class App extends React.Component {
                 value={this.state.textArea}
                 rows={20} cols={60}
                 onChange={e => this.handleTextChange(e)}
-                style={{ color: (this.state.policy.isValid()) ? "green" : "red" }} />
+                style={{ color: (this.state.isValid) ? "green" : "red" }} />
             </Col>
           </Row>
         </Container>
