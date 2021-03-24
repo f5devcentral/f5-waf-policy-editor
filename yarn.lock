@@ -4892,10 +4892,10 @@ extsprintf@1.3.0, extsprintf@^1.2.0:
   resolved "https://registry.npmjs.org/extsprintf/-/extsprintf-1.3.0.tgz"
   integrity sha1-lpGEQOMEGnpBT4xS48V06zw+HgU=
 
-f5-waf-policy@^0.0.10:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/f5-waf-policy/-/f5-waf-policy-0.0.10.tgz#1fdb1e1513b23d2e37001cee2e39f7857ac0221d"
-  integrity sha512-YVW9BDltzv3YepOd6W4xahvnMmAFGgY8KX2TEU/xGQHodNDyTQOHOyw0ITQmZMRY9AagbRg1eV9T0w1LgK9l9w==
+f5-waf-policy@^0.0.11:
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/f5-waf-policy/-/f5-waf-policy-0.0.11.tgz#a08d0c134e3c1b66db02c919a505f2aad5623797"
+  integrity sha512-kSIxpG4efrVyuBcVrbZeS9g+Uz6zFm2IxhmxleacjaxDJ788RdxPJegQN+HP0QM+cDH0lVdSRus9TJdawLQ8wA==
   dependencies:
     ajv "^7.2.1"
 
