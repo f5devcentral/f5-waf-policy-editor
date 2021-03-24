@@ -26,7 +26,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       policy: new Policy(defaultPolicy),
-      textArea: JSON.stringify(new Policy(defaultPolicy), undefined, 4),
+      textArea: JSON.stringify(new Policy(defaultPolicy).toPolicy(), undefined, 4),
       visibleComponent: "General",
       isValid: new Policy(defaultPolicy).isValid()
     };
@@ -36,17 +36,15 @@ class App extends React.Component {
 
   handleChange(policy) {
     this.setState((state) => ({
-      isValid: isValidPolicy(policy),
-      policy: new Policy(policy),
+      isValid: isValidPolicy(policy.toPolicy()),
+      policy: policy,
       textArea: JSON.stringify(policy.toPolicy(), undefined, 4)
     }));
   }
 
   handleTextChange(e) {
-    this.setState(() => {
-      return {
-        textArea: e.target.value,
-      };
+    this.setState({
+      textArea: e.target.value
     });
     if (isJSON(e.target.value) && isValidPolicy(JSON.parse(e.target.value))) {
       this.setState({
@@ -70,7 +68,7 @@ class App extends React.Component {
         <Container>
           <Row>
             <Col>
-              <h1>NGINX App Protect Policy Configurator</h1>
+              <h1>NGINX App Protect Policy Editor</h1>
             </Col>
           </Row>
           <Row>
