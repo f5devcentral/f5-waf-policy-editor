@@ -61,7 +61,7 @@ class Violations extends React.Component {
     }
     delViolation(e) {
         const policy = this.props.policy;
-        policy.blockingSettings.violations.splice(e.target.id)
+        policy.blockingSettings.violations.splice(e.target.id, 1)
         this.props.onChange(policy);
     }
     delAllViolations(e) {
@@ -78,7 +78,6 @@ class Violations extends React.Component {
                             <th className="text-left">Violation</th>
                             <th >Alarm</th>
                             <th>Block</th>
-                            <th>Learn</th>
                             <th>
                                 <Button size="sm" onClick={e => this.delAllViolations(e)}>
                                     Remove
@@ -105,14 +104,6 @@ class Violations extends React.Component {
                                         id={index.toString()}
                                         checked={violation.block || false}
                                         onChange={e => this.toggleBlock(e)}>
-                                    </Form.Check>
-                                </td>
-                                <td>
-                                    <Form.Check
-                                        type="checkbox"
-                                        id={index.toString()}
-                                        checked={violation.learn || false}
-                                        onChange={e => this.toggleLearn(e)}>
                                     </Form.Check>
                                 </td>
                                 <td>
