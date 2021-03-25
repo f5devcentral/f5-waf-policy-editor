@@ -10,92 +10,70 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { Header } from 'f5-waf-policy';
 
 export default class Headers extends React.Component {
-    constructor(props) {
-        super(props);
-        this.changeName = this.changeName.bind(this);
-        this.changeType = this.changeType.bind(this);
-        this.toggleMandatory = this.toggleMandatory.bind(this);
-        this.toggleCheckSignatures = this.toggleCheckSignatures.bind(this);
-        this.toggleHtmlNormalization = this.toggleHtmlNormalization.bind(this);
-        this.toggleBase64 = this.toggleBase64.bind(this);
-        this.toggleAllowRepeatedOccurrences = this.toggleAllowRepeatedOccurrences.bind(this);
-        this.addHeader = this.addHeader.bind(this);
-        this.delHeader = this.delHeader.bind(this);
-        this.delAllHeaders = this.delAllHeaders.bind(this);
-    }
-    changeName(e) {
-        const policy = this.props.policy
-        policy.policy.headers.headers[e.target.id].name = e.target.value
-        this.props.onChange(policy);
-    }
-    changeType(e) {
-        const policy = this.props.policy
-        policy.policy.headers.headers[e.target.id].type = e.target.text
-        this.props.onChange(policy);
-    }
-    toggleMandatory(e) {
-        const policy = this.props.policy
-        policy.policy.headers.headers[e.target.id].mandatory = !policy.policy.headers.headers[e.target.id].mandatory
-        this.props.onChange(policy);
-    }
-    toggleCheckSignatures(e) {
-        const policy = this.props.policy
-        policy.policy.headers.headers[e.target.id].checkSignatures = !policy.policy.headers.headers[e.target.id].checkSignatures
-        this.props.onChange(policy);
-    }
-    toggleHtmlNormalization(e) {
-        const policy = this.props.policy
-        policy.policy.headers.headers[e.target.id].htmlNormalization = !policy.policy.headers.headers[e.target.id].htmlNormalization
-        this.props.onChange(policy);
-    }
-    toggleBase64(e) {
-        const policy = this.props.policy
-        policy.policy.headers.headers[e.target.id].decodeValueAsBase64 = !policy.policy.headers.headers[e.target.id].decodeValueAsBase64
-        this.props.onChange(policy);
-    }
-    toggleAllowRepeatedOccurrences(e) {
-        const policy = this.props.policy
-        policy.policy.headers.headers[e.target.id].allowRepeatedOccurrences = !policy.policy.headers.headers[e.target.id].allowRepeatedOccurrences
-        this.props.onChange(policy);
-    }
-    addHeader(e) {
-        const policy = this.props.policy
-        let header = new Header()
-        policy.policy.headers.add(header)
-        this.props.onChange(policy);
-    }
-    delHeader(e) {
-        const policy = this.props.policy
-        policy.policy.headers.del(e.target.id)
-        this.props.onChange(policy);
-    }
-    delAllHeaders(e) {
-        const policy = this.props.policy
-        policy.policy.headers.delAll()
-        this.props.onChange(policy);
-    }
     render() {
         return (
             <div>
                 <h2>Headers</h2>
                 <HeadersList
                     policy={this.props.policy}
-                    changeName={this.changeName}
-                    changeType={this.changeType}
-                    toggleMandatory={this.toggleMandatory}
-                    toggleCheckSignatures={this.toggleCheckSignatures}
-                    toggleHtmlNormalization={this.toggleHtmlNormalization}
-                    toggleAllowRepeatedOccurrences={this.toggleAllowRepeatedOccurrences}
-                    toggleBase64={this.toggleBase64}
-                    addHeader={this.addHeader}
-                    delHeader={this.delHeader}
-                    delAllHeaders={this.delAllHeaders} />
+                    onChange={this.props.onChange} />
             </div>
         );
     }
 }
 
 class HeadersList extends React.Component {
+    changeName(e) {
+        const policy = this.props.policy;
+        policy.headers[e.target.id].name = e.target.value;
+        this.props.onChange(policy);
+    }
+    changeType(e) {
+        const policy = this.props.policy;
+        policy.headers[e.target.id].type = e.target.text;
+        this.props.onChange(policy);
+    }
+    toggleMandatory(e) {
+        const policy = this.props.policy;
+        policy.headers[e.target.id].mandatory = !policy.headers[e.target.id].mandatory;
+        this.props.onChange(policy);
+    }
+    toggleCheckSignatures(e) {
+        const policy = this.props.policy;
+        policy.headers[e.target.id].checkSignatures = !policy.headers[e.target.id].checkSignatures;
+        this.props.onChange(policy);
+    }
+    toggleHtmlNormalization(e) {
+        const policy = this.props.policy;
+        policy.headers[e.target.id].htmlNormalization = !policy.headers[e.target.id].htmlNormalization;
+        this.props.onChange(policy);
+    }
+    toggleBase64(e) {
+        const policy = this.props.policy;
+        policy.headers[e.target.id].decodeValueAsBase64 = !policy.headers[e.target.id].decodeValueAsBase64;
+        this.props.onChange(policy);
+    }
+    toggleAllowRepeatedOccurrences(e) {
+        const policy = this.props.policy;
+        policy.headers[e.target.id].allowRepeatedOccurrences = !policy.headers[e.target.id].allowRepeatedOccurrences;
+        this.props.onChange(policy);
+    }
+    addHeader(e) {
+        const policy = this.props.policy;
+        let header = new Header();
+        policy.headers.push(header);
+        this.props.onChange(policy);
+    }
+    delHeader(e) {
+        const policy = this.props.policy;
+        policy.headers.splice(e.target.id, 1);
+        this.props.onChange(policy);
+    }
+    delAllHeaders(e) {
+        const policy = this.props.policy;
+        policy.headers = [];
+        this.props.onChange(policy);
+    }
     render() {
         return (
             <div>
@@ -117,12 +95,12 @@ class HeadersList extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.props.policy.policy?.headers.headers?.map((header, index) => (
+                        {this.props.policy?.headers?.map((header, index) => (
                             <tr key={index} className="text-center">
                                 <td>
                                     <FormControl
-                                        id={this.props.policy.policy.headers.headers.indexOf(header).toString()}
-                                        onChange={e => this.props.changeName(e)}
+                                        id={this.props.policy.headers.indexOf(header).toString()}
+                                        onChange={e => this.changeName(e)}
                                         size="sm"
                                         value={header.name} />
                                 </td>
@@ -131,13 +109,13 @@ class HeadersList extends React.Component {
                                         <Dropdown.Toggle>{header.type}</Dropdown.Toggle>
                                         <Dropdown.Menu>
                                             <Dropdown.Item
-                                                id={this.props.policy.policy.headers.headers.indexOf(header).toString()}
-                                                onClick={e => this.props.changeType(e)}>
+                                                id={this.props.policy.headers.indexOf(header).toString()}
+                                                onClick={e => this.changeType(e)}>
                                                 explicit
                                             </Dropdown.Item>
                                             <Dropdown.Item
-                                                id={this.props.policy.policy.headers.headers.indexOf(header).toString()}
-                                                onClick={e => this.props.changeType(e)}>
+                                                id={this.props.policy.headers.indexOf(header).toString()}
+                                                onClick={e => this.changeType(e)}>
                                                 wildcard
                                             </Dropdown.Item>
                                         </Dropdown.Menu>
@@ -145,36 +123,36 @@ class HeadersList extends React.Component {
                                 </td>
                                 <td>
                                     <Form.Check
-                                        id={this.props.policy.policy.headers.headers.indexOf(header).toString()}
-                                        onChange={e => this.props.toggleMandatory(e)}
+                                        id={this.props.policy.headers.indexOf(header).toString()}
+                                        onChange={e => this.toggleMandatory(e)}
                                         checked={header.mandatory} />
                                 </td>
                                 <td>
                                     <Form.Check
-                                        id={this.props.policy.policy.headers.headers.indexOf(header).toString()}
-                                        onChange={e => this.props.toggleCheckSignatures(e)}
+                                        id={this.props.policy.headers.indexOf(header).toString()}
+                                        onChange={e => this.toggleCheckSignatures(e)}
                                         checked={header.checkSignatures} />
                                 </td>
                                 <td>
                                     <Form.Check
-                                        id={this.props.policy.policy.headers.headers.indexOf(header).toString()}
-                                        onChange={e => this.props.toggleHtmlNormalization(e)}
+                                        id={this.props.policy.headers.indexOf(header).toString()}
+                                        onChange={e => this.toggleHtmlNormalization(e)}
                                         checked={header.htmlNormalization} />
                                 </td>
                                 <td>
                                     <Form.Check
-                                        id={this.props.policy.policy.headers.headers.indexOf(header).toString()}
-                                        onChange={e => this.props.toggleBase64(e)}
+                                        id={this.props.policy.headers.indexOf(header).toString()}
+                                        onChange={e => this.toggleBase64(e)}
                                         checked={header.decodeValueAsBase64} />
                                 </td>
                                 <td>
                                     <Form.Check
-                                        id={this.props.policy.policy.headers.headers.indexOf(header).toString()}
-                                        onChange={e => this.props.toggleAllowRepeatedOccurrences(e)}
+                                        id={this.props.policy.headers.indexOf(header).toString()}
+                                        onChange={e => this.toggleAllowRepeatedOccurrences(e)}
                                         checked={header.allowRepeatedOccurrences} />
                                 </td>
                                 <td>
-                                    <Button size="sm" onClick={e => this.props.delHeader(e)}>
+                                    <Button size="sm" onClick={e => this.delHeader(e)}>
                                         Remove
                                     </Button>
                                 </td>
@@ -182,7 +160,7 @@ class HeadersList extends React.Component {
                         ))}
                     </tbody>
                 </Table>
-                <Button size="sm" onClick={e => this.props.addHeader(e)}>
+                <Button size="sm" onClick={e => this.addHeader(e)}>
                     Add Header
                 </Button>
             </div>
