@@ -5,54 +5,56 @@ import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
 
-import setToValue from './helpers.js';
-
 export default class BlockingSettings extends React.Component {
     constructor(props) {
         super(props);
-        this.handleChange = this.handleChange.bind(this);
+        this.toggleAlarm = this.toggleAlarm.bind(this);
+        this.toggleBlock = this.toggleBlock.bind(this);
+        this.toggleLearn = this.toggleLearn.bind(this);
         this.addViolation = this.addViolation.bind(this);
-        this.removeViolation = this.removeViolation.bind(this);
+        this.delViolation = this.delViolation.bind(this);
     }
-    handleChange(e) {
-        let policy = Object.assign(Object.create(Object.getPrototypeOf(this.props.policy)), this.props.policy)
-        setToValue(policy.policy, e.target.id, e.target.checked)
+    toggleAlarm(e) {
+        const policy = this.props.policy;
+        policy.policy.blockingSettings.violations.violations[e.target.id].alarm = !policy.policy.blockingSettings.violations.violations[e.target.id].alarm
+        this.props.onChange(policy);
+    }
+    toggleBlock(e) {
+        const policy = this.props.policy;
+        policy.policy.blockingSettings.violations.violations[e.target.id].block = !policy.policy.blockingSettings.violations.violations[e.target.id].block
+        this.props.onChange(policy);
+    }
+    toggleLearn(e) {
+        const policy = this.props.policy;
+        policy.policy.blockingSettings.violations.violations[e.target.id].learn = !policy.policy.blockingSettings.violations.violations[e.target.id].learn
         this.props.onChange(policy);
     }
     addViolation(e) {
-        let policy = Object.assign(Object.create(Object.getPrototypeOf(this.props.policy)), this.props.policy)
-
-        let violations = policy.policy?.["blocking-settings"]?.violations || [];
-        if (!violations.find(v => v.name === e.target.id)) {
-            violations.push({
-                "name": e.target.id,
-                "alarm": this.props.policy.getAllViolations().find(v => v.name === e.target.id).alarm || false,
-                "block": this.props.policy.getAllViolations().find(v => v.name === e.target.id).block || false,
-                "learn": this.props.policy.getAllViolations().find(v => v.name === e.target.id).learn || false,
-            })
-        }
-        policy.policy["blocking-settings"] = { "violations": violations };
+        const policy = this.props.policy;
+        const violation = policy.getAllViolations().find(v => v.name === e.target.id);
+        policy.policy.blockingSettings.violations.add(violation);
         this.props.onChange(policy);
     }
-    removeViolation(e) {
-        let policy = Object.assign(Object.create(Object.getPrototypeOf(this.props.policy)), this.props.policy)
-        policy.policy.["blocking-settings"].violations.splice(e.target.id, 1)
-        if (policy.policy.["blocking-settings"].violations.length === 0) {
-            delete policy.policy.["blocking-settings"].violations
-        }
-        if (Object.keys(policy.policy.["blocking-settings"]).length === 0) {
-            delete policy.policy.["blocking-settings"]
-        }
+    delViolation(e) {
+        const policy = this.props.policy;
+        policy.policy.blockingSettings.violations.del(e.target.id)
         this.props.onChange(policy);
     }
     render() {
         return (
             <div>
                 <h2>Blocking Settings</h2>
-                <Form>
-                    <ViolationsList violations={this.props.policy.getAllViolations()} onClick={this.addViolation}></ViolationsList>
-                    <Violations policy={this.props.policy} onChange={this.handleChange} onRemove={this.removeViolation}></Violations>
-                </Form >
+                <ViolationsList
+                    violations={this.props.policy.getAllViolations()}
+                    onClick={this.addViolation}>
+                </ViolationsList>
+                <Violations
+                    policy={this.props.policy}
+                    toggleAlarm={this.toggleAlarm}
+                    toggleBlock={this.toggleBlock}
+                    toggleLearn={this.toggleLearn}
+                    delViolation={this.delViolation}>
+                </Violations>
             </div>
         );
     }
@@ -87,38 +89,38 @@ class Violations extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.props.policy.policy?.["blocking-settings"]?.violations?.map((violation) => (
+                        {this.props.policy.policy.blockingSettings.violations.violations?.map((violation, index) => (
                             <tr key={violation.name}>
                                 <td className="text-left">
-                                    {this.props.policy.getAllViolations().find(v => v.name === violation.name)?.title}
+                                    {violation.title}
                                 </td>
                                 <td>
                                     <Form.Check
-                                        id={"blocking-settings.violations[" + this.props.policy.policy["blocking-settings"].violations.indexOf(violation) + "].alarm"}
+                                        id={index.toString()}
                                         checked={violation.alarm || false}
-                                        onChange={e => this.props.onChange(e)}>
+                                        onChange={e => this.props.toggleAlarm(e)}>
                                     </Form.Check>
                                 </td>
                                 <td>
                                     <Form.Check
                                         type="checkbox"
-                                        id={"blocking-settings.violations[" + this.props.policy.policy["blocking-settings"].violations.indexOf(violation) + "].block"}
+                                        id={index.toString()}
                                         checked={violation.block || false}
-                                        onChange={e => this.props.onChange(e)}>
+                                        onChange={e => this.props.toggleBlock(e)}>
                                     </Form.Check>
                                 </td>
                                 <td>
                                     <Form.Check
                                         type="checkbox"
-                                        id={"blocking-settings.violations[" + this.props.policy.policy["blocking-settings"].violations.indexOf(violation) + "].learn"}
+                                        id={index.toString()}
                                         checked={violation.learn || false}
-                                        onChange={e => this.props.onChange(e)}>
+                                        onChange={e => this.props.toggleLearn(e)}>
                                     </Form.Check>
                                 </td>
                                 <td>
                                     <Button size="sm"
-                                        id={this.props.policy.policy["blocking-settings"].violations.indexOf(violation)}
-                                        onClick={e => this.props.onRemove(e)}>
+                                        id={index.toString()}
+                                        onClick={e => this.props.delViolation(e)}>
                                         Remove
                                         </Button>
                                 </td>
