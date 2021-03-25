@@ -12,23 +12,14 @@ import Config from './config.js';
 import { Policy, isValidPolicy } from 'f5-waf-policy';
 import { isJSON } from './helpers.js';
 
-const defaultPolicy = {
-  "policy": {
-    "name": "policy_name",
-    "template": { "name": "POLICY_TEMPLATE_NGINX_BASE" },
-    "applicationLanguage": "utf-8",
-    "enforcementMode": "blocking"
-  }
-};
-
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      policy: new Policy(defaultPolicy),
-      textArea: JSON.stringify(new Policy(defaultPolicy).toPolicy(), undefined, 4),
+      policy: new Policy(),
+      textArea: JSON.stringify(new Policy().toPolicy(), undefined, 4),
       visibleComponent: "General",
-      isValid: new Policy(defaultPolicy).isValid()
+      isValid: new Policy().isValid()
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleMenuClick = this.handleMenuClick.bind(this);
