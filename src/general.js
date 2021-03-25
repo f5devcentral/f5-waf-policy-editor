@@ -1,5 +1,5 @@
 import React from 'react';
-import setToValue from './helpers.js';
+
 import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
 
@@ -10,9 +10,24 @@ export default class General extends React.Component {
             policy: this.props.policy,
         };
     }
-    handleChange(e) {
-        let policy = Object.assign(Object.create(Object.getPrototypeOf(this.props.policy)), this.props.policy)
-        setToValue(policy.policy, e.target.id, e.target.value);
+    changeName(e) {
+        const policy = this.props.policy;
+        policy.name = e.target.value;
+        this.props.onChange(policy);
+    }
+    changeApplicationLanguage(e) {
+        const policy = this.props.policy;
+        policy.applicationLanguage = e.target.value;
+        this.props.onChange(policy);
+    }
+    changeEnforcementMode(e) {
+        const policy = this.props.policy;
+        policy.enforcementMode = e.target.value;
+        this.props.onChange(policy);
+    }
+    changeTemplateName(e) {
+        const policy = this.props.policy;
+        policy.template.name = e.target.value;
         this.props.onChange(policy);
     }
     render() {
@@ -24,18 +39,16 @@ export default class General extends React.Component {
                         <InputGroup.Text>Policy Name</InputGroup.Text>
                     </InputGroup.Prepend>
                     <FormControl type="text"
-                        id="name"
-                        value={this.props.policy.policy.name || ""}
-                        onChange={e => this.handleChange(e)} />
+                        value={this.props.policy.name}
+                        onChange={e => this.changeName(e)} />
                 </InputGroup>
                 <InputGroup size="sm">
                     <InputGroup.Prepend>
                         <InputGroup.Text>Application Language</InputGroup.Text>
                     </InputGroup.Prepend>
                     <FormControl
-                        id="applicationLanguage"
-                        value={this.props.policy.policy.applicationLanguage || ""}
-                        onChange={e => this.handleChange(e)}
+                        value={this.props.policy.applicationLanguage}
+                        onChange={e => this.changeApplicationLanguage(e)}
                     />
                 </InputGroup>
                 <InputGroup size="sm">
@@ -43,9 +56,8 @@ export default class General extends React.Component {
                         <InputGroup.Text>Enforcement Mode</InputGroup.Text>
                     </InputGroup.Prepend>
                     <FormControl
-                        id="enforcementMode"
-                        value={this.props.policy.policy.enforcementMode || ""}
-                        onChange={e => this.handleChange(e)}
+                        value={this.props.policy.enforcementMode}
+                        onChange={e => this.changeEnforcementMode(e)}
                     />
                 </InputGroup>
                 <InputGroup size="sm">
@@ -53,9 +65,8 @@ export default class General extends React.Component {
                         <InputGroup.Text>Template</InputGroup.Text>
                     </InputGroup.Prepend>
                     <FormControl
-                        id="template.name"
-                        value={this.props.policy.policy?.template?.name || ""}
-                        onChange={e => this.handleChange(e)}
+                        value={this.props.policy?.template?.name}
+                        onChange={e => this.changeTemplateName(e)}
                     />
                 </InputGroup>
             </div>
