@@ -38,13 +38,16 @@ class App extends React.Component {
       textArea: e.target.value
     });
     if (isJSON(e.target.value) && isValidPolicy(JSON.parse(e.target.value))) {
+      const policy = new Policy(JSON.parse(e.target.value));
       this.setState({
         isValid: true,
-        policy: new Policy(JSON.parse(e.target.value))
+        policy: policy,
+        textArea: JSON.stringify(policy.toPolicy(), undefined, 4)
       });
     } else {
       this.setState({ isValid: false });
     }
+
   }
 
   handleMenuClick(itemName) {
