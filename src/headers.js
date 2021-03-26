@@ -10,10 +10,19 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { Header } from 'f5-waf-policy';
 
 export default class Headers extends React.Component {
+    addHeader(e) {
+        const policy = this.props.policy;
+        let header = new Header();
+        policy.headers.push(header);
+        this.props.onChange(policy);
+    }
     render() {
         return (
             <div>
                 <h2>Headers</h2>
+                <Button size="sm" className="mb-2" onClick={e => this.addHeader(e)}>
+                    Add Header
+                </Button>
                 <HeadersList
                     policy={this.props.policy}
                     onChange={this.props.onChange} />
@@ -58,12 +67,6 @@ class HeadersList extends React.Component {
         policy.headers[e.target.id].allowRepeatedOccurrences = !policy.headers[e.target.id].allowRepeatedOccurrences;
         this.props.onChange(policy);
     }
-    addHeader(e) {
-        const policy = this.props.policy;
-        let header = new Header();
-        policy.headers.push(header);
-        this.props.onChange(policy);
-    }
     delHeader(e) {
         const policy = this.props.policy;
         policy.headers.splice(e.target.id, 1);
@@ -88,7 +91,7 @@ class HeadersList extends React.Component {
                             <th>Decode Base64</th>
                             <th>Allow Repeated</th>
                             <th>
-                                <Button size="sm" onClick={this.props.delAllHeaders}>
+                                <Button size="sm" onClick={e => this.delAllHeaders(e)}>
                                     Remove
                                 </Button>
                             </th>
@@ -160,9 +163,6 @@ class HeadersList extends React.Component {
                         ))}
                     </tbody>
                 </Table>
-                <Button size="sm" onClick={e => this.addHeader(e)}>
-                    Add Header
-                </Button>
             </div>
         )
     }
