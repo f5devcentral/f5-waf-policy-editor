@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 export default class BlockingSettings extends React.Component {
     render() {
@@ -32,8 +33,8 @@ class ViolationsList extends React.Component {
     }
     render() {
         return (
-            <Dropdown className="mb-2">
-                <Dropdown.Toggle id="dropdown-basic">Violations</Dropdown.Toggle>
+            <Dropdown as={ButtonGroup} className="mb-2" size="sm">
+                <Dropdown.Toggle id="dropdown-basic">Add Violation</Dropdown.Toggle>
                 <Dropdown.Menu>
                     {this.props.policy.getAllViolations().map((violation) => (
                         <Dropdown.Item key={violation.name} id={violation.name} onClick={e => this.addViolation(e)}>{violation.title}</Dropdown.Item>
