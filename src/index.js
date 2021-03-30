@@ -58,32 +58,30 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="app">
-        <Container>
-          <Row>
-            <Col>
-              <h1>NGINX App Protect Policy Editor</h1>
-            </Col>
-          </Row>
-          <Row>
-            <Col md="auto">
-              <Menu onClick={this.handleMenuClick} activeKey={this.state.visibleComponent}></Menu>
-            </Col>
-            <Col>
-              <Config policy={this.state.policy} onChange={this.handleChange} visibleComponent={this.state.visibleComponent}></Config>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <FormControl as="textarea"
-                value={this.state.textArea}
-                rows={20} cols={60}
-                onChange={e => this.handleTextChange(e)}
-                style={{ color: (this.state.isValid) ? "green" : "red" }} />
-            </Col>
-          </Row>
-        </Container>
-      </div >
+      <Container style={{ "max-width": "1400px" }} >
+        <Row>
+          <Col>
+            <h1>F5 WAF Policy Editor</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col md="auto">
+            <Menu onClick={this.handleMenuClick} activeKey={this.state.visibleComponent}></Menu>
+          </Col>
+          <Col>
+            <Config policy={this.state.policy} onChange={this.handleChange} visibleComponent={this.state.visibleComponent}></Config>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <FormControl as="textarea"
+              value={this.state.textArea}
+              rows={20} cols={60}
+              onChange={e => this.handleTextChange(e)}
+              style={{ color: (this.state.isValid) ? "green" : "red" }} />
+          </Col>
+        </Row>
+      </ Container >
     );
   }
 }
