@@ -1,4 +1,4 @@
-import { ApplicationState } from "../store";
+import { ApplicationState, DefaultApplicationState } from "../store";
 
 const stateVar = "editor-state#0.1";
 
@@ -8,7 +8,7 @@ export class SessionStorage {
       const serializedState = sessionStorage.getItem(stateVar);
       return JSON.parse(serializedState ? serializedState : "");
     } catch (e) {
-      return {};
+      return DefaultApplicationState();
     }
   }
 

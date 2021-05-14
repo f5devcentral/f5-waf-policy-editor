@@ -13,7 +13,7 @@ export const PolicyEditorDashboardComponent: React.FunctionComponent = ({
   children,
 }) => {
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const onDrawerOpen = () => {
     setOpen(true);

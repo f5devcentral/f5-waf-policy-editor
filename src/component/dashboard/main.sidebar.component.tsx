@@ -1,32 +1,40 @@
 import * as React from "react";
 import { useStyles } from "../../utils/styles.hook";
-import { useTheme } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import { Business } from "@material-ui/icons";
+import {
+  Apps,
+  Assistant,
+  ChevronLeft,
+  Edit,
+  GetApp,
+  Share,
+} from "@material-ui/icons";
 import ListItemText from "@material-ui/core/ListItemText";
+import {
+  useDashboardDispatch,
+  useDashboardState,
+} from "../../store/dashboard/dashboard.hooks";
+import { DashboardModuleEnum } from "../../store/dashboard/dashboard.types";
+import { dashboardModuleSet } from "../../store/dashboard/dashboard.actions";
 
 export type MainSidebarProps = Readonly<{ onDrawerClose: any }>;
 
 export const MainSidebarComponent: React.FunctionComponent<MainSidebarProps> =
   ({ onDrawerClose }) => {
     const classes = useStyles();
-    const theme = useTheme();
+    const dispatch = useDashboardDispatch();
+    const state = useDashboardState();
 
     return (
       <React.Fragment>
         <div className={classes.drawerHeader}>
           <IconButton onClick={onDrawerClose}>
-            {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
+            <ChevronLeft />
           </IconButton>
         </div>
         <Divider />
@@ -34,17 +42,55 @@ export const MainSidebarComponent: React.FunctionComponent<MainSidebarProps> =
           {[
             {
               text: "Policy Editor",
-              icon: <Business />,
-              onClick: () => {},
+              id: DashboardModuleEnum.PolicyEditor,
+              icon: <Edit />,
+              onClick: () => {
+                dispatch(dashboardModuleSet(DashboardModuleEnum.PolicyEditor));
+              },
             },
             {
               text: "Policy Wizard",
-              icon: <Business />,
+              id: DashboardModuleEnum.PolicyWizard,
+              icon: <Assistant />,
+              onClick: () => {
+                dispatch(dashboardModuleSet(DashboardModuleEnum.PolicyWizard));
+              },
+            },
+            {
+              text: "Application Preset",
+              id: DashboardModuleEnum.ApplicationPreset,
+              icon: <Apps />,
+              onClick: () => {
+                dispatch(
+                  dashboardModuleSet(DashboardModuleEnum.ApplicationPreset)
+                );
+              },
+            },
+          ].map(({ text, id, icon, onClick }) => (
+            <React.Fragment>
+              <ListItem
+                button
+                key={text}
+                onClick={() => onClick()}
+                selected={id === state.currentModule}
+              >
+                <ListItemIcon>{icon}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            </React.Fragment>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {[
+            {
+              text: "Download",
+              icon: <GetApp />,
               onClick: () => {},
             },
             {
-              text: "Policy Presets",
-              icon: <Business />,
+              text: "Share",
+              icon: <Share />,
               onClick: () => {},
             },
           ].map(({ text, icon, onClick }) => (
@@ -56,7 +102,6 @@ export const MainSidebarComponent: React.FunctionComponent<MainSidebarProps> =
             </React.Fragment>
           ))}
         </List>
-        <Divider />
       </React.Fragment>
     );
   };
