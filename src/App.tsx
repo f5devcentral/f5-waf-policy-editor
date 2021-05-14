@@ -11,8 +11,8 @@ function App() {
 
   const uiFactory: { [key: number]: JSX.Element } = {
     [DashboardModuleEnum.ApplicationPreset]: <ApplicationPresetComponent />,
-    [DashboardModuleEnum.PolicyWizard]: <PolicyEditorComponent />,
-    [DashboardModuleEnum.PolicyEditor]: <PolicyWizardComponent />,
+    [DashboardModuleEnum.PolicyEditor]: <PolicyEditorComponent />,
+    [DashboardModuleEnum.PolicyWizard]: <PolicyWizardComponent />,
   };
 
   return (

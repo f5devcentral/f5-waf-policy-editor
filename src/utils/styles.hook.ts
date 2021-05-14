@@ -4,6 +4,7 @@ const drawerWidth = 340;
 
 export const useStyles = makeStyles(
   (theme) => {
+    console.log(theme.mixins.toolbar);
     return createStyles({
       root: {
         display: "flex",
@@ -47,6 +48,7 @@ export const useStyles = makeStyles(
         justifyContent: "flex-end",
       },
       content: {
+        overflow: "scroll",
         flexGrow: 1,
         padding: theme.spacing(3),
         transition: theme.transitions.create("margin", {
@@ -55,6 +57,7 @@ export const useStyles = makeStyles(
         }),
         marginLeft: -drawerWidth,
         maxWidth: "100vw",
+        maxHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
         minWidth: "720px",
       },
       contentShift: {

@@ -66,18 +66,16 @@ export const MainSidebarComponent: React.FunctionComponent<MainSidebarProps> =
                 );
               },
             },
-          ].map(({ text, id, icon, onClick }) => (
-            <React.Fragment>
-              <ListItem
-                button
-                key={text}
-                onClick={() => onClick()}
-                selected={id === state.currentModule}
-              >
-                <ListItemIcon>{icon}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            </React.Fragment>
+          ].map(({ text, id, icon, onClick }, index) => (
+            <ListItem
+              button
+              key={index}
+              onClick={() => onClick()}
+              selected={id === state.currentModule}
+            >
+              <ListItemIcon>{icon}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
           ))}
         </List>
         <Divider />
@@ -93,13 +91,11 @@ export const MainSidebarComponent: React.FunctionComponent<MainSidebarProps> =
               icon: <Share />,
               onClick: () => {},
             },
-          ].map(({ text, icon, onClick }) => (
-            <React.Fragment>
-              <ListItem button key={text} onClick={() => onClick()}>
-                <ListItemIcon>{icon}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            </React.Fragment>
+          ].map(({ text, icon, onClick }, index) => (
+            <ListItem button key={index} onClick={() => onClick()}>
+              <ListItemIcon>{icon}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
           ))}
         </List>
       </React.Fragment>
