@@ -40,4 +40,4 @@ export const EditorTabControl = withStyles((theme: Theme) =>
     },
     selected: {},
   })
-)((props: EditorTabProps) => <Tab disableRipple {...props} />);
+)((props: EditorTabProps) => <Tab {...props} />);

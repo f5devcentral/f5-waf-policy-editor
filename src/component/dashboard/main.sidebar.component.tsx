@@ -21,7 +21,6 @@ import {
 } from "../../store/dashboard/dashboard.hooks";
 import { DashboardModuleEnum } from "../../store/dashboard/dashboard.types";
 import { dashboardModuleSet } from "../../store/dashboard/dashboard.actions";
-import { Typography } from "@material-ui/core";
 
 export type MainSidebarProps = Readonly<{ onDrawerClose: any }>;
 
@@ -34,12 +33,6 @@ export const MainSidebarComponent: React.FunctionComponent<MainSidebarProps> =
     return (
       <React.Fragment>
         <div className={classes.drawerHeader}>
-          <img
-            src="https://www.nginx.com/wp-content/uploads/2020/06/NGINX-Logo-White-Endorsement-RGB.svg"
-            alt="Web Server Load Balancing with NGINX Plus"
-            style={{ width: "102px" }}
-          />
-          <Typography style={{ width: "50%" }}>[Title]</Typography>
           <IconButton onClick={onDrawerClose}>
             <ChevronLeft />
           </IconButton>
