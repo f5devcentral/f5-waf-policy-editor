@@ -26,6 +26,14 @@ const JsonEditorContainer = withStyles((theme) =>
   })
 )(Paper);
 
+const CurrentPageContainer = withStyles((theme) =>
+  createStyles({
+    root: {
+      margin: theme.spacing(3),
+    },
+  })
+)(Box);
+
 export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
   const [currentTab, setCurrentTab] = useState<number>(0);
   const { currentPage, currentPolicy } = usePolicyEditorState();
@@ -48,18 +56,23 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
           <EditorTabControl label={label} key={id} />
         ))}
       </EditorTabsControl>
+
       <Grid container spacing={1}>
         <Grid container item spacing={1} xs={12}>
-          <Grid container item spacing={1} xs={1} />
-          <Grid container item spacing={1} xs={10}>
-            <Box>{pageFactory.createPage(currentPage)}</Box>
-            <JsonEditorContainer>
-              <CurrentPolicyControl
-                jsonText={JSON.stringify(currentPolicy, null, 2)}
-              />
-            </JsonEditorContainer>
+          <Grid container item spacing={1} xs={2} />
+          <Grid container item spacing={1} xs={8}>
+            <Box>
+              <CurrentPageContainer>
+                {pageFactory.createPage(currentPage)}
+              </CurrentPageContainer>
+              <JsonEditorContainer>
+                <CurrentPolicyControl
+                  jsonText={JSON.stringify(currentPolicy, null, 2)}
+                />
+              </JsonEditorContainer>
+            </Box>
           </Grid>
-          <Grid container item spacing={1} xs={1} />
+          <Grid container item spacing={1} xs={2} />
         </Grid>
       </Grid>
     </React.Fragment>

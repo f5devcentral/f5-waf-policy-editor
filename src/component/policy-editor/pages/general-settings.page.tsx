@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { useStyles } from "../../../utils/styles.hook";
 import Box from "@material-ui/core/Box";
-import { GridFieldValueControl } from "../controls/grid-field-value.control";
+import { GridFieldValueControl } from "../controls/grid.field-value.control";
 
 export const GeneralSettingsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
