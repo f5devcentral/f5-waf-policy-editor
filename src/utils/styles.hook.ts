@@ -57,7 +57,7 @@ export const useStyles = makeStyles(
         }),
         marginLeft: -drawerWidth,
         maxWidth: "100vw",
-        maxHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
+        //        maxHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
         minWidth: "720px",
       },
       contentShift: {
@@ -83,6 +83,9 @@ export const useStyles = makeStyles(
       },
       hidden: {
         display: "none",
+      },
+      pageContent: {
+        padding: theme.spacing(1),
       },
     });
   },

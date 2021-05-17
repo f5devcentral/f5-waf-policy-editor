@@ -14,6 +14,17 @@ import {
 import { policyEditorPageSet } from "../../store/policy-editor/policy-editor.actions";
 import { PolicyEditorPageFactory } from "./controls/policy-editor.page.factory";
 import { CurrentPolicyControl } from "./controls/curren-policy.control";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import { createStyles, withStyles } from "@material-ui/core";
+
+const JsonEditorContainer = withStyles((theme) =>
+  createStyles({
+    root: {
+      width: "100%",
+    },
+  })
+)(Paper);
 
 export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
   const [currentTab, setCurrentTab] = useState<number>(0);
@@ -37,12 +48,20 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
           <EditorTabControl label={label} key={id} />
         ))}
       </EditorTabsControl>
-      <Box>{pageFactory.createPage(currentPage)}</Box>
-      <Box>
-        <CurrentPolicyControl
-          jsonText={JSON.stringify(currentPolicy, null, 2)}
-        />
-      </Box>
+      <Grid container spacing={1}>
+        <Grid container item spacing={1} xs={12}>
+          <Grid container item spacing={1} xs={1} />
+          <Grid container item spacing={1} xs={10}>
+            <Box>{pageFactory.createPage(currentPage)}</Box>
+            <JsonEditorContainer>
+              <CurrentPolicyControl
+                jsonText={JSON.stringify(currentPolicy, null, 2)}
+              />
+            </JsonEditorContainer>
+          </Grid>
+          <Grid container item spacing={1} xs={1} />
+        </Grid>
+      </Grid>
     </React.Fragment>
   );
 };
