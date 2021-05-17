@@ -3,9 +3,8 @@ import Editor from "react-simple-code-editor";
 import { useState } from "react";
 import { languages, highlight } from "prismjs";
 
+import "prismjs/themes/prism-solarizedlight.css";
 import "prismjs/components/prism-json";
-
-import "../../../scss/syntax.scss";
 
 export type CurrentPolicyProps = {
   jsonText: string;
@@ -25,6 +24,10 @@ export const CurrentPolicyControl: React.FunctionComponent<CurrentPolicyProps> =
         style={{
           fontFamily: '"Fira code", "Fira Mono", monospace',
           fontSize: 12,
+          border: "1px solid blue",
+          maxHeight: "200px",
+          overflow: "scroll",
+          overflowY: "scroll",
         }}
       />
     );
