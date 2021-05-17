@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Typography } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 
 import { useState } from "react";
@@ -8,13 +7,20 @@ import {
   EditorTabsControl,
 } from "./controls/policy-editor.tabs.control";
 import { TabsTree } from "./model/policy-editor.tabs.model";
-import { usePolicyEditorDispatch } from "../../store/policy-editor/policy-editor.hooks";
+import {
+  usePolicyEditorDispatch,
+  usePolicyEditorState,
+} from "../../store/policy-editor/policy-editor.hooks";
 import { policyEditorPageSet } from "../../store/policy-editor/policy-editor.actions";
+import { PolicyEditorPageFactory } from "./controls/policy-editor.page.factory";
+import { CurrentPolicyControl } from "./controls/curren-policy.control";
 
 export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
   const [currentTab, setCurrentTab] = useState<number>(0);
+  const { currentPage, currentPolicy } = usePolicyEditorState();
 
   const dispatch = usePolicyEditorDispatch();
+  const pageFactory = new PolicyEditorPageFactory();
 
   return (
     <React.Fragment>
@@ -31,8 +37,11 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
           <EditorTabControl label={label} key={id} />
         ))}
       </EditorTabsControl>
+      <Box>{pageFactory.createPage(currentPage)}</Box>
       <Box>
-        <Typography>Policy editor {currentTab}</Typography>
+        <CurrentPolicyControl
+          jsonText={JSON.stringify(currentPolicy, null, 2)}
+        />
       </Box>
     </React.Fragment>
   );

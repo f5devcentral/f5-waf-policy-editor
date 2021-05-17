@@ -15,6 +15,7 @@ export enum PolicyEditorPageEnum {
 
 export type PolicyEditorState = {
   currentPage: PolicyEditorPageEnum;
+  currentPolicy: any;
 };
 
 export interface PolicyEditorAction

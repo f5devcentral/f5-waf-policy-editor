@@ -10,6 +10,16 @@ import { policyEditorPageSetHandler } from "./handler/policyeditor-page-set.hand
 export function policyEditorStateInit(): PolicyEditorState {
   return {
     currentPage: PolicyEditorPageEnum.GeneralSettings,
+    currentPolicy: {
+      policy: {
+        name: "policy_name",
+        template: {
+          name: "POLICY_TEMPLATE_NGINX_BASE",
+        },
+        applicationLanguage: "utf-8",
+        enforcementMode: "blocking",
+      },
+    },
   };
 }
 
