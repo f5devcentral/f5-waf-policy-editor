@@ -11,7 +11,10 @@ import {
   usePolicyEditorDispatch,
   usePolicyEditorState,
 } from "../../store/policy-editor/policy-editor.hooks";
-import { policyEditorPageSet } from "../../store/policy-editor/policy-editor.actions";
+import {
+  policyEditorJsonTextSet,
+  policyEditorPageSet,
+} from "../../store/policy-editor/policy-editor.actions";
 import { PolicyEditorPageFactory } from "./controls/policy-editor.page.factory";
 import { CurrentPolicyControl } from "./controls/curren-policy.control";
 import Grid from "@material-ui/core/Grid";
@@ -30,13 +33,30 @@ const CurrentPageContainer = withStyles((theme) =>
   createStyles({
     root: {
       margin: theme.spacing(3),
+      position: "relative",
+    },
+  })
+)(Box);
+
+const ParseErrorOverlay = withStyles((theme) =>
+  createStyles({
+    root: {
+      position: "absolute",
+      backgroundColor: theme.palette.error.main,
+      opacity: 0.5,
+      top: "0px",
+      left: "0px",
+      width: "100%",
+      height: "100%",
+      borderRadius: theme.shape.borderRadius,
     },
   })
 )(Box);
 
 export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
   const [currentTab, setCurrentTab] = useState<number>(0);
-  const { currentPage, currentPolicy } = usePolicyEditorState();
+  const { currentPage, strCurrentPolicy, jsonParseError } =
+    usePolicyEditorState();
 
   const dispatch = usePolicyEditorDispatch();
   const pageFactory = new PolicyEditorPageFactory();
@@ -64,10 +84,14 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
             <Box>
               <CurrentPageContainer>
                 {pageFactory.createPage(currentPage)}
+                {jsonParseError && <ParseErrorOverlay />}
               </CurrentPageContainer>
               <JsonEditorContainer>
                 <CurrentPolicyControl
-                  jsonText={JSON.stringify(currentPolicy, null, 2)}
+                  jsonText={strCurrentPolicy}
+                  onTextChange={(text) =>
+                    dispatch(policyEditorJsonTextSet(text))
+                  }
                 />
               </JsonEditorContainer>
             </Box>

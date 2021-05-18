@@ -4,7 +4,6 @@ const drawerWidth = 340;
 
 export const useStyles = makeStyles(
   (theme) => {
-    console.log(theme.mixins.toolbar);
     return createStyles({
       root: {
         display: "flex",

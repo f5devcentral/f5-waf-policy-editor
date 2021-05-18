@@ -21,28 +21,34 @@ export const GridFieldValueControl: React.FunctionComponent<GridFieldValueProps>
     return (
       <Grid container spacing={1}>
         <Grid container item spacing={1} xs={12}>
-          {rows.map((r, index) => (
-            <React.Fragment key={index}>
-              <Grid container item alignItems={"center"} xs={3}>
-                <Typography
-                  color={selectedIndex === index ? "primary" : undefined}
-                  variant="body2"
-                >
-                  {r.title}
-                </Typography>
-              </Grid>
-              <Grid item xs={9}>
-                <TextField
-                  fullWidth
-                  hiddenLabel
-                  variant="filled"
-                  margin="dense"
-                  onSelect={(_) => setSelectedIndex(index)}
-                  onBlur={(_) => setSelectedIndex(-1)}
-                />
-              </Grid>
-            </React.Fragment>
-          ))}
+          {rows.map((row, index) => {
+            return (
+              <React.Fragment key={index}>
+                <Grid container item alignItems={"center"} xs={3}>
+                  <Typography
+                    color={selectedIndex === index ? "primary" : undefined}
+                    variant="body2"
+                  >
+                    {row.title}
+                  </Typography>
+                </Grid>
+                <Grid item xs={9}>
+                  <TextField
+                    fullWidth
+                    hiddenLabel
+                    variant="filled"
+                    margin="dense"
+                    value={row?.value ?? ""}
+                    onSelect={(_) => setSelectedIndex(index)}
+                    onBlur={(_) => setSelectedIndex(-1)}
+                    onChange={(e) =>
+                      row && row.onChange && row.onChange(e.target.value)
+                    }
+                  />
+                </Grid>
+              </React.Fragment>
+            );
+          })}
         </Grid>
       </Grid>
     );

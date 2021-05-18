@@ -15,12 +15,18 @@ export enum PolicyEditorPageEnum {
 
 export type PolicyEditorState = {
   currentPage: PolicyEditorPageEnum;
-  currentPolicy: any;
+  jsonCurrentPolicy: any;
+  strCurrentPolicy: string;
+  jsonParseError: boolean;
 };
 
 export interface PolicyEditorAction
   extends Action,
-    Partial<{ currentPage: PolicyEditorPageEnum }> {}
+    Partial<{
+      currentPage: PolicyEditorPageEnum;
+      strPolicy: string;
+      updateVisitor: (currentJson: any) => void;
+    }> {}
 
 export type PolicyEditorDispatch = (
   args: PolicyEditorAction
