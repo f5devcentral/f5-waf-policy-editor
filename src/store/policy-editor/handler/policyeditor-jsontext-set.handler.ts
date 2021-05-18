@@ -17,7 +17,7 @@ export const policyEditorJsonTextSetHandler: PolicyEditorReducerHandler = (
   try {
     currentState.jsonCurrentPolicy = JSON.parse(action.strPolicy);
     currentState.jsonParseError = false;
-  } catch (_) {
+  } catch (e) {
     currentState.jsonParseError = true;
   }
 
