@@ -8,13 +8,14 @@ import {
   usePolicyEditorState,
 } from "../../../store/policy-editor/policy-editor.hooks";
 import { GeneralSettingsVisitor } from "../../../store/policy-editor/visitor/general-settings.visitor";
+import {BaseVisitor} from "../../../store/policy-editor/visitor/base.visitor";
 
 export const GeneralSettingsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
 
   const dispatch = usePolicyEditorDispatch();
   const { jsonCurrentPolicy } = usePolicyEditorState();
-  const generalSettingsVisitor = new GeneralSettingsVisitor(
+  const generalSettingsVisitor: BaseVisitor = new GeneralSettingsVisitor(
     dispatch,
     jsonCurrentPolicy
   );
