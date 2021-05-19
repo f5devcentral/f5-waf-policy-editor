@@ -1,10 +1,9 @@
 import { GridFieldValue } from "../../../component/policy-editor/controls/grid.field-value.control";
 import { policyEditorJsonFieldUpdate } from "../policy-editor.actions";
 import { get as _get, set as _set } from "lodash";
+import {BaseVisitor} from "./base.visitor";
 
-export class GeneralSettingsVisitor {
-  constructor(private dispatch: any, private json: any) {}
-
+export class GeneralSettingsVisitor extends BaseVisitor {
   getRows(): GridFieldValue[] {
     return [
       {
