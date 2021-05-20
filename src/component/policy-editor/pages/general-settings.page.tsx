@@ -8,7 +8,6 @@ import { GeneralSettingsVisitor } from "../../../store/policy-editor/visitor/imp
 
 export const GeneralSettingsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
-
   const generalSettingsVisitor = useVisitor(GeneralSettingsVisitor);
 
   return (

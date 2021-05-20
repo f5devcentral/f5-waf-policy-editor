@@ -6,7 +6,12 @@ import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.
 import { BlockingSettingsFieldFactory } from "../../../store/policy-editor/visitor/imp/blocking-settings-field.factory";
 import { BlockingSettingsVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/blocking-settings.visitor-factory";
 
+import { Policy } from "f5-waf-policy";
+
 export const BlockingSettingsPage: React.VoidFunctionComponent = () => {
+  const policy = new Policy();
+  console.log(policy.getAllViolations());
+
   const classes = useStyles();
 
   const fieldFactoryVisitor = useVisitor(BlockingSettingsFieldFactory);
