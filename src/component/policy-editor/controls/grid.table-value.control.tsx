@@ -1,13 +1,12 @@
 import * as React from "react";
-import {BaseVisitor} from "../../../store/policy-editor/visitor/base.visitor";
+import { FieldResolverVisitor } from "../../../store/policy-editor/visitor/interface/field-resolver.visitor";
 
 export type GridTableValueProps = {
-    titles: string[],
-    visitors: BaseVisitor[]
-}
+  titles: string[];
+  visitors: FieldResolverVisitor[];
+};
 
-export const GridTableValueControl: React.FunctionComponent<GridTableValueProps> = ({
-    titles, visitors
-}) => {
-    return <div />
-}
+export const GridTableValueControl: React.FunctionComponent<GridTableValueProps> =
+  ({ titles, visitors }) => {
+    return <div />;
+  };

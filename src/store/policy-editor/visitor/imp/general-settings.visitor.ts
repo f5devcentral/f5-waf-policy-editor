@@ -1,9 +1,15 @@
-import { GridFieldValue } from "../../../component/policy-editor/controls/grid.field-value.control";
-import { policyEditorJsonFieldUpdate } from "../policy-editor.actions";
 import { get as _get, set as _set } from "lodash";
-import {BaseVisitor} from "./base.visitor";
+import { BaseVisitor } from "../interface/base.visitor";
+import { FieldResolverVisitor } from "../interface/field-resolver.visitor";
+import { FieldFactoryVisitor } from "../interface/field-factory.visitor";
+import { GridFieldValue } from "../../../../component/policy-editor/controls/grid.field-value.control";
+import { policyEditorJsonVisit } from "../../policy-editor.actions";
+import { defaultGeneralSettings } from "../../../../model/policy-editor.defaults.model";
 
-export class GeneralSettingsVisitor extends BaseVisitor {
+export class GeneralSettingsVisitor
+  extends BaseVisitor
+  implements FieldResolverVisitor, FieldFactoryVisitor<void>
+{
   getRows(): GridFieldValue[] {
     return [
       {
@@ -11,7 +17,7 @@ export class GeneralSettingsVisitor extends BaseVisitor {
         value: _get(this.json, "policy.name"),
         onChange: (text) =>
           this.dispatch(
-            policyEditorJsonFieldUpdate((currentJson) =>
+            policyEditorJsonVisit((currentJson) =>
               _set(currentJson, "policy.name", text)
             )
           ),
@@ -21,7 +27,7 @@ export class GeneralSettingsVisitor extends BaseVisitor {
         value: _get(this.json, "policy.applicationLanguage"),
         onChange: (text) =>
           this.dispatch(
-            policyEditorJsonFieldUpdate((currentJson) =>
+            policyEditorJsonVisit((currentJson) =>
               _set(currentJson, "policy.applicationLanguage", text)
             )
           ),
@@ -31,7 +37,7 @@ export class GeneralSettingsVisitor extends BaseVisitor {
         value: _get(this.json, "policy.enforcementMode"),
         onChange: (text) =>
           this.dispatch(
-            policyEditorJsonFieldUpdate((currentJson) =>
+            policyEditorJsonVisit((currentJson) =>
               _set(currentJson, "policy.enforcementMode", text)
             )
           ),
@@ -41,11 +47,19 @@ export class GeneralSettingsVisitor extends BaseVisitor {
         value: _get(this.json, "policy.template.name"),
         onChange: (text) =>
           this.dispatch(
-            policyEditorJsonFieldUpdate((currentJson) =>
+            policyEditorJsonVisit((currentJson) =>
               _set(currentJson, "policy.template.name", text)
             )
           ),
       },
     ];
+  }
+
+  create() {
+    this.dispatch(
+      policyEditorJsonVisit((currentJson) => {
+        _set(currentJson, "policy", defaultGeneralSettings);
+      })
+    );
   }
 }

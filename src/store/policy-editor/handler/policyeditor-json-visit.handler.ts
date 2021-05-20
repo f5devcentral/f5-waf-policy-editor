@@ -5,13 +5,13 @@ import {
 } from "../policy-editor.types";
 import { Draft } from "immer";
 
-export const policyEditorJsonFieldUpdateHandler: PolicyEditorReducerHandler = (
+export const policyEditorJsonVisitHandler: PolicyEditorReducerHandler = (
   currentState: Draft<PolicyEditorState>,
   action: PolicyEditorAction
 ) => {
-  if (action.updateVisitor === undefined) return currentState;
+  if (action.visitor === undefined) return currentState;
 
-  action.updateVisitor(currentState.jsonCurrentPolicy);
+  action.visitor(currentState.jsonCurrentPolicy);
 
   currentState.strCurrentPolicy = JSON.stringify(
     currentState.jsonCurrentPolicy,

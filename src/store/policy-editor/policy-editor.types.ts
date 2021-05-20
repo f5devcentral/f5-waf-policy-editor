@@ -25,7 +25,7 @@ export interface PolicyEditorAction
     Partial<{
       currentPage: PolicyEditorPageEnum;
       strPolicy: string;
-      updateVisitor: (currentJson: any) => void;
+      visitor: (currentJson: any) => void;
     }> {}
 
 export type PolicyEditorDispatch = (
