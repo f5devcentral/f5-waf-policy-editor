@@ -7,10 +7,14 @@ import { BlockingSettingsFieldFactory } from "../../../store/policy-editor/visit
 import { BlockingSettingsVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/blocking-settings.visitor-factory";
 
 import { Policy } from "f5-waf-policy";
+import { MenuItem } from "@material-ui/core";
+import Select from "@material-ui/core/Select";
 
 export const BlockingSettingsPage: React.VoidFunctionComponent = () => {
   const policy = new Policy();
-  console.log(policy.getAllViolations());
+  const allViolations = policy.getAllViolations();
+
+  console.log(allViolations);
 
   const classes = useStyles();
 
@@ -23,7 +27,24 @@ export const BlockingSettingsPage: React.VoidFunctionComponent = () => {
 
   return (
     <Box className={classes.pageContent}>
-      <GridTableValueControl titles={titles} visitors={visitors} />
+      <Box>
+        <Select
+          variant="outlined"
+          value={allViolations[0].name}
+          onChange={(e) => {
+            fieldFactoryVisitor.create({ name: e.target.value as string });
+          }}
+        >
+          {allViolations.map((v: any, index: number) => (
+            <MenuItem key={index} value={v.name}>
+              {v.title}
+            </MenuItem>
+          ))}
+        </Select>
+      </Box>
+      <Box>
+        <GridTableValueControl titles={titles} visitors={visitors} />
+      </Box>
     </Box>
   );
 };

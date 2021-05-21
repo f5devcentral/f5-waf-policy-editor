@@ -18,8 +18,8 @@ export function policyEditorStateInit(): PolicyEditorState {
   return {
     jsonParseError: false,
     currentPage: PolicyEditorPageEnum.GeneralSettings,
-    jsonCurrentPolicy: defaultGeneralSettings,
-    strCurrentPolicy: JSON.stringify(defaultGeneralSettings, null, 2),
+    jsonCurrentPolicy: defaultGeneralSettings(),
+    strCurrentPolicy: JSON.stringify(defaultGeneralSettings(), null, 2),
   };
 }
 

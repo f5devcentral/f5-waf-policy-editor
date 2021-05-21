@@ -12,5 +12,5 @@ export const defaultGeneralSettings = () => ({
 export const defaultBlockingSettings = (name: string) => ({
   name: name,
   alarm: true,
-  block: true,
+  block: false,
 });

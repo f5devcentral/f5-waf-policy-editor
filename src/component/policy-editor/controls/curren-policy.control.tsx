@@ -31,7 +31,9 @@ export const CurrentPolicyControl: React.FunctionComponent<CurrentPolicyProps> =
           }
           setCode(text);
         }}
-        highlight={(code) => highlight(code, languages.json, "json")}
+        highlight={(code) =>
+          code && code.length > 0 && highlight(code, languages.json, "json")
+        }
         padding={10}
         className="container__editor"
         style={{
