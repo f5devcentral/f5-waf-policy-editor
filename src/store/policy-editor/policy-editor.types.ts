@@ -10,7 +10,7 @@ export enum PolicyEditorPageEnum {
   Headers,
   Parameters,
   Signatures,
-  BotDefence,
+  BotDefense,
 }
 
 export type PolicyEditorState = {

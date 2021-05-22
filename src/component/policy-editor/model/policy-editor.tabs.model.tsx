@@ -2,7 +2,7 @@ import { ExpandMore } from "@material-ui/icons";
 import * as React from "react";
 import Box from "@material-ui/core/Box";
 
-import { ReactComponent as IconBotDefence } from "../../../resources/policy-editor-tab-icons/icon-botdefence.svg";
+import { ReactComponent as IconBotDefense } from "../../../resources/policy-editor-tab-icons/icon-botdefense.svg";
 import { ReactComponent as IconFiletypes } from "../../../resources/policy-editor-tab-icons/icon-filetypes.svg";
 import { ReactComponent as IconGear } from "../../../resources/policy-editor-tab-icons/icon-gear.svg";
 import { ReactComponent as IconHeaders } from "../../../resources/policy-editor-tab-icons/icon-headers.svg";
@@ -72,7 +72,7 @@ export const TabsTree: PolicyEditorPageInfo[] = [
     id: PolicyEditorPageEnum.Signatures,
   },
   {
-    label: createLabel(false, "Bot Defence", <IconBotDefence {...iconProps} />),
-    id: PolicyEditorPageEnum.BotDefence,
+    label: createLabel(false, "Bot Defense", <IconBotDefense {...iconProps} />),
+    id: PolicyEditorPageEnum.BotDefense,
   },
 ];
