@@ -7,14 +7,17 @@ import { BlockingSettingsFieldFactory } from "../../../store/policy-editor/visit
 import { BlockingSettingsVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/blocking-settings.visitor-factory";
 
 import { Policy } from "f5-waf-policy";
-import { MenuItem } from "@material-ui/core";
+import { Menu, MenuItem } from "@material-ui/core";
 import Select from "@material-ui/core/Select";
+import Button from "@material-ui/core/Button";
+import { useState } from "react";
+import { ExpandMore } from "@material-ui/icons";
 
 export const BlockingSettingsPage: React.VoidFunctionComponent = () => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
   const policy = new Policy();
   const allViolations = policy.getAllViolations();
-
-  console.log(allViolations);
 
   const classes = useStyles();
 
@@ -28,19 +31,35 @@ export const BlockingSettingsPage: React.VoidFunctionComponent = () => {
   return (
     <Box className={classes.pageContent}>
       <Box>
-        <Select
-          variant="outlined"
-          value={allViolations[0].name}
-          onChange={(e) => {
-            fieldFactoryVisitor.create({ name: e.target.value as string });
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={(e) => setAnchorEl(e.currentTarget)}
+        >
+          Add Violation
+          <ExpandMore />
+        </Button>
+
+        <Menu
+          anchorEl={anchorEl}
+          onClose={() => {
+            setAnchorEl(null);
           }}
+          open={Boolean(anchorEl)}
         >
           {allViolations.map((v: any, index: number) => (
-            <MenuItem key={index} value={v.name}>
+            <MenuItem
+              key={index}
+              value={v.name}
+              onClick={() => {
+                fieldFactoryVisitor.create({ name: v.name });
+                setAnchorEl(null);
+              }}
+            >
               {v.title}
             </MenuItem>
           ))}
-        </Select>
+        </Menu>
       </Box>
       <Box>
         <GridTableValueControl titles={titles} visitors={visitors} />
