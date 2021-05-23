@@ -1,12 +1,6 @@
 import * as React from "react";
 import { FieldResolverVisitor } from "../../../store/policy-editor/visitor/interface/field-resolver.visitor";
-import {
-  createStyles,
-  Tab,
-  TableContainer,
-  withStyles,
-} from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
+import { createStyles, TableContainer, withStyles } from "@material-ui/core";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Table from "@material-ui/core/Table";
@@ -19,6 +13,7 @@ import { DeleteForeverRounded } from "@material-ui/icons";
 import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
+import { useEffect, useState } from "react";
 
 const StyledTableCell = withStyles((theme) =>
   createStyles({
@@ -46,6 +41,14 @@ export type GridTableValueProps = {
 
 export const GridTableValueControl: React.FunctionComponent<GridTableValueProps> =
   ({ titles, visitors }) => {
+    const [selected, setSelected] = useState([] as boolean[]);
+
+    useEffect(() => {
+      setSelected(new Array<boolean>(visitors.length).fill(false));
+    }, [visitors.length]);
+
+    const allSelected = !selected.some((x) => !x);
+
     const createValueCell: (
       item: GridFieldValue,
       onChange: any
@@ -73,13 +76,34 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
       }
     };
 
+    const onRemoveSelected: () => void = () => {
+      let removedOffset = 0;
+      for (let i = 0; i < selected.length; i++) {
+        if (selected[i]) {
+          visitors[i - removedOffset].remove();
+          removedOffset++;
+        }
+      }
+    };
+
+    if (!visitors || visitors.length === 0) return <React.Fragment />;
+
     return (
       <TableContainer component={Box}>
         <Table>
           <TableHead>
             <TableRow>
               <StyledTableCell padding={"checkbox"} size="small" align="center">
-                <Checkbox size="small" color="primary" />
+                <Checkbox
+                  checked={allSelected}
+                  size="small"
+                  color="primary"
+                  onChange={(e) => {
+                    setSelected([
+                      ...selected.map((x) => e.currentTarget.checked),
+                    ]);
+                  }}
+                />
               </StyledTableCell>
 
               {titles.map((x, index) => (
@@ -89,7 +113,11 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
               ))}
               <StyledTableCell>
                 <Typography>
-                  <Button color="primary" variant="contained">
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={() => onRemoveSelected()}
+                  >
                     Remove
                   </Button>
                 </Typography>
@@ -104,15 +132,26 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                   size="small"
                   align="center"
                 >
-                  <Checkbox size="small" color="primary" />
+                  <Checkbox
+                    size="small"
+                    color="primary"
+                    checked={selected[vIndex] ?? false}
+                    onChange={(e) => {
+                      selected[vIndex] = e.currentTarget.checked;
+                      setSelected([...selected]);
+                    }}
+                  />
                 </StyledTableCell>
                 {v
                   .getRows()
-                  .map((item, itemIndex) =>
-                    createValueCell(item, item.onChange)
-                  )}
+                  .map((item) => createValueCell(item, item.onChange))}
                 <TableCell size="small" align="center">
-                  <IconButton size="small">
+                  <IconButton
+                    size="small"
+                    onClick={() => {
+                      v.remove();
+                    }}
+                  >
                     <DeleteForeverRounded />
                   </IconButton>
                 </TableCell>

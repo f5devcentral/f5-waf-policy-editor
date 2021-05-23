@@ -62,4 +62,6 @@ export class GeneralSettingsVisitor
       })
     );
   }
+
+  remove(): void {}
 }

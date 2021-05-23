@@ -7,8 +7,8 @@ import { BlockingSettingsFieldFactory } from "../../../store/policy-editor/visit
 import { BlockingSettingsVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/blocking-settings.visitor-factory";
 
 import { Policy } from "f5-waf-policy";
+
 import { Menu, MenuItem } from "@material-ui/core";
-import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import { useState } from "react";
 import { ExpandMore } from "@material-ui/icons";

@@ -4,6 +4,7 @@ import { GridFieldValue } from "../../../../component/policy-editor/controls/gri
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { PolicyEditorDispatch } from "../../policy-editor.types";
 import { set as _set } from "lodash";
+import { Policy } from "f5-waf-policy";
 
 export class BlockingSettingsFieldResolver
   extends BaseVisitor
@@ -16,10 +17,21 @@ export class BlockingSettingsFieldResolver
   ) {
     super(dispatch, json);
   }
+
   getRows(): GridFieldValue[] {
+    const policy = new Policy();
+    const allViolations = policy.getAllViolations();
+
+    const resolveViolationTitle: (name: string) => string = (name: string) => {
+      const item = allViolations.find((x: any) => x.name === name);
+      if (!item) return name;
+
+      return item.title;
+    };
+
     return [
       {
-        value: this.json.name,
+        value: resolveViolationTitle(this.json.name),
         title: "",
         onChange: () => {},
       },
@@ -54,5 +66,16 @@ export class BlockingSettingsFieldResolver
         },
       },
     ];
+  }
+
+  remove() {
+    this.dispatch(
+      policyEditorJsonVisit((currentJson) => {
+        currentJson.policy["blocking-settings"].violations.splice(
+          this.rowIndex,
+          1
+        );
+      })
+    );
   }
 }
