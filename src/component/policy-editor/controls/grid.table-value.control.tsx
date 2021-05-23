@@ -48,6 +48,7 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
     }, [visitors.length]);
 
     const allSelected = !selected.some((x) => !x);
+    const anySelected = selected.some((x) => x);
 
     const createValueCell: (
       item: GridFieldValue,
@@ -114,6 +115,7 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
               <StyledTableCell align="center">
                 <Typography>
                   <Button
+                    disabled={!anySelected}
                     color="primary"
                     variant="contained"
                     onClick={() => onRemoveSelected()}
