@@ -53,6 +53,14 @@ const ParseErrorOverlay = withStyles((theme) =>
   })
 )(Box);
 
+const EditorPage = withStyles((theme) =>
+  createStyles({
+    root: {
+      width: "100%",
+    },
+  })
+)(Box);
+
 export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
   const [currentTab, setCurrentTab] = useState<number>(0);
   const { currentPage, strCurrentPolicy, jsonParseError } =
@@ -81,7 +89,7 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
         <Grid container item spacing={1} xs={12}>
           <Grid container item spacing={1} xs={2} />
           <Grid container item spacing={1} xs={8}>
-            <Box>
+            <EditorPage>
               <CurrentPageContainer>
                 {pageFactory.createPage(currentPage)}
                 {jsonParseError && <ParseErrorOverlay />}
@@ -94,7 +102,7 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
                   }
                 />
               </JsonEditorContainer>
-            </Box>
+            </EditorPage>
           </Grid>
           <Grid container item spacing={1} xs={2} />
         </Grid>

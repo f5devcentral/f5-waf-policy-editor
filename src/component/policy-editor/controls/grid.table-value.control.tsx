@@ -111,7 +111,7 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                   <Typography color="primary">{x}</Typography>
                 </StyledTableCell>
               ))}
-              <StyledTableCell>
+              <StyledTableCell align="center">
                 <Typography>
                   <Button
                     color="primary"
