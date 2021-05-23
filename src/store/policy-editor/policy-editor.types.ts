@@ -14,6 +14,7 @@ export enum PolicyEditorPageEnum {
 }
 
 export type PolicyEditorState = {
+  currentTab: number;
   currentPage: PolicyEditorPageEnum;
   jsonCurrentPolicy: any;
   strCurrentPolicy: string;
@@ -23,6 +24,7 @@ export type PolicyEditorState = {
 export interface PolicyEditorAction
   extends Action,
     Partial<{
+      currentTab: number;
       currentPage: PolicyEditorPageEnum;
       strPolicy: string;
       visitor: (currentJson: any) => void;

@@ -9,10 +9,12 @@ import {
 } from "../action-types";
 
 export function policyEditorPageSet(
+  currentTab: number,
   currentPage: PolicyEditorPageEnum
-): Pick<PolicyEditorAction, "type" | "currentPage"> {
+): Pick<PolicyEditorAction, "type" | "currentTab" | "currentPage"> {
   return {
     type: POLICY_EDITOR_PAGE_SET,
+    currentTab,
     currentPage,
   };
 }

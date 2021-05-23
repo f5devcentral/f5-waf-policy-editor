@@ -1,7 +1,5 @@
 import * as React from "react";
 import Box from "@material-ui/core/Box";
-
-import { useState } from "react";
 import {
   EditorTabControl,
   EditorTabsControl,
@@ -49,6 +47,7 @@ const ParseErrorOverlay = withStyles((theme) =>
       width: "100%",
       height: "100%",
       borderRadius: theme.shape.borderRadius,
+      zIndex: 2,
     },
   })
 )(Box);
@@ -62,8 +61,7 @@ const EditorPage = withStyles((theme) =>
 )(Box);
 
 export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
-  const [currentTab, setCurrentTab] = useState<number>(0);
-  const { currentPage, strCurrentPolicy, jsonParseError } =
+  const { currentPage, strCurrentPolicy, jsonParseError, currentTab } =
     usePolicyEditorState();
 
   const dispatch = usePolicyEditorDispatch();
@@ -76,8 +74,7 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
         scrollButtons="auto"
         value={currentTab}
         onChange={(_, tab) => {
-          setCurrentTab(tab);
-          dispatch(policyEditorPageSet(TabsTree[tab].id));
+          dispatch(policyEditorPageSet(tab, TabsTree[tab].id));
         }}
       >
         {TabsTree.map(({ label, id }) => (

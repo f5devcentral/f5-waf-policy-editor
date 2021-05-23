@@ -16,6 +16,7 @@ import { policyEditorJsonVisitHandler } from "./handler/policyeditor-json-visit.
 
 export function policyEditorStateInit(): PolicyEditorState {
   return {
+    currentTab: 0,
     jsonParseError: false,
     currentPage: PolicyEditorPageEnum.GeneralSettings,
     jsonCurrentPolicy: defaultGeneralSettings(),
