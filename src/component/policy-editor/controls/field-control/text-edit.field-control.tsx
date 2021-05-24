@@ -20,9 +20,10 @@ export class TextEditFieldControl implements IControlInfo {
   createControl(props: any): JSX.Element {
     return (
       <TextField
-        {...props}
+        fullWidth
         value={this.currentValue ?? ""}
         onChange={(e) => this.onValueChange(e.target.value)}
+        {...props}
       />
     );
   }

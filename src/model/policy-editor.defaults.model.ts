@@ -14,3 +14,7 @@ export const defaultBlockingSettings = (name: string) => ({
   alarm: true,
   block: false,
 });
+
+export const defaultMethods = () => ({
+  name: "",
+});
