@@ -1,7 +1,7 @@
 import * as React from "react";
-import { IControlInfo } from "../grid.field-value.control";
 import TextField from "@material-ui/core/TextField";
 import { TableCell } from "@material-ui/core";
+import { IControlInfo } from "../control-info.interface";
 
 export class TextEditFieldControl implements IControlInfo {
   constructor(

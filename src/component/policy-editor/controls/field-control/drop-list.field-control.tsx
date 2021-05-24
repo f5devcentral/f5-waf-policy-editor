@@ -1,6 +1,7 @@
 import * as React from "react";
-import { IControlInfo } from "../grid.field-value.control";
+
 import { TableCell } from "@material-ui/core";
+import { IControlInfo } from "../control-info.interface";
 
 export class DropListFieldControl implements IControlInfo {
   createCell(children: JSX.Element, props: any): JSX.Element {

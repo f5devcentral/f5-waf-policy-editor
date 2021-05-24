@@ -2,10 +2,11 @@ import { get as _get, set as _set } from "lodash";
 import { BaseVisitor } from "../interface/base.visitor";
 import { FieldResolverVisitor } from "../interface/field-resolver.visitor";
 import { FieldFactoryVisitor } from "../interface/field-factory.visitor";
-import { GridFieldValue } from "../../../../component/policy-editor/controls/grid.field-value.control";
+
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { defaultGeneralSettings } from "../../../../model/policy-editor.defaults.model";
 import { TextEditFieldControl } from "../../../../component/policy-editor/controls/field-control/text-edit.field-control";
+import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
 
 export class GeneralSettingsVisitor
   extends BaseVisitor

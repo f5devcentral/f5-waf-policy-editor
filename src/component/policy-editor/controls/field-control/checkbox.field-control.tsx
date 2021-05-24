@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import { IControlInfo } from "../grid.field-value.control";
 import Checkbox from "@material-ui/core/Checkbox";
 import { TableCell } from "@material-ui/core";
+import { IControlInfo } from "../control-info.interface";
 
 export class CheckboxFieldControl implements IControlInfo {
   constructor(

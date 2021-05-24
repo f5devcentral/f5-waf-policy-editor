@@ -1,7 +1,7 @@
 import * as React from "react";
-import { IControlInfo } from "../grid.field-value.control";
 import Typography from "@material-ui/core/Typography";
 import { TableCell } from "@material-ui/core";
+import { IControlInfo } from "../control-info.interface";
 
 export class LabelFieldControl implements IControlInfo {
   constructor(private currentValue: string) {}

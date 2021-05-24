@@ -1,12 +1,13 @@
 import { BaseVisitor } from "../interface/base.visitor";
 import { FieldResolverVisitor } from "../interface/field-resolver.visitor";
-import { GridFieldValue } from "../../../../component/policy-editor/controls/grid.field-value.control";
+
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { PolicyEditorDispatch } from "../../policy-editor.types";
 import { set as _set } from "lodash";
 import { Policy } from "f5-waf-policy";
 import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
 import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
+import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
 
 export class BlockingSettingsFieldResolver
   extends BaseVisitor

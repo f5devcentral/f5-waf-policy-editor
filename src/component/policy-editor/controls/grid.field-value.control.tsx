@@ -2,16 +2,7 @@ import * as React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { useState } from "react";
-
-export interface IControlInfo {
-  createControl: (props?: any) => JSX.Element;
-  createCell: (children: JSX.Element, props?: any) => JSX.Element;
-}
-
-export type GridFieldValue = {
-  title: string;
-  controlInfo: IControlInfo;
-};
+import { GridFieldValue } from "./grid-field-value.type";
 
 export type GridFieldValueProps = {
   rows: GridFieldValue[];
