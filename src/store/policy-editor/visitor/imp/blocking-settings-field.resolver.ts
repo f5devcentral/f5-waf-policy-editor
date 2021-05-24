@@ -5,6 +5,8 @@ import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { PolicyEditorDispatch } from "../../policy-editor.types";
 import { set as _set } from "lodash";
 import { Policy } from "f5-waf-policy";
+import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
+import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
 
 export class BlockingSettingsFieldResolver
   extends BaseVisitor
@@ -31,14 +33,13 @@ export class BlockingSettingsFieldResolver
 
     return [
       {
-        value: resolveViolationTitle(this.json.name),
         title: "",
-        onChange: () => {},
+        controlInfo: new LabelFieldControl(
+          resolveViolationTitle(this.json.name)
+        ),
       },
       {
-        value: this.json.alarm,
-        title: "",
-        onChange: (text) => {
+        controlInfo: new CheckboxFieldControl(this.json.alarm, (text) => {
           this.dispatch(
             policyEditorJsonVisit((currentJson) => {
               _set(
@@ -48,12 +49,12 @@ export class BlockingSettingsFieldResolver
               );
             })
           );
-        },
+        }),
+        title: "",
       },
       {
-        value: this.json.block,
         title: "",
-        onChange: (text) => {
+        controlInfo: new CheckboxFieldControl(this.json.block, (text) => {
           this.dispatch(
             policyEditorJsonVisit((currentJson) => {
               _set(
@@ -63,7 +64,7 @@ export class BlockingSettingsFieldResolver
               );
             })
           );
-        },
+        }),
       },
     ];
   }

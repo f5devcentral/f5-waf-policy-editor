@@ -6,10 +6,9 @@ import TableRow from "@material-ui/core/TableRow";
 import Table from "@material-ui/core/Table";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-import { GridFieldValue } from "./grid.field-value.control";
 import Typography from "@material-ui/core/Typography";
 import Checkbox from "@material-ui/core/Checkbox";
-import { DeleteForeverRounded } from "@material-ui/icons";
+import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
 import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
@@ -49,33 +48,6 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
 
     const allSelected = !selected.some((x) => !x);
     const anySelected = selected.some((x) => x);
-
-    const createValueCell: (
-      item: GridFieldValue,
-      onChange: any
-    ) => JSX.Element = (item: GridFieldValue, onChange) => {
-      switch (typeof item.value) {
-        case "boolean": {
-          return (
-            <TableCell padding={"checkbox"} size="small" align="center">
-              <Checkbox
-                size="small"
-                checked={item.value}
-                color="primary"
-                onChange={(e) => onChange(e.target.checked)}
-              />
-            </TableCell>
-          );
-        }
-        default: {
-          return (
-            <TableCell size="small">
-              <Typography variant={"caption"}>{item.value}</Typography>
-            </TableCell>
-          );
-        }
-      }
-    };
 
     const onRemoveSelected: () => void = () => {
       let removedOffset = 0;
@@ -146,8 +118,12 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                 </StyledTableCell>
                 {v
                   .getRows()
-                  .map((item) => createValueCell(item, item.onChange))}
-                <TableCell size="small" align="center">
+                  .map((item) =>
+                    item.controlInfo.createCell(
+                      item.controlInfo.createControl()
+                    )
+                  )}
+                <TableCell size="small" align="center" padding="checkbox">
                   <IconButton
                     size="small"
                     onClick={() => {
