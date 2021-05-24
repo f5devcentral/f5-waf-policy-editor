@@ -4,15 +4,18 @@ import { GridTableValueControl } from "../controls/grid.table-value.control";
 import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.visitor";
 import { MethodsFieldFactory } from "../../../store/policy-editor/visitor/imp/methods-field.factory";
 import { MethodsVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/methods.visitor-factory";
+import { useStyles } from "../../../utils/styles.hook";
 
 export const MethodsPage: React.VoidFunctionComponent = () => {
+  const classes = useStyles();
+
   const fieldFactoryVisitor = useVisitor(MethodsFieldFactory);
   const methodsVisitorFactory = useVisitor(MethodsVisitorFactory);
 
   const { titles, visitors } = methodsVisitorFactory.getResolvers();
 
   return (
-    <Box>
+    <Box className={classes.pageContent}>
       <Button
         variant="contained"
         color="primary"

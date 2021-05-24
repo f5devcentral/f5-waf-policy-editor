@@ -23,12 +23,20 @@ export class MethodsFieldResolver
     return [
       {
         title: "",
-        controlInfo: new TextEditFieldControl(this.json.name, (text) =>
-          this.dispatch(
-            policyEditorJsonVisit((currentJson) => {
-              _set(currentJson, `policy.methods[${this.rowIndex}].name`, text);
-            })
-          )
+        controlInfo: new TextEditFieldControl(
+          this.json.name,
+          (text) =>
+            this.dispatch(
+              policyEditorJsonVisit((currentJson) => {
+                _set(
+                  currentJson,
+                  `policy.methods[${this.rowIndex}].name`,
+                  text
+                );
+              })
+            ),
+          {},
+          { variant: "outlined", size: "small" }
         ),
       },
     ];

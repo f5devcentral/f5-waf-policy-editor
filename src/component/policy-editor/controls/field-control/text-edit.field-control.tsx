@@ -1,17 +1,19 @@
 import * as React from "react";
-import TextField from "@material-ui/core/TextField";
-import { TableCell } from "@material-ui/core";
+import TextField, { TextFieldProps } from "@material-ui/core/TextField";
+import { TableCell, TableCellProps } from "@material-ui/core";
 import { IControlInfo } from "../control-info.interface";
 
 export class TextEditFieldControl implements IControlInfo {
   constructor(
     private currentValue: string,
-    private onValueChange: (value: string) => void
+    private onValueChange: (value: string) => void,
+    private cellProps?: TableCellProps,
+    private controlProps?: TextFieldProps
   ) {}
 
   createCell(children: JSX.Element, props: any): JSX.Element {
     return (
-      <TableCell size="small" {...props}>
+      <TableCell size="small" {...this.cellProps} {...props}>
         {children}
       </TableCell>
     );
@@ -23,6 +25,7 @@ export class TextEditFieldControl implements IControlInfo {
         fullWidth
         value={this.currentValue ?? ""}
         onChange={(e) => this.onValueChange(e.target.value)}
+        {...this.controlProps}
         {...props}
       />
     );
