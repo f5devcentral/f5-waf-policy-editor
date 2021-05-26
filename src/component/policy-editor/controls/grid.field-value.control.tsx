@@ -1,14 +1,8 @@
 import * as React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
 import { useState } from "react";
-
-export type GridFieldValue = {
-  title: string;
-  value?: string;
-  onChange?: (value: string) => void;
-};
+import { GridFieldValue } from "./grid-field-value.type";
 
 export type GridFieldValueProps = {
   rows: GridFieldValue[];
@@ -33,18 +27,14 @@ export const GridFieldValueControl: React.FunctionComponent<GridFieldValueProps>
                   </Typography>
                 </Grid>
                 <Grid item xs={9}>
-                  <TextField
-                    fullWidth
-                    hiddenLabel
-                    variant="filled"
-                    margin="dense"
-                    value={row?.value ?? ""}
-                    onSelect={(_) => setSelectedIndex(index)}
-                    onBlur={(_) => setSelectedIndex(-1)}
-                    onChange={(e) =>
-                      row && row.onChange && row.onChange(e.target.value)
-                    }
-                  />
+                  {row.controlInfo.createControl({
+                    fullWidth: true,
+                    hiddenLabel: true,
+                    variant: "filled",
+                    margin: "dense",
+                    onSelect: () => setSelectedIndex(index),
+                    onBlur: () => setSelectedIndex(-1),
+                  })}
                 </Grid>
               </React.Fragment>
             );

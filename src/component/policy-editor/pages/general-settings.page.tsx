@@ -3,21 +3,12 @@ import * as React from "react";
 import { useStyles } from "../../../utils/styles.hook";
 import Box from "@material-ui/core/Box";
 import { GridFieldValueControl } from "../controls/grid.field-value.control";
-import {
-  usePolicyEditorDispatch,
-  usePolicyEditorState,
-} from "../../../store/policy-editor/policy-editor.hooks";
-import { GeneralSettingsVisitor } from "../../../store/policy-editor/visitor/general-settings.visitor";
+import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.visitor";
+import { GeneralSettingsVisitor } from "../../../store/policy-editor/visitor/imp/general-settings.visitor";
 
 export const GeneralSettingsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
-
-  const dispatch = usePolicyEditorDispatch();
-  const { jsonCurrentPolicy } = usePolicyEditorState();
-  const generalSettingsVisitor = new GeneralSettingsVisitor(
-    dispatch,
-    jsonCurrentPolicy
-  );
+  const generalSettingsVisitor = useVisitor(GeneralSettingsVisitor);
 
   return (
     <Box className={classes.pageContent}>

@@ -1,7 +1,5 @@
 import * as React from "react";
 import Box from "@material-ui/core/Box";
-
-import { useState } from "react";
 import {
   EditorTabControl,
   EditorTabsControl,
@@ -49,13 +47,21 @@ const ParseErrorOverlay = withStyles((theme) =>
       width: "100%",
       height: "100%",
       borderRadius: theme.shape.borderRadius,
+      zIndex: 2,
+    },
+  })
+)(Box);
+
+const EditorPage = withStyles((theme) =>
+  createStyles({
+    root: {
+      width: "100%",
     },
   })
 )(Box);
 
 export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
-  const [currentTab, setCurrentTab] = useState<number>(0);
-  const { currentPage, strCurrentPolicy, jsonParseError } =
+  const { currentPage, strCurrentPolicy, jsonParseError, currentTab } =
     usePolicyEditorState();
 
   const dispatch = usePolicyEditorDispatch();
@@ -68,8 +74,7 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
         scrollButtons="auto"
         value={currentTab}
         onChange={(_, tab) => {
-          setCurrentTab(tab);
-          dispatch(policyEditorPageSet(TabsTree[tab].id));
+          dispatch(policyEditorPageSet(tab, TabsTree[tab].id));
         }}
       >
         {TabsTree.map(({ label, id }) => (
@@ -81,7 +86,7 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
         <Grid container item spacing={1} xs={12}>
           <Grid container item spacing={1} xs={2} />
           <Grid container item spacing={1} xs={8}>
-            <Box>
+            <EditorPage>
               <CurrentPageContainer>
                 {pageFactory.createPage(currentPage)}
                 {jsonParseError && <ParseErrorOverlay />}
@@ -94,7 +99,7 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
                   }
                 />
               </JsonEditorContainer>
-            </Box>
+            </EditorPage>
           </Grid>
           <Grid container item spacing={1} xs={2} />
         </Grid>

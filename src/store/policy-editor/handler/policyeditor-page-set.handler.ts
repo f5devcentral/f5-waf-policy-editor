@@ -9,8 +9,10 @@ export const policyEditorPageSetHandler: PolicyEditorReducerHandler = (
   currentState: Draft<PolicyEditorState>,
   action: PolicyEditorAction
 ) => {
-  if (action.currentPage === undefined) return currentState;
+  if (action.currentPage === undefined || action.currentTab === undefined)
+    return currentState;
 
+  currentState.currentTab = action.currentTab;
   currentState.currentPage = action.currentPage;
 
   return currentState;
