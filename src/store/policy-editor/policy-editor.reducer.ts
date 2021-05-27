@@ -11,7 +11,6 @@ import {
 } from "../action-types";
 import { policyEditorPageSetHandler } from "./handler/policyeditor-page-set.handler";
 import { policyEditorJsonTextSetHandler } from "./handler/policyeditor-jsontext-set.handler";
-import { defaultGeneralSettings } from "../../model/policy-editor.defaults.model";
 import { policyEditorJsonVisitHandler } from "./handler/policyeditor-json-visit.handler";
 
 export function policyEditorStateInit(): PolicyEditorState {
@@ -19,8 +18,8 @@ export function policyEditorStateInit(): PolicyEditorState {
     currentTab: 0,
     jsonParseError: false,
     currentPage: PolicyEditorPageEnum.GeneralSettings,
-    jsonCurrentPolicy: defaultGeneralSettings(),
-    strCurrentPolicy: JSON.stringify(defaultGeneralSettings(), null, 2),
+    jsonCurrentPolicy: {},
+    strCurrentPolicy: "",
   };
 }
 
