@@ -35,7 +35,7 @@ const Dashboard: React.FunctionComponent<
   useEffect(() => {
     switch (true) {
       case qs.ref && strCurrentPolicy === "": {
-        fetch(qs.ref as string).then(async (x) => {
+        fetch(decodeURI(qs.ref as string)).then(async (x) => {
           const body = await x.text();
 
           dispatch(policyEditorJsonTextSet(body));
