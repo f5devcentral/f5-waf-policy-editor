@@ -35,12 +35,11 @@ const Dashboard: React.FunctionComponent<
   useEffect(() => {
     switch (true) {
       case qs.ref && strCurrentPolicy === "": {
-        fetch({ url: decodeURI(qs.ref as string) } as RequestInfo).then(
-          async (x) => {
-            const body = await x.text();
-            dispatch(policyEditorJsonTextSet(body));
-          }
-        );
+        fetch(qs.ref as string).then(async (x) => {
+          const body = await x.text();
+
+          dispatch(policyEditorJsonTextSet(body));
+        });
         break;
       }
       case !qs.ref && strCurrentPolicy === "": {
