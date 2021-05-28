@@ -5,6 +5,7 @@ import {
 } from "./policy-editor.types";
 import { ReducerBase } from "../reducer.base";
 import {
+  POLICY_EDITOR_JSON_SRC_SET,
   POLICY_EDITOR_JSON_TEXT_SET,
   POLICY_EDITOR_JSON_VISIT,
   POLICY_EDITOR_PAGE_SET,
@@ -13,9 +14,11 @@ import { policyEditorPageSetHandler } from "./handler/policyeditor-page-set.hand
 import { policyEditorJsonTextSetHandler } from "./handler/policyeditor-jsontext-set.handler";
 import { defaultGeneralSettings } from "../../model/policy-editor.defaults.model";
 import { policyEditorJsonVisitHandler } from "./handler/policyeditor-json-visit.handler";
+import {policyEditorJsonSrcSetHandler} from "./handler/policyeditor-jsonsrc-set.handler";
 
 export function policyEditorStateInit(): PolicyEditorState {
   return {
+    policySrcUrl: "",
     currentTab: 0,
     jsonParseError: false,
     currentPage: PolicyEditorPageEnum.GeneralSettings,
@@ -33,6 +36,7 @@ class PolicyEditorReducerHandlerFactory extends ReducerBase<
       [POLICY_EDITOR_PAGE_SET]: policyEditorPageSetHandler,
       [POLICY_EDITOR_JSON_TEXT_SET]: policyEditorJsonTextSetHandler,
       [POLICY_EDITOR_JSON_VISIT]: policyEditorJsonVisitHandler,
+      [POLICY_EDITOR_JSON_SRC_SET]: policyEditorJsonSrcSetHandler,
     });
   }
 }
