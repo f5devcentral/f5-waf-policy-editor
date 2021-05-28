@@ -16,6 +16,7 @@
     "immer": "^9.0.2",
     "lodash": "^4.17.21",
     "prismjs": "^1.23.0",
+    "query-string": "^7.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.3",
@@ -30,6 +31,8 @@
   "devDependencies": {
     "@types/lodash": "^4.14.169",
     "@types/prismjs": "^1.16.5",
+    "@types/query-string": "^6.3.0",
+    "@types/react-router-dom": "^5.1.7",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
