@@ -18,3 +18,13 @@ export const defaultBlockingSettings = (name: string) => ({
 export const defaultMethods = () => ({
   name: "",
 });
+
+export const defaultUrls = () => ({
+  name: "",
+  type: "explicit",
+  method: "*",
+  protocol: "http",
+  attackSignaturesCheck: true,
+  metacharsOnUrlCheck: true,
+  wildcardOrder: 0,
+});

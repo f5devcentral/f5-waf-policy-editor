@@ -14,6 +14,10 @@ import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import { useEffect, useState } from "react";
 
+import OpenInNewIcon from "@material-ui/icons/OpenInNew";
+import { AdvancedSettingsDialog } from "../dialogs/advanced-settings.dialog";
+import { GridFieldValueControl } from "./grid.field-value.control";
+
 const StyledTableCell = withStyles((theme) =>
   createStyles({
     head: {
@@ -34,13 +38,24 @@ const StyledTableRow = withStyles((theme) =>
 )(TableRow);
 
 export type GridTableValueProps = {
+  settingsName?: string;
   titles: string[];
   visitors: FieldResolverVisitor[];
 };
 
 export const GridTableValueControl: React.FunctionComponent<GridTableValueProps> =
-  ({ titles, visitors }) => {
+  ({ settingsName, titles, visitors }) => {
     const [selected, setSelected] = useState([] as boolean[]);
+    const [advancedSettingsDialogOpen, setAdvancedSettingsDialogOpen] =
+      useState(false);
+    const [selectedItemIndex, setSelectedItemIndex] = useState(-1);
+
+    const onOpenAdvancedSettingsDialog = (index: number) => {
+      setSelectedItemIndex(index);
+      setAdvancedSettingsDialogOpen(true);
+    };
+    const onCloseAdvancedSettingsDialog = () =>
+      setAdvancedSettingsDialogOpen(false);
 
     useEffect(() => {
       setSelected(new Array<boolean>(visitors.length).fill(false));
@@ -59,84 +74,119 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
       }
     };
 
+    const createAdvancedSettingsControls: (
+      itemIndex: number
+    ) => JSX.Element | undefined = (itemIndex) => {
+      if (itemIndex < 0) return undefined;
+
+      return (
+        <GridFieldValueControl rows={visitors[itemIndex].getAdvancedRows()} />
+      );
+    };
+
     if (!visitors || visitors.length === 0) return <React.Fragment />;
 
     return (
-      <TableContainer component={Box}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <StyledTableCell padding={"checkbox"} size="small" align="center">
-                <Checkbox
-                  checked={allSelected}
-                  size="small"
-                  color="primary"
-                  onChange={(e) => {
-                    setSelected([
-                      ...selected.map((x) => e.currentTarget.checked),
-                    ]);
-                  }}
-                />
-              </StyledTableCell>
-
-              {titles.map((x, index) => (
-                <StyledTableCell key={index}>
-                  <Typography color="primary">{x}</Typography>
-                </StyledTableCell>
-              ))}
-              <StyledTableCell align="center">
-                <Typography>
-                  <Button
-                    disabled={!anySelected}
-                    color="primary"
-                    variant="contained"
-                    onClick={() => onRemoveSelected()}
-                  >
-                    Remove
-                  </Button>
-                </Typography>
-              </StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {visitors.map((v, vIndex) => (
-              <StyledTableRow key={vIndex}>
+      <React.Fragment>
+        <AdvancedSettingsDialog
+          title={settingsName ?? ""}
+          open={advancedSettingsDialogOpen}
+          handleClose={onCloseAdvancedSettingsDialog}
+        >
+          {advancedSettingsDialogOpen &&
+            createAdvancedSettingsControls(selectedItemIndex)}
+        </AdvancedSettingsDialog>
+        <TableContainer component={Box}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <StyledTableCell></StyledTableCell>
                 <StyledTableCell
                   padding={"checkbox"}
                   size="small"
                   align="center"
                 >
                   <Checkbox
+                    checked={allSelected}
                     size="small"
                     color="primary"
-                    checked={selected[vIndex] ?? false}
                     onChange={(e) => {
-                      selected[vIndex] = e.currentTarget.checked;
-                      setSelected([...selected]);
+                      setSelected([
+                        ...selected.map((x) => e.currentTarget.checked),
+                      ]);
                     }}
                   />
                 </StyledTableCell>
-                {v
-                  .getRows()
-                  .map((item) =>
-                    item.controlInfo.createCell(
-                      item.controlInfo.createControl()
-                    )
-                  )}
-                <TableCell size="small" align="center" padding="checkbox">
-                  <IconButton
+
+                {titles.map((x, index) => (
+                  <StyledTableCell key={index}>
+                    <Typography color="primary">{x}</Typography>
+                  </StyledTableCell>
+                ))}
+                <StyledTableCell align="center">
+                  <Typography>
+                    <Button
+                      disabled={!anySelected}
+                      color="primary"
+                      variant="contained"
+                      onClick={() => onRemoveSelected()}
+                    >
+                      Remove
+                    </Button>
+                  </Typography>
+                </StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {visitors.map((v, vIndex) => (
+                <StyledTableRow key={vIndex}>
+                  <TableCell style={{ width: "24px" }}>
+                    {v.hasAdvancedRows ? (
+                      <IconButton
+                        size="small"
+                        onClick={() => onOpenAdvancedSettingsDialog(vIndex)}
+                      >
+                        <OpenInNewIcon />
+                      </IconButton>
+                    ) : undefined}
+                  </TableCell>
+                  <StyledTableCell
+                    padding={"checkbox"}
                     size="small"
-                    onClick={() => {
-                      v.remove();
-                    }}
+                    align="center"
                   >
-                    <DeleteForeverRounded />
-                  </IconButton>
-                </TableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                    <Checkbox
+                      size="small"
+                      color="primary"
+                      checked={selected[vIndex] ?? false}
+                      onChange={(e) => {
+                        selected[vIndex] = e.currentTarget.checked;
+                        setSelected([...selected]);
+                      }}
+                    />
+                  </StyledTableCell>
+                  {v
+                    .getBasicRows()
+                    .map((item, index) =>
+                      item.controlInfo.createCell(
+                        item.controlInfo.createControl({ key: index })
+                      )
+                    )}
+                  <TableCell size="small" align="center" padding="checkbox">
+                    <IconButton
+                      size="small"
+                      onClick={() => {
+                        v.remove();
+                      }}
+                    >
+                      <DeleteForeverRounded />
+                    </IconButton>
+                  </TableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </React.Fragment>
     );
   };

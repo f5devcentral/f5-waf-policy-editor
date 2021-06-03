@@ -19,7 +19,15 @@ export class MethodsFieldResolver
     super(dispatch, json);
   }
 
-  getRows(): GridFieldValue[] {
+  get hasAdvancedRows(): boolean {
+    return false;
+  }
+
+  getAdvancedRows(): GridFieldValue[] {
+    return [];
+  }
+
+  getBasicRows(): GridFieldValue[] {
     return [
       {
         title: "",

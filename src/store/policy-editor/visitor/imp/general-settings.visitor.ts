@@ -12,7 +12,15 @@ export class GeneralSettingsVisitor
   extends BaseVisitor
   implements FieldResolverVisitor, FieldFactoryVisitor<void>
 {
-  getRows(): GridFieldValue[] {
+  get hasAdvancedRows(): boolean {
+    return false;
+  }
+
+  getAdvancedRows(): GridFieldValue[] {
+    return [];
+  }
+
+  getBasicRows(): GridFieldValue[] {
     return [
       {
         title: "Policy Name",

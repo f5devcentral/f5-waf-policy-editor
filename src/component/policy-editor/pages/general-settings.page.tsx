@@ -12,7 +12,7 @@ export const GeneralSettingsPage: React.VoidFunctionComponent = () => {
 
   return (
     <Box className={classes.pageContent}>
-      <GridFieldValueControl rows={generalSettingsVisitor.getRows()} />
+      <GridFieldValueControl rows={generalSettingsVisitor.getBasicRows()} />
     </Box>
   );
 };

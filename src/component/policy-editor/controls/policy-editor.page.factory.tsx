@@ -4,6 +4,7 @@ import { PolicyEditorPageEnum } from "../../../store/policy-editor/policy-editor
 import { GeneralSettingsPage } from "../pages/general-settings.page";
 import { BlockingSettingsPage } from "../pages/blocking-settings.page";
 import { MethodsPage } from "../pages/methods.page";
+import { UrlsPage } from "../pages/urls.page";
 
 export class PolicyEditorPageFactory {
   constructor(
@@ -11,6 +12,7 @@ export class PolicyEditorPageFactory {
       [PolicyEditorPageEnum.GeneralSettings]: <GeneralSettingsPage />,
       [PolicyEditorPageEnum.BlockingSettings]: <BlockingSettingsPage />,
       [PolicyEditorPageEnum.Methods]: <MethodsPage />,
+      [PolicyEditorPageEnum.URLs]: <UrlsPage />,
     }
   ) {}
 

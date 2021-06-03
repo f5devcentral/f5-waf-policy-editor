@@ -21,7 +21,15 @@ export class BlockingSettingsFieldResolver
     super(dispatch, json);
   }
 
-  getRows(): GridFieldValue[] {
+  get hasAdvancedRows(): boolean {
+    return false;
+  }
+
+  getAdvancedRows(): GridFieldValue[] {
+    return [];
+  }
+
+  getBasicRows(): GridFieldValue[] {
     const policy = new Policy();
     const allViolations = policy.getAllViolations();
 

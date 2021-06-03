@@ -9,7 +9,7 @@ import { useStyles } from "../../../utils/styles.hook";
 export const MethodsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
 
-  const fieldFactoryVisitor = useVisitor(MethodsFieldFactory);
+  const methodsFieldFactory = useVisitor(MethodsFieldFactory);
   const methodsVisitorFactory = useVisitor(MethodsVisitorFactory);
 
   const { titles, visitors } = methodsVisitorFactory.getResolvers();
@@ -19,7 +19,7 @@ export const MethodsPage: React.VoidFunctionComponent = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => fieldFactoryVisitor.create()}
+        onClick={() => methodsFieldFactory.create()}
       >
         Add Method
       </Button>
