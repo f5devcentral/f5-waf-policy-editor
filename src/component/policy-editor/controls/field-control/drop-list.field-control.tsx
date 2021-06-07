@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { createStyles, TableCell, withStyles } from "@material-ui/core";
+import { TableCell } from "@material-ui/core";
 import { IControlInfo } from "../control-info.interface";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";

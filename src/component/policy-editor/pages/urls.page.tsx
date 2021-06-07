@@ -28,6 +28,7 @@ export const UrlsPage: React.VoidFunctionComponent = () => {
           titles={titles}
           visitors={visitors}
           settingsName="URLs"
+          dnd={true}
         />
       </Box>
     </Box>
