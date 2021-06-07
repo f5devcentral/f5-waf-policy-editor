@@ -26,6 +26,7 @@ import {
 import { defaultGeneralSettings } from "./model/policy-editor.defaults.model";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
+import { PolicyEditorPreprocessorServices } from "./store/policy-editor/visitor/services/policy-editor-preprocessor.services";
 
 type PolicyEditorParams = {};
 
@@ -62,7 +63,15 @@ const Dashboard: React.FunctionComponent<
           .then(async (x) => {
             const body = await x.text();
 
-            dispatch(policyEditorJsonSrcSet(qs.ref as string, body));
+            const policyEditorPreprocessor =
+              new PolicyEditorPreprocessorServices(body);
+
+            dispatch(
+              policyEditorJsonSrcSet(
+                qs.ref as string,
+                policyEditorPreprocessor.preprocess()
+              )
+            );
           })
           .catch((e) => {
             setErrorMessage(
