@@ -5,7 +5,7 @@ import { UrlsFieldResolver } from "../../imp/urls-field.resolver";
 
 export class UrlsVisitorFactory extends BaseFieldResolverVisitorFactory {
   getResolvers(): { titles: string[]; visitors: FieldResolverVisitor[] } {
-    const titles = ["Name", "Check Signatures", "Check Metachars"];
+    const titles = ["Name", "Method", "Protocol"];
 
     if (_get(this.json, "policy.urls") === undefined) {
       return {

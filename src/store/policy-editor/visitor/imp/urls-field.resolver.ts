@@ -153,36 +153,35 @@ export class UrlsFieldResolver
       },
       {
         title: "",
-        controlInfo: new CheckboxFieldControl(
-          this.json.attackSignaturesCheck,
-          (value) => {
+        controlInfo: new TextEditFieldControl(
+          this.json.method,
+          (text) => {
             this.dispatch(
               policyEditorJsonVisit((currentJson) => {
-                _set(
-                  currentJson,
-                  `policy.urls[${this.rowIndex}].attackSignaturesCheck`,
-                  value
-                );
+                _set(currentJson, `policy.urls[${this.rowIndex}].method`, text);
               })
             );
-          }
+          },
+          {},
+          { variant: "outlined", size: "small" }
         ),
       },
       {
         title: "",
-        controlInfo: new CheckboxFieldControl(
-          this.json.metacharsOnUrlCheck,
-          (value) => {
+        controlInfo: new DropListFieldControl(
+          this.json.protocol,
+          (text) => {
             this.dispatch(
               policyEditorJsonVisit((currentJson) => {
                 _set(
                   currentJson,
-                  `policy.urls[${this.rowIndex}].metacharsOnUrlCheck`,
-                  value
+                  `policy.urls[${this.rowIndex}].protocol`,
+                  text
                 );
               })
             );
-          }
+          },
+          ["http", "https"]
         ),
       },
     ];
