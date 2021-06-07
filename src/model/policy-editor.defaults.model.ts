@@ -19,12 +19,12 @@ export const defaultMethods = () => ({
   name: "",
 });
 
-export const defaultUrls = () => ({
+export const defaultUrls = (order: number) => ({
   name: "",
   type: "explicit",
   method: "*",
   protocol: "http",
   attackSignaturesCheck: true,
   metacharsOnUrlCheck: true,
-  wildcardOrder: 0,
+  wildcardOrder: order,
 });

@@ -17,6 +17,7 @@
     "f5-waf-policy": "0.0.16",
     "immer": "^9.0.2",
     "lodash": "^4.17.21",
+    "lodash-move": "^1.1.1",
     "prismjs": "^1.23.0",
     "query-string": "^7.0.0",
     "react": "^17.0.2",

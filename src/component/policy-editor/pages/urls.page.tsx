@@ -5,6 +5,9 @@ import { GridTableValueControl } from "../controls/grid.table-value.control";
 import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.visitor";
 import { UrlsFieldFactory } from "../../../store/policy-editor/visitor/imp/urls-field.factory";
 import { UrlsVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/urls.visitor-factory";
+import { usePolicyEditorDispatch } from "../../../store/policy-editor/policy-editor.hooks";
+import { policyEditorJsonVisit } from "../../../store/policy-editor/policy-editor.actions";
+import { JsonUrlsServices } from "../../../store/policy-editor/visitor/services/json-urls.services";
 
 export const UrlsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -13,6 +16,8 @@ export const UrlsPage: React.VoidFunctionComponent = () => {
   const urlsVisitorFactory = useVisitor(UrlsVisitorFactory);
 
   const { titles, visitors } = urlsVisitorFactory.getResolvers();
+
+  const dispatch = usePolicyEditorDispatch();
 
   return (
     <Box className={classes.pageContent}>
@@ -29,6 +34,17 @@ export const UrlsPage: React.VoidFunctionComponent = () => {
           visitors={visitors}
           settingsName="URLs"
           dnd={true}
+          onDragEnd={(result) =>
+            dispatch(
+              policyEditorJsonVisit((currentJson) => {
+                const urlServices = new JsonUrlsServices(currentJson.policy);
+                urlServices.changeOrder(
+                  result.source.index,
+                  result.destination?.index ?? 0
+                );
+              })
+            )
+          }
         />
       </Box>
     </Box>

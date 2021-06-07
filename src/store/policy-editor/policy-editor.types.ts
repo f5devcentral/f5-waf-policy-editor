@@ -29,7 +29,7 @@ export interface PolicyEditorAction
       currentPage: PolicyEditorPageEnum;
       strPolicy: string;
       visitor: (currentJson: any) => void;
-      policySrcUrl: string
+      policySrcUrl: string;
     }> {}
 
 export type PolicyEditorDispatch = (

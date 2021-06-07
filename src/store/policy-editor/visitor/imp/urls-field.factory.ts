@@ -18,7 +18,7 @@ export class UrlsFieldFactory
           urls = _get(currentJson, path);
         }
 
-        urls.push(defaultUrls());
+        urls.push(defaultUrls(urls.length));
       })
     );
   }
