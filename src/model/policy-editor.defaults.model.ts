@@ -43,3 +43,13 @@ export const defaultFileTypes = () => ({
   requestLength: 8192,
   responseCheck: false,
 });
+
+export const defaultHeaders = () => ({
+  name: "",
+  type: "explicit",
+  decodeValueAsBase64: "enabled",
+  htmlNormalization: true,
+  mandatory: true,
+  allowRepeatedOccurrences: false,
+  checkSignatures: true,
+});
