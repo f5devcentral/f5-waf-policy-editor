@@ -67,9 +67,10 @@ const getItemStyle: (isDragging: boolean, draggableStyle: any) => any = (
 
 const DraggableComponent = (id: string, index: number) => (props: any) => {
   return (
-    <Draggable draggableId={id} index={index}>
+    <Draggable key={index} draggableId={id} index={index}>
       {(provided, snapshot) => (
         <StyledTableRow
+          key={index}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
@@ -210,7 +211,7 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
             >
               {visitors.map((v, vIndex) => {
                 const row = (
-                  <React.Fragment>
+                  <React.Fragment key={vIndex}>
                     {dnd && (
                       <TableCell
                         style={{
@@ -247,13 +248,14 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                         }}
                       />
                     </StyledTableCell>
-                    {v
-                      .getBasicRows()
-                      .map((item, index) =>
-                        item.controlInfo.createCell(
-                          item.controlInfo.createControl({ key: index })
-                        )
-                      )}
+                    {v.getBasicRows().map((item, index) =>
+                      item.controlInfo.createCell(
+                        item.controlInfo.createControl({
+                          key: `control_${index}`,
+                        }),
+                        { key: `cell_${index}` }
+                      )
+                    )}
                     <TableCell size="small" align="center" padding="checkbox">
                       <IconButton
                         size="small"

@@ -30,8 +30,10 @@ export class DropListFieldControl implements IControlInfo {
         onChange={(e) => this.onValueChange(e.target.value as string)}
         {...props}
       >
-        {this.items.map((x) => (
-          <MenuItem value={x}>{x}</MenuItem>
+        {this.items.map((x, index) => (
+          <MenuItem key={index} value={x}>
+            {x}
+          </MenuItem>
         ))}
       </Select>
     );

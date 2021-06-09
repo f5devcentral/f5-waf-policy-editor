@@ -5,6 +5,7 @@ import { GeneralSettingsPage } from "../pages/general-settings.page";
 import { BlockingSettingsPage } from "../pages/blocking-settings.page";
 import { MethodsPage } from "../pages/methods.page";
 import { UrlsPage } from "../pages/urls.page";
+import { FileTypesPage } from "../pages/file-types.page";
 
 export class PolicyEditorPageFactory {
   constructor(
@@ -13,6 +14,7 @@ export class PolicyEditorPageFactory {
       [PolicyEditorPageEnum.BlockingSettings]: <BlockingSettingsPage />,
       [PolicyEditorPageEnum.Methods]: <MethodsPage />,
       [PolicyEditorPageEnum.URLs]: <UrlsPage />,
+      [PolicyEditorPageEnum.Filetypes]: <FileTypesPage />,
     }
   ) {}
 

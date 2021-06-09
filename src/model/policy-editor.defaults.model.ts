@@ -28,3 +28,18 @@ export const defaultUrls = (order: number) => ({
   metacharsOnUrlCheck: true,
   wildcardOrder: order,
 });
+
+export const defaultFileTypes = () => ({
+  name: "",
+  type: "explicit",
+  allowed: true,
+  checkUrlLength: true,
+  urlLength: 2048,
+  checkQueryStringLength: true,
+  queryStringLength: 2048,
+  checkPostDataLength: false,
+  postDataLength: 4096,
+  checkRequestLength: false,
+  requestLength: 8192,
+  responseCheck: false,
+});
