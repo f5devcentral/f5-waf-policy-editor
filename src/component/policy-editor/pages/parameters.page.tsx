@@ -3,25 +3,25 @@ import { Box, Button } from "@material-ui/core";
 import { useStyles } from "../../../utils/styles.hook";
 import { GridTableValueControl } from "../controls/grid.table-value.control";
 import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.visitor";
-import { HeadersFieldFactory } from "../../../store/policy-editor/visitor/imp/headers-field.factory";
-import { HeadersVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/headers.visitor-factory";
+import { ParametersFieldFactory } from "../../../store/policy-editor/visitor/imp/parameters-field.factory";
+import { ParametersVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/parameters.visitor-factory";
 
-export const HeadersPage: React.VoidFunctionComponent = () => {
+export const ParametersPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
 
-  const headersFieldFactory = useVisitor(HeadersFieldFactory);
-  const headersVisitorFactory = useVisitor(HeadersVisitorFactory);
+  const parametersFieldFactory = useVisitor(ParametersFieldFactory);
+  const parametersVisitorFactory = useVisitor(ParametersVisitorFactory);
 
-  const { titles, visitors } = headersVisitorFactory.getResolvers();
+  const { titles, visitors } = parametersVisitorFactory.getResolvers();
 
   return (
     <Box className={classes.pageContent}>
       <Button
         variant="contained"
         color="primary"
-        onClick={() => headersFieldFactory.create()}
+        onClick={() => parametersFieldFactory.create()}
       >
-        Add Header
+        Add Parameter
       </Button>
       <Box>
         <GridTableValueControl

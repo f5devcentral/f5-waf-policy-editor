@@ -6,6 +6,7 @@ import * as React from "react";
 
 export type EditorTabProps = {
   label: JSX.Element;
+  disabled?: boolean;
 };
 
 export const EditorTabsControl = withStyles((theme) =>

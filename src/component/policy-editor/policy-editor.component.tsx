@@ -77,8 +77,8 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
           dispatch(policyEditorPageSet(tab, TabsTree[tab].id));
         }}
       >
-        {TabsTree.map(({ label, id }) => (
-          <EditorTabControl label={label} key={id} />
+        {TabsTree.map(({ label, id, disabled }) => (
+          <EditorTabControl label={label} key={id} disabled={disabled} />
         ))}
       </EditorTabsControl>
 

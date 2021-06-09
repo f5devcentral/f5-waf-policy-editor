@@ -28,6 +28,7 @@ function createLabel(hasSubmenu: boolean, text: string, icon: any) {
 export type PolicyEditorPageInfo = {
   label: JSX.Element;
   id: PolicyEditorPageEnum;
+  disabled?: boolean;
 };
 
 const iconProps = {
@@ -70,9 +71,11 @@ export const TabsTree: PolicyEditorPageInfo[] = [
   {
     label: createLabel(true, "Signatures", <IconSignatures {...iconProps} />),
     id: PolicyEditorPageEnum.Signatures,
+    disabled: true,
   },
   {
     label: createLabel(false, "Bot Defense", <IconBotDefense {...iconProps} />),
     id: PolicyEditorPageEnum.BotDefense,
+    disabled: true,
   },
 ];

@@ -53,3 +53,18 @@ export const defaultHeaders = () => ({
   allowRepeatedOccurrences: false,
   checkSignatures: true,
 });
+
+export const defaultParameters = () => ({
+  name: "",
+  type: "wildcard",
+  level: "global",
+  parameterLocation: "any",
+  valueType: "auto-detect",
+  allowEmptyValue: true,
+  checkMaxValueLength: false,
+  allowRepeatedParameterName: true,
+  sensitiveParameter: false,
+  attackSignaturesCheck: true,
+  checkMetachars: true,
+  metacharsOnParameterValueCheck: true,
+});

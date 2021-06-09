@@ -7,6 +7,7 @@ import { MethodsPage } from "../pages/methods.page";
 import { UrlsPage } from "../pages/urls.page";
 import { FileTypesPage } from "../pages/file-types.page";
 import { HeadersPage } from "../pages/headers.page";
+import { ParametersPage } from "../pages/parameters.page";
 
 export class PolicyEditorPageFactory {
   constructor(
@@ -17,6 +18,7 @@ export class PolicyEditorPageFactory {
       [PolicyEditorPageEnum.URLs]: <UrlsPage />,
       [PolicyEditorPageEnum.Filetypes]: <FileTypesPage />,
       [PolicyEditorPageEnum.Headers]: <HeadersPage />,
+      [PolicyEditorPageEnum.Parameters]: <ParametersPage />,
     }
   ) {}
 
