@@ -65,28 +65,6 @@ const getItemStyle: (isDragging: boolean, draggableStyle: any) => any = (
   }),
 });
 
-const DraggableComponent = (id: string, index: number) => (props: any) => {
-  return (
-    <Draggable key={index} draggableId={id} index={index}>
-      {(provided, snapshot) => (
-        <StyledTableRow
-          key={index}
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          style={getItemStyle(
-            snapshot.isDragging,
-            provided.draggableProps.style
-          )}
-          {...props}
-        >
-          {props.children}
-        </StyledTableRow>
-      )}
-    </Draggable>
-  );
-};
-
 const DroppableComponent = (props: any) => {
   return (
     <Droppable droppableId={"1"} direction="vertical">
@@ -268,16 +246,26 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                   );
 
                   return (
-                    <TableRow
+                    <Draggable
                       key={vIndex}
-                      component={
-                        dnd
-                          ? DraggableComponent(`id_${vIndex}`, vIndex)
-                          : StyledTableRow
-                      }
+                      draggableId={`${vIndex}`}
+                      index={vIndex}
                     >
-                      {row}
-                    </TableRow>
+                      {(provided, snapshot) => (
+                        <StyledTableRow
+                          key={vIndex}
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          style={getItemStyle(
+                            snapshot.isDragging,
+                            provided.draggableProps.style
+                          )}
+                        >
+                          {row}
+                        </StyledTableRow>
+                      )}
+                    </Draggable>
                   );
                 })}
               </TableBody>
