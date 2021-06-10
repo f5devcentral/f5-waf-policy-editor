@@ -86,28 +86,25 @@ const DraggableComponent = (id: string, index: number) => (props: any) => {
     </Draggable>
   );
 };
-const DroppableComponent =
-  (onDragEnd: (result: DropResult, provided: ResponderProvided) => void) =>
-  (props: any) => {
-    return (
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId={"1"} direction="vertical">
-          {(provided) => {
-            return (
-              <TableBody
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-                {...props}
-              >
-                {props.children}
-                {provided.placeholder}
-              </TableBody>
-            );
-          }}
-        </Droppable>
-      </DragDropContext>
-    );
-  };
+
+const DroppableComponent = (props: any) => {
+  return (
+    <Droppable droppableId={"1"} direction="vertical">
+      {(provided) => {
+        return (
+          <TableBody
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            {...props}
+          >
+            {props.children}
+            {provided.placeholder}
+          </TableBody>
+        );
+      }}
+    </Droppable>
+  );
+};
 
 export const GridTableValueControl: React.FunctionComponent<GridTableValueProps> =
   ({ settingsName, titles, visitors, dnd, onDragEnd }) => {
@@ -162,129 +159,131 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
           {advancedSettingsDialogOpen &&
             createAdvancedSettingsControls(selectedItemIndex)}
         </AdvancedSettingsDialog>
-        <TableContainer component={Box}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                {dnd && <StyledTableCell />}
-                <StyledTableCell />
-                <StyledTableCell
-                  padding={"checkbox"}
-                  size="small"
-                  align="center"
-                >
-                  <Checkbox
-                    checked={allSelected}
+        <DragDropContext
+          onDragEnd={(result: DropResult, provided: ResponderProvided) =>
+            onDragEnd && onDragEnd(result, provided)
+          }
+        >
+          <TableContainer component={Box}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  {dnd && <StyledTableCell />}
+                  <StyledTableCell />
+                  <StyledTableCell
+                    padding={"checkbox"}
                     size="small"
-                    color="primary"
-                    onChange={(e) => {
-                      setSelected([
-                        ...selected.map((x) => e.currentTarget.checked),
-                      ]);
-                    }}
-                  />
-                </StyledTableCell>
-
-                {titles.map((x, index) => (
-                  <StyledTableCell key={index}>
-                    <Typography color="primary">{x}</Typography>
-                  </StyledTableCell>
-                ))}
-                <StyledTableCell align="center">
-                  <Typography>
-                    <Button
-                      disabled={!anySelected}
+                    align="center"
+                  >
+                    <Checkbox
+                      checked={allSelected}
+                      size="small"
                       color="primary"
-                      variant="contained"
-                      onClick={() => onRemoveSelected()}
-                    >
-                      Remove
-                    </Button>
-                  </Typography>
-                </StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody
-              component={DroppableComponent(
-                (result, provided) => onDragEnd && onDragEnd(result, provided)
-              )}
-            >
-              {visitors.map((v, vIndex) => {
-                const row = (
-                  <React.Fragment key={vIndex}>
-                    {dnd && (
-                      <TableCell
-                        style={{
-                          width: "24px",
-                          paddingLeft: "0px",
-                          paddingRight: "0px",
-                        }}
+                      onChange={(e) => {
+                        setSelected([
+                          ...selected.map((x) => e.currentTarget.checked),
+                        ]);
+                      }}
+                    />
+                  </StyledTableCell>
+
+                  {titles.map((x, index) => (
+                    <StyledTableCell key={index}>
+                      <Typography color="primary">{x}</Typography>
+                    </StyledTableCell>
+                  ))}
+                  <StyledTableCell align="center">
+                    <Typography>
+                      <Button
+                        disabled={!anySelected}
+                        color="primary"
+                        variant="contained"
+                        onClick={() => onRemoveSelected()}
                       >
-                        <DragIndicator />
+                        Remove
+                      </Button>
+                    </Typography>
+                  </StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody component={DroppableComponent}>
+                {visitors.map((v, vIndex) => {
+                  const row = (
+                    <React.Fragment key={vIndex}>
+                      {dnd && (
+                        <TableCell
+                          style={{
+                            width: "24px",
+                            paddingLeft: "0px",
+                            paddingRight: "0px",
+                          }}
+                        >
+                          <DragIndicator />
+                        </TableCell>
+                      )}
+                      <TableCell style={{ width: "24px" }}>
+                        {v.hasAdvancedRows ? (
+                          <IconButton
+                            size="small"
+                            onClick={() => onOpenAdvancedSettingsDialog(vIndex)}
+                          >
+                            <OpenInNewIcon />
+                          </IconButton>
+                        ) : undefined}
                       </TableCell>
-                    )}
-                    <TableCell style={{ width: "24px" }}>
-                      {v.hasAdvancedRows ? (
+                      <StyledTableCell
+                        padding={"checkbox"}
+                        size="small"
+                        align="center"
+                      >
+                        <Checkbox
+                          size="small"
+                          color="primary"
+                          checked={selected[vIndex] ?? false}
+                          onChange={(e) => {
+                            selected[vIndex] = e.currentTarget.checked;
+                            setSelected([...selected]);
+                          }}
+                        />
+                      </StyledTableCell>
+                      {v.getBasicRows().map((item, index) =>
+                        item.controlInfo.createCell(
+                          item.controlInfo.createControl({
+                            key: `control_${index}`,
+                          }),
+                          { key: `cell_${index}` }
+                        )
+                      )}
+                      <TableCell size="small" align="center" padding="checkbox">
                         <IconButton
                           size="small"
-                          onClick={() => onOpenAdvancedSettingsDialog(vIndex)}
+                          onClick={() => {
+                            v.remove();
+                          }}
                         >
-                          <OpenInNewIcon />
+                          <DeleteForeverRounded />
                         </IconButton>
-                      ) : undefined}
-                    </TableCell>
-                    <StyledTableCell
-                      padding={"checkbox"}
-                      size="small"
-                      align="center"
-                    >
-                      <Checkbox
-                        size="small"
-                        color="primary"
-                        checked={selected[vIndex] ?? false}
-                        onChange={(e) => {
-                          selected[vIndex] = e.currentTarget.checked;
-                          setSelected([...selected]);
-                        }}
-                      />
-                    </StyledTableCell>
-                    {v.getBasicRows().map((item, index) =>
-                      item.controlInfo.createCell(
-                        item.controlInfo.createControl({
-                          key: `control_${index}`,
-                        }),
-                        { key: `cell_${index}` }
-                      )
-                    )}
-                    <TableCell size="small" align="center" padding="checkbox">
-                      <IconButton
-                        size="small"
-                        onClick={() => {
-                          v.remove();
-                        }}
-                      >
-                        <DeleteForeverRounded />
-                      </IconButton>
-                    </TableCell>
-                  </React.Fragment>
-                );
+                      </TableCell>
+                    </React.Fragment>
+                  );
 
-                return (
-                  <TableRow
-                    key={vIndex}
-                    component={
-                      dnd
-                        ? DraggableComponent(`id_${vIndex}`, vIndex)
-                        : StyledTableRow
-                    }
-                  >
-                    {row}
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
+                  return (
+                    <TableRow
+                      key={vIndex}
+                      component={
+                        dnd
+                          ? DraggableComponent(`id_${vIndex}`, vIndex)
+                          : StyledTableRow
+                      }
+                    >
+                      {row}
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </DragDropContext>
       </React.Fragment>
     );
   };
