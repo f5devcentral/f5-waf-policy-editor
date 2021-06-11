@@ -27,7 +27,7 @@ export const HeadersPage: React.VoidFunctionComponent = () => {
         <GridTableValueControl
           titles={titles}
           visitors={visitors}
-          settingsName="URLs"
+          settingsName="Headers"
         />
       </Box>
     </Box>

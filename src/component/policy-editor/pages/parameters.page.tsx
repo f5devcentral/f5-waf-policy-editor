@@ -27,7 +27,7 @@ export const ParametersPage: React.VoidFunctionComponent = () => {
         <GridTableValueControl
           titles={titles}
           visitors={visitors}
-          settingsName="URLs"
+          settingsName="Parameters"
         />
       </Box>
     </Box>
