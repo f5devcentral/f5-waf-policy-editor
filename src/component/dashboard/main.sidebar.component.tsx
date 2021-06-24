@@ -78,26 +78,6 @@ export const MainSidebarComponent: React.FunctionComponent<MainSidebarProps> =
             </ListItem>
           ))}
         </List>
-        <Divider />
-        <List>
-          {[
-            {
-              text: "Download",
-              icon: <GetApp />,
-              onClick: () => {},
-            },
-            {
-              text: "Share",
-              icon: <Share />,
-              onClick: () => {},
-            },
-          ].map(({ text, icon, onClick }, index) => (
-            <ListItem button key={index} onClick={() => onClick()}>
-              <ListItemIcon>{icon}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
       </React.Fragment>
     );
   };
