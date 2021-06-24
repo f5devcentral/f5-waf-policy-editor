@@ -3,13 +3,12 @@ import * as wafSchema from "../policy-schema/policy-schema.json";
 
 export type PolicyValidationError = {
   message: string;
+  property: string;
   path: any[];
 };
 
 export class PolicyValidator {
   validate(policy: any): PolicyValidationError[] {
-    console.log("validate");
-
     const validator = new Validator();
 
     const errors = validator.validate(
@@ -25,6 +24,7 @@ export class PolicyValidator {
         ({
           message: x.message,
           path: x.path,
+          property: x.property,
         } as PolicyValidationError)
     );
   }

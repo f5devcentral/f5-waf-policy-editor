@@ -5,6 +5,7 @@ import { languages, highlight } from "prismjs";
 
 import "prismjs/themes/prism-solarizedlight.css";
 import "prismjs/components/prism-json";
+import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
 
 export type CurrentPolicyProps = {
   jsonText: string;
@@ -14,6 +15,8 @@ export type CurrentPolicyProps = {
 export const CurrentPolicyControl: React.FunctionComponent<CurrentPolicyProps> =
   ({ jsonText, onTextChange }) => {
     const [code, setCode] = useState(jsonText);
+
+    const { jsonValidationErrors } = usePolicyEditorState();
 
     useEffect(() => {
       setCode(jsonText);
@@ -41,6 +44,7 @@ export const CurrentPolicyControl: React.FunctionComponent<CurrentPolicyProps> =
           fontSize: 12,
           position: "relative",
           overflow: "scroll",
+          backgroundColor: jsonValidationErrors.length > 0 ? "pink" : "inherit",
         }}
       />
     );
