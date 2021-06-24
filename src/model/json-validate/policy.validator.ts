@@ -19,13 +19,22 @@ export class PolicyValidator {
       }
     ).errors;
 
-    return errors.map(
-      (x) =>
-        ({
+    console.log(errors);
+
+    return errors.map((x) => {
+      if (x.name === "required") {
+        return {
+          message: x.message,
+          path: x.path,
+          property: `${x.property}.${x.argument}`,
+        } as PolicyValidationError;
+      } else {
+        return {
           message: x.message,
           path: x.path,
           property: x.property,
-        } as PolicyValidationError)
-    );
+        } as PolicyValidationError;
+      }
+    });
   }
 }

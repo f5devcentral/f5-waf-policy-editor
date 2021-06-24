@@ -24,6 +24,7 @@ export class GeneralSettingsVisitor
     return [
       {
         title: "Policy Name",
+        errorPath: ["instance.name"],
         controlInfo: new TextEditFieldControl(
           _get(this.json, "policy.name"),
           (text) =>
@@ -36,6 +37,7 @@ export class GeneralSettingsVisitor
       },
       {
         title: "Application Language",
+        errorPath: ["instance.applicationLanguage"],
         controlInfo: new TextEditFieldControl(
           _get(this.json, "policy.applicationLanguage"),
           (text) =>
@@ -48,6 +50,7 @@ export class GeneralSettingsVisitor
       },
       {
         title: "Enforcement Mode",
+        errorPath: ["instance.enforcementMode"],
         controlInfo: new TextEditFieldControl(
           _get(this.json, "policy.enforcementMode"),
           (text) =>
@@ -60,6 +63,7 @@ export class GeneralSettingsVisitor
       },
       {
         title: "Template",
+        errorPath: ["instance.template.name", "instance.template"],
         controlInfo: new TextEditFieldControl(
           _get(this.json, "policy.template.name"),
           (text) =>
