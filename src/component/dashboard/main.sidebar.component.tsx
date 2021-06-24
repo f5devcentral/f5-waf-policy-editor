@@ -6,14 +6,7 @@ import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import {
-  Apps,
-  Assistant,
-  ChevronLeft,
-  Edit,
-  GetApp,
-  Share,
-} from "@material-ui/icons";
+import { Apps, Assistant, ChevronLeft, Edit } from "@material-ui/icons";
 import ListItemText from "@material-ui/core/ListItemText";
 import {
   useDashboardDispatch,
