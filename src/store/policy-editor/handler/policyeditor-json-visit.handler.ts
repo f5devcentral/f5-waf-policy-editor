@@ -4,6 +4,7 @@ import {
   PolicyEditorState,
 } from "../policy-editor.types";
 import { Draft } from "immer";
+import { PolicyValidator } from "../../../model/json-validate/policy.validator";
 
 export const policyEditorJsonVisitHandler: PolicyEditorReducerHandler = (
   currentState: Draft<PolicyEditorState>,
@@ -17,6 +18,11 @@ export const policyEditorJsonVisitHandler: PolicyEditorReducerHandler = (
     currentState.jsonCurrentPolicy,
     null,
     2
+  );
+
+  const policyValidator = new PolicyValidator();
+  currentState.jsonValidationErrors = policyValidator.validate(
+    currentState.jsonCurrentPolicy.policy
   );
 
   return currentState;

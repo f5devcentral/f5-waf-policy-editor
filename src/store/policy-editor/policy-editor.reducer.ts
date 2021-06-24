@@ -13,7 +13,7 @@ import {
 import { policyEditorPageSetHandler } from "./handler/policyeditor-page-set.handler";
 import { policyEditorJsonTextSetHandler } from "./handler/policyeditor-jsontext-set.handler";
 import { policyEditorJsonVisitHandler } from "./handler/policyeditor-json-visit.handler";
-import {policyEditorJsonSrcSetHandler} from "./handler/policyeditor-jsonsrc-set.handler";
+import { policyEditorJsonSrcSetHandler } from "./handler/policyeditor-jsonsrc-set.handler";
 
 export function policyEditorStateInit(): PolicyEditorState {
   return {
@@ -23,6 +23,7 @@ export function policyEditorStateInit(): PolicyEditorState {
     currentPage: PolicyEditorPageEnum.GeneralSettings,
     jsonCurrentPolicy: {},
     strCurrentPolicy: "",
+    jsonValidationErrors: [],
   };
 }
 

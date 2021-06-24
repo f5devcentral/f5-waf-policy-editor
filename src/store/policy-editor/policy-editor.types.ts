@@ -1,5 +1,6 @@
 import { Action } from "redux";
 import { ReducerHandler } from "../reducer.base";
+import { PolicyValidationError } from "../../model/json-validate/policy.validator";
 
 export enum PolicyEditorPageEnum {
   GeneralSettings,
@@ -20,6 +21,7 @@ export type PolicyEditorState = {
   jsonCurrentPolicy: any;
   strCurrentPolicy: string;
   jsonParseError: boolean;
+  jsonValidationErrors: PolicyValidationError[];
   policySrcUrl: string;
 };
 
