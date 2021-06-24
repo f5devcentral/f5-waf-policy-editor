@@ -4,32 +4,11 @@ import Typography from "@material-ui/core/Typography";
 import { useState } from "react";
 import { GridFieldValue } from "./grid-field-value.type";
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
-import ErrorIcon from "@material-ui/icons/Error";
-import { InputAdornment, Theme, withStyles } from "@material-ui/core";
-import Tooltip from "@material-ui/core/Tooltip";
-import Box from "@material-ui/core/Box";
+import { ErrorFieldControlAdornment } from "./field-control/error.field-control-adornment";
 
 export type GridFieldValueProps = {
   rows: GridFieldValue[];
 };
-
-const HtmlTooltip = withStyles((theme: Theme) => ({
-  tooltip: {
-    backgroundColor: "#f5f5f9",
-    color: "rgba(0, 0, 0, 0.87)",
-    maxWidth: 800,
-    fontSize: theme.typography.pxToRem(12),
-    border: "1px solid #dadde9",
-  },
-}))(Tooltip);
-
-const ErrorText = withStyles((theme: Theme) => ({
-  root: {
-    "&:first-letter": {
-      textTransform: "capitalize",
-    },
-  },
-}))(Box);
 
 export const GridFieldValueControl: React.FunctionComponent<GridFieldValueProps> =
   ({ rows }) => {
@@ -49,17 +28,7 @@ export const GridFieldValueControl: React.FunctionComponent<GridFieldValueProps>
             const hasError = error.length;
 
             const startAdornment = hasError ? (
-              <InputAdornment position="start">
-                <HtmlTooltip
-                  title={
-                    <React.Fragment>
-                      <ErrorText>{error[0].message}</ErrorText>
-                    </React.Fragment>
-                  }
-                >
-                  <ErrorIcon style={{ color: "red", cursor: "pointer" }} />
-                </HtmlTooltip>
-              </InputAdornment>
+              <ErrorFieldControlAdornment errorMessage={error[0].message} />
             ) : undefined;
 
             return (

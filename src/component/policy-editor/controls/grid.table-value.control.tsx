@@ -25,6 +25,8 @@ import {
   ResponderProvided,
 } from "react-beautiful-dnd";
 import { DragIndicator } from "@material-ui/icons";
+import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
+import { ErrorFieldControlAdornment } from "./field-control/error.field-control-adornment";
 
 const StyledTableCell = withStyles((theme) =>
   createStyles({
@@ -90,6 +92,8 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
     const [advancedSettingsDialogOpen, setAdvancedSettingsDialogOpen] =
       useState(false);
     const [selectedItemIndex, setSelectedItemIndex] = useState(-1);
+
+    const { jsonValidationErrors } = usePolicyEditorState();
 
     const onOpenAdvancedSettingsDialog = (index: number) => {
       setSelectedItemIndex(index);
@@ -224,14 +228,32 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                           }}
                         />
                       </StyledTableCell>
-                      {v.getBasicRows().map((item, index) =>
-                        item.controlInfo.createCell(
+                      {v.getBasicRows().map((item, index) => {
+                        const error = jsonValidationErrors.filter((x) =>
+                          item.errorPath
+                            ? item.errorPath.find((err) => err === x.property)
+                            : false
+                        );
+                        const hasError = error.length;
+                        const startAdornment = hasError ? (
+                          <ErrorFieldControlAdornment
+                            errorMessage={error[0].message}
+                          />
+                        ) : undefined;
+
+                        return item.controlInfo.createCell(
                           item.controlInfo.createControl({
                             key: `control_${index}`,
+                            error: hasError,
+                            InputProps: {
+                              startAdornment: hasError
+                                ? startAdornment
+                                : undefined,
+                            },
                           }),
                           { key: `cell_${index}` }
-                        )
-                      )}
+                        );
+                      })}
                       <TableCell size="small" align="center" padding="checkbox">
                         <IconButton
                           size="small"
