@@ -28,6 +28,7 @@ export class HeadersFieldResolver
     return [
       {
         title: "Header Name",
+        errorPath: [`instance.headers[${this.rowIndex}].name`],
         controlInfo: new TextEditFieldControl(
           this.json.name,
           (text) => {
@@ -47,6 +48,7 @@ export class HeadersFieldResolver
       },
       {
         title: "Type",
+        errorPath: [`instance.headers[${this.rowIndex}].type`],
         controlInfo: new DropListFieldControl(
           this.json.type,
           (value) => {
@@ -65,6 +67,7 @@ export class HeadersFieldResolver
       },
       {
         title: "Mandatory",
+        errorPath: [`instance.headers[${this.rowIndex}].mandatory`],
         controlInfo: new CheckboxFieldControl(this.json.mandatory, (value) => {
           this.dispatch(
             policyEditorJsonVisit((currentJson) => {
@@ -79,6 +82,7 @@ export class HeadersFieldResolver
       },
       {
         title: "Check Signatures",
+        errorPath: [`instance.headers[${this.rowIndex}].checkSignatures`],
         controlInfo: new CheckboxFieldControl(
           this.json.checkSignatures,
           (value) => {
@@ -96,6 +100,7 @@ export class HeadersFieldResolver
       },
       {
         title: "Normalize HTML",
+        errorPath: [`instance.headers[${this.rowIndex}].htmlNormalization`],
         controlInfo: new CheckboxFieldControl(
           this.json.htmlNormalization,
           (value) => {
@@ -113,6 +118,7 @@ export class HeadersFieldResolver
       },
       {
         title: "Decode Base64",
+        errorPath: [`instance.headers[${this.rowIndex}].decodeValueAsBase64`],
         controlInfo: new CheckboxFieldControl(
           this.json.decodeValueAsBase64 === "enabled",
           (value) => {
@@ -130,6 +136,9 @@ export class HeadersFieldResolver
       },
       {
         title: "Allow Repeated",
+        errorPath: [
+          `instance.headers[${this.rowIndex}].allowRepeatedOccurrences`,
+        ],
         controlInfo: new CheckboxFieldControl(
           this.json.allowRepeatedOccurrences,
           (value) => {
@@ -152,6 +161,7 @@ export class HeadersFieldResolver
     return [
       {
         title: "",
+        errorPath: [`instance.headers[${this.rowIndex}].name`],
         controlInfo: new TextEditFieldControl(
           this.json.name,
           (text) => {
@@ -171,6 +181,7 @@ export class HeadersFieldResolver
       },
       {
         title: "",
+        errorPath: [`instance.headers[${this.rowIndex}].type`],
         controlInfo: new DropListFieldControl(
           this.json.type,
           (value) => {

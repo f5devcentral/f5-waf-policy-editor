@@ -21,8 +21,6 @@ export class DropListFieldControl implements IControlInfo {
   }
 
   createControl(props: any): JSX.Element {
-    console.log(props);
-
     return (
       <Select
         style={{

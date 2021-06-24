@@ -43,11 +43,17 @@ export class BlockingSettingsFieldResolver
     return [
       {
         title: "",
+        errorPath: [
+          `instance.blocking-settings.violations[${this.rowIndex}].name`,
+        ],
         controlInfo: new LabelFieldControl(
           resolveViolationTitle(this.json.name)
         ),
       },
       {
+        errorPath: [
+          `instance.blocking-settings.violations[${this.rowIndex}].alarm`,
+        ],
         controlInfo: new CheckboxFieldControl(this.json.alarm, (text) => {
           this.dispatch(
             policyEditorJsonVisit((currentJson) => {
@@ -63,6 +69,9 @@ export class BlockingSettingsFieldResolver
       },
       {
         title: "",
+        errorPath: [
+          `instance.blocking-settings.violations[${this.rowIndex}].block`,
+        ],
         controlInfo: new CheckboxFieldControl(this.json.block, (text) => {
           this.dispatch(
             policyEditorJsonVisit((currentJson) => {

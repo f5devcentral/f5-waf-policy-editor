@@ -28,6 +28,7 @@ export class ParametersFieldResolver
     return [
       {
         title: "Name",
+        errorPath: [`instance.parameters[${this.rowIndex}].type`],
         controlInfo: new TextEditFieldControl(
           this.json.name,
           (text) => {
@@ -47,6 +48,7 @@ export class ParametersFieldResolver
       },
       {
         title: "Type",
+        errorPath: [`instance.parameters[${this.rowIndex}].type`],
         controlInfo: new DropListFieldControl(
           this.json.type,
           (value) => {
@@ -65,6 +67,7 @@ export class ParametersFieldResolver
       },
       {
         title: "Level",
+        errorPath: [`instance.parameters[${this.rowIndex}].level`],
         controlInfo: new DropListFieldControl(
           this.json.level,
           (value) => {
@@ -83,6 +86,7 @@ export class ParametersFieldResolver
       },
       {
         title: "Location",
+        errorPath: [`instance.parameters[${this.rowIndex}].location`],
         controlInfo: new DropListFieldControl(
           this.json.location,
           (value) => {
@@ -101,6 +105,7 @@ export class ParametersFieldResolver
       },
       {
         title: "Value type",
+        errorPath: [`instance.parameters[${this.rowIndex}].valueType`],
         controlInfo: new DropListFieldControl(
           this.json.valueType,
           (value) => {
@@ -119,6 +124,7 @@ export class ParametersFieldResolver
       },
       {
         title: "Allow Empty Value",
+        errorPath: [`instance.parameters[${this.rowIndex}].allowEmptyValue`],
         controlInfo: new CheckboxFieldControl(
           this.json.allowEmptyValue,
           (value) => {
@@ -136,6 +142,9 @@ export class ParametersFieldResolver
       },
       {
         title: "Check Max Value Length",
+        errorPath: [
+          `instance.parameters[${this.rowIndex}].checkMaxValueLength`,
+        ],
         controlInfo: new CheckboxFieldControl(
           this.json.checkMaxValueLength,
           (value) => {
@@ -153,6 +162,9 @@ export class ParametersFieldResolver
       },
       {
         title: "Allow Repeated",
+        errorPath: [
+          `instance.parameters[${this.rowIndex}].allowRepeatedParameterName`,
+        ],
         controlInfo: new CheckboxFieldControl(
           this.json.allowRepeatedParameterName,
           (value) => {
@@ -170,6 +182,7 @@ export class ParametersFieldResolver
       },
       {
         title: "Sensitive",
+        errorPath: [`instance.parameters[${this.rowIndex}].sensitiveParameter`],
         controlInfo: new CheckboxFieldControl(
           this.json.sensitiveParameter,
           (value) => {
@@ -185,9 +198,11 @@ export class ParametersFieldResolver
           }
         ),
       },
-
       {
         title: "Check Attack Signatures",
+        errorPath: [
+          `instance.parameters[${this.rowIndex}].attackSignaturesCheck`,
+        ],
         controlInfo: new CheckboxFieldControl(
           this.json.attackSignaturesCheck,
           (value) => {
@@ -205,6 +220,7 @@ export class ParametersFieldResolver
       },
       {
         title: "Check Metachars",
+        errorPath: [`instance.parameters[${this.rowIndex}].checkMetachars`],
         controlInfo: new CheckboxFieldControl(
           this.json.checkMetachars,
           (value) => {
@@ -222,6 +238,9 @@ export class ParametersFieldResolver
       },
       {
         title: "Check Metachars on Value",
+        errorPath: [
+          `instance.parameters[${this.rowIndex}].metacharsOnParameterValueCheck`,
+        ],
         controlInfo: new CheckboxFieldControl(
           this.json.metacharsOnParameterValueCheck,
           (value) => {
@@ -244,6 +263,7 @@ export class ParametersFieldResolver
     return [
       {
         title: "",
+        errorPath: [`instance.parameters[${this.rowIndex}].name`],
         controlInfo: new TextEditFieldControl(
           this.json.name,
           (text) => {
@@ -263,6 +283,7 @@ export class ParametersFieldResolver
       },
       {
         title: "",
+        errorPath: [`instance.parameters[${this.rowIndex}].type`],
         controlInfo: new DropListFieldControl(
           this.json.type,
           (value) => {

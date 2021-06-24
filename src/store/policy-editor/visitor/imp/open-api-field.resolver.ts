@@ -30,6 +30,7 @@ export class OpenApiFieldResolver
     return [
       {
         title: "",
+        errorPath: [`instance.open-api-files[${this.rowIndex}].link`],
         controlInfo: new TextEditFieldControl(
           this.json.link,
           (text) =>

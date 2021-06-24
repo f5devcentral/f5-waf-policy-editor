@@ -28,6 +28,7 @@ export class FileTypesFieldResolver
     return [
       {
         title: "Filetype Name",
+        errorPath: [`instance.filetypes[${this.rowIndex}].name`],
         controlInfo: new TextEditFieldControl(
           this.json.name,
           (text) =>
@@ -46,6 +47,7 @@ export class FileTypesFieldResolver
       },
       {
         title: "Type",
+        errorPath: [`instance.filetypes[${this.rowIndex}].type`],
         controlInfo: new DropListFieldControl(
           this.json.type,
           (value) =>
@@ -63,6 +65,7 @@ export class FileTypesFieldResolver
       },
       {
         title: "Allowed",
+        errorPath: [`instance.filetypes[${this.rowIndex}].allowed`],
         controlInfo: new CheckboxFieldControl(this.json.allowed, (value) =>
           this.dispatch(
             policyEditorJsonVisit((currentJson) =>
@@ -90,6 +93,7 @@ export class FileTypesFieldResolver
     return [
       {
         title: "Filetype Name",
+        errorPath: [`instance.filetypes[${this.rowIndex}].name`],
         controlInfo: new TextEditFieldControl(
           this.json.name,
           (text) =>
@@ -108,6 +112,7 @@ export class FileTypesFieldResolver
       },
       {
         title: "Type",
+        errorPath: [`instance.filetypes[${this.rowIndex}].type`],
         controlInfo: new DropListFieldControl(
           this.json.type,
           (value) =>
@@ -125,6 +130,7 @@ export class FileTypesFieldResolver
       },
       {
         title: "Allowed",
+        errorPath: [`instance.filetypes[${this.rowIndex}].allowed`],
         controlInfo: new CheckboxFieldControl(this.json.allowed, (value) =>
           this.dispatch(
             policyEditorJsonVisit((currentJson) =>
@@ -139,6 +145,7 @@ export class FileTypesFieldResolver
       },
       {
         title: "Check URL Length",
+        errorPath: [`instance.filetypes[${this.rowIndex}].checkUrlLength`],
         controlInfo: new CheckboxFieldControl(
           this.json.checkUrlLength,
           (value) =>
@@ -155,6 +162,7 @@ export class FileTypesFieldResolver
       },
       {
         title: "URL Length",
+        errorPath: [`instance.filetypes[${this.rowIndex}].urlLength`],
         controlInfo: new TextEditFieldControl(
           this.json.urlLength,
           (value) =>
@@ -173,6 +181,9 @@ export class FileTypesFieldResolver
       },
       {
         title: "Check QS Length",
+        errorPath: [
+          `instance.filetypes[${this.rowIndex}].checkQueryStringLength`,
+        ],
         controlInfo: new CheckboxFieldControl(
           this.json.checkQueryStringLength,
           (value) =>
@@ -189,6 +200,7 @@ export class FileTypesFieldResolver
       },
       {
         title: "QS Length",
+        errorPath: [`instance.filetypes[${this.rowIndex}].queryStringLength`],
         controlInfo: new TextEditFieldControl(
           this.json.queryStringLength,
           (value) =>
@@ -207,6 +219,7 @@ export class FileTypesFieldResolver
       },
       {
         title: "Check POST Data Length",
+        errorPath: [`instance.filetypes[${this.rowIndex}].checkPostDataLength`],
         controlInfo: new CheckboxFieldControl(
           this.json.checkPostDataLength,
           (value) =>
@@ -223,6 +236,7 @@ export class FileTypesFieldResolver
       },
       {
         title: "POST Data Length",
+        errorPath: [`instance.filetypes[${this.rowIndex}].postDataLength`],
         controlInfo: new TextEditFieldControl(
           this.json.postDataLength,
           (value) =>
@@ -241,6 +255,7 @@ export class FileTypesFieldResolver
       },
       {
         title: "Check Request Length",
+        errorPath: [`instance.filetypes[${this.rowIndex}].checkRequestLength`],
         controlInfo: new CheckboxFieldControl(
           this.json.checkRequestLength,
           (value) =>
@@ -257,6 +272,7 @@ export class FileTypesFieldResolver
       },
       {
         title: "Request Length",
+        errorPath: [`instance.filetypes[${this.rowIndex}].requestLength`],
         controlInfo: new TextEditFieldControl(
           this.json.requestLength,
           (value) =>
@@ -275,6 +291,7 @@ export class FileTypesFieldResolver
       },
       {
         title: "Check Response",
+        errorPath: [`instance.filetypes[${this.rowIndex}].responseCheck`],
         controlInfo: new CheckboxFieldControl(
           this.json.responseCheck,
           (value) =>
