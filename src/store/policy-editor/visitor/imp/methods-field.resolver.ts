@@ -31,6 +31,7 @@ export class MethodsFieldResolver
     return [
       {
         title: "",
+        errorPath: [`instance.methods[${this.rowIndex}].name`],
         controlInfo: new TextEditFieldControl(
           this.json.name,
           (text) =>

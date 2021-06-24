@@ -5,6 +5,7 @@ import { useState } from "react";
 import { GridFieldValue } from "./grid-field-value.type";
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
 import ErrorIcon from "@material-ui/icons/Error";
+import { InputAdornment } from "@material-ui/core";
 
 export type GridFieldValueProps = {
   rows: GridFieldValue[];
@@ -20,6 +21,18 @@ export const GridFieldValueControl: React.FunctionComponent<GridFieldValueProps>
       <Grid container spacing={1}>
         <Grid container item spacing={1} xs={12}>
           {rows.map((row, index) => {
+            const hasError = jsonValidationErrors.find((x) =>
+              row.errorPath
+                ? row.errorPath.find((err) => err === x.property)
+                : false
+            );
+
+            const startAdornment = (
+              <InputAdornment position="start">
+                <ErrorIcon style={{ color: "red" }} />
+              </InputAdornment>
+            );
+
             return (
               <React.Fragment key={index}>
                 <Grid container item alignItems={"center"} xs={3}>
@@ -30,17 +43,12 @@ export const GridFieldValueControl: React.FunctionComponent<GridFieldValueProps>
                     {row.title}
                   </Typography>
                 </Grid>
-                <Grid container xs={1} item alignItems={"center"}>
-                  {jsonValidationErrors.find((x) =>
-                    row.errorPath
-                      ? row.errorPath.find((err) => err === x.property)
-                      : false
-                  ) ? (
-                    <ErrorIcon style={{ color: "red" }} />
-                  ) : undefined}
-                </Grid>
-                <Grid item xs={8}>
+                <Grid item xs={9}>
                   {row.controlInfo.createControl({
+                    error: hasError,
+                    InputProps: {
+                      startAdornment: hasError ? startAdornment : undefined,
+                    },
                     fullWidth: true,
                     hiddenLabel: true,
                     variant: "filled",
