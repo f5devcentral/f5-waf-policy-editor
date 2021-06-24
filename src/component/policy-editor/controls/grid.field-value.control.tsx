@@ -5,11 +5,31 @@ import { useState } from "react";
 import { GridFieldValue } from "./grid-field-value.type";
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
 import ErrorIcon from "@material-ui/icons/Error";
-import { InputAdornment } from "@material-ui/core";
+import { InputAdornment, Theme, withStyles } from "@material-ui/core";
+import Tooltip from "@material-ui/core/Tooltip";
+import Box from "@material-ui/core/Box";
 
 export type GridFieldValueProps = {
   rows: GridFieldValue[];
 };
+
+const HtmlTooltip = withStyles((theme: Theme) => ({
+  tooltip: {
+    backgroundColor: "#f5f5f9",
+    color: "rgba(0, 0, 0, 0.87)",
+    maxWidth: 800,
+    fontSize: theme.typography.pxToRem(12),
+    border: "1px solid #dadde9",
+  },
+}))(Tooltip);
+
+const ErrorText = withStyles((theme: Theme) => ({
+  root: {
+    "&:first-letter": {
+      textTransform: "capitalize",
+    },
+  },
+}))(Box);
 
 export const GridFieldValueControl: React.FunctionComponent<GridFieldValueProps> =
   ({ rows }) => {
@@ -21,17 +41,26 @@ export const GridFieldValueControl: React.FunctionComponent<GridFieldValueProps>
       <Grid container spacing={1}>
         <Grid container item spacing={1} xs={12}>
           {rows.map((row, index) => {
-            const hasError = jsonValidationErrors.find((x) =>
+            const error = jsonValidationErrors.filter((x) =>
               row.errorPath
                 ? row.errorPath.find((err) => err === x.property)
                 : false
             );
+            const hasError = error.length;
 
-            const startAdornment = (
+            const startAdornment = hasError ? (
               <InputAdornment position="start">
-                <ErrorIcon style={{ color: "red" }} />
+                <HtmlTooltip
+                  title={
+                    <React.Fragment>
+                      <ErrorText>{error[0].message}</ErrorText>
+                    </React.Fragment>
+                  }
+                >
+                  <ErrorIcon style={{ color: "red", cursor: "pointer" }} />
+                </HtmlTooltip>
               </InputAdornment>
-            );
+            ) : undefined;
 
             return (
               <React.Fragment key={index}>

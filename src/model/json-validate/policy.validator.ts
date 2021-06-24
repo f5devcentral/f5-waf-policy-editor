@@ -9,32 +9,35 @@ export type PolicyValidationError = {
 
 export class PolicyValidator {
   validate(policy: any): PolicyValidationError[] {
-    const validator = new Validator();
+    try {
+      const validator = new Validator();
 
-    const errors = validator.validate(
-      policy,
-      wafSchema.properties.policy as any,
-      {
-        nestedErrors: true,
-      }
-    ).errors;
+      const errors = validator.validate(
+        policy,
+        wafSchema.properties.policy as any,
+        {
+          nestedErrors: true,
+        }
+      ).errors;
 
-    console.log(errors);
-
-    return errors.map((x) => {
-      if (x.name === "required") {
-        return {
-          message: x.message,
-          path: x.path,
-          property: `${x.property}.${x.argument}`,
-        } as PolicyValidationError;
-      } else {
-        return {
-          message: x.message,
-          path: x.path,
-          property: x.property,
-        } as PolicyValidationError;
-      }
-    });
+      return errors.map((x) => {
+        if (x.name === "required") {
+          return {
+            message: x.message,
+            path: x.path,
+            property: `${x.property}.${x.argument}`,
+          } as PolicyValidationError;
+        } else {
+          return {
+            message: x.message,
+            path: x.path,
+            property: x.property,
+          } as PolicyValidationError;
+        }
+      });
+    } catch (e) {
+      console.log(e);
+      return [];
+    }
   }
 }

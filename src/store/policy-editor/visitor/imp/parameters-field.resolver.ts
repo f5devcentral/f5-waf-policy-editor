@@ -282,5 +282,11 @@ export class ParametersFieldResolver
     ];
   }
 
-  remove(): void {}
+  remove(): void {
+    this.dispatch(
+      policyEditorJsonVisit((currentJson) => {
+        currentJson.policy.parameters.splice(this.rowIndex, 1);
+      })
+    );
+  }
 }
