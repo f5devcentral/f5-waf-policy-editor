@@ -245,11 +245,9 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                           item.controlInfo.createControl({
                             key: `control_${index}`,
                             error: hasError,
-                            InputProps: {
-                              startAdornment: hasError
-                                ? startAdornment
-                                : undefined,
-                            },
+                            startAdornment: hasError
+                              ? startAdornment
+                              : undefined,
                           }),
                           { key: `cell_${index}` }
                         );

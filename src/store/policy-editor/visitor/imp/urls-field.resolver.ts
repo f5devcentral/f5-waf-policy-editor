@@ -29,6 +29,7 @@ export class UrlsFieldResolver
     return [
       {
         title: "Name",
+        errorPath: [`instance.urls[${this.rowIndex}].name`],
         controlInfo: new TextEditFieldControl(
           this.json.name,
           (text) => {
@@ -44,6 +45,7 @@ export class UrlsFieldResolver
       },
       {
         title: "Method",
+        errorPath: [`instance.urls[${this.rowIndex}].method`],
         controlInfo: new TextEditFieldControl(
           this.json.method,
           (text) => {
@@ -59,6 +61,7 @@ export class UrlsFieldResolver
       },
       {
         title: "Protocol",
+        errorPath: [`instance.urls[${this.rowIndex}].protocol`],
         controlInfo: new DropListFieldControl(
           this.json.protocol,
           (text) => {
@@ -77,6 +80,7 @@ export class UrlsFieldResolver
       },
       {
         title: "Type",
+        errorPath: [`instance.urls[${this.rowIndex}].type`],
         controlInfo: new DropListFieldControl(
           this.json.type,
           (text) => {
@@ -91,6 +95,7 @@ export class UrlsFieldResolver
       },
       {
         title: "Check Signatures",
+        errorPath: [`instance.urls[${this.rowIndex}].attackSignaturesCheck`],
         controlInfo: new CheckboxFieldControl(
           this.json.attackSignaturesCheck,
           (value) => {
@@ -108,6 +113,7 @@ export class UrlsFieldResolver
       },
       {
         title: "Check Metachars",
+        errorPath: [`instance.urls[${this.rowIndex}].metacharsOnUrlCheck`],
         controlInfo: new CheckboxFieldControl(
           this.json.metacharsOnUrlCheck,
           (value) => {
@@ -138,6 +144,7 @@ export class UrlsFieldResolver
     return [
       {
         title: "",
+        errorPath: [`instance.urls[${this.rowIndex}].name`],
         controlInfo: new TextEditFieldControl(
           this.json.name,
           (text) => {
@@ -153,6 +160,7 @@ export class UrlsFieldResolver
       },
       {
         title: "",
+        errorPath: [`instance.urls[${this.rowIndex}].method`],
         controlInfo: new TextEditFieldControl(
           this.json.method,
           (text) => {
@@ -168,6 +176,7 @@ export class UrlsFieldResolver
       },
       {
         title: "",
+        errorPath: [`instance.urls[${this.rowIndex}].protocol`],
         controlInfo: new DropListFieldControl(
           this.json.protocol,
           (text) => {

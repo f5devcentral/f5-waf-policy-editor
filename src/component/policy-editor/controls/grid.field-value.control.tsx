@@ -44,9 +44,7 @@ export const GridFieldValueControl: React.FunctionComponent<GridFieldValueProps>
                 <Grid item xs={9}>
                   {row.controlInfo.createControl({
                     error: hasError,
-                    InputProps: {
-                      startAdornment: hasError ? startAdornment : undefined,
-                    },
+                    startAdornment: hasError ? startAdornment : undefined,
                     fullWidth: true,
                     hiddenLabel: true,
                     variant: "filled",

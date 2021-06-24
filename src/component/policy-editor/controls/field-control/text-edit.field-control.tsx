@@ -20,6 +20,11 @@ export class TextEditFieldControl implements IControlInfo {
   }
 
   createControl(props: any): JSX.Element {
+    if (props.startAdornment) {
+      props.InputProps = {
+        startAdornment: props.startAdornment,
+      };
+    }
     return (
       <TextField
         fullWidth
