@@ -11,6 +11,7 @@ export enum PolicyEditorPageEnum {
   Parameters,
   Signatures,
   BotDefense,
+  OpenAPI,
 }
 
 export type PolicyEditorState = {

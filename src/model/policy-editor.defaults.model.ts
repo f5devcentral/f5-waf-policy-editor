@@ -1,3 +1,5 @@
+import { OpenAPIFile } from "./policy-schema/policy";
+
 export const defaultGeneralSettings = () => ({
   policy: {
     name: "policy_name",
@@ -67,4 +69,8 @@ export const defaultParameters = () => ({
   attackSignaturesCheck: true,
   checkMetachars: true,
   metacharsOnParameterValueCheck: true,
+});
+
+export const defaultOpenApi: () => OpenAPIFile = () => ({
+  link: "",
 });

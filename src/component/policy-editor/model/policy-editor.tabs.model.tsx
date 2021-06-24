@@ -11,6 +11,7 @@ import { ReactComponent as IconMethods } from "../../../resources/policy-editor-
 import { ReactComponent as IconParameters } from "../../../resources/policy-editor-tab-icons/icon-parameters.svg";
 import { ReactComponent as IconSignatures } from "../../../resources/policy-editor-tab-icons/icon-signatures.svg";
 import { ReactComponent as IconUrl } from "../../../resources/policy-editor-tab-icons/icon-url.svg";
+import { ReactComponent as IconOpenAPi } from "../../../resources/policy-editor-tab-icons/icon-openapi.svg";
 import { PolicyEditorPageEnum } from "../../../store/policy-editor/policy-editor.types";
 
 function createLabel(hasSubmenu: boolean, text: string, icon: any) {
@@ -41,7 +42,7 @@ const iconProps = {
 
 export const TabsTree: PolicyEditorPageInfo[] = [
   {
-    label: createLabel(true, "General Settings", <IconGear {...iconProps} />),
+    label: createLabel(false, "General Settings", <IconGear {...iconProps} />),
     id: PolicyEditorPageEnum.GeneralSettings,
   },
   {
@@ -57,7 +58,7 @@ export const TabsTree: PolicyEditorPageInfo[] = [
     id: PolicyEditorPageEnum.URLs,
   },
   {
-    label: createLabel(true, "File Types", <IconFiletypes {...iconProps} />),
+    label: createLabel(false, "File Types", <IconFiletypes {...iconProps} />),
     id: PolicyEditorPageEnum.Filetypes,
   },
   {
@@ -69,7 +70,11 @@ export const TabsTree: PolicyEditorPageInfo[] = [
     id: PolicyEditorPageEnum.Parameters,
   },
   {
-    label: createLabel(true, "Signatures", <IconSignatures {...iconProps} />),
+    label: createLabel(false, "Open API", <IconOpenAPi {...iconProps} />),
+    id: PolicyEditorPageEnum.OpenAPI,
+  },
+  {
+    label: createLabel(false, "Signatures", <IconSignatures {...iconProps} />),
     id: PolicyEditorPageEnum.Signatures,
     disabled: true,
   },
