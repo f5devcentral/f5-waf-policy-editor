@@ -150,8 +150,6 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
             <Table>
               <TableHead>
                 <TableRow>
-                  {dnd && <StyledTableCell />}
-                  <StyledTableCell />
                   <StyledTableCell
                     padding={"checkbox"}
                     size="small"
@@ -186,33 +184,14 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                       </Button>
                     </Typography>
                   </StyledTableCell>
+                  <StyledTableCell />
+                  {dnd && <StyledTableCell />}
                 </TableRow>
               </TableHead>
               <TableBody component={DroppableComponent}>
                 {visitors.map((v, vIndex) => {
                   const row = (
                     <React.Fragment key={vIndex}>
-                      {dnd && (
-                        <TableCell
-                          style={{
-                            width: "24px",
-                            paddingLeft: "0px",
-                            paddingRight: "0px",
-                          }}
-                        >
-                          <DragIndicator />
-                        </TableCell>
-                      )}
-                      <TableCell style={{ width: "24px" }}>
-                        {v.hasAdvancedRows ? (
-                          <IconButton
-                            size="small"
-                            onClick={() => onOpenAdvancedSettingsDialog(vIndex)}
-                          >
-                            <OpenInNewIcon />
-                          </IconButton>
-                        ) : undefined}
-                      </TableCell>
                       <StyledTableCell
                         padding={"checkbox"}
                         size="small"
@@ -262,6 +241,28 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                           <DeleteForeverRounded />
                         </IconButton>
                       </TableCell>
+                      <TableCell style={{ width: "24px" }}>
+                        {v.hasAdvancedRows ? (
+                          <IconButton
+                            size="small"
+                            onClick={() => onOpenAdvancedSettingsDialog(vIndex)}
+                          >
+                            <OpenInNewIcon />
+                          </IconButton>
+                        ) : undefined}
+                      </TableCell>
+                      {dnd && (
+                        <TableCell
+                          style={{
+                            width: "24px",
+                            paddingLeft: "0px",
+                            paddingRight: "0px",
+                          }}
+                        >
+                          <DragIndicator />
+                        </TableCell>
+                      )}
+                      n
                     </React.Fragment>
                   );
 
