@@ -262,7 +262,6 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                           <DragIndicator />
                         </TableCell>
                       )}
-                      n
                     </React.Fragment>
                   );
 
