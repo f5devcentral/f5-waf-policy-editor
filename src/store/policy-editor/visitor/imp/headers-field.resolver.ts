@@ -205,6 +205,9 @@ export class HeadersFieldResolver
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
         currentJson.policy.headers.splice(this.rowIndex, 1);
+
+        if (currentJson.policy.headers.length === 0)
+          delete currentJson.policy.headers;
       })
     );
   }

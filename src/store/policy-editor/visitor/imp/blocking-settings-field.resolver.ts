@@ -94,6 +94,12 @@ export class BlockingSettingsFieldResolver
           this.rowIndex,
           1
         );
+        if (currentJson.policy["blocking-settings"].violations.length === 0) {
+          delete currentJson.policy["blocking-settings"].violations;
+        }
+        if (Object.keys(currentJson.policy["blocking-settings"]).length === 0) {
+          delete currentJson.policy["blocking-settings"];
+        }
       })
     );
   }

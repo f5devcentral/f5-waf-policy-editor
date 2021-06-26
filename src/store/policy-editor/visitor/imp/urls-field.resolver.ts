@@ -136,6 +136,10 @@ export class UrlsFieldResolver
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
         currentJson.policy.urls.splice(this.rowIndex, 1);
+
+        if (currentJson.policy.urls.length === 0) {
+          delete currentJson.policy.urls;
+        }
       })
     );
   }

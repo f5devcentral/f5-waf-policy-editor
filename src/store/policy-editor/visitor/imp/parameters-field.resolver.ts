@@ -307,6 +307,10 @@ export class ParametersFieldResolver
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
         currentJson.policy.parameters.splice(this.rowIndex, 1);
+
+        if (currentJson.policy.parameters.length === 0) {
+          delete currentJson.policy.parameters;
+        }
       })
     );
   }

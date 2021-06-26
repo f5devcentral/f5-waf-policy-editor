@@ -55,6 +55,9 @@ export class MethodsFieldResolver
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
         currentJson.policy.methods.splice(this.rowIndex, 1);
+
+        if (currentJson.policy.methods.length === 0)
+          delete currentJson.policy.methods;
       })
     );
   }

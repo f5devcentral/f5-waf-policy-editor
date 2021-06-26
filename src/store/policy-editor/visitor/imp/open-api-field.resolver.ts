@@ -54,6 +54,10 @@ export class OpenApiFieldResolver
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
         currentJson.policy["open-api-files"].splice(this.rowIndex, 1);
+
+        if (currentJson.policy["open-api-files"].length === 0) {
+          delete currentJson.policy["open-api-files"];
+        }
       })
     );
   }

@@ -85,6 +85,9 @@ export class FileTypesFieldResolver
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
         currentJson.policy.filetypes.splice(this.rowIndex, 1);
+
+        if (currentJson.policy.filetypes.length === 0)
+          delete currentJson.policy.filetypes;
       })
     );
   }
