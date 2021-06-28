@@ -50,7 +50,7 @@ export const CurrentPolicyControl: React.FunctionComponent<CurrentPolicyProps> =
             fontSize: 12,
             position: "relative",
             backgroundColor:
-              jsonValidationErrors.length > 0 ? "pink" : "inherit",
+              jsonValidationErrors.length > 0 ? "#fde0dc" : "#DCF9FD",
           }}
         />
       </div>
