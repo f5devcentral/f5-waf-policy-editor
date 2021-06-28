@@ -14,7 +14,7 @@ export class PolicyEditorPreprocessorServices {
         );
       }
 
-      return JSON.stringify({ policy });
+      return JSON.stringify({ policy }, null, 2);
     } catch (e) {
       return this.body;
     }
