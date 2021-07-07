@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { PolicyEditorDashboardComponent } from "./component/dashboard/policy-editor.dashboard.component";
 import { useDashboardState } from "./store/dashboard/dashboard.hooks";
 import { DashboardModuleEnum } from "./store/dashboard/dashboard.types";
-import { ApplicationPresetComponent } from "./component/application-preset/application-preset.component";
+import { PolicyTemplatesComponent } from "./component/application-preset/policy-templates.component";
 import { PolicyEditorComponent } from "./component/policy-editor/policy-editor.component";
 import { PolicyWizardComponent } from "./component/policy-wizard/policy-wizard.component";
 import {
@@ -109,7 +109,7 @@ const Dashboard: React.FunctionComponent<
   }
 
   const uiFactory: { [key: number]: JSX.Element } = {
-    [DashboardModuleEnum.ApplicationPreset]: <ApplicationPresetComponent />,
+    [DashboardModuleEnum.PolicyTemplates]: <PolicyTemplatesComponent />,
     [DashboardModuleEnum.PolicyEditor]: <PolicyEditorComponent />,
     [DashboardModuleEnum.PolicyWizard]: <PolicyWizardComponent />,
   };

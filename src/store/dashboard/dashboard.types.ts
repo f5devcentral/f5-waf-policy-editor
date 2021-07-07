@@ -4,7 +4,7 @@ import { ReducerHandler } from "../reducer.base";
 export enum DashboardModuleEnum {
   PolicyEditor,
   PolicyWizard,
-  ApplicationPreset,
+  PolicyTemplates,
 }
 
 export type DashboardState = {

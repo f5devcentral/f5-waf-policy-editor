@@ -5,8 +5,12 @@ import { useStyles } from "../../utils/styles.hook";
 import { Toolbar } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import { GetApp, Share } from "@material-ui/icons";
+import { ExpandMore, GetApp, Share } from "@material-ui/icons";
 import { usePolicyEditorState } from "../../store/policy-editor/policy-editor.hooks";
+import GitHubIcon from "@material-ui/icons/GitHub";
+
+import { ReactComponent as IconCloudFormation } from "../../resources/toolbar/AWS-CloudFormation.svg";
+import Button from "@material-ui/core/Button";
 
 export type MainAppbarProps = Readonly<{
   open: boolean;
@@ -54,8 +58,27 @@ export const MainAppbarComponent: React.FunctionComponent<MainAppbarProps> = ({
         <MenuIcon />
       </IconButton>
       <Typography variant="h6" noWrap className={classes.title}>
-        WAF Policy Editor
+        WAFFLER. WAF Policy Editor
+        <IconButton
+          color="inherit"
+          href="https://github.com/464d41/f5-waf-policy-editor"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <GitHubIcon />
+        </IconButton>
       </Typography>
+      <Button color="inherit" variant="text">
+        App Protect <ExpandMore />
+      </Button>
+      <IconButton
+        color="inherit"
+        href="https://github.com/464d41/aws-waf-solutuon-template"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <IconCloudFormation />
+      </IconButton>
       <IconButton color="inherit">
         <GetApp onClick={handleDownload} />
       </IconButton>

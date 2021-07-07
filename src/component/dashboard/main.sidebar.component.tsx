@@ -50,12 +50,12 @@ export const MainSidebarComponent: React.FunctionComponent<MainSidebarProps> =
               },
             },
             {
-              text: "Application Preset",
-              id: DashboardModuleEnum.ApplicationPreset,
+              text: "Policy Templates",
+              id: DashboardModuleEnum.PolicyTemplates,
               icon: <Apps />,
               onClick: () => {
                 dispatch(
-                  dashboardModuleSet(DashboardModuleEnum.ApplicationPreset)
+                  dashboardModuleSet(DashboardModuleEnum.PolicyTemplates)
                 );
               },
             },
