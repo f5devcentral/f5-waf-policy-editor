@@ -1,7 +1,6 @@
 import * as React from "react";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
 import Box from "@material-ui/core/Box";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
@@ -9,7 +8,6 @@ import { createStyles, TableBody, withStyles } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import EditIcon from "@material-ui/icons/Edit";
-import Typography from "@material-ui/core/Typography";
 
 const StyledTableRow = withStyles((theme) =>
   createStyles({
