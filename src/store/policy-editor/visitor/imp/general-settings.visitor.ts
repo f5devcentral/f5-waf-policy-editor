@@ -7,6 +7,7 @@ import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { defaultGeneralSettings } from "../../../../model/policy-editor.defaults.model";
 import { TextEditFieldControl } from "../../../../component/policy-editor/controls/field-control/text-edit.field-control";
 import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
+import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
 
 export class GeneralSettingsVisitor
   extends BaseVisitor
@@ -22,6 +23,15 @@ export class GeneralSettingsVisitor
 
   getBasicRows(): GridFieldValue[] {
     return [
+      {
+        title: "Policy Type",
+        errorPath: [""],
+        controlInfo: new DropListFieldControl("App Protect", () => {}, [
+          "App Protect",
+          "Athena",
+          "Advanced WAF",
+        ]),
+      },
       {
         title: "Policy Name",
         errorPath: ["instance.name"],
