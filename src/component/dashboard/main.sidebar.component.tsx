@@ -14,6 +14,7 @@ import {
 } from "../../store/dashboard/dashboard.hooks";
 import { DashboardModuleEnum } from "../../store/dashboard/dashboard.types";
 import { dashboardModuleSet } from "../../store/dashboard/dashboard.actions";
+import GitHubIcon from "@material-ui/icons/GitHub";
 
 export type MainSidebarProps = Readonly<{ onDrawerClose: any }>;
 
@@ -70,6 +71,20 @@ export const MainSidebarComponent: React.FunctionComponent<MainSidebarProps> =
               <ListItemText primary={text} />
             </ListItem>
           ))}
+        </List>
+        <Divider />
+        <List>
+          <ListItem
+            button
+            component="a"
+            target="_blank"
+            href="https://github.com/464d41/f5-waf-policy-editor"
+          >
+            <ListItemIcon>
+              <GitHubIcon />
+            </ListItemIcon>
+            <ListItemText primary="Project's GitHub" />
+          </ListItem>
         </List>
       </React.Fragment>
     );

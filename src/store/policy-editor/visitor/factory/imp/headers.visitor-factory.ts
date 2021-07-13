@@ -5,7 +5,7 @@ import { HeadersFieldResolver } from "../../imp/headers-field.resolver";
 
 export class HeadersVisitorFactory extends BaseFieldResolverVisitorFactory {
   getResolvers(): { titles: string[]; visitors: FieldResolverVisitor[] } {
-    const titles = ["Header Name", "Type"];
+    const titles = ["Name", "Type"];
 
     if (_get(this.json, "policy.headers") === undefined) {
       return {

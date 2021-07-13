@@ -43,7 +43,7 @@ export const MainAppbarComponent: React.FunctionComponent<MainAppbarProps> = ({
   const handleDownload = () => {
     const date = new Date();
 
-    download(`waf-${date.getTime()}.policy`, strCurrentPolicy);
+    download(`waf-${date.getTime()}.json`, strCurrentPolicy);
   };
 
   return (

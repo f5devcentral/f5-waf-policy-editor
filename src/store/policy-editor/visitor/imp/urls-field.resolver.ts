@@ -28,19 +28,22 @@ export class UrlsFieldResolver
   getAdvancedRows(): GridFieldValue[] {
     return [
       {
-        title: "Name",
-        errorPath: [`instance.urls[${this.rowIndex}].name`],
-        controlInfo: new TextEditFieldControl(
-          this.json.name,
+        title: "Protocol",
+        errorPath: [`instance.urls[${this.rowIndex}].protocol`],
+        controlInfo: new DropListFieldControl(
+          this.json.protocol,
           (text) => {
             this.dispatch(
               policyEditorJsonVisit((currentJson) => {
-                _set(currentJson, `policy.urls[${this.rowIndex}].name`, text);
+                _set(
+                  currentJson,
+                  `policy.urls[${this.rowIndex}].protocol`,
+                  text
+                );
               })
             );
           },
-          {},
-          { variant: "outlined", size: "small" }
+          ["http", "https"]
         ),
       },
       {
@@ -60,24 +63,22 @@ export class UrlsFieldResolver
         ),
       },
       {
-        title: "Protocol",
-        errorPath: [`instance.urls[${this.rowIndex}].protocol`],
-        controlInfo: new DropListFieldControl(
-          this.json.protocol,
+        title: "Path",
+        errorPath: [`instance.urls[${this.rowIndex}].name`],
+        controlInfo: new TextEditFieldControl(
+          this.json.name,
           (text) => {
             this.dispatch(
               policyEditorJsonVisit((currentJson) => {
-                _set(
-                  currentJson,
-                  `policy.urls[${this.rowIndex}].protocol`,
-                  text
-                );
+                _set(currentJson, `policy.urls[${this.rowIndex}].name`, text);
               })
             );
           },
-          ["http", "https"]
+          {},
+          { variant: "outlined", size: "small" }
         ),
       },
+
       {
         title: "Type",
         errorPath: [`instance.urls[${this.rowIndex}].type`],
@@ -148,18 +149,21 @@ export class UrlsFieldResolver
     return [
       {
         title: "",
-        errorPath: [`instance.urls[${this.rowIndex}].name`],
-        controlInfo: new TextEditFieldControl(
-          this.json.name,
+        errorPath: [`instance.urls[${this.rowIndex}].protocol`],
+        controlInfo: new DropListFieldControl(
+          this.json.protocol,
           (text) => {
             this.dispatch(
               policyEditorJsonVisit((currentJson) => {
-                _set(currentJson, `policy.urls[${this.rowIndex}].name`, text);
+                _set(
+                  currentJson,
+                  `policy.urls[${this.rowIndex}].protocol`,
+                  text
+                );
               })
             );
           },
-          {},
-          { variant: "outlined", size: "small" }
+          ["http", "https"]
         ),
       },
       {
@@ -180,21 +184,18 @@ export class UrlsFieldResolver
       },
       {
         title: "",
-        errorPath: [`instance.urls[${this.rowIndex}].protocol`],
-        controlInfo: new DropListFieldControl(
-          this.json.protocol,
+        errorPath: [`instance.urls[${this.rowIndex}].name`],
+        controlInfo: new TextEditFieldControl(
+          this.json.name,
           (text) => {
             this.dispatch(
               policyEditorJsonVisit((currentJson) => {
-                _set(
-                  currentJson,
-                  `policy.urls[${this.rowIndex}].protocol`,
-                  text
-                );
+                _set(currentJson, `policy.urls[${this.rowIndex}].name`, text);
               })
             );
           },
-          ["http", "https"]
+          {},
+          { variant: "outlined", size: "small" }
         ),
       },
     ];
