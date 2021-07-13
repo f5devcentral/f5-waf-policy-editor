@@ -11,7 +11,6 @@ import { MainAppbarComponent } from "./main.appbar.component";
 import { Typography } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import GitHubIcon from "@material-ui/icons/GitHub";
-import Toolbar from "@material-ui/core/Toolbar";
 
 export const PolicyEditorDashboardComponent: React.FunctionComponent = ({
   children,

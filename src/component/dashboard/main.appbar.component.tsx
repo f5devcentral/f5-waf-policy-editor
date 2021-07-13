@@ -11,27 +11,12 @@ import Share from "@material-ui/icons/Share";
 import { usePolicyEditorState } from "../../store/policy-editor/policy-editor.hooks";
 
 import { ReactComponent as IconCloudFormation } from "../../resources/toolbar/AWS-CloudFormation.svg";
+import { download } from "../../utils/download.util";
 
 export type MainAppbarProps = Readonly<{
   open: boolean;
   onDrawerOpen: any;
 }>;
-
-function download(filename: string, text: string): void {
-  const element = document.createElement("a");
-  element.setAttribute(
-    "href",
-    "data:text/plain;charset=utf-8," + encodeURIComponent(text)
-  );
-  element.setAttribute("download", filename);
-
-  element.style.display = "none";
-  document.body.appendChild(element);
-
-  element.click();
-
-  document.body.removeChild(element);
-}
 
 export const MainAppbarComponent: React.FunctionComponent<MainAppbarProps> = ({
   open,
@@ -76,8 +61,8 @@ export const MainAppbarComponent: React.FunctionComponent<MainAppbarProps> = ({
       >
         <IconCloudFormation />
       </IconButton>
-      <IconButton color="inherit">
-        <GetApp onClick={handleDownload} />
+      <IconButton color="inherit" onClick={handleDownload}>
+        <GetApp />
       </IconButton>
       <IconButton color="inherit" disabled={true}>
         <Share />
