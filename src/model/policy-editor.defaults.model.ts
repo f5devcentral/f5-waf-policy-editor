@@ -11,10 +11,14 @@ export const defaultGeneralSettings = () => ({
   },
 });
 
-export const defaultBlockingSettings = (name: string) => ({
-  name: name,
-  alarm: true,
-  block: false,
+export const defaultBlockingSettings = (
+  name: string,
+  alarm: boolean,
+  block: boolean
+) => ({
+  name,
+  alarm,
+  block,
 });
 
 export const defaultMethods = () => ({

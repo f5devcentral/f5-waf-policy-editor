@@ -23,7 +23,6 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import GetApp from "@material-ui/icons/GetApp";
 import { ReactComponent as IconCloudFormation } from "../../resources/toolbar/AWS-CloudFormation.svg";
 import Share from "@material-ui/icons/Share";
-import IconButton from "@material-ui/core/IconButton";
 import { download } from "../../utils/download.util";
 
 const JsonEditorContainer = withStyles((theme) =>

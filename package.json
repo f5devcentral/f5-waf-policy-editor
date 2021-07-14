@@ -14,7 +14,6 @@
     "@types/react": "^17.0.5",
     "@types/react-beautiful-dnd": "^13.0.0",
     "@types/react-dom": "^17.0.5",
-    "f5-waf-policy": "0.0.16",
     "immer": "^9.0.2",
     "jsonschema": "^1.4.0",
     "lodash": "^4.17.21",

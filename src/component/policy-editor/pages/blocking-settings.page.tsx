@@ -6,18 +6,16 @@ import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.
 import { BlockingSettingsFieldFactory } from "../../../store/policy-editor/visitor/imp/blocking-settings-field.factory";
 import { BlockingSettingsVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/blocking-settings.visitor-factory";
 
-import { Policy } from "f5-waf-policy";
-
 import { Menu, MenuItem } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { useState } from "react";
 import { ExpandMore } from "@material-ui/icons";
+import { ViolationsNginxConst } from "../../../model/nginx-const/violations.nginx-const";
 
 export const BlockingSettingsPage: React.VoidFunctionComponent = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const policy = new Policy();
-  const allViolations = policy.getAllViolations();
+  const allViolations = ViolationsNginxConst.getAllViolations();
 
   const classes = useStyles();
 
@@ -52,7 +50,11 @@ export const BlockingSettingsPage: React.VoidFunctionComponent = () => {
               key={index}
               value={v.name}
               onClick={() => {
-                fieldFactoryVisitor.create({ name: v.name });
+                fieldFactoryVisitor.create({
+                  name: v.name,
+                  alarm: v.alarm,
+                  block: v.block,
+                });
                 setAnchorEl(null);
               }}
             >
