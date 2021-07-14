@@ -6,6 +6,8 @@ import { defaultBlockingSettings } from "../../../../model/policy-editor.default
 
 export type BlockingSettingsFieldCreateProps = {
   name: string;
+  alarm: boolean;
+  block: boolean;
 };
 
 export class BlockingSettingsFieldFactory
@@ -22,7 +24,9 @@ export class BlockingSettingsFieldFactory
           violations = _get(currentJson, path);
         }
 
-        violations.push(defaultBlockingSettings(props.name));
+        violations.push(
+          defaultBlockingSettings(props.name, props.alarm, props.block)
+        );
       })
     );
   }

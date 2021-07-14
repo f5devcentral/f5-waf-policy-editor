@@ -6,7 +6,7 @@ import { get as _get } from "lodash";
 
 export class FileTypesVisitorFactory extends BaseFieldResolverVisitorFactory {
   getResolvers(): { titles: string[]; visitors: FieldResolverVisitor[] } {
-    const titles = ["Filetype Name", "Type", "Allowed"];
+    const titles = ["Name", "Type"];
 
     if (_get(this.json, "policy.filetypes") === undefined) {
       return {

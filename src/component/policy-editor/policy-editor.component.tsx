@@ -18,6 +18,12 @@ import { CurrentPolicyControl } from "./controls/curren-policy.control";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { createStyles, withStyles } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import GetApp from "@material-ui/icons/GetApp";
+import { ReactComponent as IconCloudFormation } from "../../resources/toolbar/AWS-CloudFormation.svg";
+import Share from "@material-ui/icons/Share";
+import { download } from "../../utils/download.util";
 
 const JsonEditorContainer = withStyles((theme) =>
   createStyles({
@@ -60,12 +66,29 @@ const EditorPage = withStyles((theme) =>
   })
 )(Box);
 
+const PolicyTools = withStyles((theme) =>
+  createStyles({
+    root: {
+      padding: theme.spacing(1),
+      paddingRight: "0px",
+      height: theme.spacing(8),
+      textAlign: "right",
+    },
+  })
+)(Box);
+
 export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
   const { currentPage, strCurrentPolicy, jsonParseError, currentTab } =
     usePolicyEditorState();
 
   const dispatch = usePolicyEditorDispatch();
   const pageFactory = new PolicyEditorPageFactory();
+
+  const handleDownload = () => {
+    const date = new Date();
+
+    download(`waf-${date.getTime()}.json`, strCurrentPolicy);
+  };
 
   return (
     <React.Fragment>
@@ -99,6 +122,24 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
                   }
                 />
               </JsonEditorContainer>
+              <PolicyTools>
+                <ButtonGroup>
+                  <Button
+                    startIcon={<IconCloudFormation />}
+                    href="https://github.com/464d41/aws-waf-solutuon-template"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Deploy
+                  </Button>
+                  <Button startIcon={<GetApp />} onClick={handleDownload}>
+                    Download
+                  </Button>
+                  <Button disabled startIcon={<Share />}>
+                    Share
+                  </Button>
+                </ButtonGroup>
+              </PolicyTools>
             </EditorPage>
           </Grid>
           <Grid container item spacing={1} xs={2} />

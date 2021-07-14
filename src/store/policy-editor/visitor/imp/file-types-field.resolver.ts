@@ -63,21 +63,6 @@ export class FileTypesFieldResolver
           ["explicit", "wildcard"]
         ),
       },
-      {
-        title: "Allowed",
-        errorPath: [`instance.filetypes[${this.rowIndex}].allowed`],
-        controlInfo: new CheckboxFieldControl(this.json.allowed, (value) =>
-          this.dispatch(
-            policyEditorJsonVisit((currentJson) =>
-              _set(
-                currentJson,
-                `policy.filetypes[${this.rowIndex}].allowed`,
-                value
-              )
-            )
-          )
-        ),
-      },
     ];
   }
 

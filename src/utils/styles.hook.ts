@@ -8,14 +8,14 @@ export const useStyles = makeStyles(
       root: {
         display: "flex",
       },
+      title: {
+        flexGrow: 1,
+      },
       appBar: {
         transition: theme.transitions.create(["margin", "width"], {
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.leavingScreen,
         }),
-      },
-      title: {
-        flexGrow: 1,
       },
       appBarShift: {
         width: `calc(100% - ${drawerWidth}px)`,
@@ -24,6 +24,11 @@ export const useStyles = makeStyles(
           easing: theme.transitions.easing.easeOut,
           duration: theme.transitions.duration.enteringScreen,
         }),
+      },
+      footer: {
+        top: "auto",
+        bottom: "0px",
+        textAlign: "center",
       },
       menuButton: {
         marginRight: theme.spacing(2),

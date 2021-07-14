@@ -8,6 +8,9 @@ import { useState } from "react";
 import { useStyles } from "../../utils/styles.hook";
 import { MainSidebarComponent } from "./main.sidebar.component";
 import { MainAppbarComponent } from "./main.appbar.component";
+import { Typography } from "@material-ui/core";
+import IconButton from "@material-ui/core/IconButton";
+import GitHubIcon from "@material-ui/icons/GitHub";
 
 export const PolicyEditorDashboardComponent: React.FunctionComponent = ({
   children,
@@ -53,6 +56,29 @@ export const PolicyEditorDashboardComponent: React.FunctionComponent = ({
         <div className={classes.drawerHeader} />
         {children}
       </main>
+      <AppBar
+        variant={"outlined"}
+        position="fixed"
+        className={clsx(classes.footer, classes.appBar, {
+          [classes.appBarShift]: open,
+        })}
+        style={{
+          background: "#fafafa",
+        }}
+      >
+        <Typography variant="caption" color="textSecondary">
+          <IconButton
+            color="inherit"
+            href="https://github.com/464d41/f5-waf-policy-editor"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <GitHubIcon />
+          </IconButton>
+          Project idea and guidance - Mikhail Fedorov, Lead developer - Serge
+          Levin, Contributors - Alex Shemyakin, Nik Garkusha
+        </Typography>
+      </AppBar>
     </div>
   );
 };

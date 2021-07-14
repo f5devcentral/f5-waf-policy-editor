@@ -12,9 +12,9 @@ import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
 import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
+import EditIcon from "@material-ui/icons/Edit";
 import { useEffect, useState } from "react";
 
-import OpenInNewIcon from "@material-ui/icons/OpenInNew";
 import { AdvancedSettingsDialog } from "../dialogs/advanced-settings.dialog";
 import { GridFieldValueControl } from "./grid.field-value.control";
 import {
@@ -172,6 +172,8 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                       <Typography color="primary">{x}</Typography>
                     </StyledTableCell>
                   ))}
+                  {dnd && <StyledTableCell />}
+                  <StyledTableCell />
                   <StyledTableCell align="center">
                     <Typography>
                       <Button
@@ -184,8 +186,6 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                       </Button>
                     </Typography>
                   </StyledTableCell>
-                  <StyledTableCell />
-                  {dnd && <StyledTableCell />}
                 </TableRow>
               </TableHead>
               <TableBody component={DroppableComponent}>
@@ -231,26 +231,6 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                           { key: `cell_${index}` }
                         );
                       })}
-                      <TableCell size="small" align="center" padding="checkbox">
-                        <IconButton
-                          size="small"
-                          onClick={() => {
-                            v.remove();
-                          }}
-                        >
-                          <DeleteForeverRounded />
-                        </IconButton>
-                      </TableCell>
-                      <TableCell style={{ width: "24px" }}>
-                        {v.hasAdvancedRows ? (
-                          <IconButton
-                            size="small"
-                            onClick={() => onOpenAdvancedSettingsDialog(vIndex)}
-                          >
-                            <OpenInNewIcon />
-                          </IconButton>
-                        ) : undefined}
-                      </TableCell>
                       {dnd && (
                         <TableCell
                           style={{
@@ -262,6 +242,27 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                           <DragIndicator />
                         </TableCell>
                       )}
+
+                      <TableCell style={{ width: "24px" }}>
+                        {v.hasAdvancedRows ? (
+                          <IconButton
+                            size="small"
+                            onClick={() => onOpenAdvancedSettingsDialog(vIndex)}
+                          >
+                            <EditIcon />
+                          </IconButton>
+                        ) : undefined}
+                      </TableCell>
+                      <TableCell size="small" align="center" padding="checkbox">
+                        <IconButton
+                          size="small"
+                          onClick={() => {
+                            v.remove();
+                          }}
+                        >
+                          <DeleteForeverRounded />
+                        </IconButton>
+                      </TableCell>
                     </React.Fragment>
                   );
 
