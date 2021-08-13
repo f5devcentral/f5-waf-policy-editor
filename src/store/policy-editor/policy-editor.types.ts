@@ -15,6 +15,7 @@ export enum PolicyEditorPageEnum {
   OpenAPI,
   Evasions,
   HttpProtocols,
+  ServerTechnologies,
 }
 
 export type PolicyEditorState = {

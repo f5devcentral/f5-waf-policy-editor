@@ -4,6 +4,7 @@ import {
   HTTPProtocol,
   HTTPProtocolDescription,
   OpenAPIFile,
+  ServerTechnology,
 } from "./policy-schema/policy.definitions";
 
 export const defaultGeneralSettings = () => ({
@@ -99,3 +100,11 @@ export const defaultHttpProtocols: () => HTTPProtocol = () => ({
   maxHeaders: 1,
   maxParams: 1,
 });
+
+export const defaultServerTechnologies: (
+  serverTechnologyName: string
+) => ServerTechnology = (serverTechnologyName) => {
+  return {
+    serverTechnologyName,
+  } as ServerTechnology;
+};

@@ -82,6 +82,14 @@ export const TabsTree: PolicyEditorPageInfo[] = [
     id: PolicyEditorPageEnum.HttpProtocols,
   },
   {
+    label: createLabel(
+      false,
+      "Server Technologies",
+      <IconLock {...iconProps} />
+    ),
+    id: PolicyEditorPageEnum.ServerTechnologies,
+  },
+  {
     label: createLabel(false, "Signatures", <IconSignatures {...iconProps} />),
     id: PolicyEditorPageEnum.Signatures,
     disabled: true,

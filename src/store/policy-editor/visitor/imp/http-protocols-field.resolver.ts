@@ -39,8 +39,13 @@ export class HttpProtocolsFieldResolver
 
         if (
           currentJson.policy["blocking-settings"]["http-protocols"].length === 0
-        )
+        ) {
           delete currentJson.policy["blocking-settings"]["http-protocols"];
+        }
+
+        if (Object.keys(currentJson.policy["blocking-settings"]).length === 0) {
+          delete currentJson.policy["blocking-settings"];
+        }
       })
     );
   }

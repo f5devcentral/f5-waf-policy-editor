@@ -39,6 +39,9 @@ export class EvasionsFieldResolver
 
         if (currentJson.policy["blocking-settings"].evasions.length === 0)
           delete currentJson.policy["blocking-settings"].evasions;
+        if (Object.keys(currentJson.policy["blocking-settings"]).length === 0) {
+          delete currentJson.policy["blocking-settings"];
+        }
       })
     );
   }
