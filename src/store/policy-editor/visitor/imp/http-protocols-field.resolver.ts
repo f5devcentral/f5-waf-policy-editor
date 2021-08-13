@@ -6,10 +6,10 @@ import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
 import { set as _set } from "lodash";
 import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
-import { EvasionDescription } from "../../../../model/policy-schema/policy.definitions";
+import { HTTPProtocolDescription } from "../../../../model/policy-schema/policy.definitions";
 import { NumberEditFieldControl } from "../../../../component/policy-editor/controls/field-control/number-edit.field-control";
 
-export class EvasionsFieldResolver
+export class HttpProtocolsFieldResolver
   extends BaseVisitor
   implements FieldResolverVisitor
 {
@@ -32,19 +32,21 @@ export class EvasionsFieldResolver
   remove(): void {
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
-        currentJson.policy["blocking-settings"].evasions.splice(
+        currentJson.policy["blocking-settings"]["http-protocols"].splice(
           this.rowIndex,
           1
         );
 
-        if (currentJson.policy["blocking-settings"].evasions.length === 0)
-          delete currentJson.policy["blocking-settings"].evasions;
+        if (
+          currentJson.policy["blocking-settings"]["http-protocols"].length === 0
+        )
+          delete currentJson.policy["blocking-settings"]["http-protocols"];
       })
     );
   }
 
   getBasicRows(): GridFieldValue[] {
-    const path = `blocking-settings.evasions[${this.rowIndex}]`;
+    const path = `blocking-settings.http-protocols[${this.rowIndex}]`;
 
     return [
       {
@@ -59,7 +61,7 @@ export class EvasionsFieldResolver
               })
             );
           },
-          Object.values(EvasionDescription)
+          Object.values(HTTPProtocolDescription)
         ),
       },
       {
@@ -85,18 +87,30 @@ export class EvasionsFieldResolver
         }),
       },
       {
-        title: "Max Decoding Passes",
-        errorPath: [`instance.${path}.maxDecodingPasses`],
+        title: "Max Headers",
+        errorPath: [`instance.${path}.maxHeaders`],
         controlInfo: new NumberEditFieldControl(
-          this.json.maxDecodingPasses,
+          this.json.maxHeaders,
           (value) => {
             this.dispatch(
               policyEditorJsonVisit((currentJson) => {
-                _set(
-                  currentJson,
-                  `policy.${path}.maxDecodingPasses`,
-                  parseInt(value)
-                );
+                _set(currentJson, `policy.${path}.maxHeaders`, parseInt(value));
+              })
+            );
+          },
+          {},
+          { variant: "outlined", size: "small" }
+        ),
+      },
+      {
+        title: "Max Params",
+        errorPath: [`instance.${path}.maxParams`],
+        controlInfo: new NumberEditFieldControl(
+          this.json.maxParams,
+          (value) => {
+            this.dispatch(
+              policyEditorJsonVisit((currentJson) => {
+                _set(currentJson, `policy.${path}.maxParams`, parseInt(value));
               })
             );
           },

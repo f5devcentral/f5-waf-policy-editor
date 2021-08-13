@@ -14,6 +14,7 @@ export enum PolicyEditorPageEnum {
   BotDefense,
   OpenAPI,
   Evasions,
+  HttpProtocols,
 }
 
 export type PolicyEditorState = {

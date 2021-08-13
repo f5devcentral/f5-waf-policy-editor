@@ -10,6 +10,7 @@ import { HeadersPage } from "../pages/headers.page";
 import { ParametersPage } from "../pages/parameters.page";
 import { OpenApiPage } from "../pages/open-api.page";
 import { EvasionsPage } from "../pages/evasions.page";
+import { HttpProtocolsPage } from "../pages/http-protocols.page";
 
 export class PolicyEditorPageFactory {
   constructor(
@@ -23,6 +24,7 @@ export class PolicyEditorPageFactory {
       [PolicyEditorPageEnum.Parameters]: <ParametersPage />,
       [PolicyEditorPageEnum.OpenAPI]: <OpenApiPage />,
       [PolicyEditorPageEnum.Evasions]: <EvasionsPage />,
+      [PolicyEditorPageEnum.HttpProtocols]: <HttpProtocolsPage />,
     }
   ) {}
 

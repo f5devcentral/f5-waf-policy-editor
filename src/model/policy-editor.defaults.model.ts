@@ -1,6 +1,8 @@
 import {
   Evasion,
   EvasionDescription,
+  HTTPProtocol,
+  HTTPProtocolDescription,
   OpenAPIFile,
 } from "./policy-schema/policy.definitions";
 
@@ -88,4 +90,12 @@ export const defaultEvasions: () => Evasion = () => ({
   enabled: true,
   learn: true,
   maxDecodingPasses: 2,
+});
+
+export const defaultHttpProtocols: () => HTTPProtocol = () => ({
+  description: "" as HTTPProtocolDescription,
+  enabled: true,
+  learn: true,
+  maxHeaders: 1,
+  maxParams: 1,
 });
