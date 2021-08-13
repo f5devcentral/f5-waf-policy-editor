@@ -3,7 +3,7 @@ import { FieldFactoryVisitor } from "../interface/field-factory.visitor";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
 
 import { get as _get, set as _set } from "lodash";
-import { OpenAPIFile } from "../../../../model/policy-schema/policy";
+import { OpenAPIFile } from "../../../../model/policy-schema/policy.definitions";
 import { defaultOpenApi } from "../../../../model/policy-editor.defaults.model";
 
 export class OpenApiFieldFactory

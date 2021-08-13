@@ -74,6 +74,10 @@ export const TabsTree: PolicyEditorPageInfo[] = [
     id: PolicyEditorPageEnum.OpenAPI,
   },
   {
+    label: createLabel(false, "Evasions", <IconLock {...iconProps} />),
+    id: PolicyEditorPageEnum.Evasions,
+  },
+  {
     label: createLabel(false, "Signatures", <IconSignatures {...iconProps} />),
     id: PolicyEditorPageEnum.Signatures,
     disabled: true,

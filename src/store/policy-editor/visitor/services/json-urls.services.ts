@@ -1,4 +1,4 @@
-import { Policy } from "../../../../model/policy-schema/policy";
+import { Policy } from "../../../../model/policy-schema/policy.definitions";
 import move from "lodash-move";
 
 export class JsonUrlsServices {

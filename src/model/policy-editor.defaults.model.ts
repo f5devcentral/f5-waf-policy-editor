@@ -1,4 +1,8 @@
-import { OpenAPIFile } from "./policy-schema/policy";
+import {
+  Evasion,
+  EvasionDescription,
+  OpenAPIFile,
+} from "./policy-schema/policy.definitions";
 
 export const defaultGeneralSettings = () => ({
   policy: {
@@ -77,4 +81,11 @@ export const defaultParameters = () => ({
 
 export const defaultOpenApi: () => OpenAPIFile = () => ({
   link: "",
+});
+
+export const defaultEvasions: () => Evasion = () => ({
+  description: "" as EvasionDescription,
+  enabled: true,
+  learn: true,
+  maxDecodingPasses: 2,
 });

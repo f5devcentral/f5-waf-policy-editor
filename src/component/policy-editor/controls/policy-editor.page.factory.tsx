@@ -9,6 +9,7 @@ import { FileTypesPage } from "../pages/file-types.page";
 import { HeadersPage } from "../pages/headers.page";
 import { ParametersPage } from "../pages/parameters.page";
 import { OpenApiPage } from "../pages/open-api.page";
+import { EvasionsPage } from "../pages/evasions.page";
 
 export class PolicyEditorPageFactory {
   constructor(
@@ -21,6 +22,7 @@ export class PolicyEditorPageFactory {
       [PolicyEditorPageEnum.Headers]: <HeadersPage />,
       [PolicyEditorPageEnum.Parameters]: <ParametersPage />,
       [PolicyEditorPageEnum.OpenAPI]: <OpenApiPage />,
+      [PolicyEditorPageEnum.Evasions]: <EvasionsPage />,
     }
   ) {}
 
