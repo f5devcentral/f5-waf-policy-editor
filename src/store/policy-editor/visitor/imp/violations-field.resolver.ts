@@ -9,7 +9,7 @@ import { CheckboxFieldControl } from "../../../../component/policy-editor/contro
 import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
 import { ViolationsNginxConst } from "../../../../model/nginx-const/violations.nginx-const";
 
-export class BlockingSettingsFieldResolver
+export class ViolationsFieldResolver
   extends BaseVisitor
   implements FieldResolverVisitor
 {

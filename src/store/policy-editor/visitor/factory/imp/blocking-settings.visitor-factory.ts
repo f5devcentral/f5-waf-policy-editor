@@ -1,8 +1,8 @@
 import { FieldResolverVisitor } from "../../interface/field-resolver.visitor";
 import { BaseFieldResolverVisitorFactory } from "../interface/base.field-resolver-visitor-factory";
-import { BlockingSettingsFieldResolver } from "../../imp/blocking-settings-field.resolver";
 
 import { get as _get } from "lodash";
+import { ViolationsFieldResolver } from "../../imp/violations-field.resolver";
 
 export class BlockingSettingsVisitorFactory extends BaseFieldResolverVisitorFactory {
   getResolvers(): { titles: string[]; visitors: FieldResolverVisitor[] } {
@@ -17,7 +17,7 @@ export class BlockingSettingsVisitorFactory extends BaseFieldResolverVisitorFact
     const visitors: FieldResolverVisitor[] = this.json.policy[
       "blocking-settings"
     ].violations.map((s: any, index: number) => {
-      return new BlockingSettingsFieldResolver(index, this.dispatch, s);
+      return new ViolationsFieldResolver(index, this.dispatch, s);
     });
 
     return {

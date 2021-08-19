@@ -10,7 +10,7 @@ export type BlockingSettingsFieldCreateProps = {
   block: boolean;
 };
 
-export class BlockingSettingsFieldFactory
+export class ViolationsFieldFactory
   extends BaseVisitor
   implements FieldFactoryVisitor<BlockingSettingsFieldCreateProps>
 {

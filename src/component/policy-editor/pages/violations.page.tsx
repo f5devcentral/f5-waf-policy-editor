@@ -3,7 +3,6 @@ import { useStyles } from "../../../utils/styles.hook";
 import Box from "@material-ui/core/Box";
 import { GridTableValueControl } from "../controls/grid.table-value.control";
 import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.visitor";
-import { BlockingSettingsFieldFactory } from "../../../store/policy-editor/visitor/imp/blocking-settings-field.factory";
 import { BlockingSettingsVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/blocking-settings.visitor-factory";
 
 import { Menu, MenuItem } from "@material-ui/core";
@@ -11,15 +10,16 @@ import Button from "@material-ui/core/Button";
 import { useState } from "react";
 import { ExpandMore } from "@material-ui/icons";
 import { ViolationsNginxConst } from "../../../model/nginx-const/violations.nginx-const";
+import { ViolationsFieldFactory } from "../../../store/policy-editor/visitor/imp/violations-field.factory";
 
-export const BlockingSettingsPage: React.VoidFunctionComponent = () => {
+export const ViolationsPage: React.VoidFunctionComponent = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const allViolations = ViolationsNginxConst.getAllViolations();
 
   const classes = useStyles();
 
-  const fieldFactoryVisitor = useVisitor(BlockingSettingsFieldFactory);
+  const fieldFactoryVisitor = useVisitor(ViolationsFieldFactory);
   const blockingSettingsVisitorFactory = useVisitor(
     BlockingSettingsVisitorFactory
   );
