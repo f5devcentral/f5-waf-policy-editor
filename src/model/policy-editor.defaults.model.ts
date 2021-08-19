@@ -4,6 +4,7 @@ import {
   HTTPProtocol,
   HTTPProtocolDescription,
   OpenAPIFile,
+  PolicySignature,
   ServerTechnology,
   SignatureSet,
 } from "./policy-schema/policy.definitions";
@@ -113,5 +114,14 @@ export const defaultSignatureSets: () => SignatureSet = () => {
     alarm: true,
     block: true,
     name: "",
+  };
+};
+
+export const defaultSignatures: () => PolicySignature = () => {
+  return {
+    enabled: true,
+    name: "",
+    signatureId: 0,
+    tag: "",
   };
 };

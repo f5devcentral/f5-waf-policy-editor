@@ -11,6 +11,7 @@ export enum PolicyEditorPageEnum {
   Headers,
   Parameters,
   Signatures,
+  SignaturesSets,
   BotDefense,
   OpenAPI,
   Evasions,

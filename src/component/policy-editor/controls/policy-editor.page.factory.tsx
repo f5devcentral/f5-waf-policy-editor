@@ -13,6 +13,7 @@ import { EvasionsPage } from "../pages/evasions.page";
 import { HttpProtocolsPage } from "../pages/http-protocols.page";
 import { ServerTechnologiesPage } from "../pages/server-technologies.page";
 import { SignatureSetsPage } from "../pages/signature-sets.page";
+import { SignaturesPage } from "../pages/signatures.page";
 
 export class PolicyEditorPageFactory {
   constructor(
@@ -28,7 +29,8 @@ export class PolicyEditorPageFactory {
       [PolicyEditorPageEnum.Evasions]: <EvasionsPage />,
       [PolicyEditorPageEnum.HttpProtocols]: <HttpProtocolsPage />,
       [PolicyEditorPageEnum.ServerTechnologies]: <ServerTechnologiesPage />,
-      [PolicyEditorPageEnum.Signatures]: <SignatureSetsPage />,
+      [PolicyEditorPageEnum.SignaturesSets]: <SignatureSetsPage />,
+      [PolicyEditorPageEnum.Signatures]: <SignaturesPage />,
     }
   ) {}
 

@@ -90,6 +90,14 @@ export const TabsTree: PolicyEditorPageInfo[] = [
     id: PolicyEditorPageEnum.ServerTechnologies,
   },
   {
+    label: createLabel(
+      false,
+      "Signature Sets",
+      <IconSignatures {...iconProps} />
+    ),
+    id: PolicyEditorPageEnum.SignaturesSets,
+  },
+  {
     label: createLabel(false, "Signatures", <IconSignatures {...iconProps} />),
     id: PolicyEditorPageEnum.Signatures,
   },
