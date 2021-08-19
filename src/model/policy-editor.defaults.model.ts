@@ -5,6 +5,7 @@ import {
   HTTPProtocolDescription,
   OpenAPIFile,
   ServerTechnology,
+  SignatureSet,
 } from "./policy-schema/policy.definitions";
 
 export const defaultGeneralSettings = () => ({
@@ -105,4 +106,12 @@ export const defaultServerTechnologies: (
   return {
     serverTechnologyName,
   } as ServerTechnology;
+};
+
+export const defaultSignatureSets: () => SignatureSet = () => {
+  return {
+    alarm: true,
+    block: true,
+    name: "",
+  };
 };

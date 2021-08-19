@@ -92,7 +92,6 @@ export const TabsTree: PolicyEditorPageInfo[] = [
   {
     label: createLabel(false, "Signatures", <IconSignatures {...iconProps} />),
     id: PolicyEditorPageEnum.Signatures,
-    disabled: true,
   },
   {
     label: createLabel(false, "Bot Defense", <IconBotDefense {...iconProps} />),
