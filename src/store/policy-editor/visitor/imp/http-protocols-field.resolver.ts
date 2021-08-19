@@ -81,17 +81,6 @@ export class HttpProtocolsFieldResolver
         }),
       },
       {
-        title: "Learn",
-        errorPath: [`instance.${path}.learn`],
-        controlInfo: new CheckboxFieldControl(this.json.enabled, (value) => {
-          this.dispatch(
-            policyEditorJsonVisit((currentJson) => {
-              _set(currentJson, `policy.${path}.learn`, value);
-            })
-          );
-        }),
-      },
-      {
         title: "Max Headers",
         errorPath: [`instance.${path}.maxHeaders`],
         controlInfo: new NumberEditFieldControl(

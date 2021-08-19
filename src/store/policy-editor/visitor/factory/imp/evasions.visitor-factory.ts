@@ -6,7 +6,7 @@ import { EvasionsFieldResolver } from "../../imp/evasions-field.resolver";
 
 export class EvasionsVisitorFactory extends BaseFieldResolverVisitorFactory {
   getResolvers(): { titles: string[]; visitors: FieldResolverVisitor[] } {
-    const titles = ["Description", "Enabled", "Learn", "Max Decoding Passes"];
+    const titles = ["Description", "Enabled", "Max Decoding Passes"];
 
     if (_get(this.json, "policy.blocking-settings.evasions") === undefined)
       return { titles: [], visitors: [] };

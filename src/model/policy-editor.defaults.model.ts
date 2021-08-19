@@ -89,14 +89,12 @@ export const defaultOpenApi: () => OpenAPIFile = () => ({
 export const defaultEvasions: () => Evasion = () => ({
   description: "" as EvasionDescription,
   enabled: true,
-  learn: true,
   maxDecodingPasses: 2,
 });
 
 export const defaultHttpProtocols: () => HTTPProtocol = () => ({
   description: "" as HTTPProtocolDescription,
   enabled: true,
-  learn: true,
   maxHeaders: 1,
   maxParams: 1,
 });

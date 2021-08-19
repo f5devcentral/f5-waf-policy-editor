@@ -6,13 +6,7 @@ import { HttpProtocolsFieldResolver } from "../../imp/http-protocols-field.resol
 
 export class HttpProtocolsVisitorFactory extends BaseFieldResolverVisitorFactory {
   getResolvers(): { titles: string[]; visitors: FieldResolverVisitor[] } {
-    const titles = [
-      "Description",
-      "Enabled",
-      "Learn",
-      "Max Headers",
-      "Max Params",
-    ];
+    const titles = ["Description", "Enabled", "Max Headers", "Max Params"];
 
     if (
       _get(this.json, "policy.blocking-settings.http-protocols") === undefined

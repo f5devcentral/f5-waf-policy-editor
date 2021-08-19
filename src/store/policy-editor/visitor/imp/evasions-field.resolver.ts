@@ -77,17 +77,6 @@ export class EvasionsFieldResolver
         }),
       },
       {
-        title: "Learn",
-        errorPath: [`instance.${path}.learn`],
-        controlInfo: new CheckboxFieldControl(this.json.enabled, (value) => {
-          this.dispatch(
-            policyEditorJsonVisit((currentJson) => {
-              _set(currentJson, `policy.${path}.learn`, value);
-            })
-          );
-        }),
-      },
-      {
         title: "Max Decoding Passes",
         errorPath: [`instance.${path}.maxDecodingPasses`],
         controlInfo: new NumberEditFieldControl(
