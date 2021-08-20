@@ -20,13 +20,20 @@ import { TabsTree } from "../model/policy-editor.tabs.model";
 export class PolicyEditorPageFactory {
   constructor(
     private pages: { [key: number]: JSX.Element } = {
-      [PolicyEditorPageEnum.GeneralSettings]: <GeneralSettingsPage />,
       [PolicyEditorPageEnum.BlockingSettings]: (
         <AdditionalTabsPage
           tree={TabsTree}
           id={PolicyEditorPageEnum.BlockingSettings}
         />
       ),
+      [PolicyEditorPageEnum.Signatures]: (
+        <AdditionalTabsPage
+          tree={TabsTree}
+          id={PolicyEditorPageEnum.Signatures}
+        />
+      ),
+      // -----------------------------------------------------------------
+      [PolicyEditorPageEnum.GeneralSettings]: <GeneralSettingsPage />,
       [PolicyEditorPageEnum.Violations]: <ViolationsPage />,
       [PolicyEditorPageEnum.Methods]: <MethodsPage />,
       [PolicyEditorPageEnum.URLs]: <UrlsPage />,
@@ -37,12 +44,6 @@ export class PolicyEditorPageFactory {
       [PolicyEditorPageEnum.Evasions]: <EvasionsPage />,
       [PolicyEditorPageEnum.HttpProtocols]: <HttpProtocolsPage />,
       [PolicyEditorPageEnum.ServerTechnologies]: <ServerTechnologiesPage />,
-      [PolicyEditorPageEnum.Signatures]: (
-        <AdditionalTabsPage
-          tree={TabsTree}
-          id={PolicyEditorPageEnum.Signatures}
-        />
-      ),
       [PolicyEditorPageEnum.SignaturesSets]: <SignatureSetsPage />,
       [PolicyEditorPageEnum.SignaturesPolicy]: <SignaturesPage />,
     }
