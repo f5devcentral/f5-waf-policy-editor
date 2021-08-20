@@ -25,7 +25,7 @@ export const GridFieldValueControl: React.FunctionComponent<GridFieldValueProps>
                 ? row.errorPath.find((err) => err === x.property)
                 : false
             );
-            const hasError = error.length;
+            const hasError: boolean = error && error.length > 0;
 
             const startAdornment = hasError ? (
               <ErrorFieldControlAdornment errorMessage={error[0].message} />

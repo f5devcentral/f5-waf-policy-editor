@@ -14,12 +14,20 @@ import { ServerTechnologiesPage } from "../pages/server-technologies.page";
 import { SignatureSetsPage } from "../pages/signature-sets.page";
 import { SignaturesPage } from "../pages/signatures.page";
 import { ViolationsPage } from "../pages/violations.page";
+import { AdditionalTabsPage } from "../pages/additional-tabs.page";
+import { TabsTree } from "../model/policy-editor.tabs.model";
 
 export class PolicyEditorPageFactory {
   constructor(
     private pages: { [key: number]: JSX.Element } = {
       [PolicyEditorPageEnum.GeneralSettings]: <GeneralSettingsPage />,
-      [PolicyEditorPageEnum.BlockingSettings]: <ViolationsPage />,
+      [PolicyEditorPageEnum.BlockingSettings]: (
+        <AdditionalTabsPage
+          tree={TabsTree}
+          id={PolicyEditorPageEnum.BlockingSettings}
+        />
+      ),
+      [PolicyEditorPageEnum.Violations]: <ViolationsPage />,
       [PolicyEditorPageEnum.Methods]: <MethodsPage />,
       [PolicyEditorPageEnum.URLs]: <UrlsPage />,
       [PolicyEditorPageEnum.Filetypes]: <FileTypesPage />,
@@ -29,8 +37,14 @@ export class PolicyEditorPageFactory {
       [PolicyEditorPageEnum.Evasions]: <EvasionsPage />,
       [PolicyEditorPageEnum.HttpProtocols]: <HttpProtocolsPage />,
       [PolicyEditorPageEnum.ServerTechnologies]: <ServerTechnologiesPage />,
+      [PolicyEditorPageEnum.Signatures]: (
+        <AdditionalTabsPage
+          tree={TabsTree}
+          id={PolicyEditorPageEnum.Signatures}
+        />
+      ),
       [PolicyEditorPageEnum.SignaturesSets]: <SignatureSetsPage />,
-      [PolicyEditorPageEnum.Signatures]: <SignaturesPage />,
+      [PolicyEditorPageEnum.SignaturesPolicy]: <SignaturesPage />,
     }
   ) {}
 

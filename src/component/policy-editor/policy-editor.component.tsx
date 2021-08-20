@@ -96,15 +96,16 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
         variant="scrollable"
         scrollButtons="auto"
         value={currentTab}
-        onChange={(_, tab) => {
-          dispatch(policyEditorPageSet(tab, TabsTree[tab].id));
-        }}
+        onChange={(e, tab) =>
+          dispatch(policyEditorPageSet(tab, TabsTree[tab].id))
+        }
       >
-        {TabsTree.map(({ label, id, disabled }) => (
-          <EditorTabControl label={label} key={id} disabled={disabled} />
-        ))}
+        {TabsTree.map(({ label, id, disabled }) => {
+          return (
+            <EditorTabControl label={label} key={id} disabled={disabled} />
+          );
+        })}
       </EditorTabsControl>
-
       <Grid container spacing={1}>
         <Grid container item spacing={1} xs={12}>
           <Grid container item spacing={1} xs={2} />

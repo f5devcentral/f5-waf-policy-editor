@@ -30,6 +30,7 @@ export type PolicyEditorPageInfo = {
   label: JSX.Element;
   id: PolicyEditorPageEnum;
   disabled?: boolean;
+  subPages?: PolicyEditorPageInfo[];
 };
 
 const iconProps = {
@@ -46,8 +47,22 @@ export const TabsTree: PolicyEditorPageInfo[] = [
     id: PolicyEditorPageEnum.GeneralSettings,
   },
   {
-    label: createLabel(false, "Blocking Settings", <IconLock {...iconProps} />),
+    label: createLabel(true, "Blocking Settings", <IconLock {...iconProps} />),
     id: PolicyEditorPageEnum.BlockingSettings,
+    subPages: [
+      {
+        id: PolicyEditorPageEnum.Violations,
+        label: createLabel(false, "Violations", undefined),
+      },
+      {
+        id: PolicyEditorPageEnum.Evasions,
+        label: createLabel(false, "Evasions", undefined),
+      },
+      {
+        id: PolicyEditorPageEnum.HttpProtocols,
+        label: createLabel(false, "Http Protocols", undefined),
+      },
+    ],
   },
   {
     label: createLabel(false, "Methods", <IconMethods {...iconProps} />),
@@ -74,14 +89,6 @@ export const TabsTree: PolicyEditorPageInfo[] = [
     id: PolicyEditorPageEnum.OpenAPI,
   },
   {
-    label: createLabel(false, "Evasions", <IconLock {...iconProps} />),
-    id: PolicyEditorPageEnum.Evasions,
-  },
-  {
-    label: createLabel(false, "HTTP Compliance", <IconLock {...iconProps} />),
-    id: PolicyEditorPageEnum.HttpProtocols,
-  },
-  {
     label: createLabel(
       false,
       "Server Technologies",
@@ -90,16 +97,26 @@ export const TabsTree: PolicyEditorPageInfo[] = [
     id: PolicyEditorPageEnum.ServerTechnologies,
   },
   {
-    label: createLabel(
-      false,
-      "Signature Sets",
-      <IconSignatures {...iconProps} />
-    ),
-    id: PolicyEditorPageEnum.SignaturesSets,
-  },
-  {
-    label: createLabel(false, "Signatures", <IconSignatures {...iconProps} />),
+    label: createLabel(true, "Signatures", <IconSignatures {...iconProps} />),
     id: PolicyEditorPageEnum.Signatures,
+    subPages: [
+      {
+        label: createLabel(
+          false,
+          "Signature Sets",
+          <IconSignatures {...iconProps} />
+        ),
+        id: PolicyEditorPageEnum.SignaturesSets,
+      },
+      {
+        label: createLabel(
+          false,
+          "Signatures",
+          <IconSignatures {...iconProps} />
+        ),
+        id: PolicyEditorPageEnum.SignaturesPolicy,
+      },
+    ],
   },
   {
     label: createLabel(false, "Bot Defense", <IconBotDefense {...iconProps} />),

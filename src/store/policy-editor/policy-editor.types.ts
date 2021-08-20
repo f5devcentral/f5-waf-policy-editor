@@ -12,11 +12,13 @@ export enum PolicyEditorPageEnum {
   Parameters,
   Signatures,
   SignaturesSets,
+  SignaturesPolicy,
   BotDefense,
   OpenAPI,
   Evasions,
   HttpProtocols,
   ServerTechnologies,
+  Violations,
 }
 
 export type PolicyEditorState = {
