@@ -213,7 +213,7 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                             ? item.errorPath.find((err) => err === x.property)
                             : false
                         );
-                        const hasError = error && error.length > 0;
+                        const hasError: boolean = error && error.length > 0;
                         const startAdornment = hasError ? (
                           <ErrorFieldControlAdornment
                             errorMessage={error[0].message}
@@ -224,6 +224,9 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                           item.controlInfo.createControl({
                             key: `control_${index}`,
                             error: hasError,
+                            fullWidth: true,
+                            hiddenLabel: true,
+                            margin: "dense",
                             startAdornment: hasError
                               ? startAdornment
                               : undefined,

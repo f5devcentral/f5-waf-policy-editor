@@ -2,8 +2,9 @@ import * as React from "react";
 
 import { TableCell } from "@material-ui/core";
 import { IControlInfo } from "../control-info.interface";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import TextField from "@material-ui/core/TextField";
+import Box from "@material-ui/core/Box";
 
 export class DropListFieldControl implements IControlInfo {
   constructor(
@@ -22,20 +23,20 @@ export class DropListFieldControl implements IControlInfo {
 
   createControl(props: any): JSX.Element {
     return (
-      <Select
-        style={{
-          width: "100%",
-        }}
-        value={this.currentValue}
-        onChange={(e) => this.onValueChange(e.target.value as string)}
-        {...props}
-      >
-        {this.items.map((x, index) => (
-          <MenuItem key={index} value={x}>
-            {x}
-          </MenuItem>
-        ))}
-      </Select>
+      <Box>
+        <Autocomplete
+          value={this.currentValue}
+          onChange={(e, value) => this.onValueChange(value as string)}
+          options={this.items}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              InputProps={{ ...params.InputProps, ...props }}
+              variant="outlined"
+            />
+          )}
+        />
+      </Box>
     );
   }
 }
