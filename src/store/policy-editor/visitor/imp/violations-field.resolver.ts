@@ -8,6 +8,7 @@ import { LabelFieldControl } from "../../../../component/policy-editor/controls/
 import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
 import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
 import { ViolationsNginxConst } from "../../../../model/nginx-const/violations.nginx-const";
+import { ViolationsFieldFactory } from "./violations-field.factory";
 
 export class ViolationsFieldResolver
   extends BaseVisitor
@@ -45,6 +46,8 @@ export class ViolationsFieldResolver
   }
 
   getBasicRows(): GridFieldValue[] {
+    const fieldFactory = new ViolationsFieldFactory(this.dispatch, this.json);
+
     return [
       {
         title: "",
@@ -60,15 +63,21 @@ export class ViolationsFieldResolver
           `instance.blocking-settings.violations[${this.rowIndex}].alarm`,
         ],
         controlInfo: new CheckboxFieldControl(this.json.alarm, (text) => {
-          this.dispatch(
-            policyEditorJsonVisit((currentJson) => {
-              _set(
-                currentJson,
-                `policy.blocking-settings.violations[${this.rowIndex}].alarm`,
-                text
+          this.rowIndex === -1
+            ? fieldFactory.create({
+                alarm: !this.json.alarm,
+                block: this.json.block,
+                name: this.json.name,
+              })
+            : this.dispatch(
+                policyEditorJsonVisit((currentJson) => {
+                  _set(
+                    currentJson,
+                    `policy.blocking-settings.violations[${this.rowIndex}].alarm`,
+                    text
+                  );
+                })
               );
-            })
-          );
         }),
         title: "",
       },
@@ -78,15 +87,21 @@ export class ViolationsFieldResolver
           `instance.blocking-settings.violations[${this.rowIndex}].block`,
         ],
         controlInfo: new CheckboxFieldControl(this.json.block, (text) => {
-          this.dispatch(
-            policyEditorJsonVisit((currentJson) => {
-              _set(
-                currentJson,
-                `policy.blocking-settings.violations[${this.rowIndex}].block`,
-                text
+          this.rowIndex === -1
+            ? fieldFactory.create({
+                alarm: this.json.alarm,
+                block: !this.json.block,
+                name: this.json.name,
+              })
+            : this.dispatch(
+                policyEditorJsonVisit((currentJson) => {
+                  _set(
+                    currentJson,
+                    `policy.blocking-settings.violations[${this.rowIndex}].block`,
+                    text
+                  );
+                })
               );
-            })
-          );
         }),
       },
     ];
