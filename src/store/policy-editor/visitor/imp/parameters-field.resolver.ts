@@ -20,6 +20,10 @@ export class ParametersFieldResolver
     super(dispatch, json);
   }
 
+  key(): string {
+    return "";
+  }
+
   get hasAdvancedRows(): boolean {
     return true;
   }

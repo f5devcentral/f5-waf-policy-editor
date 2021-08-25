@@ -3,7 +3,6 @@ import { useStyles } from "../../../utils/styles.hook";
 import Box from "@material-ui/core/Box";
 import { GridTableValueControl } from "../controls/grid.table-value.control";
 import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.visitor";
-import { BlockingSettingsVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/blocking-settings.visitor-factory";
 
 import Button from "@material-ui/core/Button";
 import { useState } from "react";
@@ -11,6 +10,11 @@ import { ExpandMore } from "@material-ui/icons";
 import { ViolationsNginxConst } from "../../../model/nginx-const/violations.nginx-const";
 import { ViolationsFieldFactory } from "../../../store/policy-editor/visitor/imp/violations-field.factory";
 import { MenuSearchPopupControl } from "../controls/menu-search-popup.control";
+import { Divider } from "@material-ui/core";
+import { ViolationsVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/violations.visitor-factory";
+import Fade from "@material-ui/core/Fade";
+import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
+import { stringCompare } from "../../../utils/string-compare.util";
 
 export const ViolationsPage: React.VoidFunctionComponent = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -20,11 +24,15 @@ export const ViolationsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
 
   const fieldFactoryVisitor = useVisitor(ViolationsFieldFactory);
-  const blockingSettingsVisitorFactory = useVisitor(
-    BlockingSettingsVisitorFactory
-  );
+  const blockingSettingsVisitorFactory = useVisitor(ViolationsVisitorFactory);
 
-  const { titles, visitors } = blockingSettingsVisitorFactory.getResolvers();
+  const { showDefaultPolicy } = usePolicyEditorState();
+
+  const {
+    titles,
+    visitors,
+    default: defValues,
+  } = blockingSettingsVisitorFactory.getResolvers();
 
   function handleSelect(item: string) {
     const v = allViolations.find((x) => x.title === item);
@@ -60,7 +68,13 @@ export const ViolationsPage: React.VoidFunctionComponent = () => {
         />
       </Box>
       <Box>
-        <GridTableValueControl titles={titles} visitors={visitors} />
+        <GridTableValueControl
+          titles={titles}
+          visitors={(showDefaultPolicy
+            ? [...visitors, ...defValues]
+            : visitors
+          ).sort((a, b) => stringCompare(a.key(), b.key()))}
+        />
       </Box>
     </Box>
   );

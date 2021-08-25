@@ -4,13 +4,18 @@ import { FieldResolverVisitor } from "../../interface/field-resolver.visitor";
 import { OpenApiFieldResolver } from "../../imp/open-api-field.resolver";
 
 export class OpenApiVisitorFactory extends BaseFieldResolverVisitorFactory {
-  getResolvers(): { titles: string[]; visitors: FieldResolverVisitor[] } {
+  getResolvers(): {
+    titles: string[];
+    visitors: FieldResolverVisitor[];
+    default: FieldResolverVisitor[];
+  } {
     const titles = ["Link"];
 
     if (_get(this.json, "policy.open-api-files") === undefined) {
       return {
         titles: [],
         visitors: [] as FieldResolverVisitor[],
+        default: [] as FieldResolverVisitor[],
       };
     }
 
@@ -23,6 +28,7 @@ export class OpenApiVisitorFactory extends BaseFieldResolverVisitorFactory {
     return {
       titles,
       visitors,
+      default: [] as FieldResolverVisitor[],
     };
   }
 }

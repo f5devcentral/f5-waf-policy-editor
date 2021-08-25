@@ -21,6 +21,10 @@ export class HttpProtocolsFieldResolver
     super(dispatch, json);
   }
 
+  key(): string {
+    return "";
+  }
+
   get hasAdvancedRows(): boolean {
     return false;
   }

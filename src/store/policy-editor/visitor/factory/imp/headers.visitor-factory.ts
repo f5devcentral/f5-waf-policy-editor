@@ -4,13 +4,18 @@ import { FieldResolverVisitor } from "../../interface/field-resolver.visitor";
 import { HeadersFieldResolver } from "../../imp/headers-field.resolver";
 
 export class HeadersVisitorFactory extends BaseFieldResolverVisitorFactory {
-  getResolvers(): { titles: string[]; visitors: FieldResolverVisitor[] } {
+  getResolvers(): {
+    titles: string[];
+    visitors: FieldResolverVisitor[];
+    default: FieldResolverVisitor[];
+  } {
     const titles = ["Name", "Type"];
 
     if (_get(this.json, "policy.headers") === undefined) {
       return {
         titles: [],
         visitors: [] as FieldResolverVisitor[],
+        default: [] as FieldResolverVisitor[],
       };
     }
 
@@ -23,6 +28,7 @@ export class HeadersVisitorFactory extends BaseFieldResolverVisitorFactory {
     return {
       titles,
       visitors,
+      default: [] as FieldResolverVisitor[],
     };
   }
 }

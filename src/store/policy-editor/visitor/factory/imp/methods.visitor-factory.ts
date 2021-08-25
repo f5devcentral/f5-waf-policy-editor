@@ -5,13 +5,18 @@ import { get as _get } from "lodash";
 import { MethodsFieldResolver } from "../../imp/methods-field.resolver";
 
 export class MethodsVisitorFactory extends BaseFieldResolverVisitorFactory {
-  getResolvers(): { titles: string[]; visitors: FieldResolverVisitor[] } {
+  getResolvers(): {
+    titles: string[];
+    visitors: FieldResolverVisitor[];
+    default: FieldResolverVisitor[];
+  } {
     const titles = ["Method Name"];
 
     if (_get(this.json, "policy.methods") === undefined) {
       return {
         titles: [],
         visitors: [] as FieldResolverVisitor[],
+        default: [] as FieldResolverVisitor[],
       };
     }
 
@@ -24,6 +29,7 @@ export class MethodsVisitorFactory extends BaseFieldResolverVisitorFactory {
     return {
       titles,
       visitors,
+      default: [] as FieldResolverVisitor[],
     };
   }
 }

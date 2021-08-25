@@ -4,13 +4,18 @@ import { FieldResolverVisitor } from "../../interface/field-resolver.visitor";
 import { ParametersFieldResolver } from "../../imp/parameters-field.resolver";
 
 export class ParametersVisitorFactory extends BaseFieldResolverVisitorFactory {
-  getResolvers(): { titles: string[]; visitors: FieldResolverVisitor[] } {
+  getResolvers(): {
+    titles: string[];
+    visitors: FieldResolverVisitor[];
+    default: FieldResolverVisitor[];
+  } {
     const titles = ["Name", "Type"];
 
     if (_get(this.json, "policy.parameters") === undefined) {
       return {
         titles: [],
         visitors: [] as FieldResolverVisitor[],
+        default: [] as FieldResolverVisitor[],
       };
     }
 
@@ -23,6 +28,7 @@ export class ParametersVisitorFactory extends BaseFieldResolverVisitorFactory {
     return {
       titles,
       visitors,
+      default: [] as FieldResolverVisitor[],
     };
   }
 }

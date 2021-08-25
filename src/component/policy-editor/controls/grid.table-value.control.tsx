@@ -146,8 +146,14 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
             onDragEnd && onDragEnd(result, provided)
           }
         >
-          <TableContainer component={Box}>
-            <Table>
+          <TableContainer
+            component={Box}
+            style={{
+              maxHeight: "400px",
+              overflow: "scroll",
+            }}
+          >
+            <Table stickyHeader>
               <TableHead>
                 <TableRow>
                   <StyledTableCell

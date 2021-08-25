@@ -4,11 +4,19 @@ import { get as _get } from "lodash";
 import { SignaturesFieldResolver } from "../../imp/signatures-field.resolver";
 
 export class SignaturesVisitorFactory extends BaseFieldResolverVisitorFactory {
-  getResolvers(): { titles: string[]; visitors: FieldResolverVisitor[] } {
+  getResolvers(): {
+    titles: string[];
+    visitors: FieldResolverVisitor[];
+    default: FieldResolverVisitor[];
+  } {
     const titles = ["Name", "Enabled", "Signature Id", "Tag"];
 
     if (_get(this.json, "policy.signatures") === undefined)
-      return { titles: [], visitors: [] };
+      return {
+        titles: [],
+        visitors: [],
+        default: [] as FieldResolverVisitor[],
+      };
 
     const visitors: FieldResolverVisitor[] = this.json.policy["signatures"].map(
       (e: any, index: number) => {
@@ -19,6 +27,7 @@ export class SignaturesVisitorFactory extends BaseFieldResolverVisitorFactory {
     return {
       titles,
       visitors,
+      default: [] as FieldResolverVisitor[],
     };
   }
 }

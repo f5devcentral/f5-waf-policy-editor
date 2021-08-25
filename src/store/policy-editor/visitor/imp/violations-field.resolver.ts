@@ -21,6 +21,10 @@ export class ViolationsFieldResolver
     super(dispatch, json);
   }
 
+  key(): string {
+    return this.json.description;
+  }
+
   get hasAdvancedRows(): boolean {
     return false;
   }

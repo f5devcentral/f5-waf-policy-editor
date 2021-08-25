@@ -4,13 +4,18 @@ import { FieldResolverVisitor } from "../../interface/field-resolver.visitor";
 import { UrlsFieldResolver } from "../../imp/urls-field.resolver";
 
 export class UrlsVisitorFactory extends BaseFieldResolverVisitorFactory {
-  getResolvers(): { titles: string[]; visitors: FieldResolverVisitor[] } {
+  getResolvers(): {
+    titles: string[];
+    visitors: FieldResolverVisitor[];
+    default: FieldResolverVisitor[];
+  } {
     const titles = ["Protocol", "Method", "Path"];
 
     if (_get(this.json, "policy.urls") === undefined) {
       return {
         titles: [],
         visitors: [] as FieldResolverVisitor[],
+        default: [] as FieldResolverVisitor[],
       };
     }
 
@@ -23,6 +28,7 @@ export class UrlsVisitorFactory extends BaseFieldResolverVisitorFactory {
     return {
       titles,
       visitors,
+      default: [] as FieldResolverVisitor[],
     };
   }
 }

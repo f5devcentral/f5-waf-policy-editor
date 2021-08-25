@@ -13,6 +13,10 @@ export class GeneralSettingsVisitor
   extends BaseVisitor
   implements FieldResolverVisitor, FieldFactoryVisitor<void>
 {
+  key(): string {
+    return "";
+  }
+
   get hasAdvancedRows(): boolean {
     return false;
   }

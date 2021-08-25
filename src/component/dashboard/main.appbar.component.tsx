@@ -8,10 +8,16 @@ import Typography from "@material-ui/core/Typography";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import GetApp from "@material-ui/icons/GetApp";
 import Share from "@material-ui/icons/Share";
-import { usePolicyEditorState } from "../../store/policy-editor/policy-editor.hooks";
+import {
+  usePolicyEditorDispatch,
+  usePolicyEditorState,
+} from "../../store/policy-editor/policy-editor.hooks";
 
 import { ReactComponent as IconCloudFormation } from "../../resources/toolbar/AWS-CloudFormation.svg";
 import { download } from "../../utils/download.util";
+import { Switch } from "@material-ui/core";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { policyEditorShowDefaultPolicySet } from "../../store/policy-editor/policy-editor.actions";
 
 export type MainAppbarProps = Readonly<{
   open: boolean;
@@ -23,7 +29,8 @@ export const MainAppbarComponent: React.FunctionComponent<MainAppbarProps> = ({
   onDrawerOpen,
 }) => {
   const classes = useStyles();
-  const { strCurrentPolicy } = usePolicyEditorState();
+  const { strCurrentPolicy, showDefaultPolicy } = usePolicyEditorState();
+  const dispatch = usePolicyEditorDispatch();
 
   const handleDownload = () => {
     const date = new Date();
@@ -53,6 +60,19 @@ export const MainAppbarComponent: React.FunctionComponent<MainAppbarProps> = ({
           <GitHubIcon />
         </IconButton>
       </Typography>
+      <FormControlLabel
+        labelPlacement="start"
+        label="Default policy"
+        control={
+          <Switch
+            checked={showDefaultPolicy}
+            onChange={(e) => {
+              dispatch(policyEditorShowDefaultPolicySet(e.target.checked));
+            }}
+            color="default"
+          />
+        }
+      />
       <IconButton
         color="inherit"
         href="https://github.com/464d41/aws-waf-solutuon-template"

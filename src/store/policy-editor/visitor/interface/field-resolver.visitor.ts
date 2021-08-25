@@ -4,6 +4,7 @@ export interface FieldResolverVisitor {
   getBasicRows(): GridFieldValue[];
   getAdvancedRows(): GridFieldValue[];
   remove(): void;
+  key(): string;
 
   hasAdvancedRows: boolean;
 }
