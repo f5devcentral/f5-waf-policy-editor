@@ -13,16 +13,27 @@ export class ViolationsFieldResolver
   extends BaseVisitor
   implements FieldResolverVisitor
 {
+  private allViolations: any;
+
   constructor(
-    protected rowIndex: number,
+    public rowIndex: number,
     protected dispatch: PolicyEditorDispatch,
     protected json: any
   ) {
     super(dispatch, json);
+
+    this.allViolations = ViolationsNginxConst.getAllViolations();
+  }
+
+  private resolveViolationTitle(name: string): string {
+    const item = this.allViolations.find((x: any) => x.name === name);
+    if (!item) return name;
+
+    return item.title;
   }
 
   key(): string {
-    return this.json.description;
+    return this.resolveViolationTitle(this.json.name);
   }
 
   get hasAdvancedRows(): boolean {
@@ -34,15 +45,6 @@ export class ViolationsFieldResolver
   }
 
   getBasicRows(): GridFieldValue[] {
-    const allViolations = ViolationsNginxConst.getAllViolations();
-
-    const resolveViolationTitle: (name: string) => string = (name: string) => {
-      const item = allViolations.find((x: any) => x.name === name);
-      if (!item) return name;
-
-      return item.title;
-    };
-
     return [
       {
         title: "",
@@ -50,7 +52,7 @@ export class ViolationsFieldResolver
           `instance.blocking-settings.violations[${this.rowIndex}].name`,
         ],
         controlInfo: new LabelFieldControl(
-          resolveViolationTitle(this.json.name)
+          this.resolveViolationTitle(this.json.name)
         ),
       },
       {

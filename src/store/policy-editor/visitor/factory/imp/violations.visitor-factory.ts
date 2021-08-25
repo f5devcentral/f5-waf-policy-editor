@@ -15,9 +15,13 @@ export class ViolationsVisitorFactory extends BaseFieldResolverVisitorFactory {
 
     if (_get(this.json, "policy['blocking-settings'].violations") === undefined)
       return {
-        titles: [],
+        titles: titles,
         visitors: [] as FieldResolverVisitor[],
-        default: [] as FieldResolverVisitor[],
+        default: defaultPolicy.policy["blocking-settings"].violations.map(
+          (s: any) => {
+            return new ViolationsFieldResolver(-1, this.dispatch, s);
+          }
+        ),
       };
 
     const visitors: FieldResolverVisitor[] = this.json.policy[

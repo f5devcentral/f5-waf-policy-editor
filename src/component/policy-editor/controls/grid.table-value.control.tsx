@@ -27,6 +27,7 @@ import {
 import { DragIndicator } from "@material-ui/icons";
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
 import { ErrorFieldControlAdornment } from "./field-control/error.field-control-adornment";
+import Chip from "@material-ui/core/Chip";
 
 const StyledTableCell = withStyles((theme) =>
   createStyles({
@@ -55,15 +56,19 @@ export type GridTableValueProps = {
   onDragEnd?: (result: DropResult, provided: ResponderProvided) => void;
 };
 
-const getItemStyle: (isDragging: boolean, draggableStyle: any) => any = (
-  isDragging,
-  draggableStyle
-) => ({
-  // styles we need to apply on draggables
+const getItemStyle: (
+  defaultFlag: boolean,
+  isDragging: boolean,
+  draggableStyle: any
+) => any = (defaultFlag, isDragging, draggableStyle) => ({
   ...draggableStyle,
 
   ...(isDragging && {
     background: "rgb(235,235,235)",
+  }),
+
+  ...(defaultFlag && {
+    background: "#81c784",
   }),
 });
 
@@ -196,6 +201,7 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
               </TableHead>
               <TableBody component={DroppableComponent}>
                 {visitors.map((v, vIndex) => {
+                  const defaultFlag = v.rowIndex === -1;
                   const row = (
                     <React.Fragment key={vIndex}>
                       <StyledTableCell
@@ -203,15 +209,23 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                         size="small"
                         align="center"
                       >
-                        <Checkbox
-                          size="small"
-                          color="primary"
-                          checked={selected[vIndex] ?? false}
-                          onChange={(e) => {
-                            selected[vIndex] = e.currentTarget.checked;
-                            setSelected([...selected]);
-                          }}
-                        />
+                        {defaultFlag ? (
+                          <Chip
+                            label="default"
+                            size="small"
+                            variant="outlined"
+                          />
+                        ) : (
+                          <Checkbox
+                            size="small"
+                            color="primary"
+                            checked={selected[vIndex] ?? false}
+                            onChange={(e) => {
+                              selected[vIndex] = e.currentTarget.checked;
+                              setSelected([...selected]);
+                            }}
+                          />
+                        )}
                       </StyledTableCell>
                       {v.getBasicRows().map((item, index) => {
                         const error = jsonValidationErrors.filter((x) =>
@@ -263,14 +277,18 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                         ) : undefined}
                       </TableCell>
                       <TableCell size="small" align="center" padding="checkbox">
-                        <IconButton
-                          size="small"
-                          onClick={() => {
-                            v.remove();
-                          }}
-                        >
-                          <DeleteForeverRounded />
-                        </IconButton>
+                        {defaultFlag ? (
+                          <Box />
+                        ) : (
+                          <IconButton
+                            size="small"
+                            onClick={() => {
+                              v.remove();
+                            }}
+                          >
+                            <DeleteForeverRounded />
+                          </IconButton>
+                        )}
                       </TableCell>
                     </React.Fragment>
                   );
@@ -288,6 +306,7 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           style={getItemStyle(
+                            defaultFlag,
                             snapshot.isDragging,
                             provided.draggableProps.style
                           )}

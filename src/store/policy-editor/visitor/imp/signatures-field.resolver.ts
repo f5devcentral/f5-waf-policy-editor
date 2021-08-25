@@ -13,7 +13,7 @@ export class SignaturesFieldResolver
   implements FieldResolverVisitor
 {
   constructor(
-    protected rowIndex: number,
+    public rowIndex: number,
     protected dispatch: PolicyEditorDispatch,
     protected json: any
   ) {

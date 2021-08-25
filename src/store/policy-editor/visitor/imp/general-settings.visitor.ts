@@ -13,6 +13,10 @@ export class GeneralSettingsVisitor
   extends BaseVisitor
   implements FieldResolverVisitor, FieldFactoryVisitor<void>
 {
+  get rowIndex() {
+    return 0;
+  }
+
   key(): string {
     return "";
   }

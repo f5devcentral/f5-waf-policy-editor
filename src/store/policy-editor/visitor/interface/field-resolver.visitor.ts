@@ -6,5 +6,6 @@ export interface FieldResolverVisitor {
   remove(): void;
   key(): string;
 
+  rowIndex: number;
   hasAdvancedRows: boolean;
 }

@@ -10,9 +10,7 @@ import { ExpandMore } from "@material-ui/icons";
 import { ViolationsNginxConst } from "../../../model/nginx-const/violations.nginx-const";
 import { ViolationsFieldFactory } from "../../../store/policy-editor/visitor/imp/violations-field.factory";
 import { MenuSearchPopupControl } from "../controls/menu-search-popup.control";
-import { Divider } from "@material-ui/core";
 import { ViolationsVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/violations.visitor-factory";
-import Fade from "@material-ui/core/Fade";
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
 import { stringCompare } from "../../../utils/string-compare.util";
 
