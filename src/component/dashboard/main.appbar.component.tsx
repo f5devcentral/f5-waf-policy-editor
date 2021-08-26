@@ -29,8 +29,7 @@ export const MainAppbarComponent: React.FunctionComponent<MainAppbarProps> = ({
   onDrawerOpen,
 }) => {
   const classes = useStyles();
-  const { strCurrentPolicy, showDefaultPolicy } = usePolicyEditorState();
-  const dispatch = usePolicyEditorDispatch();
+  const { strCurrentPolicy } = usePolicyEditorState();
 
   const handleDownload = () => {
     const date = new Date();
@@ -60,19 +59,6 @@ export const MainAppbarComponent: React.FunctionComponent<MainAppbarProps> = ({
           <GitHubIcon />
         </IconButton>
       </Typography>
-      <FormControlLabel
-        labelPlacement="start"
-        label="Default policy"
-        control={
-          <Switch
-            checked={showDefaultPolicy}
-            onChange={(e) => {
-              dispatch(policyEditorShowDefaultPolicySet(e.target.checked));
-            }}
-            color="default"
-          />
-        }
-      />
       <IconButton
         color="inherit"
         href="https://github.com/464d41/aws-waf-solutuon-template"

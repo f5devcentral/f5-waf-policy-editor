@@ -12,18 +12,21 @@ import {
 import {
   policyEditorJsonTextSet,
   policyEditorPageSet,
+  policyEditorShowDefaultPolicySet,
 } from "../../store/policy-editor/policy-editor.actions";
 import { PolicyEditorPageFactory } from "./controls/policy-editor.page.factory";
 import { CurrentPolicyControl } from "./controls/curren-policy.control";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import { createStyles, withStyles } from "@material-ui/core";
+import { createStyles, Switch, withStyles } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import GetApp from "@material-ui/icons/GetApp";
 import { ReactComponent as IconCloudFormation } from "../../resources/toolbar/AWS-CloudFormation.svg";
 import Share from "@material-ui/icons/Share";
 import { download } from "../../utils/download.util";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Toolbar from "@material-ui/core/Toolbar";
 
 const JsonEditorContainer = withStyles((theme) =>
   createStyles({
@@ -78,8 +81,13 @@ const PolicyTools = withStyles((theme) =>
 )(Box);
 
 export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
-  const { currentPage, strCurrentPolicy, jsonParseError, currentTab } =
-    usePolicyEditorState();
+  const {
+    currentPage,
+    strCurrentPolicy,
+    jsonParseError,
+    currentTab,
+    showDefaultPolicy,
+  } = usePolicyEditorState();
 
   const dispatch = usePolicyEditorDispatch();
   const pageFactory = new PolicyEditorPageFactory();
@@ -92,24 +100,57 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
 
   return (
     <React.Fragment>
-      <EditorTabsControl
-        variant="scrollable"
-        scrollButtons="auto"
-        value={currentTab}
-        onChange={(e, tab) =>
-          dispatch(policyEditorPageSet(tab, TabsTree[tab].id))
-        }
-      >
-        {TabsTree.map(({ label, id, disabled }) => {
-          return (
-            <EditorTabControl label={label} key={id} disabled={disabled} />
-          );
-        })}
-      </EditorTabsControl>
+      <Grid container spacing={1}>
+        <Grid
+          xs={2}
+          style={{
+            minWidth: "168px",
+          }}
+        >
+          <Box
+            style={{
+              marginTop: "10px",
+              textAlign: "center",
+            }}
+          >
+            <FormControlLabel
+              labelPlacement="start"
+              label="Default policy"
+              control={
+                <Switch
+                  checked={showDefaultPolicy}
+                  onChange={(e) => {
+                    dispatch(
+                      policyEditorShowDefaultPolicySet(e.target.checked)
+                    );
+                  }}
+                  color="default"
+                />
+              }
+            />
+          </Box>
+        </Grid>
+        <Grid xs={10}>
+          <EditorTabsControl
+            variant="scrollable"
+            scrollButtons="auto"
+            value={currentTab}
+            onChange={(e, tab) =>
+              dispatch(policyEditorPageSet(tab, TabsTree[tab].id))
+            }
+          >
+            {TabsTree.map(({ label, id, disabled }) => {
+              return (
+                <EditorTabControl label={label} key={id} disabled={disabled} />
+              );
+            })}
+          </EditorTabsControl>
+        </Grid>
+      </Grid>
+
       <Grid container spacing={1}>
         <Grid container item spacing={1} xs={12}>
-          <Grid container item spacing={1} xs={2} />
-          <Grid container item spacing={1} xs={8}>
+          <Grid container item spacing={1} xs={12}>
             <EditorPage>
               <CurrentPageContainer>
                 {pageFactory.createPage(currentPage)}
@@ -143,7 +184,6 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
               </PolicyTools>
             </EditorPage>
           </Grid>
-          <Grid container item spacing={1} xs={2} />
         </Grid>
       </Grid>
     </React.Fragment>

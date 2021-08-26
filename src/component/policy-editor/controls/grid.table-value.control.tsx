@@ -68,7 +68,7 @@ const getItemStyle: (
   }),
 
   ...(defaultFlag && {
-    background: "#81c784",
+    background: "#CFF4D2",
   }),
 });
 
