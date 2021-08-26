@@ -26,7 +26,6 @@ import { ReactComponent as IconCloudFormation } from "../../resources/toolbar/AW
 import Share from "@material-ui/icons/Share";
 import { download } from "../../utils/download.util";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Toolbar from "@material-ui/core/Toolbar";
 
 const JsonEditorContainer = withStyles((theme) =>
   createStyles({

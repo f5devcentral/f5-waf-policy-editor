@@ -8,16 +8,10 @@ import Typography from "@material-ui/core/Typography";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import GetApp from "@material-ui/icons/GetApp";
 import Share from "@material-ui/icons/Share";
-import {
-  usePolicyEditorDispatch,
-  usePolicyEditorState,
-} from "../../store/policy-editor/policy-editor.hooks";
+import { usePolicyEditorState } from "../../store/policy-editor/policy-editor.hooks";
 
 import { ReactComponent as IconCloudFormation } from "../../resources/toolbar/AWS-CloudFormation.svg";
 import { download } from "../../utils/download.util";
-import { Switch } from "@material-ui/core";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { policyEditorShowDefaultPolicySet } from "../../store/policy-editor/policy-editor.actions";
 
 export type MainAppbarProps = Readonly<{
   open: boolean;
