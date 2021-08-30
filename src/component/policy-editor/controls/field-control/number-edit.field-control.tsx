@@ -2,6 +2,7 @@ import * as React from "react";
 import TextField, { TextFieldProps } from "@material-ui/core/TextField";
 import { TableCell, TableCellProps } from "@material-ui/core";
 import { IControlInfo } from "../control-info.interface";
+import Checkbox from "@material-ui/core/Checkbox";
 
 export class NumberEditFieldControl implements IControlInfo {
   constructor(

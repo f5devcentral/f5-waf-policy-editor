@@ -3,13 +3,13 @@ import { FieldFactoryVisitor } from "../interface/field-factory.visitor";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
 
 import { get as _get, set as _set } from "lodash";
-import { defaultEvasions } from "../../../../model/policy-editor.defaults.model";
+import { Evasion } from "../../../../model/policy-schema/policy.definitions";
 
 export class EvasionsFieldFactory
   extends BaseVisitor
-  implements FieldFactoryVisitor<void>
+  implements FieldFactoryVisitor<Evasion>
 {
-  create(): void {
+  create(evasion: Evasion): void {
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
         const path = "policy.blocking-settings.evasions";
@@ -19,7 +19,7 @@ export class EvasionsFieldFactory
           evasions = _get(currentJson, path);
         }
 
-        evasions.push(defaultEvasions());
+        evasions.push(evasion);
       })
     );
   }

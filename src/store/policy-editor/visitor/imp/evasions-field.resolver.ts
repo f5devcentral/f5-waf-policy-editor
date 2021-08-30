@@ -8,6 +8,7 @@ import { set as _set } from "lodash";
 import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
 import { EvasionDescription } from "../../../../model/policy-schema/policy.definitions";
 import { NumberEditFieldControl } from "../../../../component/policy-editor/controls/field-control/number-edit.field-control";
+import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
 
 export class EvasionsFieldResolver
   extends BaseVisitor
@@ -57,17 +58,7 @@ export class EvasionsFieldResolver
       {
         title: "Description",
         errorPath: [`instance.${path}.description`],
-        controlInfo: new DropListFieldControl(
-          this.json.description,
-          (value) => {
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(currentJson, `policy.${path}.description`, value);
-              })
-            );
-          },
-          Object.values(EvasionDescription)
-        ),
+        controlInfo: new LabelFieldControl(this.json.description),
       },
       {
         title: "Enabled",
