@@ -88,13 +88,6 @@ export const defaultOpenApi: () => OpenAPIFile = () => ({
   link: "",
 });
 
-export const defaultHttpProtocols: () => HTTPProtocol = () => ({
-  description: "" as HTTPProtocolDescription,
-  enabled: true,
-  maxHeaders: 1,
-  maxParams: 1,
-});
-
 export const defaultServerTechnologies: (
   serverTechnologyName: string
 ) => ServerTechnology = (serverTechnologyName) => {
