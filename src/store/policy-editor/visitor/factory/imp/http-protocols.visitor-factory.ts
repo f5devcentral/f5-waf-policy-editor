@@ -3,6 +3,7 @@ import { FieldResolverVisitor } from "../../interface/field-resolver.visitor";
 
 import { get as _get } from "lodash";
 import { HttpProtocolsFieldResolver } from "../../imp/http-protocols-field.resolver";
+import { createDefaultValues } from "../default-values.factory";
 
 export class HttpProtocolsVisitorFactory extends BaseFieldResolverVisitorFactory {
   getResolvers(): {
@@ -12,25 +13,27 @@ export class HttpProtocolsVisitorFactory extends BaseFieldResolverVisitorFactory
   } {
     const titles = ["Description", "Enabled", "Max Headers", "Max Params"];
 
-    if (
-      _get(this.json, "policy.blocking-settings.http-protocols") === undefined
-    )
-      return {
-        titles: [],
-        visitors: [],
-        default: [] as FieldResolverVisitor[],
-      };
+    const httpProtocols = _get(
+      this.json,
+      "policy.blocking-settings.http-protocols"
+    );
+    const visitors: FieldResolverVisitor[] = httpProtocols
+      ? httpProtocols.map((e: any, index: number) => {
+          return new HttpProtocolsFieldResolver(index, this.dispatch, e);
+        })
+      : [];
 
-    const visitors: FieldResolverVisitor[] = this.json.policy[
-      "blocking-settings"
-    ]["http-protocols"].map((e: any, index: number) => {
-      return new HttpProtocolsFieldResolver(index, this.dispatch, e);
-    });
+    const defValues: FieldResolverVisitor[] = createDefaultValues(
+      this.json,
+      "policy.blocking-settings.http-protocols",
+      "description",
+      (json: any) => new HttpProtocolsFieldResolver(-1, this.dispatch, json)
+    );
 
     return {
       titles,
       visitors,
-      default: [] as FieldResolverVisitor[],
+      default: defValues,
     };
   }
 }

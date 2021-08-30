@@ -7,6 +7,7 @@ import { set as _set } from "lodash";
 import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
 import { NumberEditFieldControl } from "../../../../component/policy-editor/controls/field-control/number-edit.field-control";
 import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
+import { HttpProtocolsFieldFactory } from "./http-protocols-field.factory";
 
 export class HttpProtocolsFieldResolver
   extends BaseVisitor
@@ -21,7 +22,7 @@ export class HttpProtocolsFieldResolver
   }
 
   key(): string {
-    return "";
+    return this.json.description;
   }
 
   get hasAdvancedRows(): boolean {
@@ -54,6 +55,10 @@ export class HttpProtocolsFieldResolver
   }
 
   getBasicRows(): GridFieldValue[] {
+    const fieldFactory = new HttpProtocolsFieldFactory(
+      this.dispatch,
+      this.json
+    );
     const path = `blocking-settings.http-protocols[${this.rowIndex}]`;
 
     return [
@@ -66,11 +71,16 @@ export class HttpProtocolsFieldResolver
         title: "Enabled",
         errorPath: [`instance.${path}.enabled`],
         controlInfo: new CheckboxFieldControl(this.json.enabled, (value) => {
-          this.dispatch(
-            policyEditorJsonVisit((currentJson) => {
-              _set(currentJson, `policy.${path}.enabled`, value);
-            })
-          );
+          this.rowIndex === -1
+            ? fieldFactory.create({
+                ...this.json,
+                enabled: value,
+              })
+            : this.dispatch(
+                policyEditorJsonVisit((currentJson) => {
+                  _set(currentJson, `policy.${path}.enabled`, value);
+                })
+              );
         }),
       },
       {
@@ -79,11 +89,20 @@ export class HttpProtocolsFieldResolver
         controlInfo: new NumberEditFieldControl(
           this.json.maxHeaders,
           (value) => {
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(currentJson, `policy.${path}.maxHeaders`, parseInt(value));
-              })
-            );
+            this.rowIndex === -1
+              ? fieldFactory.create({
+                  ...this.json,
+                  maxHeaders: parseInt(value),
+                })
+              : this.dispatch(
+                  policyEditorJsonVisit((currentJson) => {
+                    _set(
+                      currentJson,
+                      `policy.${path}.maxHeaders`,
+                      parseInt(value)
+                    );
+                  })
+                );
           },
           {},
           { variant: "outlined", size: "small" }
@@ -95,11 +114,20 @@ export class HttpProtocolsFieldResolver
         controlInfo: new NumberEditFieldControl(
           this.json.maxParams,
           (value) => {
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(currentJson, `policy.${path}.maxParams`, parseInt(value));
-              })
-            );
+            this.rowIndex === -1
+              ? fieldFactory.create({
+                  ...this.json,
+                  maxParams: parseInt(value),
+                })
+              : this.dispatch(
+                  policyEditorJsonVisit((currentJson) => {
+                    _set(
+                      currentJson,
+                      `policy.${path}.maxParams`,
+                      parseInt(value)
+                    );
+                  })
+                );
           },
           {},
           { variant: "outlined", size: "small" }

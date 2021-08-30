@@ -8,6 +8,8 @@ import { HttpProtocolsVisitorFactory } from "../../../store/policy-editor/visito
 import { ExpandMore } from "@material-ui/icons";
 import { MenuSearchPopupControl } from "../controls/menu-search-popup.control";
 import { HTTPProtocolDescription } from "../../../model/policy-schema/policy.definitions";
+import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
+import { stringCompare } from "../../../utils/string-compare.util";
 
 export const HttpProtocolsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -16,7 +18,13 @@ export const HttpProtocolsPage: React.VoidFunctionComponent = () => {
   const httpProtocolsFieldFactory = useVisitor(HttpProtocolsFieldFactory);
   const httpProtocolsVisitorFactory = useVisitor(HttpProtocolsVisitorFactory);
 
-  const { titles, visitors } = httpProtocolsVisitorFactory.getResolvers();
+  const { showDefaultPolicy } = usePolicyEditorState();
+
+  const {
+    titles,
+    visitors,
+    default: defValues,
+  } = httpProtocolsVisitorFactory.getResolvers();
   const allHttpProtocols = Object.values(HTTPProtocolDescription);
 
   function handleSelect(description: string) {
@@ -50,7 +58,13 @@ export const HttpProtocolsPage: React.VoidFunctionComponent = () => {
         onSelect={(item) => handleSelect(item)}
       />
       <Box>
-        <GridTableValueControl titles={titles} visitors={visitors} />
+        <GridTableValueControl
+          titles={titles}
+          visitors={(showDefaultPolicy
+            ? [...visitors, ...defValues]
+            : visitors
+          ).sort((a, b) => stringCompare(a.key(), b.key()))}
+        />
       </Box>
     </Box>
   );
