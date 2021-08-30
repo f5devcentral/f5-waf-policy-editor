@@ -1,8 +1,4 @@
 import {
-  Evasion,
-  EvasionDescription,
-  HTTPProtocol,
-  HTTPProtocolDescription,
   OpenAPIFile,
   PolicySignature,
   ServerTechnology,

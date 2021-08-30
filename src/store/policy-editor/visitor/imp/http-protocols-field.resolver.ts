@@ -3,10 +3,8 @@ import { FieldResolverVisitor } from "../interface/field-resolver.visitor";
 import { PolicyEditorDispatch } from "../../policy-editor.types";
 import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
-import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
 import { set as _set } from "lodash";
 import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
-import { HTTPProtocolDescription } from "../../../../model/policy-schema/policy.definitions";
 import { NumberEditFieldControl } from "../../../../component/policy-editor/controls/field-control/number-edit.field-control";
 import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
 
