@@ -7,6 +7,7 @@ import { set as _set } from "lodash";
 import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
 import { NumberEditFieldControl } from "../../../../component/policy-editor/controls/field-control/number-edit.field-control";
 import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
+import { EvasionsFieldFactory } from "./evasions-field.factory";
 
 export class EvasionsFieldResolver
   extends BaseVisitor
@@ -21,7 +22,7 @@ export class EvasionsFieldResolver
   }
 
   key(): string {
-    return "";
+    return this.json.description;
   }
 
   get hasAdvancedRows(): boolean {
@@ -50,6 +51,7 @@ export class EvasionsFieldResolver
   }
 
   getBasicRows(): GridFieldValue[] {
+    const fieldFactory = new EvasionsFieldFactory(this.dispatch, this.json);
     const path = `blocking-settings.evasions[${this.rowIndex}]`;
 
     return [
@@ -62,11 +64,16 @@ export class EvasionsFieldResolver
         title: "Enabled",
         errorPath: [`instance.${path}.enabled`],
         controlInfo: new CheckboxFieldControl(this.json.enabled, (value) => {
-          this.dispatch(
-            policyEditorJsonVisit((currentJson) => {
-              _set(currentJson, `policy.${path}.enabled`, value);
-            })
-          );
+          this.rowIndex === -1
+            ? fieldFactory.create({
+                ...this.json,
+                enabled: !this.json.enabled,
+              })
+            : this.dispatch(
+                policyEditorJsonVisit((currentJson) => {
+                  _set(currentJson, `policy.${path}.enabled`, value);
+                })
+              );
         }),
       },
       {
@@ -75,15 +82,20 @@ export class EvasionsFieldResolver
         controlInfo: new NumberEditFieldControl(
           this.json.maxDecodingPasses,
           (value) => {
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(
-                  currentJson,
-                  `policy.${path}.maxDecodingPasses`,
-                  parseInt(value)
+            this.rowIndex === -1
+              ? fieldFactory.create({
+                  ...this.json,
+                  maxDecodingPasses: parseInt(value),
+                })
+              : this.dispatch(
+                  policyEditorJsonVisit((currentJson) => {
+                    _set(
+                      currentJson,
+                      `policy.${path}.maxDecodingPasses`,
+                      parseInt(value)
+                    );
+                  })
                 );
-              })
-            );
           },
           {},
           { variant: "outlined", size: "small" }

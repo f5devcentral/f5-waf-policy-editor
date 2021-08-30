@@ -8,6 +8,8 @@ import { EvasionsVisitorFactory } from "../../../store/policy-editor/visitor/fac
 import { ExpandMore } from "@material-ui/icons";
 import { MenuSearchPopupControl } from "../controls/menu-search-popup.control";
 import { EvasionDescription } from "../../../model/policy-schema/policy.definitions";
+import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
+import { stringCompare } from "../../../utils/string-compare.util";
 
 export const EvasionsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -16,8 +18,14 @@ export const EvasionsPage: React.VoidFunctionComponent = () => {
   const evasionsFieldFactory = useVisitor(EvasionsFieldFactory);
   const evasionsVisitorFactory = useVisitor(EvasionsVisitorFactory);
 
-  const { titles, visitors } = evasionsVisitorFactory.getResolvers();
+  const {
+    titles,
+    visitors,
+    default: defValues,
+  } = evasionsVisitorFactory.getResolvers();
   const allEvasions = Object.values(EvasionDescription);
+
+  const { showDefaultPolicy } = usePolicyEditorState();
 
   function handleSelect(item: string) {
     evasionsFieldFactory.create({
@@ -48,7 +56,13 @@ export const EvasionsPage: React.VoidFunctionComponent = () => {
         onSelect={(item) => handleSelect(item)}
       />
       <Box>
-        <GridTableValueControl titles={titles} visitors={visitors} />
+        <GridTableValueControl
+          titles={titles}
+          visitors={(showDefaultPolicy
+            ? [...visitors, ...defValues]
+            : visitors
+          ).sort((a, b) => stringCompare(a.key(), b.key()))}
+        />
       </Box>
     </Box>
   );
