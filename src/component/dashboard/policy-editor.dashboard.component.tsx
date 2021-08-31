@@ -56,6 +56,28 @@ export const PolicyEditorDashboardComponent: React.FunctionComponent = ({
         <div className={classes.drawerHeader} />
         {children}
       </main>
+      <AppBar
+        variant={"outlined"}
+        position="fixed"
+        className={clsx(classes.footer, classes.appBar, {
+          [classes.appBarShift]: open,
+        })}
+        style={{
+          background: "#fafafa",
+        }}
+      >
+        <Typography variant="caption" color="textSecondary">
+          <IconButton
+            color="inherit"
+            href="https://github.com/464d41/f5-waf-policy-editor"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <GitHubIcon />
+          </IconButton>
+          Project's GitHub
+        </Typography>
+      </AppBar>
     </div>
   );
 };
