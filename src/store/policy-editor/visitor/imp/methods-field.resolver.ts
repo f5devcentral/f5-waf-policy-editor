@@ -6,6 +6,7 @@ import { GridFieldValue } from "../../../../component/policy-editor/controls/gri
 import { TextEditFieldControl } from "../../../../component/policy-editor/controls/field-control/text-edit.field-control";
 
 import { set as _set } from "lodash";
+import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
 
 export class MethodsFieldResolver
   extends BaseVisitor
@@ -20,7 +21,7 @@ export class MethodsFieldResolver
   }
 
   key(): string {
-    return "";
+    return this.json.name;
   }
 
   get hasAdvancedRows(): boolean {
@@ -36,21 +37,24 @@ export class MethodsFieldResolver
       {
         title: "",
         errorPath: [`instance.methods[${this.rowIndex}].name`],
-        controlInfo: new TextEditFieldControl(
-          this.json.name,
-          (text) =>
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(
-                  currentJson,
-                  `policy.methods[${this.rowIndex}].name`,
-                  text
-                );
-              })
-            ),
-          {},
-          { variant: "outlined", size: "small" }
-        ),
+        controlInfo:
+          this.rowIndex === -1
+            ? new LabelFieldControl(this.json.name)
+            : new TextEditFieldControl(
+                this.json.name,
+                (text) =>
+                  this.dispatch(
+                    policyEditorJsonVisit((currentJson) => {
+                      _set(
+                        currentJson,
+                        `policy.methods[${this.rowIndex}].name`,
+                        text
+                      );
+                    })
+                  ),
+                {},
+                { variant: "outlined", size: "small" }
+              ),
       },
     ];
   }

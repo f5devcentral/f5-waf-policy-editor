@@ -27,6 +27,7 @@ export class TextEditFieldControl implements IControlInfo {
     }
     return (
       <TextField
+        id={props.key}
         fullWidth
         value={this.currentValue ?? ""}
         onChange={(e) => this.onValueChange(e.target.value)}

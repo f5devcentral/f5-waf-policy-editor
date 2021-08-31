@@ -201,9 +201,11 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
               </TableHead>
               <TableBody component={DroppableComponent}>
                 {visitors.map((v, vIndex) => {
+                  const gKey =
+                    v.rowIndex === -1 ? `def-${vIndex}` : `val-${v.rowIndex}`;
                   const defaultFlag = v.rowIndex === -1;
                   const row = (
-                    <React.Fragment key={vIndex}>
+                    <React.Fragment key={gKey}>
                       <StyledTableCell
                         padding={"checkbox"}
                         size="small"
@@ -295,13 +297,13 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
 
                   return (
                     <Draggable
-                      key={vIndex}
-                      draggableId={`${vIndex}`}
+                      key={gKey}
+                      draggableId={`${gKey}`}
                       index={vIndex}
                     >
                       {(provided, snapshot) => (
                         <StyledTableRow
-                          key={vIndex}
+                          key={gKey}
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
