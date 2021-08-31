@@ -75,7 +75,7 @@ export const PolicyEditorDashboardComponent: React.FunctionComponent = ({
           >
             <GitHubIcon />
           </IconButton>
-          Project idea and guidance - Mikhail Fedorov
+          Project's GitHub
         </Typography>
       </AppBar>
     </div>
