@@ -28,7 +28,6 @@ export class GeneralSettingsVisitor
         errorPath: [""],
         controlInfo: new DropListFieldControl("App Protect", () => {}, [
           "App Protect",
-          "Athena",
           "Advanced WAF",
         ]),
       },
