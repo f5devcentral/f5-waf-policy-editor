@@ -3,12 +3,13 @@ import { FieldFactoryVisitor } from "../interface/field-factory.visitor";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { get as _get, set as _set } from "lodash";
 import { defaultSignatureSets } from "../../../../model/policy-editor.defaults.model";
+import { SignatureSet } from "../../../../model/policy-schema/policy.definitions";
 
 export class SignatureSetsFieldFactory
   extends BaseVisitor
-  implements FieldFactoryVisitor<void>
+  implements FieldFactoryVisitor<SignatureSet>
 {
-  create(): void {
+  create(signatureSet?: SignatureSet): void {
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
         const path = "policy.signature-sets";
@@ -18,7 +19,7 @@ export class SignatureSetsFieldFactory
           signatureSets = _get(currentJson, path);
         }
 
-        signatureSets.push(defaultSignatureSets());
+        signatureSets.push(signatureSet ?? defaultSignatureSets());
       })
     );
   }
