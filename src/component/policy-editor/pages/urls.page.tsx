@@ -11,7 +11,6 @@ import {
 } from "../../../store/policy-editor/policy-editor.hooks";
 import { policyEditorJsonVisit } from "../../../store/policy-editor/policy-editor.actions";
 import { JsonUrlsServices } from "../../../store/policy-editor/visitor/services/json-urls.services";
-import { stringCompare } from "../../../utils/string-compare.util";
 
 export const UrlsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();

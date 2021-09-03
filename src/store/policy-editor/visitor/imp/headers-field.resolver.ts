@@ -7,6 +7,7 @@ import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { set as _set } from "lodash";
 import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
 import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
+import { HeadersFieldFactory } from "./headers-field.factory";
 
 export class HeadersFieldResolver
   extends BaseVisitor
@@ -21,7 +22,7 @@ export class HeadersFieldResolver
   }
 
   key(): string {
-    return "";
+    return this.json.name;
   }
 
   get hasAdvancedRows(): boolean {
@@ -162,6 +163,11 @@ export class HeadersFieldResolver
   }
 
   getBasicRows(): GridFieldValue[] {
+    const headersFiledFactory = new HeadersFieldFactory(
+      this.dispatch,
+      this.json
+    );
+
     return [
       {
         title: "",
@@ -169,15 +175,20 @@ export class HeadersFieldResolver
         controlInfo: new TextEditFieldControl(
           this.json.name,
           (text) => {
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(
-                  currentJson,
-                  `policy.headers[${this.rowIndex}].name`,
-                  text
+            this.rowIndex === -1
+              ? headersFiledFactory.create({
+                  ...this.json,
+                  name: text,
+                })
+              : this.dispatch(
+                  policyEditorJsonVisit((currentJson) => {
+                    _set(
+                      currentJson,
+                      `policy.headers[${this.rowIndex}].name`,
+                      text
+                    );
+                  })
                 );
-              })
-            );
           },
           {},
           { variant: "outlined", size: "small" }
@@ -189,15 +200,20 @@ export class HeadersFieldResolver
         controlInfo: new DropListFieldControl(
           this.json.type,
           (value) => {
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(
-                  currentJson,
-                  `policy.headers[${this.rowIndex}].type`,
-                  value
+            this.rowIndex === -1
+              ? headersFiledFactory.create({
+                  ...this.json,
+                  type: value,
+                })
+              : this.dispatch(
+                  policyEditorJsonVisit((currentJson) => {
+                    _set(
+                      currentJson,
+                      `policy.headers[${this.rowIndex}].type`,
+                      value
+                    );
+                  })
                 );
-              })
-            );
           },
           ["explicit", "wildcard"]
         ),
