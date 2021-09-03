@@ -41,10 +41,7 @@ export const UrlsPage: React.VoidFunctionComponent = () => {
       <Box>
         <GridTableValueControl
           titles={titles}
-          visitors={(showDefaultPolicy
-            ? [...visitors, ...defValues]
-            : visitors
-          ).sort((a, b) => stringCompare(a.key(), b.key()))}
+          visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
           settingsName="URLs"
           dnd={true}
           onDragEnd={(result) =>

@@ -9,6 +9,7 @@ import { ExpandMore } from "@material-ui/icons";
 import { MenuSearchPopupControl } from "../controls/menu-search-popup.control";
 import { EvasionDescription } from "../../../model/policy-schema/policy.definitions";
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
+import { stringCompare } from "../../../utils/string-compare.util";
 
 export const EvasionsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -57,7 +58,10 @@ export const EvasionsPage: React.VoidFunctionComponent = () => {
       <Box>
         <GridTableValueControl
           titles={titles}
-          visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
+          visitors={(showDefaultPolicy
+            ? [...visitors, ...defValues]
+            : visitors
+          ).sort((a, b) => stringCompare(a.key(), b.key()))}
         />
       </Box>
     </Box>

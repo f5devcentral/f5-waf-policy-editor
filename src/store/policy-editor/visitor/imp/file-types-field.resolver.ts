@@ -7,6 +7,7 @@ import { TextEditFieldControl } from "../../../../component/policy-editor/contro
 import { set as _set } from "lodash";
 import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
 import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
+import { FileTypesFieldFactory } from "./file-types-field.factory";
 
 export class FileTypesFieldResolver
   extends BaseVisitor
@@ -21,7 +22,7 @@ export class FileTypesFieldResolver
   }
 
   key(): string {
-    return "";
+    return this.json.name;
   }
 
   get hasAdvancedRows(): boolean {
@@ -29,6 +30,11 @@ export class FileTypesFieldResolver
   }
 
   getBasicRows(): GridFieldValue[] {
+    const fileTypesFiledFactory = new FileTypesFieldFactory(
+      this.dispatch,
+      this.json
+    );
+
     return [
       {
         title: "Filetype Name",
@@ -36,15 +42,20 @@ export class FileTypesFieldResolver
         controlInfo: new TextEditFieldControl(
           this.json.name,
           (text) =>
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(
-                  currentJson,
-                  `policy.filetypes[${this.rowIndex}].name`,
-                  text
-                );
-              })
-            ),
+            this.rowIndex === -1
+              ? fileTypesFiledFactory.create({
+                  ...this.json,
+                  name: text,
+                })
+              : this.dispatch(
+                  policyEditorJsonVisit((currentJson) => {
+                    _set(
+                      currentJson,
+                      `policy.filetypes[${this.rowIndex}].name`,
+                      text
+                    );
+                  })
+                ),
           {},
           { variant: "outlined", size: "small" }
         ),
@@ -55,15 +66,20 @@ export class FileTypesFieldResolver
         controlInfo: new DropListFieldControl(
           this.json.type,
           (value) =>
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) =>
-                _set(
-                  currentJson,
-                  `policy.filetypes[${this.rowIndex}].type`,
-                  value
-                )
-              )
-            ),
+            this.rowIndex === -1
+              ? fileTypesFiledFactory.create({
+                  ...this.json,
+                  type: value,
+                })
+              : this.dispatch(
+                  policyEditorJsonVisit((currentJson) =>
+                    _set(
+                      currentJson,
+                      `policy.filetypes[${this.rowIndex}].type`,
+                      value
+                    )
+                  )
+                ),
           ["explicit", "wildcard"]
         ),
       },

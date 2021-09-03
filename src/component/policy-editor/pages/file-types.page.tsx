@@ -5,6 +5,8 @@ import { Box, Button } from "@material-ui/core";
 import { GridTableValueControl } from "../controls/grid.table-value.control";
 import { FileTypesFieldFactory } from "../../../store/policy-editor/visitor/imp/file-types-field.factory";
 import { FileTypesVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/file-types.visitor-factory";
+import { stringCompare } from "../../../utils/string-compare.util";
+import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
 
 export const FileTypesPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -12,7 +14,13 @@ export const FileTypesPage: React.VoidFunctionComponent = () => {
   const filetypesFieldFactory = useVisitor(FileTypesFieldFactory);
   const filetypesVisitorFactory = useVisitor(FileTypesVisitorFactory);
 
-  const { titles, visitors } = filetypesVisitorFactory.getResolvers();
+  const {
+    titles,
+    visitors,
+    default: defValues,
+  } = filetypesVisitorFactory.getResolvers();
+
+  const { showDefaultPolicy } = usePolicyEditorState();
 
   return (
     <Box className={classes.pageContent}>
@@ -26,7 +34,10 @@ export const FileTypesPage: React.VoidFunctionComponent = () => {
       <Box>
         <GridTableValueControl
           titles={titles}
-          visitors={visitors}
+          visitors={(showDefaultPolicy
+            ? [...visitors, ...defValues]
+            : visitors
+          ).sort((a, b) => stringCompare(a.key(), b.key()))}
           settingsName="Filetypes"
         />
       </Box>

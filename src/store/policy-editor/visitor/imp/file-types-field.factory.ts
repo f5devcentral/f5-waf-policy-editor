@@ -3,12 +3,13 @@ import { FieldFactoryVisitor } from "../interface/field-factory.visitor";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { get as _get, set as _set } from "lodash";
 import { defaultFileTypes } from "../../../../model/policy-editor.defaults.model";
+import { Filetype } from "../../../../model/policy-schema/policy.definitions";
 
 export class FileTypesFieldFactory
   extends BaseVisitor
-  implements FieldFactoryVisitor<void>
+  implements FieldFactoryVisitor<Filetype>
 {
-  create(): void {
+  create(filetype?: Filetype): void {
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
         const path = "policy.filetypes";
@@ -18,7 +19,7 @@ export class FileTypesFieldFactory
           fileTypes = _get(currentJson, path);
         }
 
-        fileTypes.push(defaultFileTypes());
+        fileTypes.push(filetype ?? defaultFileTypes());
       })
     );
   }
