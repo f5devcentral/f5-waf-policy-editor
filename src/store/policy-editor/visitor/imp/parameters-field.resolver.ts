@@ -7,6 +7,7 @@ import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { set as _set } from "lodash";
 import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
 import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
+import { ParametersFieldFactory } from "./parameters-field.factory";
 
 export class ParametersFieldResolver
   extends BaseVisitor
@@ -21,7 +22,7 @@ export class ParametersFieldResolver
   }
 
   key(): string {
-    return "";
+    return this.json.name;
   }
 
   get hasAdvancedRows(): boolean {
@@ -264,6 +265,11 @@ export class ParametersFieldResolver
   }
 
   getBasicRows(): GridFieldValue[] {
+    const parametersFieldFactory = new ParametersFieldFactory(
+      this.dispatch,
+      this.json
+    );
+
     return [
       {
         title: "",
@@ -271,15 +277,20 @@ export class ParametersFieldResolver
         controlInfo: new TextEditFieldControl(
           this.json.name,
           (text) => {
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(
-                  currentJson,
-                  `policy.parameters[${this.rowIndex}].name`,
-                  text
+            this.rowIndex === -1
+              ? parametersFieldFactory.create({
+                  ...this.json,
+                  name: text,
+                })
+              : this.dispatch(
+                  policyEditorJsonVisit((currentJson) => {
+                    _set(
+                      currentJson,
+                      `policy.parameters[${this.rowIndex}].name`,
+                      text
+                    );
+                  })
                 );
-              })
-            );
           },
           {},
           { variant: "outlined", size: "small" }
@@ -291,15 +302,20 @@ export class ParametersFieldResolver
         controlInfo: new DropListFieldControl(
           this.json.type,
           (value) => {
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(
-                  currentJson,
-                  `policy.parameters[${this.rowIndex}].type`,
-                  value
+            this.rowIndex === -1
+              ? parametersFieldFactory.create({
+                  ...this.json,
+                  type: value,
+                })
+              : this.dispatch(
+                  policyEditorJsonVisit((currentJson) => {
+                    _set(
+                      currentJson,
+                      `policy.parameters[${this.rowIndex}].type`,
+                      value
+                    );
+                  })
                 );
-              })
-            );
           },
           ["explicit", "wildcard"]
         ),

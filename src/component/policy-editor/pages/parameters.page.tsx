@@ -5,6 +5,8 @@ import { GridTableValueControl } from "../controls/grid.table-value.control";
 import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.visitor";
 import { ParametersFieldFactory } from "../../../store/policy-editor/visitor/imp/parameters-field.factory";
 import { ParametersVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/parameters.visitor-factory";
+import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
+import { stringCompare } from "../../../utils/string-compare.util";
 
 export const ParametersPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -12,7 +14,13 @@ export const ParametersPage: React.VoidFunctionComponent = () => {
   const parametersFieldFactory = useVisitor(ParametersFieldFactory);
   const parametersVisitorFactory = useVisitor(ParametersVisitorFactory);
 
-  const { titles, visitors } = parametersVisitorFactory.getResolvers();
+  const {
+    titles,
+    visitors,
+    default: defValues,
+  } = parametersVisitorFactory.getResolvers();
+
+  const { showDefaultPolicy } = usePolicyEditorState();
 
   return (
     <Box className={classes.pageContent}>
@@ -26,7 +34,10 @@ export const ParametersPage: React.VoidFunctionComponent = () => {
       <Box>
         <GridTableValueControl
           titles={titles}
-          visitors={visitors}
+          visitors={(showDefaultPolicy
+            ? [...visitors, ...defValues]
+            : visitors
+          ).sort((a, b) => stringCompare(a.key(), b.key()))}
           settingsName="Parameters"
         />
       </Box>
