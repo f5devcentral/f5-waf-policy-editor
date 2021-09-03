@@ -3,6 +3,7 @@ import {
   PolicySignature,
   ServerTechnology,
   SignatureSet,
+  URLElement,
 } from "./policy-schema/policy.definitions";
 
 export const defaultGeneralSettings = () => ({
@@ -30,15 +31,22 @@ export const defaultMethods = () => ({
   name: "",
 });
 
-export const defaultUrls = (order: number) => ({
-  name: "",
-  type: "explicit",
-  method: "*",
-  protocol: "http",
-  attackSignaturesCheck: true,
-  metacharsOnUrlCheck: true,
-  wildcardOrder: order,
-});
+export const defaultUrls: (order: number, url?: URLElement) => URLElement = (
+  order,
+  url
+) => {
+  return url
+    ? ({ ...url, wildcardOrder: order } as URLElement)
+    : ({
+        name: "",
+        type: "explicit",
+        method: "*",
+        protocol: "http",
+        attackSignaturesCheck: true,
+        metacharsOnUrlCheck: true,
+        wildcardOrder: order,
+      } as URLElement);
+};
 
 export const defaultFileTypes = () => ({
   name: "",

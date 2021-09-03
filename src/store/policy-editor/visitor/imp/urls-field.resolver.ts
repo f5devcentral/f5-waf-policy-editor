@@ -8,6 +8,7 @@ import { GridFieldValue } from "../../../../component/policy-editor/controls/gri
 
 import { set as _set } from "lodash";
 import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
+import { UrlsFieldFactory } from "./urls-field.factory";
 
 export class UrlsFieldResolver
   extends BaseVisitor
@@ -150,6 +151,8 @@ export class UrlsFieldResolver
   }
 
   getBasicRows(): GridFieldValue[] {
+    const fieldFactory = new UrlsFieldFactory(this.dispatch, this.json);
+
     return [
       {
         title: "",
@@ -157,15 +160,20 @@ export class UrlsFieldResolver
         controlInfo: new DropListFieldControl(
           this.json.protocol,
           (text) => {
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(
-                  currentJson,
-                  `policy.urls[${this.rowIndex}].protocol`,
-                  text
+            this.rowIndex === -1
+              ? fieldFactory.create({
+                  ...this.json,
+                  protocol: text,
+                })
+              : this.dispatch(
+                  policyEditorJsonVisit((currentJson) => {
+                    _set(
+                      currentJson,
+                      `policy.urls[${this.rowIndex}].protocol`,
+                      text
+                    );
+                  })
                 );
-              })
-            );
           },
           ["http", "https"]
         ),
@@ -176,11 +184,20 @@ export class UrlsFieldResolver
         controlInfo: new TextEditFieldControl(
           this.json.method,
           (text) => {
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(currentJson, `policy.urls[${this.rowIndex}].method`, text);
-              })
-            );
+            this.rowIndex === -1
+              ? fieldFactory.create({
+                  ...this.json,
+                  method: text,
+                })
+              : this.dispatch(
+                  policyEditorJsonVisit((currentJson) => {
+                    _set(
+                      currentJson,
+                      `policy.urls[${this.rowIndex}].method`,
+                      text
+                    );
+                  })
+                );
           },
           {},
           { variant: "outlined", size: "small" }
@@ -192,11 +209,20 @@ export class UrlsFieldResolver
         controlInfo: new TextEditFieldControl(
           this.json.name,
           (text) => {
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(currentJson, `policy.urls[${this.rowIndex}].name`, text);
-              })
-            );
+            this.rowIndex === -1
+              ? fieldFactory.create({
+                  ...this.json,
+                  name: text,
+                })
+              : this.dispatch(
+                  policyEditorJsonVisit((currentJson) => {
+                    _set(
+                      currentJson,
+                      `policy.urls[${this.rowIndex}].name`,
+                      text
+                    );
+                  })
+                );
           },
           {},
           { variant: "outlined", size: "small" }

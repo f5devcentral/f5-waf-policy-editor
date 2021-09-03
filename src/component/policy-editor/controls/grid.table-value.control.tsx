@@ -264,7 +264,7 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                             paddingRight: "0px",
                           }}
                         >
-                          <DragIndicator />
+                          {!defaultFlag && <DragIndicator />}
                         </TableCell>
                       )}
 
@@ -274,7 +274,7 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                             size="small"
                             onClick={() => onOpenAdvancedSettingsDialog(vIndex)}
                           >
-                            <EditIcon />
+                            {!defaultFlag && <EditIcon />}
                           </IconButton>
                         ) : undefined}
                       </TableCell>
