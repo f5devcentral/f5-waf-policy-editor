@@ -5,6 +5,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Box from "@material-ui/core/Box";
 import TextField from "@material-ui/core/TextField";
+import RootRef from "@material-ui/core/RootRef";
+import scrollIntoView from "scroll-into-view-if-needed";
 
 export type MenuSearchPopupProps = {
   open: boolean;
@@ -36,7 +38,12 @@ export const MenuSearchPopupControl: React.FunctionComponent<MenuSearchPopupProp
     }, [strItems, filter]);
 
     useEffect(() => {
-      selectedRef?.current && selectedRef?.current.scrollIntoView();
+      selectedRef?.current &&
+        scrollIntoView(selectedRef?.current, {
+          scrollMode: "if-needed",
+          block: "nearest",
+          inline: "nearest",
+        });
     }, [selectedIndex]);
 
     function handleKeyDown(e: any) {
@@ -93,20 +100,24 @@ export const MenuSearchPopupControl: React.FunctionComponent<MenuSearchPopupProp
           </Box>
           <Box style={{ overflowY: "auto", maxHeight: "60vh" }}>
             <List>
-              {filteredItems.map((x, index: number) => (
-                <ListItem
-                  button
-                  key={x}
-                  onClick={() => onSelect(x)}
-                  selected={index === selectedIndex}
-                >
-                  {index === selectedIndex ? (
-                    <ListItemText primary={x} ref={selectedRef} />
-                  ) : (
+              {filteredItems.map((x, index: number) =>
+                index === selectedIndex ? (
+                  <RootRef rootRef={selectedRef}>
+                    <ListItem
+                      button
+                      key={x}
+                      onClick={() => onSelect(x)}
+                      selected={index === selectedIndex}
+                    >
+                      <ListItemText primary={x} ref={selectedRef} />
+                    </ListItem>
+                  </RootRef>
+                ) : (
+                  <ListItem button key={x} onClick={() => onSelect(x)}>
                     <ListItemText primary={x} />
-                  )}
-                </ListItem>
-              ))}
+                  </ListItem>
+                )
+              )}
             </List>
           </Box>
         </Box>
