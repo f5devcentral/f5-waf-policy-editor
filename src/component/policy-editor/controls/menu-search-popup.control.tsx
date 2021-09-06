@@ -23,9 +23,13 @@ export const MenuSearchPopupControl: React.FunctionComponent<MenuSearchPopupProp
     const selectedRef = useRef<null | HTMLElement>(null);
 
     const strItems = JSON.stringify(items);
-    const filteredItems = items.filter(
-      (x) => x.toLowerCase().indexOf(filter.toLowerCase()) !== -1
-    );
+    const filteredItems = items
+      .filter((x) => x.toLowerCase().indexOf(filter.toLowerCase()) !== -1)
+      .sort((a, b) => {
+        if (a < b) return -1;
+        if (a > b) return 1;
+        return 0;
+      });
 
     useEffect(() => {
       if (!open) return; // avoid blinking....
@@ -47,6 +51,8 @@ export const MenuSearchPopupControl: React.FunctionComponent<MenuSearchPopupProp
     }, [selectedIndex]);
 
     function handleKeyDown(e: any) {
+      console.log(e.key);
+
       if (e.key === "ArrowUp") {
         if (selectedIndex > 0) {
           setSelectedIndex(selectedIndex - 1);
@@ -57,6 +63,12 @@ export const MenuSearchPopupControl: React.FunctionComponent<MenuSearchPopupProp
         if (selectedIndex < filteredItems.length - 1) {
           setSelectedIndex(selectedIndex + 1);
         }
+        e.stopPropagation();
+        e.preventDefault();
+      } else if (e.key === "Enter") {
+        const x = filteredItems[selectedIndex];
+        onSelect(x);
+
         e.stopPropagation();
         e.preventDefault();
       }
