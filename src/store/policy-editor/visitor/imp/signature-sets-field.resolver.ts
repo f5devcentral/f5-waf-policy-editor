@@ -3,12 +3,11 @@ import { FieldResolverVisitor } from "../interface/field-resolver.visitor";
 import { PolicyEditorDispatch } from "../../policy-editor.types";
 import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
-import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
-import { set as _set } from "lodash";
-import { SignatureSetsNginxConst } from "../../../../model/nginx-const/signature-sets.nginx-const";
 import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
 import { SignatureSetsFieldFactory } from "./signature-sets-field.factory";
 import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
+
+import { set as _set } from "lodash";
 
 export class SignatureSetsFieldResolver
   extends BaseVisitor

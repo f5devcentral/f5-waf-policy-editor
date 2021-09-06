@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Popover } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -17,11 +17,43 @@ export type MenuSearchPopupProps = {
 export const MenuSearchPopupControl: React.FunctionComponent<MenuSearchPopupProps> =
   ({ open, anchorEl, items, onSelect, onClose }) => {
     const [filter, setFilter] = useState("");
+    const [selectedIndex, setSelectedIndex] = useState<number>(0);
+    const selectedRef = useRef<null | HTMLElement>(null);
+
+    const strItems = JSON.stringify(items);
+    const filteredItems = items.filter(
+      (x) => x.toLowerCase().indexOf(filter.toLowerCase()) !== -1
+    );
 
     useEffect(() => {
       if (!open) return; // avoid blinking....
       setFilter("");
+      setSelectedIndex(0);
     }, [open]);
+
+    useEffect(() => {
+      setSelectedIndex(0);
+    }, [strItems, filter]);
+
+    useEffect(() => {
+      selectedRef?.current && selectedRef?.current.scrollIntoView();
+    }, [selectedIndex]);
+
+    function handleKeyDown(e: any) {
+      if (e.key === "ArrowUp") {
+        if (selectedIndex > 0) {
+          setSelectedIndex(selectedIndex - 1);
+        }
+        e.stopPropagation();
+        e.preventDefault();
+      } else if (e.key === "ArrowDown") {
+        if (selectedIndex < filteredItems.length - 1) {
+          setSelectedIndex(selectedIndex + 1);
+        }
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    }
 
     return (
       <Popover
@@ -38,6 +70,7 @@ export const MenuSearchPopupControl: React.FunctionComponent<MenuSearchPopupProp
           vertical: "top",
           horizontal: "left",
         }}
+        onKeyDown={handleKeyDown}
       >
         <Box style={{ overflow: "hidden" }}>
           <Box>
@@ -58,17 +91,22 @@ export const MenuSearchPopupControl: React.FunctionComponent<MenuSearchPopupProp
               }}
             />
           </Box>
-          <Box style={{ overflow: "scroll", maxHeight: "60vh" }}>
+          <Box style={{ overflowY: "auto", maxHeight: "60vh" }}>
             <List>
-              {items
-                .filter(
-                  (x) => x.toLowerCase().indexOf(filter.toLowerCase()) !== -1
-                )
-                .map((x) => (
-                  <ListItem button key={x} onClick={() => onSelect(x)}>
+              {filteredItems.map((x, index: number) => (
+                <ListItem
+                  button
+                  key={x}
+                  onClick={() => onSelect(x)}
+                  selected={index === selectedIndex}
+                >
+                  {index === selectedIndex ? (
+                    <ListItemText primary={x} ref={selectedRef} />
+                  ) : (
                     <ListItemText primary={x} />
-                  </ListItem>
-                ))}
+                  )}
+                </ListItem>
+              ))}
             </List>
           </Box>
         </Box>
