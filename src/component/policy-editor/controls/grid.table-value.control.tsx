@@ -115,13 +115,26 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
     const anySelected = selected.some((x) => x);
 
     const onRemoveSelected: () => void = () => {
-      let removedOffset = 0;
+      const batchDeleteArr: number[] = [];
+
       for (let i = 0; i < selected.length; i++) {
         if (selected[i]) {
-          visitors[i - removedOffset].remove();
-          removedOffset++;
+          batchDeleteArr.push(visitors[i].rowIndex);
         }
       }
+
+      // make sure that items will be deleted from
+      // top to bottom, so the correct shifts can be applied
+      batchDeleteArr.sort((a, b) => a - b);
+
+      batchDeleteArr.forEach((rowIndex, index) => {
+        // just any visitor will suit the aim. move the visitor index
+        // to the rowIndex of the one to be deleted minus shift (as some were deleted before)
+        visitors[0].rowIndex = rowIndex - index;
+
+        // delete one by one :)
+        visitors[0].remove();
+      });
     };
 
     const createAdvancedSettingsControls: (
