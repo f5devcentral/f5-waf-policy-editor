@@ -21,6 +21,10 @@ export class EvasionsFieldResolver
     super(dispatch, json);
   }
 
+  get basePath(): string {
+    return "";
+  }
+
   key(): string {
     return this.json.description;
   }

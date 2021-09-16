@@ -32,6 +32,10 @@ export class MethodsFieldResolver
     return [];
   }
 
+  get basePath(): string {
+    return "";
+  }
+
   getBasicRows(): GridFieldValue[] {
     return [
       {

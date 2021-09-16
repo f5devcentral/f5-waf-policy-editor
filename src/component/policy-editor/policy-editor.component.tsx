@@ -38,8 +38,10 @@ const JsonEditorContainer = withStyles((theme) =>
 const CurrentPageContainer = withStyles((theme) =>
   createStyles({
     root: {
-      margin: theme.spacing(3),
       position: "relative",
+      marginTop: theme.spacing(1),
+      marginLeft: theme.spacing(3),
+      marginRight: theme.spacing(3),
     },
   })
 )(Box);

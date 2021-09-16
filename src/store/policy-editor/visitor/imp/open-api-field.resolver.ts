@@ -30,6 +30,10 @@ export class OpenApiFieldResolver
     return [];
   }
 
+  get basePath(): string {
+    return "";
+  }
+
   getBasicRows(): GridFieldValue[] {
     return [
       {

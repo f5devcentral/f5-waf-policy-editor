@@ -29,6 +29,10 @@ export class HeadersFieldResolver
     return true;
   }
 
+  get basePath(): string {
+    return "";
+  }
+
   getAdvancedRows(): GridFieldValue[] {
     return [
       {

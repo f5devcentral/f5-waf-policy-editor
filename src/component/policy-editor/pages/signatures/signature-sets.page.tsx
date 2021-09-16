@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Box, Button } from "@material-ui/core";
-import { GridTableValueControl } from "../controls/grid.table-value.control";
-import { useStyles } from "../../../utils/styles.hook";
-import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.visitor";
-import { SignatureSetsFieldFactory } from "../../../store/policy-editor/visitor/imp/signature-sets-field.factory";
-import { SignatureSetsVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/signature-sets.visitor-factory";
-import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
-import { stringCompare } from "../../../utils/string-compare.util";
-import { MenuSearchPopupControl } from "../controls/menu-search-popup.control";
-import { SignatureSetsNginxConst } from "../../../model/nginx-const/signature-sets.nginx-const";
-import { defaultSignatureSets } from "../../../model/policy-editor.defaults.model";
+import { GridTableValueControl } from "../../controls/grid.table-value.control";
+import { useStyles } from "../../../../utils/styles.hook";
+import { useVisitor } from "../../../../store/policy-editor/visitor/interface/base.visitor";
+import { SignatureSetsFieldFactory } from "../../../../store/policy-editor/visitor/imp/signature-sets-field.factory";
+import { SignatureSetsVisitorFactory } from "../../../../store/policy-editor/visitor/factory/imp/signature-sets.visitor-factory";
+import { usePolicyEditorState } from "../../../../store/policy-editor/policy-editor.hooks";
+import { stringCompare } from "../../../../utils/string-compare.util";
+import { MenuSearchPopupControl } from "../../controls/menu-search-popup.control";
+import { SignatureSetsNginxConst } from "../../../../model/nginx-const/signature-sets.nginx-const";
+import { defaultSignatureSets } from "../../../../model/policy-editor.defaults.model";
 import { ExpandMore } from "@material-ui/icons";
 
 export const SignatureSetsPage: React.VoidFunctionComponent = () => {

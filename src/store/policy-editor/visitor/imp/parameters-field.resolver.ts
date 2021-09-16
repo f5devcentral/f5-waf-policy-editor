@@ -29,6 +29,10 @@ export class ParametersFieldResolver
     return true;
   }
 
+  get basePath(): string {
+    return "";
+  }
+
   getAdvancedRows(): GridFieldValue[] {
     return [
       {

@@ -1,18 +1,18 @@
 import * as React from "react";
-import { useStyles } from "../../../utils/styles.hook";
+import { useStyles } from "../../../../utils/styles.hook";
 import Box from "@material-ui/core/Box";
-import { GridTableValueControl } from "../controls/grid.table-value.control";
-import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.visitor";
+import { GridTableValueControl } from "../../controls/grid.table-value.control";
+import { useVisitor } from "../../../../store/policy-editor/visitor/interface/base.visitor";
 
 import Button from "@material-ui/core/Button";
 import { useState } from "react";
 import { ExpandMore } from "@material-ui/icons";
-import { ViolationsNginxConst } from "../../../model/nginx-const/violations.nginx-const";
-import { ViolationsFieldFactory } from "../../../store/policy-editor/visitor/imp/violations-field.factory";
-import { MenuSearchPopupControl } from "../controls/menu-search-popup.control";
-import { ViolationsVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/violations.visitor-factory";
-import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
-import { stringCompare } from "../../../utils/string-compare.util";
+import { ViolationsNginxConst } from "../../../../model/nginx-const/violations.nginx-const";
+import { ViolationsFieldFactory } from "../../../../store/policy-editor/visitor/imp/violations-field.factory";
+import { MenuSearchPopupControl } from "../../controls/menu-search-popup.control";
+import { ViolationsVisitorFactory } from "../../../../store/policy-editor/visitor/factory/imp/violations.visitor-factory";
+import { usePolicyEditorState } from "../../../../store/policy-editor/policy-editor.hooks";
+import { stringCompare } from "../../../../utils/string-compare.util";
 
 export const ViolationsPage: React.VoidFunctionComponent = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

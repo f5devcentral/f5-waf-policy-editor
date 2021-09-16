@@ -33,6 +33,10 @@ export class SignatureSetsFieldResolver
     return [];
   }
 
+  get basePath(): string {
+    return "";
+  }
+
   remove(): void {
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {

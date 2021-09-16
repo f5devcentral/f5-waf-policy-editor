@@ -30,6 +30,10 @@ export class UrlsFieldResolver
     return true;
   }
 
+  get basePath(): string {
+    return "";
+  }
+
   getAdvancedRows(): GridFieldValue[] {
     return [
       {

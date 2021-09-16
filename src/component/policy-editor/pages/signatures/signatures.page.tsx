@@ -1,10 +1,10 @@
 import React from "react";
 import { Box, Button } from "@material-ui/core";
-import { GridTableValueControl } from "../controls/grid.table-value.control";
-import { useStyles } from "../../../utils/styles.hook";
-import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.visitor";
-import { SignaturesFieldFactory } from "../../../store/policy-editor/visitor/imp/signatures-field.factory";
-import { SignaturesVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/signatures.visitor-factory";
+import { GridTableValueControl } from "../../controls/grid.table-value.control";
+import { useStyles } from "../../../../utils/styles.hook";
+import { useVisitor } from "../../../../store/policy-editor/visitor/interface/base.visitor";
+import { SignaturesFieldFactory } from "../../../../store/policy-editor/visitor/imp/signatures-field.factory";
+import { SignaturesVisitorFactory } from "../../../../store/policy-editor/visitor/factory/imp/signatures.visitor-factory";
 
 export const SignaturesPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();

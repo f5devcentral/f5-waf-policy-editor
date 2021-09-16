@@ -33,6 +33,10 @@ export class ViolationsFieldResolver
     return item.title;
   }
 
+  get basePath(): string {
+    return "";
+  }
+
   key(): string {
     return this.resolveViolationTitle(this.json.name);
   }

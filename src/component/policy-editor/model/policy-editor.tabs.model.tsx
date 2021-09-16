@@ -101,26 +101,39 @@ export const TabsTree: PolicyEditorPageInfo[] = [
     id: PolicyEditorPageEnum.Signatures,
     subPages: [
       {
-        label: createLabel(
-          false,
-          "Signature Sets",
-          <IconSignatures {...iconProps} />
-        ),
+        label: createLabel(false, "Signature Sets", undefined),
         id: PolicyEditorPageEnum.SignaturesSets,
       },
       {
-        label: createLabel(
-          false,
-          "Signatures",
-          <IconSignatures {...iconProps} />
-        ),
+        label: createLabel(false, "Signatures", undefined),
         id: PolicyEditorPageEnum.SignaturesPolicy,
       },
     ],
   },
   {
-    label: createLabel(false, "Bot Defense", <IconBotDefense {...iconProps} />),
+    label: createLabel(true, "Bot Defense", <IconBotDefense {...iconProps} />),
     id: PolicyEditorPageEnum.BotDefense,
-    disabled: true,
+    subPages: [
+      {
+        label: createLabel(false, "Settings", undefined),
+        id: PolicyEditorPageEnum.BotDefenseSettings,
+      },
+      {
+        label: createLabel(false, "Anomalies", undefined),
+        id: PolicyEditorPageEnum.BotDefenseMigrationsAnomalies,
+      },
+      {
+        label: createLabel(false, "Browsers", undefined),
+        id: PolicyEditorPageEnum.BotDefenseMigrationsBrowsers,
+      },
+      {
+        label: createLabel(false, "Classes", undefined),
+        id: PolicyEditorPageEnum.BotDefenseMigrationsClasses,
+      },
+      {
+        label: createLabel(false, "Signatures", undefined),
+        id: PolicyEditorPageEnum.BotDefenseMigrationsSignatures,
+      },
+    ],
   },
 ];

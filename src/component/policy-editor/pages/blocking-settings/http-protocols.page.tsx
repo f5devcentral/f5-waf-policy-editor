@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { useStyles } from "../../../utils/styles.hook";
-import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.visitor";
+import { useStyles } from "../../../../utils/styles.hook";
+import { useVisitor } from "../../../../store/policy-editor/visitor/interface/base.visitor";
 import { Box, Button } from "@material-ui/core";
-import { GridTableValueControl } from "../controls/grid.table-value.control";
-import { HttpProtocolsFieldFactory } from "../../../store/policy-editor/visitor/imp/http-protocols-field.factory";
-import { HttpProtocolsVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/http-protocols.visitor-factory";
+import { GridTableValueControl } from "../../controls/grid.table-value.control";
+import { HttpProtocolsFieldFactory } from "../../../../store/policy-editor/visitor/imp/http-protocols-field.factory";
+import { HttpProtocolsVisitorFactory } from "../../../../store/policy-editor/visitor/factory/imp/http-protocols.visitor-factory";
 import { ExpandMore } from "@material-ui/icons";
-import { MenuSearchPopupControl } from "../controls/menu-search-popup.control";
-import { HTTPProtocolDescription } from "../../../model/policy-schema/policy.definitions";
-import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
-import { stringCompare } from "../../../utils/string-compare.util";
+import { MenuSearchPopupControl } from "../../controls/menu-search-popup.control";
+import { HTTPProtocolDescription } from "../../../../model/policy-schema/policy.definitions";
+import { usePolicyEditorState } from "../../../../store/policy-editor/policy-editor.hooks";
+import { stringCompare } from "../../../../utils/string-compare.util";
 
 export const HttpProtocolsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();

@@ -8,6 +8,8 @@ export function createDefaultValues<T extends FieldResolverVisitor>(
   keyField: string,
   resolverFactory: (json: any) => T
 ): T[] {
+  if (!_get(defaultPolicy, path)) return [];
+
   return _get(defaultPolicy, path)
     .reduce((r: any, v: any) => {
       const item = _get(json, path);

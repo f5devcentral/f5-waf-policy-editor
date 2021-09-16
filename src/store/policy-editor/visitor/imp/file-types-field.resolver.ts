@@ -29,6 +29,10 @@ export class FileTypesFieldResolver
     return true;
   }
 
+  get basePath(): string {
+    return "";
+  }
+
   getBasicRows(): GridFieldValue[] {
     const fileTypesFiledFactory = new FileTypesFieldFactory(
       this.dispatch,

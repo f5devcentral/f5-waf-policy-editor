@@ -30,6 +30,10 @@ export class ServerTechnologiesFieldResolver
     return [];
   }
 
+  get basePath(): string {
+    return "";
+  }
+
   getBasicRows(): GridFieldValue[] {
     return [
       {

@@ -8,4 +8,5 @@ export interface FieldResolverVisitor {
 
   rowIndex: number;
   hasAdvancedRows: boolean;
+  basePath: string;
 }

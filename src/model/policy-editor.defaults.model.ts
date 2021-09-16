@@ -1,10 +1,19 @@
 import {
+  Class,
+  ClassAction,
+  ClassName,
+  MitigationsSignature,
   OpenAPIFile,
   PolicySignature,
   ServerTechnology,
+  Settings,
   SignatureSet,
   URLElement,
 } from "./policy-schema/policy.definitions";
+import {
+  MitigationAnomaly,
+  MitigationBrowser,
+} from "./policy-schema/policy.definitions.nap.custom";
 
 export const defaultGeneralSettings = () => ({
   policy: {
@@ -114,5 +123,42 @@ export const defaultSignatures: () => PolicySignature = () => {
     name: "",
     signatureId: 0,
     tag: "",
+  };
+};
+
+export const defaultBotDefenceSettings: () => Settings = () => {
+  return {
+    isEnabled: true,
+  };
+};
+
+export const defaultMitigationsAnomaly: () => MitigationAnomaly = () => {
+  return {
+    name: "",
+    action: "",
+    scoreThreshold: 1,
+  };
+};
+
+export const defaultMitigationsBrowser: () => MitigationBrowser = () => {
+  return {
+    action: "",
+    maxVersion: 1,
+    minVersion: 1,
+    name: "",
+  };
+};
+
+export const defaultMitigationsClass: () => Class = () => {
+  return {
+    name: "" as ClassName,
+    action: "" as ClassAction,
+  } as Class;
+};
+
+export const defaultMitigationsSignature: () => MitigationsSignature = () => {
+  return {
+    action: "" as ClassAction,
+    name: "",
   };
 };
