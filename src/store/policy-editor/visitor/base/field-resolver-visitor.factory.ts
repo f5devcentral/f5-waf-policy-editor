@@ -15,7 +15,7 @@ export class FieldResolverVisitorFactory<
     protected json: any,
     protected titles: string[],
     protected policyPath: string,
-    protected keyField: string
+    protected keyField?: ((json: any) => string) | string
   ) {
     super(dispatch, json);
   }

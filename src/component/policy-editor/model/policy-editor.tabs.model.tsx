@@ -45,6 +45,20 @@ export const TabsTree: PolicyEditorPageInfo[] = [
   {
     label: createLabel(false, "General Settings", <IconGear {...iconProps} />),
     id: PolicyEditorPageEnum.GeneralSettings,
+    subPages: [
+      {
+        id: PolicyEditorPageEnum.Summary,
+        label: createLabel(false, "Summary", undefined),
+      },
+      {
+        id: PolicyEditorPageEnum.CustomXffHeaders,
+        label: createLabel(false, "XFF Headers", undefined),
+      },
+      {
+        id: PolicyEditorPageEnum.AllowedResponseCodes,
+        label: createLabel(false, "Allowed Response Codes", undefined),
+      },
+    ],
   },
   {
     label: createLabel(true, "Blocking Settings", <IconLock {...iconProps} />),
@@ -133,6 +147,28 @@ export const TabsTree: PolicyEditorPageInfo[] = [
       {
         label: createLabel(false, "Signatures", undefined),
         id: PolicyEditorPageEnum.BotDefenseMigrationsSignatures,
+      },
+    ],
+  },
+  {
+    label: createLabel(false, "Whitelist IPs", undefined),
+    id: PolicyEditorPageEnum.WhitelistIp,
+  },
+  {
+    label: createLabel(false, "Hostnames", undefined),
+    id: PolicyEditorPageEnum.Hostnames,
+  },
+  {
+    id: PolicyEditorPageEnum.DataGuard,
+    label: createLabel(false, "Data Guard", undefined),
+    subPages: [
+      {
+        label: createLabel(false, "Settings", undefined),
+        id: PolicyEditorPageEnum.DataGuardSettings,
+      },
+      {
+        label: createLabel(false, "Enforcement Urls", undefined),
+        id: PolicyEditorPageEnum.DataGuardEnforcementUrls,
       },
     ],
   },

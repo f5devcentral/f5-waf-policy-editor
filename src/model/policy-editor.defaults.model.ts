@@ -1,7 +1,11 @@
 import {
+  BlockRequests,
   Class,
   ClassAction,
   ClassName,
+  DataGuard,
+  DataGuardEnforcementMode,
+  HostName,
   MitigationsSignature,
   OpenAPIFile,
   PolicySignature,
@@ -9,6 +13,7 @@ import {
   Settings,
   SignatureSet,
   URLElement,
+  WhitelistIP,
 } from "./policy-schema/policy.definitions";
 import {
   MitigationAnomaly,
@@ -159,6 +164,33 @@ export const defaultMitigationsClass: () => Class = () => {
 export const defaultMitigationsSignature: () => MitigationsSignature = () => {
   return {
     action: "" as ClassAction,
+    name: "",
+  };
+};
+
+export const defaultDataGuard: () => DataGuard = () => {
+  return {
+    creditCardNumbers: true,
+    enabled: true,
+    enforcementMode: DataGuardEnforcementMode.EnforceUrlsInList,
+    enforcementUrls: [],
+    maskData: true,
+    usSocialSecurityNumbers: true,
+  };
+};
+
+export const defaultWhitelistIPs: () => WhitelistIP = () => {
+  return {
+    blockRequests: BlockRequests.PolicyDefault,
+    description: "",
+    ipAddress: "",
+    ipMask: "",
+  };
+};
+
+export const defaultHostname: () => HostName = () => {
+  return {
+    includeSubdomains: true,
     name: "",
   };
 };

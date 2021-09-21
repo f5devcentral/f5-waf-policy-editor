@@ -21,6 +21,12 @@ import { BotDefenseSettingsPage } from "../pages/bot-defense/bot-defense.setting
 import { BotDefenseMitigationsAnomaliesPage } from "../pages/bot-defense/bot-defense.mitigations.anomalies.page";
 import { BotDefenseMitigationsClassesPage } from "../pages/bot-defense/bot-defense.mitigations.classes.page";
 import { BotDefenseMitigationsSignaturesPage } from "../pages/bot-defense/bot-defense.mitigations.signatures.page";
+import { CustomXffHeadersPage } from "../pages/custom-xff-headers.page";
+import { AllowedResponseCodesPage } from "../pages/allowed-response-codes.page";
+import { WhitelistIpsPage } from "../pages/whitelist-ips.page";
+import { HostnamesPage } from "../pages/host-names.page";
+import { DataGuardEnforcementUrlsPage } from "../pages/data-guard/data-guard.enforcement-urls.page";
+import { DataGuardSettingsPage } from "../pages/data-guard/data-guard.settings.page";
 
 export class PolicyEditorPageFactory {
   constructor(
@@ -43,8 +49,20 @@ export class PolicyEditorPageFactory {
           id={PolicyEditorPageEnum.BotDefense}
         />
       ),
+      [PolicyEditorPageEnum.GeneralSettings]: (
+        <AdditionalTabsPage
+          tree={TabsTree}
+          id={PolicyEditorPageEnum.GeneralSettings}
+        />
+      ),
+      [PolicyEditorPageEnum.DataGuard]: (
+        <AdditionalTabsPage
+          tree={TabsTree}
+          id={PolicyEditorPageEnum.DataGuard}
+        />
+      ),
       // -----------------------------------------------------------------
-      [PolicyEditorPageEnum.GeneralSettings]: <GeneralSettingsPage />,
+      [PolicyEditorPageEnum.Summary]: <GeneralSettingsPage />,
       [PolicyEditorPageEnum.Violations]: <ViolationsPage />,
       [PolicyEditorPageEnum.Methods]: <MethodsPage />,
       [PolicyEditorPageEnum.URLs]: <UrlsPage />,
@@ -70,6 +88,14 @@ export class PolicyEditorPageFactory {
       [PolicyEditorPageEnum.BotDefenseMigrationsSignatures]: (
         <BotDefenseMitigationsSignaturesPage />
       ),
+      [PolicyEditorPageEnum.CustomXffHeaders]: <CustomXffHeadersPage />,
+      [PolicyEditorPageEnum.AllowedResponseCodes]: <AllowedResponseCodesPage />,
+      [PolicyEditorPageEnum.WhitelistIp]: <WhitelistIpsPage />,
+      [PolicyEditorPageEnum.Hostnames]: <HostnamesPage />,
+      [PolicyEditorPageEnum.DataGuardEnforcementUrls]: (
+        <DataGuardEnforcementUrlsPage />
+      ),
+      [PolicyEditorPageEnum.DataGuardSettings]: <DataGuardSettingsPage />,
     }
   ) {}
 

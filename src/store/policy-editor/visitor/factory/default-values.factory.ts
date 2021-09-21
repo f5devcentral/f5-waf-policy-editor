@@ -5,10 +5,17 @@ import defaultPolicy from "../../../../model/nginx-const/defaut-policy.nginx.jso
 export function createDefaultValues<T extends FieldResolverVisitor>(
   json: any,
   path: string,
-  keyField: string,
+  keyField: ((json: any) => string) | string | undefined,
   resolverFactory: (json: any) => T
 ): T[] {
   if (!_get(defaultPolicy, path)) return [];
+
+  const resolvedKey: string | undefined =
+    keyField !== undefined
+      ? typeof keyField === "function"
+        ? keyField(json)
+        : keyField
+      : undefined;
 
   return _get(defaultPolicy, path)
     .reduce((r: any, v: any) => {
@@ -16,7 +23,10 @@ export function createDefaultValues<T extends FieldResolverVisitor>(
       if (
         !item ||
         item.find((x: any) => {
-          return _get(v, keyField) === _get(x, keyField);
+          return (
+            (resolvedKey === undefined ? v : _get(v, resolvedKey)) ===
+            (resolvedKey === undefined ? x : _get(x, resolvedKey))
+          );
         }) === undefined
       ) {
         r.push(v);

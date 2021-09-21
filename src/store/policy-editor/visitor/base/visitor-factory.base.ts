@@ -19,13 +19,13 @@ export class VisitorFactoryBase<T>
   create(item: T) {
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
-        let anomalies = _get(currentJson, this.path);
-        if (!anomalies) {
+        let arr = _get(currentJson, this.path);
+        if (!arr) {
           _set(currentJson, this.path, [] as any);
-          anomalies = _get(currentJson, this.path);
+          arr = _get(currentJson, this.path);
         }
 
-        anomalies.push(item);
+        arr.push(item);
       })
     );
   }

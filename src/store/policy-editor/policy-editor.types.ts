@@ -4,6 +4,7 @@ import { PolicyValidationError } from "../../model/json-validate/policy.validato
 
 export enum PolicyEditorPageEnum {
   GeneralSettings,
+  Summary,
   BlockingSettings,
   Methods,
   URLs,
@@ -24,6 +25,13 @@ export enum PolicyEditorPageEnum {
   HttpProtocols,
   ServerTechnologies,
   Violations,
+  WhitelistIp,
+  DataGuard,
+  DataGuardSettings,
+  DataGuardEnforcementUrls,
+  CustomXffHeaders,
+  Hostnames,
+  AllowedResponseCodes,
 }
 
 export type PolicyEditorState = {

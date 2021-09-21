@@ -13,7 +13,7 @@ export type MenuSearchPopupProps = {
   anchorEl: any;
   items: string[];
   onClose: () => void;
-  onSelect: (item: string) => void;
+  onSelect: (item: string, index: number) => void;
 };
 
 export const MenuSearchPopupControl: React.FunctionComponent<MenuSearchPopupProps> =
@@ -30,6 +30,10 @@ export const MenuSearchPopupControl: React.FunctionComponent<MenuSearchPopupProp
         if (a > b) return 1;
         return 0;
       });
+
+    function getIndex(item: string) {
+      return items.indexOf(item);
+    }
 
     useEffect(() => {
       if (!open) return; // avoid blinking....
@@ -51,8 +55,6 @@ export const MenuSearchPopupControl: React.FunctionComponent<MenuSearchPopupProp
     }, [selectedIndex]);
 
     function handleKeyDown(e: any) {
-      console.log(e.key);
-
       if (e.key === "ArrowUp") {
         if (selectedIndex > 0) {
           setSelectedIndex(selectedIndex - 1);
@@ -67,7 +69,7 @@ export const MenuSearchPopupControl: React.FunctionComponent<MenuSearchPopupProp
         e.preventDefault();
       } else if (e.key === "Enter") {
         const x = filteredItems[selectedIndex];
-        onSelect(x);
+        onSelect(x, getIndex(x));
 
         e.stopPropagation();
         e.preventDefault();
@@ -118,14 +120,18 @@ export const MenuSearchPopupControl: React.FunctionComponent<MenuSearchPopupProp
                     <ListItem
                       button
                       key={x}
-                      onClick={() => onSelect(x)}
+                      onClick={() => onSelect(x, getIndex(x))}
                       selected={index === selectedIndex}
                     >
                       <ListItemText primary={x} ref={selectedRef} />
                     </ListItem>
                   </RootRef>
                 ) : (
-                  <ListItem button key={x} onClick={() => onSelect(x)}>
+                  <ListItem
+                    button
+                    key={x}
+                    onClick={() => onSelect(x, getIndex(x))}
+                  >
                     <ListItemText primary={x} />
                   </ListItem>
                 )
