@@ -1,0 +1,20 @@
+{
+  "properties": {
+    "policy": {
+      "properties": {
+        "methods" : {
+          "items": {
+            "properties": {
+              "name" : {
+                "minLength" : "1",
+                "message": {
+                  "minLength": "Method must not be empty"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
