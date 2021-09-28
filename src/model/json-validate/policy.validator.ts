@@ -24,8 +24,6 @@ export class PolicyValidator {
         nestedErrors: true,
       }).errors;
 
-      console.log(errors);
-
       return errors.map((x) => {
         const customMessage = (x.schema as any).message
           ? (x.schema as any).message[x.name]
