@@ -194,6 +194,10 @@ export const TabsTree: PolicyEditorPageInfo[] = [
         label: createLabel(false, "Cookie Settings", undefined),
         id: PolicyEditorPageEnum.CookieSettings,
       },
+      {
+        label: createLabel(false, "Cookies", undefined),
+        id: PolicyEditorPageEnum.Cookies,
+      },
     ],
   },
 ];

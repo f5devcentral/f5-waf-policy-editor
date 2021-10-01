@@ -30,6 +30,7 @@ import { DataGuardSettingsPage } from "../pages/data-guard/data-guard.settings.p
 import { CsrfProtectionPage } from "../pages/csrf-protection.page";
 import { CsrfUrlsPage } from "../pages/csrf-urls.page";
 import { CookieSettingsPage } from "../pages/cookie-settings.page";
+import { CookiesPage } from "../pages/cookies.page";
 
 export class PolicyEditorPageFactory {
   constructor(
@@ -111,6 +112,7 @@ export class PolicyEditorPageFactory {
       [PolicyEditorPageEnum.CsrfProtection]: <CsrfProtectionPage />,
       [PolicyEditorPageEnum.CsrfUrls]: <CsrfUrlsPage />,
       [PolicyEditorPageEnum.CookieSettings]: <CookieSettingsPage />,
+      [PolicyEditorPageEnum.Cookies]: <CookiesPage />,
     }
   ) {}
 

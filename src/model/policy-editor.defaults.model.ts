@@ -4,14 +4,18 @@ import {
   ClassAction,
   ClassName,
   CookieSettings,
+  Cooky,
   CSRFProtection,
   CSRFURL,
   CSRFURLMethod,
   DataGuard,
   DataGuardEnforcementMode,
   EnforcementAction,
+  EnforcementType,
   ExpirationTime,
   HostName,
+  HostNameTypeEnum,
+  InsertSameSiteAttribute,
   MaximumCookieHeaderLengthEnum,
   MitigationsSignature,
   OpenAPIFile,
@@ -228,4 +232,26 @@ export const defaultCookeSettings: () => CookieSettings = () => {
   return {
     maximumCookieHeaderLength: MaximumCookieHeaderLengthEnum.Any,
   };
+};
+
+export const defaultCookie: (order: number, cookie?: Cooky) => Cooky = (
+  order,
+  cookie
+) => {
+  return cookie
+    ? {
+        ...cookie,
+        wildcardOrder: order,
+      }
+    : {
+        name: "",
+        accessibleOnlyThroughTheHttpProtocol: true,
+        attackSignaturesCheck: true,
+        decodeValueAsBase64: "enabled",
+        enforcementType: EnforcementType.Allow,
+        insertSameSiteAttribute: InsertSameSiteAttribute.None,
+        securedOverHttpsConnection: true,
+        type: HostNameTypeEnum.Explicit,
+        wildcardOrder: order,
+      };
 };
