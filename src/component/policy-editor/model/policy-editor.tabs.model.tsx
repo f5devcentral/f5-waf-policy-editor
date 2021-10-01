@@ -160,7 +160,7 @@ export const TabsTree: PolicyEditorPageInfo[] = [
   },
   {
     id: PolicyEditorPageEnum.DataGuard,
-    label: createLabel(false, "Data Guard", undefined),
+    label: createLabel(true, "Data Guard", undefined),
     subPages: [
       {
         label: createLabel(false, "Settings", undefined),
@@ -174,7 +174,7 @@ export const TabsTree: PolicyEditorPageInfo[] = [
   },
   {
     id: PolicyEditorPageEnum.Csrf,
-    label: createLabel(false, "CSRF", undefined),
+    label: createLabel(true, "CSRF", undefined),
     subPages: [
       {
         label: createLabel(false, "Protection", undefined),
@@ -183,6 +183,16 @@ export const TabsTree: PolicyEditorPageInfo[] = [
       {
         label: createLabel(false, "CSRF Urls", undefined),
         id: PolicyEditorPageEnum.CsrfUrls,
+      },
+    ],
+  },
+  {
+    id: PolicyEditorPageEnum.EnforceCookeSettings,
+    label: createLabel(true, "Enforce Cooke Settings", undefined),
+    subPages: [
+      {
+        label: createLabel(false, "Cookie Settings", undefined),
+        id: PolicyEditorPageEnum.CookieSettings,
       },
     ],
   },

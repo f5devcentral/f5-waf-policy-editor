@@ -3,6 +3,7 @@ import {
   Class,
   ClassAction,
   ClassName,
+  CookieSettings,
   CSRFProtection,
   CSRFURL,
   CSRFURLMethod,
@@ -11,6 +12,7 @@ import {
   EnforcementAction,
   ExpirationTime,
   HostName,
+  MaximumCookieHeaderLengthEnum,
   MitigationsSignature,
   OpenAPIFile,
   PolicySignature,
@@ -219,5 +221,11 @@ export const defaultCsrfProtection: () => CSRFProtection = () => {
     enabled: false,
     expirationTimeInSeconds: ExpirationTime.Disabled,
     sslOnly: false,
+  };
+};
+
+export const defaultCookeSettings: () => CookieSettings = () => {
+  return {
+    maximumCookieHeaderLength: MaximumCookieHeaderLengthEnum.Any,
   };
 };

@@ -29,6 +29,7 @@ import { DataGuardEnforcementUrlsPage } from "../pages/data-guard/data-guard.enf
 import { DataGuardSettingsPage } from "../pages/data-guard/data-guard.settings.page";
 import { CsrfProtectionPage } from "../pages/csrf-protection.page";
 import { CsrfUrlsPage } from "../pages/csrf-urls.page";
+import { CookieSettingsPage } from "../pages/cookie-settings.page";
 
 export class PolicyEditorPageFactory {
   constructor(
@@ -65,6 +66,12 @@ export class PolicyEditorPageFactory {
       ),
       [PolicyEditorPageEnum.Csrf]: (
         <AdditionalTabsPage tree={TabsTree} id={PolicyEditorPageEnum.Csrf} />
+      ),
+      [PolicyEditorPageEnum.EnforceCookeSettings]: (
+        <AdditionalTabsPage
+          tree={TabsTree}
+          id={PolicyEditorPageEnum.EnforceCookeSettings}
+        />
       ),
       // -----------------------------------------------------------------
       [PolicyEditorPageEnum.Summary]: <GeneralSettingsPage />,
@@ -103,6 +110,7 @@ export class PolicyEditorPageFactory {
       [PolicyEditorPageEnum.DataGuardSettings]: <DataGuardSettingsPage />,
       [PolicyEditorPageEnum.CsrfProtection]: <CsrfProtectionPage />,
       [PolicyEditorPageEnum.CsrfUrls]: <CsrfUrlsPage />,
+      [PolicyEditorPageEnum.CookieSettings]: <CookieSettingsPage />,
     }
   ) {}
 

@@ -35,6 +35,9 @@ export enum PolicyEditorPageEnum {
   Csrf,
   CsrfProtection,
   CsrfUrls,
+  EnforceCookeSettings,
+  CookieSettings,
+  Cookies,
 }
 
 export type PolicyEditorState = {
