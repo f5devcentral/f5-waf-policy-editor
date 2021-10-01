@@ -4,6 +4,7 @@ import { get as _get, set as _set } from "lodash";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { PolicyEditorDispatch } from "../../policy-editor.types";
 import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
+import { TextEditFieldControl } from "../../../../component/policy-editor/controls/field-control/text-edit.field-control";
 
 export class TableFieldValueFactory {
   constructor(
@@ -46,6 +47,22 @@ export class TableFieldValueFactory {
       title,
       errorPath: this.errorPath(valuePath),
       controlInfo: new CheckboxFieldControl(
+        _get(this.json, this.policyPath(valuePath)),
+        (value) =>
+          this.dispatch(
+            policyEditorJsonVisit((currentJson) =>
+              _set(currentJson, this.policyPath(valuePath), value)
+            )
+          )
+      ),
+    };
+  }
+
+  createTextEditFieldControl(title: string, valuePath: string): GridFieldValue {
+    return {
+      title,
+      errorPath: this.errorPath(valuePath),
+      controlInfo: new TextEditFieldControl(
         _get(this.json, this.policyPath(valuePath)),
         (value) =>
           this.dispatch(

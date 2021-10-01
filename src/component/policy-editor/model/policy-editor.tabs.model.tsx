@@ -172,4 +172,18 @@ export const TabsTree: PolicyEditorPageInfo[] = [
       },
     ],
   },
+  {
+    id: PolicyEditorPageEnum.Csrf,
+    label: createLabel(false, "CSRF", undefined),
+    subPages: [
+      {
+        label: createLabel(false, "Protection", undefined),
+        id: PolicyEditorPageEnum.CsrfProtection,
+      },
+      {
+        label: createLabel(false, "CSRF Urls", undefined),
+        id: PolicyEditorPageEnum.CsrfUrls,
+      },
+    ],
+  },
 ];

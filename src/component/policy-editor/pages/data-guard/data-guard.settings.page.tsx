@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 import { useStyles } from "../../../../utils/styles.hook";
 import Box from "@material-ui/core/Box";

@@ -3,8 +3,13 @@ import {
   Class,
   ClassAction,
   ClassName,
+  CSRFProtection,
+  CSRFURL,
+  CSRFURLMethod,
   DataGuard,
   DataGuardEnforcementMode,
+  EnforcementAction,
+  ExpirationTime,
   HostName,
   MitigationsSignature,
   OpenAPIFile,
@@ -60,6 +65,20 @@ export const defaultUrls: (order: number, url?: URLElement) => URLElement = (
         metacharsOnUrlCheck: true,
         wildcardOrder: order,
       } as URLElement);
+};
+
+export const defaultCsrfUrl: (order: number, csrfUrl?: CSRFURL) => CSRFURL = (
+  order,
+  csrfUrl
+) => {
+  return csrfUrl
+    ? ({ ...csrfUrl, wildcardOrder: order } as CSRFURL)
+    : {
+        enforcementAction: EnforcementAction.None,
+        method: CSRFURLMethod.Any,
+        url: "",
+        wildcardOrder: order,
+      };
 };
 
 export const defaultFileTypes = () => ({
@@ -192,5 +211,13 @@ export const defaultHostname: () => HostName = () => {
   return {
     includeSubdomains: true,
     name: "",
+  };
+};
+
+export const defaultCsrfProtection: () => CSRFProtection = () => {
+  return {
+    enabled: false,
+    expirationTimeInSeconds: ExpirationTime.Disabled,
+    sslOnly: false,
   };
 };

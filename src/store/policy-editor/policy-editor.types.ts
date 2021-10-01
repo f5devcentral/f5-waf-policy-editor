@@ -32,6 +32,9 @@ export enum PolicyEditorPageEnum {
   CustomXffHeaders,
   Hostnames,
   AllowedResponseCodes,
+  Csrf,
+  CsrfProtection,
+  CsrfUrls,
 }
 
 export type PolicyEditorState = {

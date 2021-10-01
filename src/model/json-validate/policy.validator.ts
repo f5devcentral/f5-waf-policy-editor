@@ -50,7 +50,6 @@ export class PolicyValidator {
         }
       });
     } catch (e) {
-      console.log(e);
       return [];
     }
   }

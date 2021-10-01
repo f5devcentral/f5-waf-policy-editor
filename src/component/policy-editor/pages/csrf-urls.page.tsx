@@ -1,22 +1,22 @@
 import React from "react";
-import { Box, Button } from "@material-ui/core";
 import { useStyles } from "../../../utils/styles.hook";
-import { GridTableValueControl } from "../controls/grid.table-value.control";
 import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.visitor";
-import { UrlsFieldFactory } from "../../../store/policy-editor/visitor/imp/urls-field.factory";
-import { UrlsVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/urls.visitor-factory";
+import { CsrfUrlsVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/csrf-urls.visitor-factory";
+import { CsrfUrlsFieldFactory } from "../../../store/policy-editor/visitor/imp/csrf-urls-field.factory";
 import {
   usePolicyEditorDispatch,
   usePolicyEditorState,
 } from "../../../store/policy-editor/policy-editor.hooks";
+import { Box, Button } from "@material-ui/core";
+import { GridTableValueControl } from "../controls/grid.table-value.control";
 import { policyEditorJsonVisit } from "../../../store/policy-editor/policy-editor.actions";
 import { PolicyJsonReorderServices } from "../../../store/policy-editor/visitor/services/policy-json.reorder.services";
 
-export const UrlsPage: React.VoidFunctionComponent = () => {
+export const CsrfUrlsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
 
-  const urlsFieldFactory = useVisitor(UrlsFieldFactory);
-  const urlsVisitorFactory = useVisitor(UrlsVisitorFactory);
+  const csrfUrlsFieldFactory = useVisitor(CsrfUrlsFieldFactory);
+  const csrfUrlsVisitorsFactory = useVisitor(CsrfUrlsVisitorFactory);
 
   const { showDefaultPolicy } = usePolicyEditorState();
 
@@ -24,7 +24,7 @@ export const UrlsPage: React.VoidFunctionComponent = () => {
     titles,
     visitors,
     default: defValues,
-  } = urlsVisitorFactory.getResolvers();
+  } = csrfUrlsVisitorsFactory.getResolvers();
 
   const dispatch = usePolicyEditorDispatch();
 
@@ -33,15 +33,15 @@ export const UrlsPage: React.VoidFunctionComponent = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => urlsFieldFactory.create()}
+        onClick={() => csrfUrlsFieldFactory.create()}
       >
-        Add URL
+        Add CSRF URL
       </Button>
       <Box>
         <GridTableValueControl
           titles={titles}
           visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
-          settingsName="URLs"
+          settingsName="CSRF URLs"
           dnd={true}
           onDragEnd={(result) =>
             dispatch(
@@ -50,7 +50,7 @@ export const UrlsPage: React.VoidFunctionComponent = () => {
                   currentJson.policy
                 );
                 urlServices.changeOrder(
-                  "urls",
+                  "csrf-urls",
                   "wildcardOrder",
                   result.source.index,
                   result.destination?.index ?? 0

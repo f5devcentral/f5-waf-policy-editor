@@ -27,6 +27,8 @@ import { WhitelistIpsPage } from "../pages/whitelist-ips.page";
 import { HostnamesPage } from "../pages/host-names.page";
 import { DataGuardEnforcementUrlsPage } from "../pages/data-guard/data-guard.enforcement-urls.page";
 import { DataGuardSettingsPage } from "../pages/data-guard/data-guard.settings.page";
+import { CsrfProtectionPage } from "../pages/csrf-protection.page";
+import { CsrfUrlsPage } from "../pages/csrf-urls.page";
 
 export class PolicyEditorPageFactory {
   constructor(
@@ -60,6 +62,9 @@ export class PolicyEditorPageFactory {
           tree={TabsTree}
           id={PolicyEditorPageEnum.DataGuard}
         />
+      ),
+      [PolicyEditorPageEnum.Csrf]: (
+        <AdditionalTabsPage tree={TabsTree} id={PolicyEditorPageEnum.Csrf} />
       ),
       // -----------------------------------------------------------------
       [PolicyEditorPageEnum.Summary]: <GeneralSettingsPage />,
@@ -96,6 +101,8 @@ export class PolicyEditorPageFactory {
         <DataGuardEnforcementUrlsPage />
       ),
       [PolicyEditorPageEnum.DataGuardSettings]: <DataGuardSettingsPage />,
+      [PolicyEditorPageEnum.CsrfProtection]: <CsrfProtectionPage />,
+      [PolicyEditorPageEnum.CsrfUrls]: <CsrfUrlsPage />,
     }
   ) {}
 
