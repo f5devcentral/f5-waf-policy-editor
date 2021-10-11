@@ -58,7 +58,11 @@ export class TableFieldValueFactory {
     };
   }
 
-  createTextEditFieldControl(title: string, valuePath: string): GridFieldValue {
+  createTextEditFieldControl(
+    title: string,
+    valuePath: string,
+    props?: any
+  ): GridFieldValue {
     return {
       title,
       errorPath: this.errorPath(valuePath),
@@ -69,7 +73,10 @@ export class TableFieldValueFactory {
             policyEditorJsonVisit((currentJson) =>
               _set(currentJson, this.policyPath(valuePath), value)
             )
-          )
+          ),
+        undefined,
+        undefined,
+        props ? { ...props } : undefined
       ),
     };
   }

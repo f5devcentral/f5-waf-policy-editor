@@ -8,7 +8,8 @@ export class TextEditFieldControl implements IControlInfo {
     private currentValue: string,
     private onValueChange: (value: string | number) => void,
     private cellProps?: TableCellProps,
-    private controlProps?: TextFieldProps
+    private controlProps?: TextFieldProps,
+    private makeNumber?: boolean
   ) {}
 
   createCell(children: JSX.Element, props: any): JSX.Element {
@@ -34,7 +35,7 @@ export class TextEditFieldControl implements IControlInfo {
           const value = e.target.value ?? "";
           try {
             const numberValue = parseFloat(value);
-            if (!isNaN(numberValue)) {
+            if (!isNaN(numberValue) && this.makeNumber) {
               this.onValueChange(numberValue);
             } else {
               this.onValueChange(value);
