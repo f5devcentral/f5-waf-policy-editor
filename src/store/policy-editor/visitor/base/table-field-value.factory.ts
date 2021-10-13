@@ -5,6 +5,7 @@ import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { PolicyEditorDispatch } from "../../policy-editor.types";
 import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
 import { TextEditFieldControl } from "../../../../component/policy-editor/controls/field-control/text-edit.field-control";
+import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
 
 export class TableFieldValueFactory {
   constructor(
@@ -19,6 +20,14 @@ export class TableFieldValueFactory {
 
   private policyPath(valuePath: string): string {
     return `policy.${this.basePath}.${valuePath}`;
+  }
+
+  createLabelFieldControl(title: string, valuePath: string): GridFieldValue {
+    return {
+      title,
+      errorPath: this.errorPath(valuePath),
+      controlInfo: new LabelFieldControl(_get(this.json, valuePath)),
+    };
   }
 
   createDropListFieldControl(
@@ -75,7 +84,7 @@ export class TableFieldValueFactory {
             )
           ),
         undefined,
-        undefined,
+        { variant: "outlined", size: "small" },
         props ? { ...props } : undefined
       ),
     };

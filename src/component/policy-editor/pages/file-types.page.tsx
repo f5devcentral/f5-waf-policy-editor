@@ -5,7 +5,6 @@ import { Box, Button } from "@material-ui/core";
 import { GridTableValueControl } from "../controls/grid.table-value.control";
 import { FileTypesFieldFactory } from "../../../store/policy-editor/visitor/imp/file-types-field.factory";
 import { FileTypesVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/file-types.visitor-factory";
-import { stringCompare } from "../../../utils/string-compare.util";
 import {
   usePolicyEditorDispatch,
   usePolicyEditorState,

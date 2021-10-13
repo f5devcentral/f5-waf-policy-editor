@@ -7,6 +7,7 @@ import { GridFieldValue } from "../../../../component/policy-editor/controls/gri
 import { NumberEditFieldControl } from "../../../../component/policy-editor/controls/field-control/number-edit.field-control";
 import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
 import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
+import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
 
 export class GridFieldValueFactory<T> {
   constructor(
@@ -22,6 +23,14 @@ export class GridFieldValueFactory<T> {
 
   private policyPath(valuePath: string): string {
     return `policy.${this.basePath}[${this.rowIndex}].${valuePath}`;
+  }
+
+  createLabelFieldControl(title: string, valuePath: string) {
+    return {
+      title,
+      errorPath: this.errorPath(valuePath),
+      controlInfo: new LabelFieldControl(_get(this.json, valuePath)),
+    };
   }
 
   createCheckBoxFieldControl(
@@ -123,7 +132,9 @@ export class GridFieldValueFactory<T> {
                   _set(currentJson, this.policyPath(valuePath), value);
                 })
               );
-        }
+        },
+        undefined,
+        { variant: "outlined", size: "small" }
       ),
     };
   }
