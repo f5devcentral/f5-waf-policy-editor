@@ -17,7 +17,7 @@ import {
   usePolicyEditorDispatch,
   usePolicyEditorState,
 } from "./store/policy-editor/policy-editor.hooks";
-import { Box, withStyles } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {
   policyEditorJsonSrcSet,
@@ -27,31 +27,12 @@ import { defaultGeneralSettings } from "./model/policy-editor.defaults.model";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import { PolicyEditorPreprocessorServices } from "./store/policy-editor/visitor/services/policy-editor-preprocessor.services";
-import Typography from "@material-ui/core/Typography";
 
 type PolicyEditorParams = {};
 
 function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
-
-const CommunityVersionBox = withStyles((theme) => {
-  return {
-    root: {
-      position: "absolute",
-      bottom: "0px",
-      left: "10px",
-      borderRadius: "120px 120px 0px 0px",
-      width: "180px",
-      height: "120px",
-      zIndex: 10000,
-      backgroundColor: theme.palette.primary.main,
-      layer: 4,
-      color: "white",
-      cursor: "pointer",
-    },
-  };
-})(Box);
 
 const Dashboard: React.FunctionComponent<
   RouteComponentProps<PolicyEditorParams>
@@ -166,28 +147,6 @@ const Dashboard: React.FunctionComponent<
           {errorMessage}
         </Alert>
       </Snackbar>
-      <CommunityVersionBox boxShadow={4}>
-        <Box
-          style={{
-            position: "relative",
-            top: "35%",
-            textAlign: "center",
-          }}
-        >
-          <a
-            href="https://github.com/f5devcentral/f5-waf-policy-editor"
-            target="_blank"
-            rel="noreferrer"
-            style={{ textDecoration: "none", color: "white" }}
-          >
-            <Typography variant={"h6"}>
-              Community
-              <br />
-              Project
-            </Typography>
-          </a>
-        </Box>
-      </CommunityVersionBox>
     </PolicyEditorDashboardComponent>
   );
 };
