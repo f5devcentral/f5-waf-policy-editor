@@ -28,7 +28,6 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import { PolicyEditorPreprocessorServices } from "./store/policy-editor/visitor/services/policy-editor-preprocessor.services";
 import Typography from "@material-ui/core/Typography";
-import Hidden from "@material-ui/core/Hidden";
 
 type PolicyEditorParams = {};
 
