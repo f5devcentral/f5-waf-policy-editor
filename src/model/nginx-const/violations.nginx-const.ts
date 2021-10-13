@@ -385,13 +385,6 @@ export class ViolationsNginxConst {
         block: true,
         disabled: false,
       },
-      {
-        name: "VIOL_THREAT_CAMPAIGN",
-        title: "Threat campaign detected",
-        alarm: true,
-        block: true,
-        disabled: false,
-      },
     ];
   };
 

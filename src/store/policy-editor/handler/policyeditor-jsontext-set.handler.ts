@@ -4,7 +4,6 @@ import {
   PolicyEditorState,
 } from "../policy-editor.types";
 import { Draft } from "immer";
-
 import { PolicyValidator } from "../../../model/json-validate/policy.validator";
 
 export const policyEditorJsonTextSetHandler: PolicyEditorReducerHandler = (

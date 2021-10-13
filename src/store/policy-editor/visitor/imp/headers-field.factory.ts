@@ -3,12 +3,13 @@ import { FieldFactoryVisitor } from "../interface/field-factory.visitor";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { get as _get, set as _set } from "lodash";
 import { defaultHeaders } from "../../../../model/policy-editor.defaults.model";
+import { Header } from "../../../../model/policy-schema/policy.definitions";
 
 export class HeadersFieldFactory
   extends BaseVisitor
-  implements FieldFactoryVisitor<void>
+  implements FieldFactoryVisitor<Header>
 {
-  create(): void {
+  create(header?: Header): void {
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
         const path = "policy.headers";
@@ -18,7 +19,7 @@ export class HeadersFieldFactory
           fileTypes = _get(currentJson, path);
         }
 
-        fileTypes.push(defaultHeaders());
+        fileTypes.push(header ?? defaultHeaders());
       })
     );
   }

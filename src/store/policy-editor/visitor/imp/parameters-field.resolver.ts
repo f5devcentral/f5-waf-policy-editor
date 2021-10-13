@@ -7,21 +7,36 @@ import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { set as _set } from "lodash";
 import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
 import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
+import { ParametersFieldFactory } from "./parameters-field.factory";
+import {
+  HostNameTypeEnum,
+  Level,
+  ParameterLocation,
+  ValueType,
+} from "../../../../model/policy-schema/policy.definitions";
 
 export class ParametersFieldResolver
   extends BaseVisitor
   implements FieldResolverVisitor
 {
   constructor(
-    protected rowIndex: number,
+    public rowIndex: number,
     protected dispatch: PolicyEditorDispatch,
     protected json: any
   ) {
     super(dispatch, json);
   }
 
+  key(): string {
+    return this.json.name;
+  }
+
   get hasAdvancedRows(): boolean {
     return true;
+  }
+
+  get basePath(): string {
+    return "";
   }
 
   getAdvancedRows(): GridFieldValue[] {
@@ -62,7 +77,7 @@ export class ParametersFieldResolver
               })
             );
           },
-          ["explicit", "wildcard"]
+          Object.values(HostNameTypeEnum)
         ),
       },
       {
@@ -81,12 +96,12 @@ export class ParametersFieldResolver
               })
             );
           },
-          ["global"]
+          Object.values(Level)
         ),
       },
       {
         title: "Location",
-        errorPath: [`instance.parameters[${this.rowIndex}].location`],
+        errorPath: [`instance.parameters[${this.rowIndex}].parameterLocation`],
         controlInfo: new DropListFieldControl(
           this.json.location,
           (value) => {
@@ -94,13 +109,13 @@ export class ParametersFieldResolver
               policyEditorJsonVisit((currentJson) => {
                 _set(
                   currentJson,
-                  `policy.parameters[${this.rowIndex}].location`,
+                  `policy.parameters[${this.rowIndex}].parameterLocation`,
                   value
                 );
               })
             );
           },
-          ["any"]
+          Object.values(ParameterLocation)
         ),
       },
       {
@@ -119,7 +134,7 @@ export class ParametersFieldResolver
               })
             );
           },
-          ["auto-detect"]
+          Object.values(ValueType)
         ),
       },
       {
@@ -260,6 +275,11 @@ export class ParametersFieldResolver
   }
 
   getBasicRows(): GridFieldValue[] {
+    const parametersFieldFactory = new ParametersFieldFactory(
+      this.dispatch,
+      this.json
+    );
+
     return [
       {
         title: "",
@@ -267,15 +287,20 @@ export class ParametersFieldResolver
         controlInfo: new TextEditFieldControl(
           this.json.name,
           (text) => {
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(
-                  currentJson,
-                  `policy.parameters[${this.rowIndex}].name`,
-                  text
+            this.rowIndex === -1
+              ? parametersFieldFactory.create({
+                  ...this.json,
+                  name: text,
+                })
+              : this.dispatch(
+                  policyEditorJsonVisit((currentJson) => {
+                    _set(
+                      currentJson,
+                      `policy.parameters[${this.rowIndex}].name`,
+                      text
+                    );
+                  })
                 );
-              })
-            );
           },
           {},
           { variant: "outlined", size: "small" }
@@ -287,17 +312,22 @@ export class ParametersFieldResolver
         controlInfo: new DropListFieldControl(
           this.json.type,
           (value) => {
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(
-                  currentJson,
-                  `policy.parameters[${this.rowIndex}].type`,
-                  value
+            this.rowIndex === -1
+              ? parametersFieldFactory.create({
+                  ...this.json,
+                  type: value,
+                })
+              : this.dispatch(
+                  policyEditorJsonVisit((currentJson) => {
+                    _set(
+                      currentJson,
+                      `policy.parameters[${this.rowIndex}].type`,
+                      value
+                    );
+                  })
                 );
-              })
-            );
           },
-          ["explicit", "wildcard"]
+          Object.values(HostNameTypeEnum)
         ),
       },
     ];

@@ -5,6 +5,8 @@ import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.
 import { MethodsFieldFactory } from "../../../store/policy-editor/visitor/imp/methods-field.factory";
 import { MethodsVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/methods.visitor-factory";
 import { useStyles } from "../../../utils/styles.hook";
+import { stringCompare } from "../../../utils/string-compare.util";
+import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
 
 export const MethodsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -12,7 +14,13 @@ export const MethodsPage: React.VoidFunctionComponent = () => {
   const methodsFieldFactory = useVisitor(MethodsFieldFactory);
   const methodsVisitorFactory = useVisitor(MethodsVisitorFactory);
 
-  const { titles, visitors } = methodsVisitorFactory.getResolvers();
+  const { showDefaultPolicy } = usePolicyEditorState();
+
+  const {
+    titles,
+    visitors,
+    default: defValues,
+  } = methodsVisitorFactory.getResolvers();
 
   return (
     <Box className={classes.pageContent}>
@@ -24,7 +32,13 @@ export const MethodsPage: React.VoidFunctionComponent = () => {
         Add Method
       </Button>
       <Box>
-        <GridTableValueControl titles={titles} visitors={visitors} />
+        <GridTableValueControl
+          titles={titles}
+          visitors={(showDefaultPolicy
+            ? [...visitors, ...defValues]
+            : visitors
+          ).sort((a, b) => stringCompare(a.key(), b.key()))}
+        />
       </Box>
     </Box>
   );

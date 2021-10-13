@@ -3,21 +3,26 @@ import { FieldResolverVisitor } from "../interface/field-resolver.visitor";
 import { PolicyEditorDispatch } from "../../policy-editor.types";
 import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
-import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
-import { set as _set } from "lodash";
-import { SignatureSetsNginxConst } from "../../../../model/nginx-const/signature-sets.nginx-const";
 import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
+import { SignatureSetsFieldFactory } from "./signature-sets-field.factory";
+import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
+
+import { set as _set } from "lodash";
 
 export class SignatureSetsFieldResolver
   extends BaseVisitor
   implements FieldResolverVisitor
 {
   constructor(
-    protected rowIndex: number,
+    public rowIndex: number,
     protected dispatch: PolicyEditorDispatch,
     protected json: any
   ) {
     super(dispatch, json);
+  }
+
+  key(): string {
+    return this.json.name;
   }
 
   get hasAdvancedRows(): boolean {
@@ -26,6 +31,10 @@ export class SignatureSetsFieldResolver
 
   getAdvancedRows(): GridFieldValue[] {
     return [];
+  }
+
+  get basePath(): string {
+    return "";
   }
 
   remove(): void {
@@ -41,43 +50,47 @@ export class SignatureSetsFieldResolver
 
   getBasicRows(): GridFieldValue[] {
     const path = `signature-sets[${this.rowIndex}]`;
+    const signatureSetsFieldFactory = new SignatureSetsFieldFactory(
+      this.dispatch,
+      this.json
+    );
 
     return [
       {
         title: "Name",
         errorPath: [`instance.${path}.name`],
-        controlInfo: new DropListFieldControl(
-          this.json.name,
-          (value) => {
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(currentJson, `policy.${path}.name`, value);
-              })
-            );
-          },
-          SignatureSetsNginxConst.getAllNames()
-        ),
+        controlInfo: new LabelFieldControl(this.json.name),
       },
       {
         title: "Alarm",
         errorPath: [`instance.${path}.alarm`],
         controlInfo: new CheckboxFieldControl(this.json.alarm, (value) => {
-          this.dispatch(
-            policyEditorJsonVisit((currentJson) => {
-              _set(currentJson, `policy.${path}.alarm`, value);
-            })
-          );
+          this.rowIndex === -1
+            ? signatureSetsFieldFactory.create({
+                ...this.json,
+                alarm: value,
+              })
+            : this.dispatch(
+                policyEditorJsonVisit((currentJson) => {
+                  _set(currentJson, `policy.${path}.alarm`, value);
+                })
+              );
         }),
       },
       {
         title: "Block",
         errorPath: [`instance.${path}.block`],
         controlInfo: new CheckboxFieldControl(this.json.block, (value) => {
-          this.dispatch(
-            policyEditorJsonVisit((currentJson) => {
-              _set(currentJson, `policy.${path}.block`, value);
-            })
-          );
+          this.rowIndex === -1
+            ? signatureSetsFieldFactory.create({
+                ...this.json,
+                block: value,
+              })
+            : this.dispatch(
+                policyEditorJsonVisit((currentJson) => {
+                  _set(currentJson, `policy.${path}.block`, value);
+                })
+              );
         }),
       },
     ];

@@ -4,7 +4,7 @@ import { FieldFactoryVisitor } from "../interface/field-factory.visitor";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { defaultBlockingSettings } from "../../../../model/policy-editor.defaults.model";
 
-export type BlockingSettingsFieldCreateProps = {
+export type ViolationsFieldCreateProps = {
   name: string;
   alarm: boolean;
   block: boolean;
@@ -12,9 +12,9 @@ export type BlockingSettingsFieldCreateProps = {
 
 export class ViolationsFieldFactory
   extends BaseVisitor
-  implements FieldFactoryVisitor<BlockingSettingsFieldCreateProps>
+  implements FieldFactoryVisitor<ViolationsFieldCreateProps>
 {
-  create(props: BlockingSettingsFieldCreateProps): void {
+  create(props: ViolationsFieldCreateProps): void {
     const path = "policy.blocking-settings.violations";
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {

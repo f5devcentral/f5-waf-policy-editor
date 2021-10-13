@@ -1,0 +1,34 @@
+{
+  "properties": {
+    "policy": {
+      "properties": {
+        "whitelist-ips":  {
+          "items": {
+            "properties": {
+              "ipMask": {
+                "minLength": "1",
+                "pattern": "^([0-9]{1,3}\\.){3}[0-9]{1,3}(\\/([0-9]|[1-2][0-9]|3[0-2]))?$",
+                "message": {
+                  "minLength": "IP Mask must not be empty",
+                  "pattern": "IP Mask should be specified as IPv4 subnet mask"
+                }
+              }
+            }
+          }
+        },
+        "methods" : {
+          "items": {
+            "properties": {
+              "name" : {
+                "minLength" : "1",
+                "message": {
+                  "minLength": "Method must not be empty"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

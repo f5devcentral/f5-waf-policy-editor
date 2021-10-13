@@ -3,12 +3,13 @@ import { FieldFactoryVisitor } from "../interface/field-factory.visitor";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { get as _get, set as _set } from "lodash";
 import { defaultUrls } from "../../../../model/policy-editor.defaults.model";
+import { URLElement } from "../../../../model/policy-schema/policy.definitions";
 
 export class UrlsFieldFactory
   extends BaseVisitor
-  implements FieldFactoryVisitor<void>
+  implements FieldFactoryVisitor<URLElement>
 {
-  create(): void {
+  create(url?: URLElement): void {
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
         const path = "policy.urls";
@@ -18,7 +19,7 @@ export class UrlsFieldFactory
           urls = _get(currentJson, path);
         }
 
-        urls.push(defaultUrls(urls.length));
+        urls.push(defaultUrls(urls.length, url));
       })
     );
   }

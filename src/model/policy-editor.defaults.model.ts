@@ -1,13 +1,35 @@
 import {
-  Evasion,
-  EvasionDescription,
-  HTTPProtocol,
-  HTTPProtocolDescription,
+  BlockRequests,
+  Class,
+  ClassAction,
+  ClassName,
+  CookieSettings,
+  Cooky,
+  CSRFProtection,
+  CSRFURL,
+  CSRFURLMethod,
+  DataGuard,
+  DataGuardEnforcementMode,
+  EnforcementAction,
+  EnforcementType,
+  ExpirationTime,
+  HostName,
+  HostNameTypeEnum,
+  InsertSameSiteAttribute,
+  MaximumCookieHeaderLengthEnum,
+  MitigationsSignature,
   OpenAPIFile,
   PolicySignature,
   ServerTechnology,
+  Settings,
   SignatureSet,
+  URLElement,
+  WhitelistIP,
 } from "./policy-schema/policy.definitions";
+import {
+  MitigationAnomaly,
+  MitigationBrowser,
+} from "./policy-schema/policy.definitions.nap.custom";
 
 export const defaultGeneralSettings = () => ({
   policy: {
@@ -34,17 +56,38 @@ export const defaultMethods = () => ({
   name: "",
 });
 
-export const defaultUrls = (order: number) => ({
-  name: "",
-  type: "explicit",
-  method: "*",
-  protocol: "http",
-  attackSignaturesCheck: true,
-  metacharsOnUrlCheck: true,
-  wildcardOrder: order,
-});
+export const defaultUrls: (order: number, url?: URLElement) => URLElement = (
+  order,
+  url
+) => {
+  return url
+    ? ({ ...url, wildcardOrder: order } as URLElement)
+    : ({
+        name: "",
+        type: "explicit",
+        method: "*",
+        protocol: "http",
+        attackSignaturesCheck: true,
+        metacharsOnUrlCheck: true,
+        wildcardOrder: order,
+      } as URLElement);
+};
 
-export const defaultFileTypes = () => ({
+export const defaultCsrfUrl: (order: number, csrfUrl?: CSRFURL) => CSRFURL = (
+  order,
+  csrfUrl
+) => {
+  return csrfUrl
+    ? ({ ...csrfUrl, wildcardOrder: order } as CSRFURL)
+    : {
+        enforcementAction: EnforcementAction.None,
+        method: CSRFURLMethod.Any,
+        url: "",
+        wildcardOrder: order,
+      };
+};
+
+export const defaultFileTypes = (order: number) => ({
   name: "",
   type: "explicit",
   allowed: true,
@@ -57,6 +100,7 @@ export const defaultFileTypes = () => ({
   checkRequestLength: false,
   requestLength: 8192,
   responseCheck: false,
+  wildcardOrder: order,
 });
 
 export const defaultHeaders = () => ({
@@ -88,19 +132,6 @@ export const defaultOpenApi: () => OpenAPIFile = () => ({
   link: "",
 });
 
-export const defaultEvasions: () => Evasion = () => ({
-  description: "" as EvasionDescription,
-  enabled: true,
-  maxDecodingPasses: 2,
-});
-
-export const defaultHttpProtocols: () => HTTPProtocol = () => ({
-  description: "" as HTTPProtocolDescription,
-  enabled: true,
-  maxHeaders: 1,
-  maxParams: 1,
-});
-
 export const defaultServerTechnologies: (
   serverTechnologyName: string
 ) => ServerTechnology = (serverTechnologyName) => {
@@ -124,4 +155,104 @@ export const defaultSignatures: () => PolicySignature = () => {
     signatureId: 0,
     tag: "",
   };
+};
+
+export const defaultBotDefenceSettings: () => Settings = () => {
+  return {
+    isEnabled: true,
+  };
+};
+
+export const defaultMitigationsAnomaly: () => MitigationAnomaly = () => {
+  return {
+    name: "",
+    action: "",
+    scoreThreshold: 1,
+  };
+};
+
+export const defaultMitigationsBrowser: () => MitigationBrowser = () => {
+  return {
+    action: "",
+    maxVersion: 1,
+    minVersion: 1,
+    name: "",
+  };
+};
+
+export const defaultMitigationsClass: () => Class = () => {
+  return {
+    name: "" as ClassName,
+    action: "" as ClassAction,
+  } as Class;
+};
+
+export const defaultMitigationsSignature: () => MitigationsSignature = () => {
+  return {
+    action: "" as ClassAction,
+    name: "",
+  };
+};
+
+export const defaultDataGuard: () => DataGuard = () => {
+  return {
+    creditCardNumbers: true,
+    enabled: true,
+    enforcementMode: DataGuardEnforcementMode.EnforceUrlsInList,
+    enforcementUrls: [],
+    maskData: true,
+    usSocialSecurityNumbers: true,
+  };
+};
+
+export const defaultWhitelistIPs: () => WhitelistIP = () => {
+  return {
+    blockRequests: BlockRequests.PolicyDefault,
+    description: "",
+    ipAddress: "",
+    ipMask: "",
+  };
+};
+
+export const defaultHostname: () => HostName = () => {
+  return {
+    includeSubdomains: true,
+    name: "",
+  };
+};
+
+export const defaultCsrfProtection: () => CSRFProtection = () => {
+  return {
+    enabled: false,
+    expirationTimeInSeconds: ExpirationTime.Disabled,
+    sslOnly: false,
+  };
+};
+
+export const defaultCookieSettings: () => CookieSettings = () => {
+  return {
+    maximumCookieHeaderLength: MaximumCookieHeaderLengthEnum.Any,
+  };
+};
+
+export const defaultCookie: (order: number, cookie?: Cooky) => Cooky = (
+  order,
+  cookie
+) => {
+  return cookie
+    ? {
+        ...cookie,
+        wildcardOrder: order,
+      }
+    : {
+        name: "",
+        accessibleOnlyThroughTheHttpProtocol: true,
+        attackSignaturesCheck: true,
+        decodeValueAsBase64: "enabled",
+        enforcementType: EnforcementType.Allow,
+        insertSameSiteAttribute: InsertSameSiteAttribute.None,
+        securedOverHttpsConnection: true,
+        type: HostNameTypeEnum.Explicit,
+        wildcardOrder: order,
+      };
 };

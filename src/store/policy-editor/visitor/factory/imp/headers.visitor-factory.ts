@@ -2,27 +2,34 @@ import { BaseFieldResolverVisitorFactory } from "../interface/base.field-resolve
 import { get as _get } from "lodash";
 import { FieldResolverVisitor } from "../../interface/field-resolver.visitor";
 import { HeadersFieldResolver } from "../../imp/headers-field.resolver";
+import { createDefaultValues } from "../default-values.factory";
 
 export class HeadersVisitorFactory extends BaseFieldResolverVisitorFactory {
-  getResolvers(): { titles: string[]; visitors: FieldResolverVisitor[] } {
+  getResolvers(): {
+    titles: string[];
+    visitors: FieldResolverVisitor[];
+    default: FieldResolverVisitor[];
+  } {
     const titles = ["Name", "Type"];
 
-    if (_get(this.json, "policy.headers") === undefined) {
-      return {
-        titles: [],
-        visitors: [] as FieldResolverVisitor[],
-      };
-    }
+    const headers = _get(this.json, "policy.headers");
 
-    const visitors: FieldResolverVisitor[] = this.json.policy.headers.map(
-      (h: any, index: number) => {
-        return new HeadersFieldResolver(index, this.dispatch, h);
-      }
+    const visitors: FieldResolverVisitor[] = headers
+      ? this.json.policy.headers.map((h: any, index: number) => {
+          return new HeadersFieldResolver(index, this.dispatch, h);
+        })
+      : [];
+    const defValues: FieldResolverVisitor[] = createDefaultValues(
+      this.json,
+      "policy.headers",
+      "name",
+      (json: any) => new HeadersFieldResolver(-1, this.dispatch, json)
     );
 
     return {
       titles,
       visitors,
+      default: defValues,
     };
   }
 }

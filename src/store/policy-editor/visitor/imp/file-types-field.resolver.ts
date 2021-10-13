@@ -7,24 +7,39 @@ import { TextEditFieldControl } from "../../../../component/policy-editor/contro
 import { set as _set } from "lodash";
 import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
 import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
+import { FileTypesFieldFactory } from "./file-types-field.factory";
+import { policyJsonFieldRemover } from "../services/policy-json.field-remover";
 
 export class FileTypesFieldResolver
   extends BaseVisitor
   implements FieldResolverVisitor
 {
   constructor(
-    protected rowIndex: number,
+    public rowIndex: number,
     protected dispatch: PolicyEditorDispatch,
     protected json: any
   ) {
     super(dispatch, json);
   }
 
+  key(): string {
+    return this.json.name;
+  }
+
   get hasAdvancedRows(): boolean {
     return true;
   }
 
+  get basePath(): string {
+    return "filetypes";
+  }
+
   getBasicRows(): GridFieldValue[] {
+    const fileTypesFiledFactory = new FileTypesFieldFactory(
+      this.dispatch,
+      this.json
+    );
+
     return [
       {
         title: "Filetype Name",
@@ -32,15 +47,20 @@ export class FileTypesFieldResolver
         controlInfo: new TextEditFieldControl(
           this.json.name,
           (text) =>
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(
-                  currentJson,
-                  `policy.filetypes[${this.rowIndex}].name`,
-                  text
-                );
-              })
-            ),
+            this.rowIndex === -1
+              ? fileTypesFiledFactory.create({
+                  ...this.json,
+                  name: text,
+                })
+              : this.dispatch(
+                  policyEditorJsonVisit((currentJson) => {
+                    _set(
+                      currentJson,
+                      `policy.filetypes[${this.rowIndex}].name`,
+                      text
+                    );
+                  })
+                ),
           {},
           { variant: "outlined", size: "small" }
         ),
@@ -51,15 +71,20 @@ export class FileTypesFieldResolver
         controlInfo: new DropListFieldControl(
           this.json.type,
           (value) =>
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) =>
-                _set(
-                  currentJson,
-                  `policy.filetypes[${this.rowIndex}].type`,
-                  value
-                )
-              )
-            ),
+            this.rowIndex === -1
+              ? fileTypesFiledFactory.create({
+                  ...this.json,
+                  type: value,
+                })
+              : this.dispatch(
+                  policyEditorJsonVisit((currentJson) =>
+                    _set(
+                      currentJson,
+                      `policy.filetypes[${this.rowIndex}].type`,
+                      value
+                    )
+                  )
+                ),
           ["explicit", "wildcard"]
         ),
       },
@@ -69,10 +94,7 @@ export class FileTypesFieldResolver
   remove(): void {
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
-        currentJson.policy.filetypes.splice(this.rowIndex, 1);
-
-        if (currentJson.policy.filetypes.length === 0)
-          delete currentJson.policy.filetypes;
+        policyJsonFieldRemover(currentJson, this.basePath, this.rowIndex);
       })
     );
   }

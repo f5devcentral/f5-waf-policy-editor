@@ -4,6 +4,7 @@ import { PolicyValidationError } from "../../model/json-validate/policy.validato
 
 export enum PolicyEditorPageEnum {
   GeneralSettings,
+  Summary,
   BlockingSettings,
   Methods,
   URLs,
@@ -14,11 +15,29 @@ export enum PolicyEditorPageEnum {
   SignaturesSets,
   SignaturesPolicy,
   BotDefense,
+  BotDefenseSettings,
+  BotDefenseMigrationsAnomalies,
+  BotDefenseMigrationsBrowsers,
+  BotDefenseMigrationsClasses,
+  BotDefenseMigrationsSignatures,
   OpenAPI,
   Evasions,
   HttpProtocols,
   ServerTechnologies,
   Violations,
+  WhitelistIp,
+  DataGuard,
+  DataGuardSettings,
+  DataGuardEnforcementUrls,
+  CustomXffHeaders,
+  Hostnames,
+  AllowedResponseCodes,
+  Csrf,
+  CsrfProtection,
+  CsrfUrls,
+  EnforceCookieSettings,
+  CookieSettings,
+  Cookies,
 }
 
 export type PolicyEditorState = {
@@ -29,6 +48,7 @@ export type PolicyEditorState = {
   jsonParseError: boolean;
   jsonValidationErrors: PolicyValidationError[];
   policySrcUrl: string;
+  showDefaultPolicy: boolean;
 };
 
 export interface PolicyEditorAction
@@ -39,6 +59,7 @@ export interface PolicyEditorAction
       strPolicy: string;
       visitor: (currentJson: any) => void;
       policySrcUrl: string;
+      showDefaultPolicy: boolean;
     }> {}
 
 export type PolicyEditorDispatch = (

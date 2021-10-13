@@ -8,17 +8,37 @@ import { LabelFieldControl } from "../../../../component/policy-editor/controls/
 import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
 import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
 import { ViolationsNginxConst } from "../../../../model/nginx-const/violations.nginx-const";
+import { ViolationsFieldFactory } from "./violations-field.factory";
 
 export class ViolationsFieldResolver
   extends BaseVisitor
   implements FieldResolverVisitor
 {
+  private allViolations: any;
+
   constructor(
-    protected rowIndex: number,
+    public rowIndex: number,
     protected dispatch: PolicyEditorDispatch,
     protected json: any
   ) {
     super(dispatch, json);
+
+    this.allViolations = ViolationsNginxConst.getAllViolations();
+  }
+
+  private resolveViolationTitle(name: string): string {
+    const item = this.allViolations.find((x: any) => x.name === name);
+    if (!item) return name;
+
+    return item.title;
+  }
+
+  get basePath(): string {
+    return "";
+  }
+
+  key(): string {
+    return this.resolveViolationTitle(this.json.name);
   }
 
   get hasAdvancedRows(): boolean {
@@ -30,14 +50,7 @@ export class ViolationsFieldResolver
   }
 
   getBasicRows(): GridFieldValue[] {
-    const allViolations = ViolationsNginxConst.getAllViolations();
-
-    const resolveViolationTitle: (name: string) => string = (name: string) => {
-      const item = allViolations.find((x: any) => x.name === name);
-      if (!item) return name;
-
-      return item.title;
-    };
+    const fieldFactory = new ViolationsFieldFactory(this.dispatch, this.json);
 
     return [
       {
@@ -46,7 +59,7 @@ export class ViolationsFieldResolver
           `instance.blocking-settings.violations[${this.rowIndex}].name`,
         ],
         controlInfo: new LabelFieldControl(
-          resolveViolationTitle(this.json.name)
+          this.resolveViolationTitle(this.json.name)
         ),
       },
       {
@@ -54,15 +67,21 @@ export class ViolationsFieldResolver
           `instance.blocking-settings.violations[${this.rowIndex}].alarm`,
         ],
         controlInfo: new CheckboxFieldControl(this.json.alarm, (text) => {
-          this.dispatch(
-            policyEditorJsonVisit((currentJson) => {
-              _set(
-                currentJson,
-                `policy.blocking-settings.violations[${this.rowIndex}].alarm`,
-                text
+          this.rowIndex === -1
+            ? fieldFactory.create({
+                alarm: !this.json.alarm,
+                block: this.json.block,
+                name: this.json.name,
+              })
+            : this.dispatch(
+                policyEditorJsonVisit((currentJson) => {
+                  _set(
+                    currentJson,
+                    `policy.blocking-settings.violations[${this.rowIndex}].alarm`,
+                    text
+                  );
+                })
               );
-            })
-          );
         }),
         title: "",
       },
@@ -72,15 +91,21 @@ export class ViolationsFieldResolver
           `instance.blocking-settings.violations[${this.rowIndex}].block`,
         ],
         controlInfo: new CheckboxFieldControl(this.json.block, (text) => {
-          this.dispatch(
-            policyEditorJsonVisit((currentJson) => {
-              _set(
-                currentJson,
-                `policy.blocking-settings.violations[${this.rowIndex}].block`,
-                text
+          this.rowIndex === -1
+            ? fieldFactory.create({
+                alarm: this.json.alarm,
+                block: !this.json.block,
+                name: this.json.name,
+              })
+            : this.dispatch(
+                policyEditorJsonVisit((currentJson) => {
+                  _set(
+                    currentJson,
+                    `policy.blocking-settings.violations[${this.rowIndex}].block`,
+                    text
+                  );
+                })
               );
-            })
-          );
         }),
       },
     ];

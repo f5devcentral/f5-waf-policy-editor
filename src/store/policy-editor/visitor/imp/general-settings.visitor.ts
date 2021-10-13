@@ -13,12 +13,24 @@ export class GeneralSettingsVisitor
   extends BaseVisitor
   implements FieldResolverVisitor, FieldFactoryVisitor<void>
 {
+  get rowIndex() {
+    return 0;
+  }
+
+  key(): string {
+    return "";
+  }
+
   get hasAdvancedRows(): boolean {
     return false;
   }
 
   getAdvancedRows(): GridFieldValue[] {
     return [];
+  }
+
+  get basePath(): string {
+    return "";
   }
 
   getBasicRows(): GridFieldValue[] {

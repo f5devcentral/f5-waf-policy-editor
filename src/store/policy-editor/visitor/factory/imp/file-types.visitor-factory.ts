@@ -3,27 +3,33 @@ import { FieldResolverVisitor } from "../../interface/field-resolver.visitor";
 import { FileTypesFieldResolver } from "../../imp/file-types-field.resolver";
 
 import { get as _get } from "lodash";
+import { createDefaultValues } from "../default-values.factory";
 
 export class FileTypesVisitorFactory extends BaseFieldResolverVisitorFactory {
-  getResolvers(): { titles: string[]; visitors: FieldResolverVisitor[] } {
+  getResolvers(): {
+    titles: string[];
+    visitors: FieldResolverVisitor[];
+    default: FieldResolverVisitor[];
+  } {
     const titles = ["Name", "Type"];
+    const fileTypes = _get(this.json, "policy.filetypes");
 
-    if (_get(this.json, "policy.filetypes") === undefined) {
-      return {
-        titles: [],
-        visitors: [] as FieldResolverVisitor[],
-      };
-    }
-
-    const visitors: FieldResolverVisitor[] = this.json.policy.filetypes.map(
-      (ft: any, index: number) => {
-        return new FileTypesFieldResolver(index, this.dispatch, ft);
-      }
+    const visitors: FieldResolverVisitor[] = fileTypes
+      ? this.json.policy.filetypes.map((ft: any, index: number) => {
+          return new FileTypesFieldResolver(index, this.dispatch, ft);
+        })
+      : [];
+    const defValues: FieldResolverVisitor[] = createDefaultValues(
+      this.json,
+      "policy.filetypes",
+      "name",
+      (json: any) => new FileTypesFieldResolver(-1, this.dispatch, json)
     );
 
     return {
       titles,
       visitors,
+      default: defValues,
     };
   }
 }

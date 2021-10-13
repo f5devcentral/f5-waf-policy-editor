@@ -11,11 +11,15 @@ export class ServerTechnologiesFieldResolver
   implements FieldResolverVisitor
 {
   constructor(
-    protected rowIndex: number,
+    public rowIndex: number,
     protected dispatch: PolicyEditorDispatch,
     protected json: any
   ) {
     super(dispatch, json);
+  }
+
+  key(): string {
+    return "";
   }
 
   get hasAdvancedRows(): boolean {
@@ -24,6 +28,10 @@ export class ServerTechnologiesFieldResolver
 
   getAdvancedRows(): GridFieldValue[] {
     return [];
+  }
+
+  get basePath(): string {
+    return "";
   }
 
   getBasicRows(): GridFieldValue[] {

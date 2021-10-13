@@ -3,22 +3,30 @@ import { FieldResolverVisitor } from "../interface/field-resolver.visitor";
 import { PolicyEditorDispatch } from "../../policy-editor.types";
 import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
-import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
 import { set as _set } from "lodash";
 import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
-import { EvasionDescription } from "../../../../model/policy-schema/policy.definitions";
 import { NumberEditFieldControl } from "../../../../component/policy-editor/controls/field-control/number-edit.field-control";
+import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
+import { EvasionsFieldFactory } from "./evasions-field.factory";
 
 export class EvasionsFieldResolver
   extends BaseVisitor
   implements FieldResolverVisitor
 {
   constructor(
-    protected rowIndex: number,
+    public rowIndex: number,
     protected dispatch: PolicyEditorDispatch,
     protected json: any
   ) {
     super(dispatch, json);
+  }
+
+  get basePath(): string {
+    return "";
+  }
+
+  key(): string {
+    return this.json.description;
   }
 
   get hasAdvancedRows(): boolean {
@@ -47,33 +55,29 @@ export class EvasionsFieldResolver
   }
 
   getBasicRows(): GridFieldValue[] {
+    const fieldFactory = new EvasionsFieldFactory(this.dispatch, this.json);
     const path = `blocking-settings.evasions[${this.rowIndex}]`;
 
     return [
       {
         title: "Description",
         errorPath: [`instance.${path}.description`],
-        controlInfo: new DropListFieldControl(
-          this.json.description,
-          (value) => {
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(currentJson, `policy.${path}.description`, value);
-              })
-            );
-          },
-          Object.values(EvasionDescription)
-        ),
+        controlInfo: new LabelFieldControl(this.json.description),
       },
       {
         title: "Enabled",
         errorPath: [`instance.${path}.enabled`],
         controlInfo: new CheckboxFieldControl(this.json.enabled, (value) => {
-          this.dispatch(
-            policyEditorJsonVisit((currentJson) => {
-              _set(currentJson, `policy.${path}.enabled`, value);
-            })
-          );
+          this.rowIndex === -1
+            ? fieldFactory.create({
+                ...this.json,
+                enabled: !this.json.enabled,
+              })
+            : this.dispatch(
+                policyEditorJsonVisit((currentJson) => {
+                  _set(currentJson, `policy.${path}.enabled`, value);
+                })
+              );
         }),
       },
       {
@@ -82,15 +86,20 @@ export class EvasionsFieldResolver
         controlInfo: new NumberEditFieldControl(
           this.json.maxDecodingPasses,
           (value) => {
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(
-                  currentJson,
-                  `policy.${path}.maxDecodingPasses`,
-                  parseInt(value)
+            this.rowIndex === -1
+              ? fieldFactory.create({
+                  ...this.json,
+                  maxDecodingPasses: parseInt(value),
+                })
+              : this.dispatch(
+                  policyEditorJsonVisit((currentJson) => {
+                    _set(
+                      currentJson,
+                      `policy.${path}.maxDecodingPasses`,
+                      parseInt(value)
+                    );
+                  })
                 );
-              })
-            );
           },
           {},
           { variant: "outlined", size: "small" }

@@ -3,13 +3,13 @@ import { FieldFactoryVisitor } from "../interface/field-factory.visitor";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
 
 import { get as _get, set as _set } from "lodash";
-import { defaultHttpProtocols } from "../../../../model/policy-editor.defaults.model";
+import { HTTPProtocol } from "../../../../model/policy-schema/policy.definitions";
 
 export class HttpProtocolsFieldFactory
   extends BaseVisitor
-  implements FieldFactoryVisitor<void>
+  implements FieldFactoryVisitor<HTTPProtocol>
 {
-  create(): void {
+  create(httpProtocol: HTTPProtocol): void {
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
         const path = "policy.blocking-settings.http-protocols";
@@ -19,7 +19,7 @@ export class HttpProtocolsFieldFactory
           evasions = _get(currentJson, path);
         }
 
-        evasions.push(defaultHttpProtocols());
+        evasions.push(httpProtocol);
       })
     );
   }

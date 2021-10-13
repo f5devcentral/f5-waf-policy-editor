@@ -6,17 +6,22 @@ import { GridFieldValue } from "../../../../component/policy-editor/controls/gri
 import { TextEditFieldControl } from "../../../../component/policy-editor/controls/field-control/text-edit.field-control";
 
 import { set as _set } from "lodash";
+import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
 
 export class MethodsFieldResolver
   extends BaseVisitor
   implements FieldResolverVisitor
 {
   constructor(
-    protected rowIndex: number,
+    public rowIndex: number,
     protected dispatch: PolicyEditorDispatch,
     protected json: any
   ) {
     super(dispatch, json);
+  }
+
+  key(): string {
+    return this.json.name;
   }
 
   get hasAdvancedRows(): boolean {
@@ -27,26 +32,33 @@ export class MethodsFieldResolver
     return [];
   }
 
+  get basePath(): string {
+    return "";
+  }
+
   getBasicRows(): GridFieldValue[] {
     return [
       {
         title: "",
         errorPath: [`instance.methods[${this.rowIndex}].name`],
-        controlInfo: new TextEditFieldControl(
-          this.json.name,
-          (text) =>
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(
-                  currentJson,
-                  `policy.methods[${this.rowIndex}].name`,
-                  text
-                );
-              })
-            ),
-          {},
-          { variant: "outlined", size: "small" }
-        ),
+        controlInfo:
+          this.rowIndex === -1
+            ? new LabelFieldControl(this.json.name)
+            : new TextEditFieldControl(
+                this.json.name,
+                (text) =>
+                  this.dispatch(
+                    policyEditorJsonVisit((currentJson) => {
+                      _set(
+                        currentJson,
+                        `policy.methods[${this.rowIndex}].name`,
+                        text
+                      );
+                    })
+                  ),
+                {},
+                { variant: "outlined", size: "small" }
+              ),
       },
     ];
   }

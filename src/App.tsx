@@ -40,7 +40,12 @@ const Dashboard: React.FunctionComponent<
   const [errorMessage, setErrorMessage] = useState("");
 
   const { currentModule } = useDashboardState();
-  const { strCurrentPolicy, policySrcUrl } = usePolicyEditorState();
+  const {
+    strCurrentPolicy,
+    policySrcUrl,
+    jsonValidationErrors,
+    jsonParseError,
+  } = usePolicyEditorState();
   const dispatch = usePolicyEditorDispatch();
   const qs = queryString.parse(window.location.search);
 
@@ -116,6 +121,18 @@ const Dashboard: React.FunctionComponent<
 
   return (
     <PolicyEditorDashboardComponent>
+      <input
+        type="hidden"
+        id="errJsonParse"
+        name="errJsonParse"
+        value={jsonParseError.toString()}
+      />
+      <input
+        type="hidden"
+        id="errJsonValidation"
+        name="errJsonValidation"
+        value={JSON.stringify(jsonValidationErrors)}
+      />
       {uiFactory[currentModule]}
       <Snackbar
         anchorOrigin={{

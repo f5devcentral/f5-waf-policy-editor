@@ -5,13 +5,18 @@ import { get as _get } from "lodash";
 import { ServerTechnologiesFieldResolver } from "../../imp/server-technologies-field.resolver";
 
 export class ServerTechnologiesVisitorFactory extends BaseFieldResolverVisitorFactory {
-  getResolvers(): { titles: string[]; visitors: FieldResolverVisitor[] } {
+  getResolvers(): {
+    titles: string[];
+    visitors: FieldResolverVisitor[];
+    default: FieldResolverVisitor[];
+  } {
     const titles = ["Server Technology Name"];
 
     if (_get(this.json, "policy.server-technologies") === undefined)
       return {
         titles: [],
         visitors: [] as FieldResolverVisitor[],
+        default: [] as FieldResolverVisitor[],
       };
 
     const visitors: FieldResolverVisitor[] = this.json.policy[
@@ -23,6 +28,7 @@ export class ServerTechnologiesVisitorFactory extends BaseFieldResolverVisitorFa
     return {
       titles,
       visitors,
+      default: [] as FieldResolverVisitor[],
     };
   }
 }
