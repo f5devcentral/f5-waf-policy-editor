@@ -5,8 +5,8 @@ import { PolicyEditorDispatch } from "../../policy-editor.types";
 import { CSRFURL } from "../../../../model/policy-schema/policy.definitions";
 import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
-import { get as _get, unset as _unset } from "lodash";
 import { CsrfUrlsFieldFactory } from "./csrf-urls-field.factory";
+import { policyJsonFieldRemover } from "../services/policy-json.field-remover";
 
 export class CsrfUrlsFieldResolver
   extends BaseVisitor
@@ -47,12 +47,9 @@ export class CsrfUrlsFieldResolver
 
   remove(): void {
     this.dispatch(
-      policyEditorJsonVisit((currentJson) => {
-        _get(currentJson, `policy.${this.basePath}`).splice(this.rowIndex, 1);
-        if (_get(currentJson, `policy.${this.basePath}`).length === 0) {
-          _unset(currentJson, `policy.${this.basePath}`);
-        }
-      })
+      policyEditorJsonVisit((currentJson) =>
+        policyJsonFieldRemover(currentJson, this.basePath, this.rowIndex)
+      )
     );
   }
 
