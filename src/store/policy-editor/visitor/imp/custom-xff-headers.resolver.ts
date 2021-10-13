@@ -6,6 +6,8 @@ import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { get as _get, set as _set, unset as _unset } from "lodash";
 import { GridFieldValueFactory } from "../base/grid-field-value.factory";
 import { CustomXffHeadersFactory } from "./custom-xff-headers.factory";
+import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
+import { TextEditFieldControl } from "../../../../component/policy-editor/controls/field-control/text-edit.field-control";
 
 export class CustomXffHeadersResolver
   extends BaseVisitor
@@ -53,11 +55,21 @@ export class CustomXffHeadersResolver
         errorPath: [`instance.${this.basePath}[${this.rowIndex}]`],
         controlInfo:
           this.rowIndex === -1
-            ? this.gridFieldValueFactory.createLabelFieldControl("", this.json)
-            : this.gridFieldValueFactory.createTextEditControl(
-                "",
-                "",
-                () => ""
+            ? new LabelFieldControl(this.json)
+            : new TextEditFieldControl(
+                this.json,
+                (text) =>
+                  this.dispatch(
+                    policyEditorJsonVisit((currentJson) => {
+                      _set(
+                        currentJson,
+                        `policy.${this.basePath}[${this.rowIndex}]`,
+                        text
+                      );
+                    })
+                  ),
+                {},
+                { variant: "outlined", size: "small" }
               ),
       },
     ];
