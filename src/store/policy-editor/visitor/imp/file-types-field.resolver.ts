@@ -8,6 +8,7 @@ import { set as _set } from "lodash";
 import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
 import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
 import { FileTypesFieldFactory } from "./file-types-field.factory";
+import { policyJsonFieldRemover } from "../services/policy-json.field-remover";
 
 export class FileTypesFieldResolver
   extends BaseVisitor
@@ -30,7 +31,7 @@ export class FileTypesFieldResolver
   }
 
   get basePath(): string {
-    return "";
+    return "filetypes";
   }
 
   getBasicRows(): GridFieldValue[] {
@@ -93,10 +94,7 @@ export class FileTypesFieldResolver
   remove(): void {
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
-        currentJson.policy.filetypes.splice(this.rowIndex, 1);
-
-        if (currentJson.policy.filetypes.length === 0)
-          delete currentJson.policy.filetypes;
+        policyJsonFieldRemover(currentJson, this.basePath, this.rowIndex);
       })
     );
   }

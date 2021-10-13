@@ -9,6 +9,7 @@ import { GridFieldValue } from "../../../../component/policy-editor/controls/gri
 import { set as _set } from "lodash";
 import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
 import { UrlsFieldFactory } from "./urls-field.factory";
+import { policyJsonFieldRemover } from "../services/policy-json.field-remover";
 
 export class UrlsFieldResolver
   extends BaseVisitor
@@ -31,7 +32,7 @@ export class UrlsFieldResolver
   }
 
   get basePath(): string {
-    return "";
+    return "urls";
   }
 
   getAdvancedRows(): GridFieldValue[] {
@@ -145,11 +146,7 @@ export class UrlsFieldResolver
   remove(): void {
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
-        currentJson.policy.urls.splice(this.rowIndex, 1);
-
-        if (currentJson.policy.urls.length === 0) {
-          delete currentJson.policy.urls;
-        }
+        policyJsonFieldRemover(currentJson, this.basePath, this.rowIndex);
       })
     );
   }

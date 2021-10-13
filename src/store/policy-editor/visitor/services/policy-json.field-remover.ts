@@ -10,7 +10,10 @@ export function policyJsonFieldRemover(
     _unset(currentJson, `policy.${basePath}`);
   }
 
-  _get(currentJson, `policy.${basePath}`).forEach((x: any, index: number) => {
+  const arr = _get(currentJson, `policy.${basePath}`);
+  if (arr === undefined) return;
+
+  arr.forEach((x: any, index: number) => {
     if (x.wildcardOrder !== undefined) {
       x.wildcardOrder = index;
     }

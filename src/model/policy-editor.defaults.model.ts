@@ -87,7 +87,7 @@ export const defaultCsrfUrl: (order: number, csrfUrl?: CSRFURL) => CSRFURL = (
       };
 };
 
-export const defaultFileTypes = () => ({
+export const defaultFileTypes = (order: number) => ({
   name: "",
   type: "explicit",
   allowed: true,
@@ -100,6 +100,7 @@ export const defaultFileTypes = () => ({
   checkRequestLength: false,
   requestLength: 8192,
   responseCheck: false,
+  wildcardOrder: order,
 });
 
 export const defaultHeaders = () => ({

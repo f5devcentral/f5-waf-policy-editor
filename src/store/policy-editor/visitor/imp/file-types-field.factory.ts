@@ -19,7 +19,7 @@ export class FileTypesFieldFactory
           fileTypes = _get(currentJson, path);
         }
 
-        fileTypes.push(filetype ?? defaultFileTypes());
+        fileTypes.push(filetype ?? defaultFileTypes(fileTypes.length));
       })
     );
   }
