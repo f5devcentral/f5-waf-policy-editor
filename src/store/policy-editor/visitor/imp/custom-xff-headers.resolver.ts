@@ -5,7 +5,7 @@ import { GridFieldValue } from "../../../../component/policy-editor/controls/gri
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { get as _get, set as _set, unset as _unset } from "lodash";
 import { GridFieldValueFactory } from "../base/grid-field-value.factory";
-import { CustomXffHeadersFactory } from "./custom-xff-headers.factory";
+// import { CustomXffHeadersFactory } from "./custom-xff-headers.factory";
 import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
 import { TextEditFieldControl } from "../../../../component/policy-editor/controls/field-control/text-edit.field-control";
 
@@ -47,7 +47,7 @@ export class CustomXffHeadersResolver
   }
 
   getBasicRows(): GridFieldValue[] {
-    const fieldFactory = new CustomXffHeadersFactory(this.dispatch, this.json);
+    // const fieldFactory = new CustomXffHeadersFactory(this.dispatch, this.json);
 
     return [
       {
