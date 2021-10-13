@@ -28,6 +28,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import { PolicyEditorPreprocessorServices } from "./store/policy-editor/visitor/services/policy-editor-preprocessor.services";
 import Typography from "@material-ui/core/Typography";
+import Hidden from "@material-ui/core/Hidden";
 
 type PolicyEditorParams = {};
 
@@ -59,7 +60,12 @@ const Dashboard: React.FunctionComponent<
   const [errorMessage, setErrorMessage] = useState("");
 
   const { currentModule } = useDashboardState();
-  const { strCurrentPolicy, policySrcUrl } = usePolicyEditorState();
+  const {
+    strCurrentPolicy,
+    policySrcUrl,
+    jsonValidationErrors,
+    jsonParseError,
+  } = usePolicyEditorState();
   const dispatch = usePolicyEditorDispatch();
   const qs = queryString.parse(window.location.search);
 
@@ -135,6 +141,18 @@ const Dashboard: React.FunctionComponent<
 
   return (
     <PolicyEditorDashboardComponent>
+      <input
+        type="hidden"
+        id="errJsonParse"
+        name="errJsonParse"
+        value={jsonParseError.toString()}
+      />
+      <input
+        type="hidden"
+        id="errJsonValidation"
+        name="errJsonValidation"
+        value={JSON.stringify(jsonValidationErrors)}
+      />
       {uiFactory[currentModule]}
       <Snackbar
         anchorOrigin={{
