@@ -187,8 +187,8 @@ export const TabsTree: PolicyEditorPageInfo[] = [
     ],
   },
   {
-    id: PolicyEditorPageEnum.EnforceCookeSettings,
-    label: createLabel(true, "Enforce Cooke Settings", undefined),
+    id: PolicyEditorPageEnum.EnforceCookieSettings,
+    label: createLabel(true, "Enforce Cookie Settings", undefined),
     subPages: [
       {
         label: createLabel(false, "Cookie Settings", undefined),

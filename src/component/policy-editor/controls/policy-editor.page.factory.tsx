@@ -68,10 +68,10 @@ export class PolicyEditorPageFactory {
       [PolicyEditorPageEnum.Csrf]: (
         <AdditionalTabsPage tree={TabsTree} id={PolicyEditorPageEnum.Csrf} />
       ),
-      [PolicyEditorPageEnum.EnforceCookeSettings]: (
+      [PolicyEditorPageEnum.EnforceCookieSettings]: (
         <AdditionalTabsPage
           tree={TabsTree}
-          id={PolicyEditorPageEnum.EnforceCookeSettings}
+          id={PolicyEditorPageEnum.EnforceCookieSettings}
         />
       ),
       // -----------------------------------------------------------------

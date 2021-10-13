@@ -7,7 +7,7 @@ import { PolicyEditorDispatch } from "../../policy-editor.types";
 import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { set as _set } from "lodash";
-import { defaultCookeSettings } from "../../../../model/policy-editor.defaults.model";
+import { defaultCookieSettings } from "../../../../model/policy-editor.defaults.model";
 
 export class CookieSettingsVisitor
   extends BaseVisitor
@@ -50,7 +50,7 @@ export class CookieSettingsVisitor
   create() {
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
-        _set(currentJson, `policy.${this.basePath}`, defaultCookeSettings());
+        _set(currentJson, `policy.${this.basePath}`, defaultCookieSettings());
       })
     );
   }
@@ -59,7 +59,8 @@ export class CookieSettingsVisitor
     return [
       this.tableFieldValueFactory.createTextEditFieldControl(
         "Maximum Cookie Header Length",
-        "maximumCookieHeaderLength"
+        "maximumCookieHeaderLength",
+        { makeNumber: true }
       ),
     ];
   }

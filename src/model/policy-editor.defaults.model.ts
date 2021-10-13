@@ -228,7 +228,7 @@ export const defaultCsrfProtection: () => CSRFProtection = () => {
   };
 };
 
-export const defaultCookeSettings: () => CookieSettings = () => {
+export const defaultCookieSettings: () => CookieSettings = () => {
   return {
     maximumCookieHeaderLength: MaximumCookieHeaderLengthEnum.Any,
   };
