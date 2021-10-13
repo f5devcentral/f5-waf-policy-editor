@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.js": "/rc/static/js/main.696b3ad2.chunk.js",
-    "main.js.map": "/rc/static/js/main.696b3ad2.chunk.js.map",
+    "main.js": "/rc/static/js/main.381c11e3.chunk.js",
+    "main.js.map": "/rc/static/js/main.381c11e3.chunk.js.map",
     "runtime-main.js": "/rc/static/js/runtime-main.d0b50bb7.js",
     "runtime-main.js.map": "/rc/static/js/runtime-main.d0b50bb7.js.map",
     "static/css/2.999eedfc.chunk.css": "/rc/static/css/2.999eedfc.chunk.css",
-    "static/js/2.9d5f99ac.chunk.js": "/rc/static/js/2.9d5f99ac.chunk.js",
-    "static/js/2.9d5f99ac.chunk.js.map": "/rc/static/js/2.9d5f99ac.chunk.js.map",
+    "static/js/2.cfc63ec8.chunk.js": "/rc/static/js/2.cfc63ec8.chunk.js",
+    "static/js/2.cfc63ec8.chunk.js.map": "/rc/static/js/2.cfc63ec8.chunk.js.map",
     "index.html": "/rc/index.html",
     "static/css/2.999eedfc.chunk.css.map": "/rc/static/css/2.999eedfc.chunk.css.map",
-    "static/js/2.9d5f99ac.chunk.js.LICENSE.txt": "/rc/static/js/2.9d5f99ac.chunk.js.LICENSE.txt",
+    "static/js/2.cfc63ec8.chunk.js.LICENSE.txt": "/rc/static/js/2.cfc63ec8.chunk.js.LICENSE.txt",
     "static/media/AWS-CloudFormation.df330cc1.svg": "/rc/static/media/AWS-CloudFormation.df330cc1.svg",
     "static/media/icon-botdefense.5cc69900.svg": "/rc/static/media/icon-botdefense.5cc69900.svg",
     "static/media/icon-filetypes.35d024bd.svg": "/rc/static/media/icon-filetypes.35d024bd.svg",
@@ -25,7 +25,7 @@
   "entrypoints": [
     "static/js/runtime-main.d0b50bb7.js",
     "static/css/2.999eedfc.chunk.css",
-    "static/js/2.9d5f99ac.chunk.js",
-    "static/js/main.696b3ad2.chunk.js"
+    "static/js/2.cfc63ec8.chunk.js",
+    "static/js/main.381c11e3.chunk.js"
   ]
 }
