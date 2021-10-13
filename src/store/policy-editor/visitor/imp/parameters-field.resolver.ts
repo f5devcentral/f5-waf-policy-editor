@@ -8,6 +8,12 @@ import { set as _set } from "lodash";
 import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
 import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
 import { ParametersFieldFactory } from "./parameters-field.factory";
+import {
+  HostNameTypeEnum,
+  Level,
+  ParameterLocation,
+  ValueType,
+} from "../../../../model/policy-schema/policy.definitions";
 
 export class ParametersFieldResolver
   extends BaseVisitor
@@ -71,7 +77,7 @@ export class ParametersFieldResolver
               })
             );
           },
-          ["explicit", "wildcard"]
+          Object.values(HostNameTypeEnum)
         ),
       },
       {
@@ -90,12 +96,12 @@ export class ParametersFieldResolver
               })
             );
           },
-          ["global"]
+          Object.values(Level)
         ),
       },
       {
         title: "Location",
-        errorPath: [`instance.parameters[${this.rowIndex}].location`],
+        errorPath: [`instance.parameters[${this.rowIndex}].parameterLocation`],
         controlInfo: new DropListFieldControl(
           this.json.location,
           (value) => {
@@ -103,13 +109,13 @@ export class ParametersFieldResolver
               policyEditorJsonVisit((currentJson) => {
                 _set(
                   currentJson,
-                  `policy.parameters[${this.rowIndex}].location`,
+                  `policy.parameters[${this.rowIndex}].parameterLocation`,
                   value
                 );
               })
             );
           },
-          ["any"]
+          Object.values(ParameterLocation)
         ),
       },
       {
@@ -128,7 +134,7 @@ export class ParametersFieldResolver
               })
             );
           },
-          ["auto-detect"]
+          Object.values(ValueType)
         ),
       },
       {
@@ -321,7 +327,7 @@ export class ParametersFieldResolver
                   })
                 );
           },
-          ["explicit", "wildcard"]
+          Object.values(HostNameTypeEnum)
         ),
       },
     ];
