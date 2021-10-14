@@ -5,10 +5,7 @@ import { GridFieldValue } from "../../../../component/policy-editor/controls/gri
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { HttpProtocolsFieldFactory } from "./http-protocols-field.factory";
 import { GridFieldValueFactory } from "../base/grid-field-value.factory";
-import {
-  Filetype,
-  HTTPProtocol,
-} from "../../../../model/policy-schema/policy.definitions";
+import { HTTPProtocol } from "../../../../model/policy-schema/policy.definitions";
 
 export class HttpProtocolsFieldResolver
   extends BaseVisitor
