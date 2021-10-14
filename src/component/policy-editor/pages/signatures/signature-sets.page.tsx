@@ -6,7 +6,6 @@ import { useVisitor } from "../../../../store/policy-editor/visitor/interface/ba
 import { SignatureSetsFieldFactory } from "../../../../store/policy-editor/visitor/imp/signature-sets-field.factory";
 import { SignatureSetsVisitorFactory } from "../../../../store/policy-editor/visitor/factory/imp/signature-sets.visitor-factory";
 import { usePolicyEditorState } from "../../../../store/policy-editor/policy-editor.hooks";
-import { stringCompare } from "../../../../utils/string-compare.util";
 import { MenuSearchPopupControl } from "../../controls/menu-search-popup.control";
 import { SignatureSetsNginxConst } from "../../../../model/nginx-const/signature-sets.nginx-const";
 import { defaultSignatureSets } from "../../../../model/policy-editor.defaults.model";
@@ -57,10 +56,7 @@ export const SignatureSetsPage: React.VoidFunctionComponent = () => {
       <Box>
         <GridTableValueControl
           titles={titles}
-          visitors={(showDefaultPolicy
-            ? [...visitors, ...defValues]
-            : visitors
-          ).sort((a, b) => stringCompare(a.key(), b.key()))}
+          visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
         />
       </Box>
     </Box>

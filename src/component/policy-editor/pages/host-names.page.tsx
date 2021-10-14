@@ -3,7 +3,6 @@ import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
 import { Box, Button } from "@material-ui/core";
 import { GridTableValueControl } from "../controls/grid.table-value.control";
-import { stringCompare } from "../../../utils/string-compare.util";
 import * as React from "react";
 import { HostnamesFactory } from "../../../store/policy-editor/visitor/imp/hostnames.factory";
 import { HostnamesVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/hostnames.visitor-factory";
@@ -35,10 +34,7 @@ export const HostnamesPage: React.VoidFunctionComponent = () => {
       <Box>
         <GridTableValueControl
           titles={titles}
-          visitors={(showDefaultPolicy
-            ? [...visitors, ...defValues]
-            : visitors
-          ).sort((a, b) => stringCompare(a.key(), b.key()))}
+          visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
         />
       </Box>
     </Box>

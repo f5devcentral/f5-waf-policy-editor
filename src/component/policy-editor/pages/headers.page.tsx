@@ -5,7 +5,6 @@ import { GridTableValueControl } from "../controls/grid.table-value.control";
 import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.visitor";
 import { HeadersFieldFactory } from "../../../store/policy-editor/visitor/imp/headers-field.factory";
 import { HeadersVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/headers.visitor-factory";
-import { stringCompare } from "../../../utils/string-compare.util";
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
 
 export const HeadersPage: React.VoidFunctionComponent = () => {
@@ -34,10 +33,7 @@ export const HeadersPage: React.VoidFunctionComponent = () => {
       <Box>
         <GridTableValueControl
           titles={titles}
-          visitors={(showDefaultPolicy
-            ? [...visitors, ...defValues]
-            : visitors
-          ).sort((a, b) => stringCompare(a.key(), b.key()))}
+          visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
           settingsName="Headers"
         />
       </Box>

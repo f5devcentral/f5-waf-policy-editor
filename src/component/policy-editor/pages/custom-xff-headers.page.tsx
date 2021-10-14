@@ -3,7 +3,6 @@ import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
 import { Box, Button } from "@material-ui/core";
 import { GridTableValueControl } from "../controls/grid.table-value.control";
-import { stringCompare } from "../../../utils/string-compare.util";
 import * as React from "react";
 import { CustomXffHeadersFactory } from "../../../store/policy-editor/visitor/imp/custom-xff-headers.factory";
 import { CustomXffHeadersVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/custom-xff-headers.visitor-factory";
@@ -34,10 +33,7 @@ export const CustomXffHeadersPage: React.VoidFunctionComponent = () => {
       <Box>
         <GridTableValueControl
           titles={titles}
-          visitors={(showDefaultPolicy
-            ? [...visitors, ...defValues]
-            : visitors
-          ).sort((a, b) => stringCompare(a.key(), b.key()))}
+          visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
         />
       </Box>
     </Box>

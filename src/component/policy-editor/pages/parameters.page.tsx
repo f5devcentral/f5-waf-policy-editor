@@ -6,7 +6,6 @@ import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.
 import { ParametersFieldFactory } from "../../../store/policy-editor/visitor/imp/parameters-field.factory";
 import { ParametersVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/parameters.visitor-factory";
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
-import { stringCompare } from "../../../utils/string-compare.util";
 
 export const ParametersPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -34,10 +33,7 @@ export const ParametersPage: React.VoidFunctionComponent = () => {
       <Box>
         <GridTableValueControl
           titles={titles}
-          visitors={(showDefaultPolicy
-            ? [...visitors, ...defValues]
-            : visitors
-          ).sort((a, b) => stringCompare(a.key(), b.key()))}
+          visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
           settingsName="Parameters"
         />
       </Box>

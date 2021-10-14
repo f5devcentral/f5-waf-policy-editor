@@ -2,7 +2,6 @@ import * as React from "react";
 import { DataGuardEnforcementUrlsFactory } from "../../../../store/policy-editor/visitor/imp/data-guard.enforcementUrls.factory";
 import { DataGuardEnforcementUrlsVisitorFactory } from "../../../../store/policy-editor/visitor/factory/imp/data-guard.enforcementUrls.visitor-factory";
 import { Button } from "@material-ui/core";
-import { stringCompare } from "../../../../utils/string-compare.util";
 import { useVisitor } from "../../../../store/policy-editor/visitor/interface/base.visitor";
 import { useStyles } from "../../../../utils/styles.hook";
 import { GridTableValueControl } from "../../controls/grid.table-value.control";
@@ -35,10 +34,7 @@ export const DataGuardEnforcementUrlsPage: React.VoidFunctionComponent = () => {
       <Box>
         <GridTableValueControl
           titles={titles}
-          visitors={(showDefaultPolicy
-            ? [...visitors, ...defValues]
-            : visitors
-          ).sort((a, b) => stringCompare(a.key(), b.key()))}
+          visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
         />
       </Box>
     </Box>

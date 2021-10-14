@@ -12,7 +12,6 @@ import { ViolationsFieldFactory } from "../../../../store/policy-editor/visitor/
 import { MenuSearchPopupControl } from "../../controls/menu-search-popup.control";
 import { ViolationsVisitorFactory } from "../../../../store/policy-editor/visitor/factory/imp/violations.visitor-factory";
 import { usePolicyEditorState } from "../../../../store/policy-editor/policy-editor.hooks";
-import { stringCompare } from "../../../../utils/string-compare.util";
 
 export const ViolationsPage: React.VoidFunctionComponent = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -68,10 +67,7 @@ export const ViolationsPage: React.VoidFunctionComponent = () => {
       <Box>
         <GridTableValueControl
           titles={titles}
-          visitors={(showDefaultPolicy
-            ? [...visitors, ...defValues]
-            : visitors
-          ).sort((a, b) => stringCompare(a.key(), b.key()))}
+          visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
         />
       </Box>
     </Box>
