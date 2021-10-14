@@ -15,10 +15,14 @@ export class TableFieldValueFactory {
   ) {}
 
   private errorPath(valuePath: string): string[] {
+    if (this.basePath.length === 0) return [`instance.${valuePath}`];
+
     return [`instance.${this.basePath}.${valuePath}`];
   }
 
   private policyPath(valuePath: string): string {
+    if (this.basePath.length === 0) return `policy.${valuePath}`;
+
     return `policy.${this.basePath}.${valuePath}`;
   }
 

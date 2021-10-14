@@ -2,21 +2,30 @@ import { BaseVisitor } from "../interface/base.visitor";
 import { FieldResolverVisitor } from "../interface/field-resolver.visitor";
 import { PolicyEditorDispatch } from "../../policy-editor.types";
 import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
-import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
-import { get as _get, set as _set, unset as _unset } from "lodash";
-import { NumberEditFieldControl } from "../../../../component/policy-editor/controls/field-control/number-edit.field-control";
+import { get as _get, unset as _unset } from "lodash";
+import { GridFieldValueFactory } from "../base/grid-field-value.factory";
+import { ResponseCodesFactory } from "./response-codes.factory";
 
 export class ResponseCodesResolver
   extends BaseVisitor
   implements FieldResolverVisitor
 {
+  private gridFieldValueFactory: GridFieldValueFactory<number>;
+
   constructor(
     public rowIndex: number,
     protected dispatch: PolicyEditorDispatch,
     protected json: any
   ) {
     super(dispatch, json);
+
+    this.gridFieldValueFactory = new GridFieldValueFactory<number>(
+      this.rowIndex,
+      this.dispatch,
+      this.json,
+      this.basePath
+    );
   }
 
   key(): string {
@@ -47,29 +56,19 @@ export class ResponseCodesResolver
   }
 
   getBasicRows(): GridFieldValue[] {
+    const responseCodesFieldFactory = new ResponseCodesFactory(
+      this.dispatch,
+      this.json
+    );
+
     return [
-      {
-        title: "",
-        errorPath: [`instance.${this.basePath}[${this.rowIndex}]`],
-        controlInfo:
-          this.rowIndex === -1
-            ? new LabelFieldControl(this.json)
-            : new NumberEditFieldControl(
-                this.json,
-                (text) =>
-                  this.dispatch(
-                    policyEditorJsonVisit((currentJson) => {
-                      _set(
-                        currentJson,
-                        `policy.${this.basePath}[${this.rowIndex}]`,
-                        parseInt(text)
-                      );
-                    })
-                  ),
-                {},
-                { variant: "outlined", size: "small" }
-              ),
-      },
+      this.rowIndex === -1
+        ? this.gridFieldValueFactory.createLabelFieldControl("", this.json)
+        : this.gridFieldValueFactory.createNumberEditControl(
+            "",
+            "",
+            responseCodesFieldFactory
+          ),
     ];
   }
 }

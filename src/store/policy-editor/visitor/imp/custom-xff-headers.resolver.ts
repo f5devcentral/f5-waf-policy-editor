@@ -3,11 +3,9 @@ import { FieldResolverVisitor } from "../interface/field-resolver.visitor";
 import { PolicyEditorDispatch } from "../../policy-editor.types";
 import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
-import { get as _get, set as _set, unset as _unset } from "lodash";
+import { get as _get, unset as _unset } from "lodash";
 import { GridFieldValueFactory } from "../base/grid-field-value.factory";
-// import { CustomXffHeadersFactory } from "./custom-xff-headers.factory";
-import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
-import { TextEditFieldControl } from "../../../../component/policy-editor/controls/field-control/text-edit.field-control";
+import { CustomXffHeadersFactory } from "./custom-xff-headers.factory";
 
 export class CustomXffHeadersResolver
   extends BaseVisitor
@@ -47,31 +45,16 @@ export class CustomXffHeadersResolver
   }
 
   getBasicRows(): GridFieldValue[] {
-    // const fieldFactory = new CustomXffHeadersFactory(this.dispatch, this.json);
+    const fieldFactory = new CustomXffHeadersFactory(this.dispatch, this.json);
 
     return [
-      {
-        title: "",
-        errorPath: [`instance.${this.basePath}[${this.rowIndex}]`],
-        controlInfo:
-          this.rowIndex === -1
-            ? new LabelFieldControl(this.json)
-            : new TextEditFieldControl(
-                this.json,
-                (text) =>
-                  this.dispatch(
-                    policyEditorJsonVisit((currentJson) => {
-                      _set(
-                        currentJson,
-                        `policy.${this.basePath}[${this.rowIndex}]`,
-                        text
-                      );
-                    })
-                  ),
-                {},
-                { variant: "outlined", size: "small" }
-              ),
-      },
+      this.rowIndex === -1
+        ? this.gridFieldValueFactory.createLabelFieldControl("", this.json)
+        : this.gridFieldValueFactory.createTextEditControl(
+            this.json,
+            "",
+            fieldFactory
+          ),
     ];
   }
 

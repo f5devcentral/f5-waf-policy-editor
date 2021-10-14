@@ -3,26 +3,33 @@ import { FieldResolverVisitor } from "../interface/field-resolver.visitor";
 import { PolicyEditorDispatch } from "../../policy-editor.types";
 import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
-import { set as _set } from "lodash";
-import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
-import { NumberEditFieldControl } from "../../../../component/policy-editor/controls/field-control/number-edit.field-control";
-import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
 import { EvasionsFieldFactory } from "./evasions-field.factory";
+import { GridFieldValueFactory } from "../base/grid-field-value.factory";
+import { Evasion } from "../../../../model/policy-schema/policy.definitions";
 
 export class EvasionsFieldResolver
   extends BaseVisitor
   implements FieldResolverVisitor
 {
+  private gridFieldValueFactory: GridFieldValueFactory<Evasion>;
+
   constructor(
     public rowIndex: number,
     protected dispatch: PolicyEditorDispatch,
     protected json: any
   ) {
     super(dispatch, json);
+
+    this.gridFieldValueFactory = new GridFieldValueFactory<Evasion>(
+      this.rowIndex,
+      this.dispatch,
+      this.json,
+      this.basePath
+    );
   }
 
   get basePath(): string {
-    return "";
+    return "blocking-settings.evasions";
   }
 
   key(): string {
@@ -56,55 +63,22 @@ export class EvasionsFieldResolver
 
   getBasicRows(): GridFieldValue[] {
     const fieldFactory = new EvasionsFieldFactory(this.dispatch, this.json);
-    const path = `blocking-settings.evasions[${this.rowIndex}]`;
 
     return [
-      {
-        title: "Description",
-        errorPath: [`instance.${path}.description`],
-        controlInfo: new LabelFieldControl(this.json.description),
-      },
-      {
-        title: "Enabled",
-        errorPath: [`instance.${path}.enabled`],
-        controlInfo: new CheckboxFieldControl(this.json.enabled, (value) => {
-          this.rowIndex === -1
-            ? fieldFactory.create({
-                ...this.json,
-                enabled: !this.json.enabled,
-              })
-            : this.dispatch(
-                policyEditorJsonVisit((currentJson) => {
-                  _set(currentJson, `policy.${path}.enabled`, value);
-                })
-              );
-        }),
-      },
-      {
-        title: "Max Decoding Passes",
-        errorPath: [`instance.${path}.maxDecodingPasses`],
-        controlInfo: new NumberEditFieldControl(
-          this.json.maxDecodingPasses,
-          (value) => {
-            this.rowIndex === -1
-              ? fieldFactory.create({
-                  ...this.json,
-                  maxDecodingPasses: parseInt(value),
-                })
-              : this.dispatch(
-                  policyEditorJsonVisit((currentJson) => {
-                    _set(
-                      currentJson,
-                      `policy.${path}.maxDecodingPasses`,
-                      parseInt(value)
-                    );
-                  })
-                );
-          },
-          {},
-          { variant: "outlined", size: "small" }
-        ),
-      },
+      this.gridFieldValueFactory.createLabelFieldControl(
+        "Description",
+        "description"
+      ),
+      this.gridFieldValueFactory.createCheckBoxFieldControl(
+        "Enabled",
+        "enabled",
+        fieldFactory
+      ),
+      this.gridFieldValueFactory.createNumberEditControl(
+        "Max Decoding Passes",
+        "maxDecodingPasses",
+        fieldFactory
+      ),
     ];
   }
 }

@@ -2,20 +2,30 @@ import { BaseVisitor } from "../interface/base.visitor";
 import { FieldResolverVisitor } from "../interface/field-resolver.visitor";
 import { PolicyEditorDispatch } from "../../policy-editor.types";
 import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
-import { TextEditFieldControl } from "../../../../component/policy-editor/controls/field-control/text-edit.field-control";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
-import { set as _set } from "lodash";
+import { GridFieldValueFactory } from "../base/grid-field-value.factory";
+import { OpenAPIFile } from "../../../../model/policy-schema/policy.definitions";
+import { OpenApiFieldFactory } from "./open-api-field.factory";
 
 export class OpenApiFieldResolver
   extends BaseVisitor
   implements FieldResolverVisitor
 {
+  private gridFieldValueFactory: GridFieldValueFactory<OpenAPIFile>;
+
   constructor(
     public rowIndex: number,
     protected dispatch: PolicyEditorDispatch,
     protected json: any
   ) {
     super(dispatch, json);
+
+    this.gridFieldValueFactory = new GridFieldValueFactory<OpenAPIFile>(
+      this.rowIndex,
+      this.dispatch,
+      this.json,
+      this.basePath
+    );
   }
 
   key(): string {
@@ -31,30 +41,18 @@ export class OpenApiFieldResolver
   }
 
   get basePath(): string {
-    return "";
+    return "open-api-files";
   }
 
   getBasicRows(): GridFieldValue[] {
+    const fieldFactory = new OpenApiFieldFactory(this.dispatch, this.json);
+
     return [
-      {
-        title: "",
-        errorPath: [`instance.open-api-files[${this.rowIndex}].link`],
-        controlInfo: new TextEditFieldControl(
-          this.json.link,
-          (text) =>
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(
-                  currentJson,
-                  `policy.open-api-files[${this.rowIndex}].link`,
-                  text
-                );
-              })
-            ),
-          {},
-          { variant: "outlined", size: "small" }
-        ),
-      },
+      this.gridFieldValueFactory.createTextEditControl(
+        "Link",
+        "link",
+        fieldFactory
+      ),
     ];
   }
 

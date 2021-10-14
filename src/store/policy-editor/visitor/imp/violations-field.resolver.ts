@@ -1,20 +1,20 @@
 import { BaseVisitor } from "../interface/base.visitor";
 import { FieldResolverVisitor } from "../interface/field-resolver.visitor";
-
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { PolicyEditorDispatch } from "../../policy-editor.types";
-import { set as _set } from "lodash";
 import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
-import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
 import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
 import { ViolationsNginxConst } from "../../../../model/nginx-const/violations.nginx-const";
 import { ViolationsFieldFactory } from "./violations-field.factory";
+import { GridFieldValueFactory } from "../base/grid-field-value.factory";
+import { BlockingSettingsViolation } from "../../../../model/policy-schema/policy.definitions";
 
 export class ViolationsFieldResolver
   extends BaseVisitor
   implements FieldResolverVisitor
 {
   private allViolations: any;
+  private gridFieldValueFactory: GridFieldValueFactory<BlockingSettingsViolation>;
 
   constructor(
     public rowIndex: number,
@@ -24,6 +24,14 @@ export class ViolationsFieldResolver
     super(dispatch, json);
 
     this.allViolations = ViolationsNginxConst.getAllViolations();
+
+    this.gridFieldValueFactory =
+      new GridFieldValueFactory<BlockingSettingsViolation>(
+        this.rowIndex,
+        this.dispatch,
+        this.json,
+        this.basePath
+      );
   }
 
   private resolveViolationTitle(name: string): string {
@@ -34,7 +42,7 @@ export class ViolationsFieldResolver
   }
 
   get basePath(): string {
-    return "";
+    return "blocking-settings.violations";
   }
 
   key(): string {
@@ -55,59 +63,21 @@ export class ViolationsFieldResolver
     return [
       {
         title: "",
-        errorPath: [
-          `instance.blocking-settings.violations[${this.rowIndex}].name`,
-        ],
+        errorPath: [`instance.[${this.basePath}][${this.rowIndex}].name`],
         controlInfo: new LabelFieldControl(
           this.resolveViolationTitle(this.json.name)
         ),
       },
-      {
-        errorPath: [
-          `instance.blocking-settings.violations[${this.rowIndex}].alarm`,
-        ],
-        controlInfo: new CheckboxFieldControl(this.json.alarm, (text) => {
-          this.rowIndex === -1
-            ? fieldFactory.create({
-                alarm: !this.json.alarm,
-                block: this.json.block,
-                name: this.json.name,
-              })
-            : this.dispatch(
-                policyEditorJsonVisit((currentJson) => {
-                  _set(
-                    currentJson,
-                    `policy.blocking-settings.violations[${this.rowIndex}].alarm`,
-                    text
-                  );
-                })
-              );
-        }),
-        title: "",
-      },
-      {
-        title: "",
-        errorPath: [
-          `instance.blocking-settings.violations[${this.rowIndex}].block`,
-        ],
-        controlInfo: new CheckboxFieldControl(this.json.block, (text) => {
-          this.rowIndex === -1
-            ? fieldFactory.create({
-                alarm: this.json.alarm,
-                block: !this.json.block,
-                name: this.json.name,
-              })
-            : this.dispatch(
-                policyEditorJsonVisit((currentJson) => {
-                  _set(
-                    currentJson,
-                    `policy.blocking-settings.violations[${this.rowIndex}].block`,
-                    text
-                  );
-                })
-              );
-        }),
-      },
+      this.gridFieldValueFactory.createCheckBoxFieldControl(
+        "Alarm",
+        "alarm",
+        fieldFactory
+      ),
+      this.gridFieldValueFactory.createCheckBoxFieldControl(
+        "Block",
+        "block",
+        fieldFactory
+      ),
     ];
   }
 

@@ -1,21 +1,30 @@
 import { BaseVisitor } from "../interface/base.visitor";
 import { FieldResolverVisitor } from "../interface/field-resolver.visitor";
-
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { PolicyEditorDispatch } from "../../policy-editor.types";
-import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
 import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
+import { GridFieldValueFactory } from "../base/grid-field-value.factory";
+import { ServerTechnology } from "../../../../model/policy-schema/policy.definitions";
 
 export class ServerTechnologiesFieldResolver
   extends BaseVisitor
   implements FieldResolverVisitor
 {
+  private gridFieldValueFactory: GridFieldValueFactory<ServerTechnology>;
+
   constructor(
     public rowIndex: number,
     protected dispatch: PolicyEditorDispatch,
     protected json: any
   ) {
     super(dispatch, json);
+
+    this.gridFieldValueFactory = new GridFieldValueFactory<ServerTechnology>(
+      this.rowIndex,
+      this.dispatch,
+      this.json,
+      this.basePath
+    );
   }
 
   key(): string {
@@ -31,18 +40,15 @@ export class ServerTechnologiesFieldResolver
   }
 
   get basePath(): string {
-    return "";
+    return "server-technologies";
   }
 
   getBasicRows(): GridFieldValue[] {
     return [
-      {
-        title: "",
-        errorPath: [
-          `instance.server-technologies[${this.rowIndex}].serverTechnologyName`,
-        ],
-        controlInfo: new LabelFieldControl(this.json.serverTechnologyName),
-      },
+      this.gridFieldValueFactory.createLabelFieldControl(
+        "",
+        "serverTechnologyName"
+      ),
     ];
   }
 

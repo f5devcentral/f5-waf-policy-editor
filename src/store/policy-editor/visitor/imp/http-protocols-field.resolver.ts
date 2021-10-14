@@ -3,22 +3,32 @@ import { FieldResolverVisitor } from "../interface/field-resolver.visitor";
 import { PolicyEditorDispatch } from "../../policy-editor.types";
 import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
-import { set as _set } from "lodash";
-import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
-import { NumberEditFieldControl } from "../../../../component/policy-editor/controls/field-control/number-edit.field-control";
-import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
 import { HttpProtocolsFieldFactory } from "./http-protocols-field.factory";
+import { GridFieldValueFactory } from "../base/grid-field-value.factory";
+import {
+  Filetype,
+  HTTPProtocol,
+} from "../../../../model/policy-schema/policy.definitions";
 
 export class HttpProtocolsFieldResolver
   extends BaseVisitor
   implements FieldResolverVisitor
 {
+  private gridFieldValueFactory: GridFieldValueFactory<HTTPProtocol>;
+
   constructor(
     public rowIndex: number,
     protected dispatch: PolicyEditorDispatch,
     protected json: any
   ) {
     super(dispatch, json);
+
+    this.gridFieldValueFactory = new GridFieldValueFactory<HTTPProtocol>(
+      this.rowIndex,
+      this.dispatch,
+      this.json,
+      this.basePath
+    );
   }
 
   key(): string {
@@ -34,7 +44,7 @@ export class HttpProtocolsFieldResolver
   }
 
   get basePath(): string {
-    return "";
+    return "blocking-settings.http-protocols";
   }
 
   remove(): void {
@@ -63,80 +73,27 @@ export class HttpProtocolsFieldResolver
       this.dispatch,
       this.json
     );
-    const path = `blocking-settings.http-protocols[${this.rowIndex}]`;
 
     return [
-      {
-        title: "Description",
-        errorPath: [`instance.${path}.description`],
-        controlInfo: new LabelFieldControl(this.json.description),
-      },
-      {
-        title: "Enabled",
-        errorPath: [`instance.${path}.enabled`],
-        controlInfo: new CheckboxFieldControl(this.json.enabled, (value) => {
-          this.rowIndex === -1
-            ? fieldFactory.create({
-                ...this.json,
-                enabled: value,
-              })
-            : this.dispatch(
-                policyEditorJsonVisit((currentJson) => {
-                  _set(currentJson, `policy.${path}.enabled`, value);
-                })
-              );
-        }),
-      },
-      {
-        title: "Max Headers",
-        errorPath: [`instance.${path}.maxHeaders`],
-        controlInfo: new NumberEditFieldControl(
-          this.json.maxHeaders,
-          (value) => {
-            this.rowIndex === -1
-              ? fieldFactory.create({
-                  ...this.json,
-                  maxHeaders: parseInt(value),
-                })
-              : this.dispatch(
-                  policyEditorJsonVisit((currentJson) => {
-                    _set(
-                      currentJson,
-                      `policy.${path}.maxHeaders`,
-                      parseInt(value)
-                    );
-                  })
-                );
-          },
-          {},
-          { variant: "outlined", size: "small" }
-        ),
-      },
-      {
-        title: "Max Params",
-        errorPath: [`instance.${path}.maxParams`],
-        controlInfo: new NumberEditFieldControl(
-          this.json.maxParams,
-          (value) => {
-            this.rowIndex === -1
-              ? fieldFactory.create({
-                  ...this.json,
-                  maxParams: parseInt(value),
-                })
-              : this.dispatch(
-                  policyEditorJsonVisit((currentJson) => {
-                    _set(
-                      currentJson,
-                      `policy.${path}.maxParams`,
-                      parseInt(value)
-                    );
-                  })
-                );
-          },
-          {},
-          { variant: "outlined", size: "small" }
-        ),
-      },
+      this.gridFieldValueFactory.createLabelFieldControl(
+        "Description",
+        "description"
+      ),
+      this.gridFieldValueFactory.createCheckBoxFieldControl(
+        "Enabled",
+        "enabled",
+        fieldFactory
+      ),
+      this.gridFieldValueFactory.createNumberEditControl(
+        "Max Headers",
+        "maxHeaders",
+        fieldFactory
+      ),
+      this.gridFieldValueFactory.createNumberEditControl(
+        "Max Params",
+        "maxParams",
+        fieldFactory
+      ),
     ];
   }
 }

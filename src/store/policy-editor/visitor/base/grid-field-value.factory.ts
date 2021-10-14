@@ -18,10 +18,16 @@ export class GridFieldValueFactory<T> {
   ) {}
 
   private errorPath(valuePath: string): string[] {
+    if (valuePath.length === 0)
+      return [`instance.${this.basePath}[${this.rowIndex}]`];
+
     return [`instance.${this.basePath}[${this.rowIndex}].${valuePath}`];
   }
 
   private policyPath(valuePath: string): string {
+    if (valuePath.length === 0)
+      return `policy.${this.basePath}[${this.rowIndex}]`;
+
     return `policy.${this.basePath}[${this.rowIndex}].${valuePath}`;
   }
 
@@ -99,11 +105,15 @@ export class GridFieldValueFactory<T> {
           this.rowIndex === -1
             ? fieldFactory.create({
                 ...this.json,
-                [valuePath]: value,
+                [valuePath]: parseInt(value),
               })
             : this.dispatch(
                 policyEditorJsonVisit((currentJson) => {
-                  _set(currentJson, this.policyPath(valuePath), value);
+                  _set(
+                    currentJson,
+                    this.policyPath(valuePath),
+                    parseInt(value)
+                  );
                 })
               );
         }
@@ -120,7 +130,7 @@ export class GridFieldValueFactory<T> {
       title,
       errorPath: this.errorPath(valuePath),
       controlInfo: new TextEditFieldControl(
-        _get(this.json, valuePath),
+        valuePath.length === 0 ? this.json : _get(this.json, valuePath),
         (value) => {
           this.rowIndex === -1
             ? fieldFactory.create({

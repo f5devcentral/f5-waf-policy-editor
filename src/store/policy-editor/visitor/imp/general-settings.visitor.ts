@@ -1,18 +1,30 @@
-import { get as _get, set as _set } from "lodash";
+import { set as _set } from "lodash";
 import { BaseVisitor } from "../interface/base.visitor";
 import { FieldResolverVisitor } from "../interface/field-resolver.visitor";
 import { FieldFactoryVisitor } from "../interface/field-factory.visitor";
-
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { defaultGeneralSettings } from "../../../../model/policy-editor.defaults.model";
-import { TextEditFieldControl } from "../../../../component/policy-editor/controls/field-control/text-edit.field-control";
 import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
 import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
+import { TableFieldValueFactory } from "../base/table-field-value.factory";
+import { PolicyEditorDispatch } from "../../policy-editor.types";
 
 export class GeneralSettingsVisitor
   extends BaseVisitor
   implements FieldResolverVisitor, FieldFactoryVisitor<void>
 {
+  private tableFieldValueFactory: TableFieldValueFactory;
+
+  constructor(protected dispatch: PolicyEditorDispatch, protected json: any) {
+    super(dispatch, json);
+
+    this.tableFieldValueFactory = new TableFieldValueFactory(
+      dispatch,
+      json,
+      this.basePath
+    );
+  }
+
   get rowIndex() {
     return 0;
   }
@@ -43,58 +55,22 @@ export class GeneralSettingsVisitor
           "Advanced WAF",
         ]),
       },
-      {
-        title: "Policy Name",
-        errorPath: ["instance.name"],
-        controlInfo: new TextEditFieldControl(
-          _get(this.json, "policy.name"),
-          (text) =>
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) =>
-                _set(currentJson, "policy.name", text)
-              )
-            )
-        ),
-      },
-      {
-        title: "Application Language",
-        errorPath: ["instance.applicationLanguage"],
-        controlInfo: new TextEditFieldControl(
-          _get(this.json, "policy.applicationLanguage"),
-          (text) =>
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) =>
-                _set(currentJson, "policy.applicationLanguage", text)
-              )
-            )
-        ),
-      },
-      {
-        title: "Enforcement Mode",
-        errorPath: ["instance.enforcementMode"],
-        controlInfo: new TextEditFieldControl(
-          _get(this.json, "policy.enforcementMode"),
-          (text) =>
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) =>
-                _set(currentJson, "policy.enforcementMode", text)
-              )
-            )
-        ),
-      },
-      {
-        title: "Template",
-        errorPath: ["instance.template.name", "instance.template"],
-        controlInfo: new TextEditFieldControl(
-          _get(this.json, "policy.template.name"),
-          (text) =>
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) =>
-                _set(currentJson, "policy.template.name", text)
-              )
-            )
-        ),
-      },
+      this.tableFieldValueFactory.createTextEditFieldControl(
+        "Policy Name",
+        "name"
+      ),
+      this.tableFieldValueFactory.createTextEditFieldControl(
+        "Application Language",
+        "applicationLanguage"
+      ),
+      this.tableFieldValueFactory.createTextEditFieldControl(
+        "Enforcement Mode",
+        "enforcementMode"
+      ),
+      this.tableFieldValueFactory.createTextEditFieldControl(
+        "Template",
+        "template.name"
+      ),
     ];
   }
 

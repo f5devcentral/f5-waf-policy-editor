@@ -3,21 +3,29 @@ import { FieldResolverVisitor } from "../interface/field-resolver.visitor";
 import { PolicyEditorDispatch } from "../../policy-editor.types";
 import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
-import { set as _set } from "lodash";
-import { TextEditFieldControl } from "../../../../component/policy-editor/controls/field-control/text-edit.field-control";
-import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
-import { NumberEditFieldControl } from "../../../../component/policy-editor/controls/field-control/number-edit.field-control";
+import { GridFieldValueFactory } from "../base/grid-field-value.factory";
+import { PolicySignature } from "../../../../model/policy-schema/policy.definitions";
+import { SignaturesFieldFactory } from "./signatures-field.factory";
 
 export class SignaturesFieldResolver
   extends BaseVisitor
   implements FieldResolverVisitor
 {
+  private gridFieldValueFactory: GridFieldValueFactory<PolicySignature>;
+
   constructor(
     public rowIndex: number,
     protected dispatch: PolicyEditorDispatch,
     protected json: any
   ) {
     super(dispatch, json);
+
+    this.gridFieldValueFactory = new GridFieldValueFactory<PolicySignature>(
+      this.rowIndex,
+      this.dispatch,
+      this.json,
+      this.basePath
+    );
   }
 
   key(): string {
@@ -33,7 +41,7 @@ export class SignaturesFieldResolver
   }
 
   get basePath(): string {
-    return "";
+    return "signatures";
   }
 
   remove(): void {
@@ -48,77 +56,29 @@ export class SignaturesFieldResolver
   }
 
   getBasicRows(): GridFieldValue[] {
-    const path = `signatures[${this.rowIndex}]`;
+    const fieldFactory = new SignaturesFieldFactory(this.dispatch, this.json);
+
     return [
-      {
-        title: "Name",
-        errorPath: [`instance.${path}.name`],
-        controlInfo: new TextEditFieldControl(
-          this.json.name,
-          (text) =>
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(
-                  currentJson,
-                  `policy.signatures[${this.rowIndex}].name`,
-                  text
-                );
-              })
-            ),
-          {},
-          { variant: "outlined", size: "small" }
-        ),
-      },
-      {
-        title: "Enabled",
-        errorPath: [`instance.${path}.enabled`],
-        controlInfo: new CheckboxFieldControl(this.json.enabled, (value) => {
-          this.dispatch(
-            policyEditorJsonVisit((currentJson) => {
-              _set(currentJson, `policy.${path}.enabled`, value);
-            })
-          );
-        }),
-      },
-      {
-        title: "Signature Id",
-        errorPath: [`instance.${path}.signatureId`],
-        controlInfo: new NumberEditFieldControl(
-          this.json.signatureId,
-          (value) => {
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(
-                  currentJson,
-                  `policy.${path}.signatureId`,
-                  parseInt(value)
-                );
-              })
-            );
-          },
-          {},
-          { variant: "outlined", size: "small" }
-        ),
-      },
-      {
-        title: "Tag",
-        errorPath: [`instance.${path}.tag`],
-        controlInfo: new TextEditFieldControl(
-          this.json.tag,
-          (text) =>
-            this.dispatch(
-              policyEditorJsonVisit((currentJson) => {
-                _set(
-                  currentJson,
-                  `policy.signatures[${this.rowIndex}].tag`,
-                  text
-                );
-              })
-            ),
-          {},
-          { variant: "outlined", size: "small" }
-        ),
-      },
+      this.gridFieldValueFactory.createTextEditControl(
+        "Name",
+        "name",
+        fieldFactory
+      ),
+      this.gridFieldValueFactory.createCheckBoxFieldControl(
+        "Enabled",
+        "enabled",
+        fieldFactory
+      ),
+      this.gridFieldValueFactory.createNumberEditControl(
+        "Signature Id",
+        "signatureId",
+        fieldFactory
+      ),
+      this.gridFieldValueFactory.createTextEditControl(
+        "Tag",
+        "tag",
+        fieldFactory
+      ),
     ];
   }
 }
