@@ -5,6 +5,7 @@ import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.
 import { useStyles } from "../../../utils/styles.hook";
 import { OpenApiFieldFactory } from "../../../store/policy-editor/visitor/imp/open-api-field.factory";
 import { OpenApiVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/open-api.visitor-factory";
+import { defaultOpenApi } from "../../../model/policy-editor.defaults.model";
 
 export const OpenApiPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -19,7 +20,7 @@ export const OpenApiPage: React.VoidFunctionComponent = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => openApiFieldFactory.create()}
+        onClick={() => openApiFieldFactory.create(defaultOpenApi, undefined)}
       >
         Add OpenAPI Link
       </Button>

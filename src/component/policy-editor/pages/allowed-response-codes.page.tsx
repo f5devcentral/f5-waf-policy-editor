@@ -10,6 +10,7 @@ import { ExpandMore } from "@material-ui/icons";
 import { useState } from "react";
 import { MenuSearchPopupControl } from "../controls/menu-search-popup.control";
 import { allServerResponseCodes } from "../../../model/nginx-const/response-codes.const";
+import { defaultResponseCode } from "../../../model/policy-editor.defaults.model";
 
 export const AllowedResponseCodesPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -27,7 +28,7 @@ export const AllowedResponseCodesPage: React.VoidFunctionComponent = () => {
   } = visitorFactory.getResolvers();
 
   function handleSelect(item: number) {
-    fieldFactory.create(item);
+    fieldFactory.create(defaultResponseCode, item);
     setAnchorEl(null);
   }
 

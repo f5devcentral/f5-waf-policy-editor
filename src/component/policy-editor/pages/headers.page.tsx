@@ -6,6 +6,7 @@ import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.
 import { HeadersFieldFactory } from "../../../store/policy-editor/visitor/imp/headers-field.factory";
 import { HeadersVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/headers.visitor-factory";
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
+import { defaultHeaders } from "../../../model/policy-editor.defaults.model";
 
 export const HeadersPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -26,7 +27,7 @@ export const HeadersPage: React.VoidFunctionComponent = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => headersFieldFactory.create()}
+        onClick={() => headersFieldFactory.create(defaultHeaders, undefined)}
       >
         Add Header
       </Button>

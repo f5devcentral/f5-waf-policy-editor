@@ -27,9 +27,10 @@ export const SignatureSetsPage: React.VoidFunctionComponent = () => {
   const allSignatureSets = SignatureSetsNginxConst.getAllNames();
 
   function handleSelect(item: string) {
-    signatureSetsFieldFactory.create({
-      ...defaultSignatureSets(),
+    signatureSetsFieldFactory.create(defaultSignatureSets, {
       name: item,
+      alarm: true,
+      block: true,
     });
     setAnchorEl(null);
   }

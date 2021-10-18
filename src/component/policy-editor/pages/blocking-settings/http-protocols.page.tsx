@@ -9,6 +9,7 @@ import { ExpandMore } from "@material-ui/icons";
 import { MenuSearchPopupControl } from "../../controls/menu-search-popup.control";
 import { HTTPProtocolDescription } from "../../../../model/policy-schema/policy.definitions";
 import { usePolicyEditorState } from "../../../../store/policy-editor/policy-editor.hooks";
+import { defaultHttpProtocols } from "../../../../model/policy-editor.defaults.model";
 
 export const HttpProtocolsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -27,7 +28,7 @@ export const HttpProtocolsPage: React.VoidFunctionComponent = () => {
   const allHttpProtocols = Object.values(HTTPProtocolDescription);
 
   function handleSelect(description: string) {
-    httpProtocolsFieldFactory.create({
+    httpProtocolsFieldFactory.create(defaultHttpProtocols, {
       maxParams: 1,
       maxHeaders: 1,
       enabled: true,

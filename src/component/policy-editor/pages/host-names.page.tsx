@@ -27,7 +27,7 @@ export const HostnamesPage: React.VoidFunctionComponent = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => fieldFactory.create(defaultHostname())}
+        onClick={() => fieldFactory.create(defaultHostname, undefined)}
       >
         Add Hostname
       </Button>

@@ -12,6 +12,7 @@ import { ViolationsFieldFactory } from "../../../../store/policy-editor/visitor/
 import { MenuSearchPopupControl } from "../../controls/menu-search-popup.control";
 import { ViolationsVisitorFactory } from "../../../../store/policy-editor/visitor/factory/imp/violations.visitor-factory";
 import { usePolicyEditorState } from "../../../../store/policy-editor/policy-editor.hooks";
+import { defaultBlockingSettingsViolations } from "../../../../model/policy-editor.defaults.model";
 
 export const ViolationsPage: React.VoidFunctionComponent = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -35,7 +36,7 @@ export const ViolationsPage: React.VoidFunctionComponent = () => {
     const v = allViolations.find((x) => x.title === item);
     if (!v) return;
 
-    fieldFactoryVisitor.create({
+    fieldFactoryVisitor.create(defaultBlockingSettingsViolations, {
       name: v.name,
       alarm: v.alarm,
       block: v.block,

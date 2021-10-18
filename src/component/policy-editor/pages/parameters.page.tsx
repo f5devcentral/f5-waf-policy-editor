@@ -6,6 +6,7 @@ import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.
 import { ParametersFieldFactory } from "../../../store/policy-editor/visitor/imp/parameters-field.factory";
 import { ParametersVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/parameters.visitor-factory";
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
+import { defaultParameters } from "../../../model/policy-editor.defaults.model";
 
 export const ParametersPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -26,7 +27,9 @@ export const ParametersPage: React.VoidFunctionComponent = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => parametersFieldFactory.create()}
+        onClick={() =>
+          parametersFieldFactory.create(defaultParameters, undefined)
+        }
       >
         Add Parameter
       </Button>

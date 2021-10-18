@@ -11,6 +11,7 @@ import {
 } from "../../../store/policy-editor/policy-editor.hooks";
 import { policyEditorJsonVisit } from "../../../store/policy-editor/policy-editor.actions";
 import { PolicyJsonReorderServices } from "../../../store/policy-editor/visitor/services/policy-json.reorder.services";
+import { defaultFileTypes } from "../../../model/policy-editor.defaults.model";
 
 export const FileTypesPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -33,7 +34,9 @@ export const FileTypesPage: React.VoidFunctionComponent = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => filetypesFieldFactory.create()}
+        onClick={() =>
+          filetypesFieldFactory.create(defaultFileTypes, undefined)
+        }
       >
         Add Filetype
       </Button>

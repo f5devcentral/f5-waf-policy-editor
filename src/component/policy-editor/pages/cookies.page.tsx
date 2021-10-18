@@ -11,6 +11,7 @@ import { policyEditorJsonVisit } from "../../../store/policy-editor/policy-edito
 import { PolicyJsonReorderServices } from "../../../store/policy-editor/visitor/services/policy-json.reorder.services";
 import { CookiesFieldFactory } from "../../../store/policy-editor/visitor/imp/cookies-field.factory";
 import { CookiesFieldVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/cookies-field.visitor-factory";
+import { defaultCookie } from "../../../model/policy-editor.defaults.model";
 
 export const CookiesPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -33,7 +34,7 @@ export const CookiesPage: React.VoidFunctionComponent = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => cookiesFieldFactory.create()}
+        onClick={() => cookiesFieldFactory.create(defaultCookie, undefined)}
       >
         Add Cookie
       </Button>

@@ -7,6 +7,7 @@ import { useStyles } from "../../../../utils/styles.hook";
 import { GridTableValueControl } from "../../controls/grid.table-value.control";
 import { usePolicyEditorState } from "../../../../store/policy-editor/policy-editor.hooks";
 import Box from "@material-ui/core/Box";
+import { defaultDataGuardEnforcementUrls } from "../../../../model/policy-editor.defaults.model";
 
 export const DataGuardEnforcementUrlsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -27,7 +28,9 @@ export const DataGuardEnforcementUrlsPage: React.VoidFunctionComponent = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => fieldFactory.create("")}
+        onClick={() =>
+          fieldFactory.create(defaultDataGuardEnforcementUrls, undefined)
+        }
       >
         Add Enforcement URL
       </Button>

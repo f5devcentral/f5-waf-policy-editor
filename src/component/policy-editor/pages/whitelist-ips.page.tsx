@@ -27,7 +27,7 @@ export const WhitelistIpsPage: React.VoidFunctionComponent = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => fieldFactory.create(defaultWhitelistIPs())}
+        onClick={() => fieldFactory.create(defaultWhitelistIPs, undefined)}
       >
         Add IP
       </Button>

@@ -1,8 +1,5 @@
 import { Validator } from "jsonschema";
-import * as wafSchema from "../policy-schema/policy-schema.json";
-import * as customPolicy from "../policy-schema/custom-updates.policy-schema.json";
-
-import { merge as _merge } from "lodash";
+import { PolicySchemaService } from "../policy-schema/policy-schema.service";
 
 export type PolicyValidationError = {
   message: string;
@@ -13,13 +10,10 @@ export type PolicyValidationError = {
 export class PolicyValidator {
   validate(policy: any): PolicyValidationError[] {
     try {
-      const schema = _merge(
-        customPolicy.properties.policy,
-        wafSchema.properties.policy
-      );
+      const schemaService = new PolicySchemaService();
+      const schema = schemaService.getSchema();
 
       const validator = new Validator();
-      validator.addSchema(customPolicy.properties.policy as any);
       const errors = validator.validate(policy, schema as any, {
         nestedErrors: true,
       }).errors;

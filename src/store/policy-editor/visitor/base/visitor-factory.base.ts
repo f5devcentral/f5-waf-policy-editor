@@ -3,6 +3,7 @@ import { FieldFactoryVisitor } from "../interface/field-factory.visitor";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { get as _get, set as _set } from "lodash";
 import { PolicyEditorDispatch } from "../../policy-editor.types";
+import { PolicySchemaService } from "../../../../model/policy-schema/policy-schema.service";
 
 export class VisitorFactoryBase<T>
   extends BaseVisitor
@@ -16,7 +17,7 @@ export class VisitorFactoryBase<T>
     super(dispatch, json);
   }
 
-  create(item: T) {
+  create(defaultFunc: (orderNumber: number, value?: T) => T, item?: T): void {
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
         let arr = _get(currentJson, this.path);
@@ -25,7 +26,12 @@ export class VisitorFactoryBase<T>
           arr = _get(currentJson, this.path);
         }
 
-        arr.push(item);
+        const value = defaultFunc(arr.length, item);
+        const schemaService = new PolicySchemaService();
+        const schemaPath = this.path.replace("policy.", "");
+        const shrunk = schemaService.shrinkToRequired(value, `${schemaPath}[]`);
+
+        arr.push(shrunk);
       })
     );
   }

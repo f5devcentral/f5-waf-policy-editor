@@ -1,26 +1,9 @@
-import { BaseVisitor } from "../interface/base.visitor";
-import { FieldFactoryVisitor } from "../interface/field-factory.visitor";
-import { policyEditorJsonVisit } from "../../policy-editor.actions";
-import { get as _get, set as _set } from "lodash";
-import { defaultSignatureSets } from "../../../../model/policy-editor.defaults.model";
 import { SignatureSet } from "../../../../model/policy-schema/policy.definitions";
+import { VisitorFactoryBase } from "../base/visitor-factory.base";
+import { PolicyEditorDispatch } from "../../policy-editor.types";
 
-export class SignatureSetsFieldFactory
-  extends BaseVisitor
-  implements FieldFactoryVisitor<SignatureSet>
-{
-  create(signatureSet?: SignatureSet): void {
-    this.dispatch(
-      policyEditorJsonVisit((currentJson) => {
-        const path = "policy.signature-sets";
-        let signatureSets = _get(currentJson, path);
-        if (!signatureSets) {
-          _set(currentJson, path, [] as any);
-          signatureSets = _get(currentJson, path);
-        }
-
-        signatureSets.push(signatureSet ?? defaultSignatureSets());
-      })
-    );
+export class SignatureSetsFieldFactory extends VisitorFactoryBase<SignatureSet> {
+  constructor(protected dispatch: PolicyEditorDispatch, protected json: any) {
+    super("policy.signature-sets", dispatch, json);
   }
 }

@@ -1,4 +1,5 @@
 import {
+  BlockingSettingsViolation,
   BlockRequests,
   Class,
   ClassAction,
@@ -12,13 +13,21 @@ import {
   DataGuardEnforcementMode,
   EnforcementAction,
   EnforcementType,
+  Evasion,
+  EvasionDescription,
   ExpirationTime,
+  Filetype,
+  Header,
   HostName,
   HostNameTypeEnum,
+  HTTPProtocol,
+  HTTPProtocolDescription,
   InsertSameSiteAttribute,
   MaximumCookieHeaderLengthEnum,
+  MethodElement,
   MitigationsSignature,
   OpenAPIFile,
+  ParameterElement,
   PolicySignature,
   ServerTechnology,
   Settings,
@@ -42,19 +51,29 @@ export const defaultGeneralSettings = () => ({
   },
 });
 
-export const defaultBlockingSettings = (
-  name: string,
-  alarm: boolean,
-  block: boolean
-) => ({
-  name,
-  alarm,
-  block,
-});
+export const defaultBlockingSettingsViolations: (
+  order: number,
+  item?: BlockingSettingsViolation
+) => BlockingSettingsViolation = (order, item) => {
+  return (
+    item ?? {
+      name: "",
+      block: false,
+      alarm: false,
+    }
+  );
+};
 
-export const defaultMethods = () => ({
-  name: "",
-});
+export const defaultMethods: (
+  order: number,
+  item?: MethodElement
+) => MethodElement = (order, item) => {
+  return (
+    item ?? {
+      name: "",
+    }
+  );
+};
 
 export const defaultUrls: (order: number, url?: URLElement) => URLElement = (
   order,
@@ -87,74 +106,118 @@ export const defaultCsrfUrl: (order: number, csrfUrl?: CSRFURL) => CSRFURL = (
       };
 };
 
-export const defaultFileTypes = (order: number) => ({
-  name: "",
-  type: "explicit",
-  allowed: true,
-  checkUrlLength: true,
-  urlLength: 2048,
-  checkQueryStringLength: true,
-  queryStringLength: 2048,
-  checkPostDataLength: false,
-  postDataLength: 4096,
-  checkRequestLength: false,
-  requestLength: 8192,
-  responseCheck: false,
-  wildcardOrder: order,
-});
+export const defaultFileTypes: (order: number, item?: Filetype) => Filetype = (
+  order,
+  item
+) => {
+  return (
+    item ??
+    ({
+      name: "",
+      type: "explicit",
+      allowed: true,
+      checkUrlLength: true,
+      urlLength: 2048,
+      checkQueryStringLength: true,
+      queryStringLength: 2048,
+      checkPostDataLength: false,
+      postDataLength: 4096,
+      checkRequestLength: false,
+      requestLength: 8192,
+      responseCheck: false,
+      wildcardOrder: order,
+    } as Filetype)
+  );
+};
 
-export const defaultHeaders = () => ({
-  name: "",
-  type: "explicit",
-  decodeValueAsBase64: "enabled",
-  htmlNormalization: true,
-  mandatory: true,
-  allowRepeatedOccurrences: false,
-  checkSignatures: true,
-});
+export const defaultHeaders: (order: number, item?: Header) => Header = (
+  order,
+  item
+) => {
+  return (
+    item ??
+    ({
+      name: "",
+      type: "explicit",
+      decodeValueAsBase64: "enabled",
+      htmlNormalization: true,
+      mandatory: true,
+      allowRepeatedOccurrences: false,
+      checkSignatures: true,
+    } as Header)
+  );
+};
 
-export const defaultParameters = () => ({
-  name: "",
-  type: "wildcard",
-  level: "global",
-  parameterLocation: "any",
-  valueType: "auto-detect",
-  allowEmptyValue: true,
-  checkMaxValueLength: false,
-  allowRepeatedParameterName: true,
-  sensitiveParameter: false,
-  attackSignaturesCheck: true,
-  checkMetachars: true,
-  metacharsOnParameterValueCheck: true,
-});
+export const defaultParameters: (
+  order: number,
+  item?: ParameterElement
+) => ParameterElement = (order, item) => {
+  return (
+    item ??
+    ({
+      name: "",
+      type: "wildcard",
+      level: "global",
+      parameterLocation: "any",
+      valueType: "auto-detect",
+      allowEmptyValue: true,
+      checkMaxValueLength: false,
+      allowRepeatedParameterName: true,
+      sensitiveParameter: false,
+      attackSignaturesCheck: true,
+      checkMetachars: true,
+      metacharsOnParameterValueCheck: true,
+    } as ParameterElement)
+  );
+};
 
-export const defaultOpenApi: () => OpenAPIFile = () => ({
-  link: "",
-});
+export const defaultOpenApi: (
+  order: number,
+  item?: OpenAPIFile
+) => OpenAPIFile = (order, item) => {
+  return (
+    item ?? {
+      link: "",
+    }
+  );
+};
 
 export const defaultServerTechnologies: (
-  serverTechnologyName: string
-) => ServerTechnology = (serverTechnologyName) => {
-  return {
-    serverTechnologyName,
-  } as ServerTechnology;
+  order: number,
+  item?: ServerTechnology
+) => ServerTechnology = (order, item) => {
+  return item
+    ? item
+    : {
+        serverTechnologyName: "",
+      };
 };
 
-export const defaultSignatureSets: () => SignatureSet = () => {
-  return {
-    alarm: true,
-    block: true,
-    name: "",
-  };
+export const defaultSignatureSets: (
+  order: number,
+  item?: SignatureSet
+) => SignatureSet = (order, item) => {
+  return item
+    ? item
+    : {
+        alarm: true,
+        block: true,
+        name: "",
+      };
 };
 
-export const defaultSignatures: () => PolicySignature = () => {
-  return {
-    enabled: true,
-    name: "",
-    signatureId: 0,
-    tag: "",
-  };
+export const defaultSignatures: (
+  order: number,
+  item?: PolicySignature
+) => PolicySignature = (order, item) => {
+  return (
+    item ?? {
+      enabled: true,
+      name: "",
+      signatureId: 0,
+      tag: "",
+    }
+  );
 };
 
 export const defaultBotDefenceSettings: () => Settings = () => {
@@ -255,4 +318,52 @@ export const defaultCookie: (order: number, cookie?: Cooky) => Cooky = (
         type: HostNameTypeEnum.Explicit,
         wildcardOrder: order,
       };
+};
+
+export const defaultEvasions: (order: number, evasion?: Evasion) => Evasion = (
+  order,
+  evasion
+) => {
+  return evasion
+    ? evasion
+    : {
+        description: "" as EvasionDescription,
+        enabled: true,
+        maxDecodingPasses: 2,
+      };
+};
+
+export const defaultHttpProtocols: (
+  order: number,
+  item?: HTTPProtocol
+) => HTTPProtocol = (order, item) => {
+  return item
+    ? item
+    : {
+        maxParams: 1,
+        maxHeaders: 1,
+        enabled: true,
+        description: "" as HTTPProtocolDescription,
+      };
+};
+
+export const defaultResponseCode: (order: number, item?: number) => number = (
+  order,
+  item
+) => {
+  return item ?? 200;
+};
+
+export const defaultXffHeader: (order: number, item?: string) => string = (
+  order,
+  item
+) => {
+  return item ?? "";
+};
+
+export const defaultDataGuardEnforcementUrls: (
+  order: number,
+  item?: string
+) => string = (order, item) => {
+  return item ?? "";
 };

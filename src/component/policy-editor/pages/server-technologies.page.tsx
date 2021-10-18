@@ -10,6 +10,7 @@ import { ViolationsNginxConst } from "../../../model/nginx-const/violations.ngin
 import { ServerTechnologiesFieldFactory } from "../../../store/policy-editor/visitor/imp/server-technologies-field.factory";
 import { ServerTechnologiesVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/server-technologies.visitor-factory";
 import { MenuSearchPopupControl } from "../controls/menu-search-popup.control";
+import { defaultServerTechnologies } from "../../../model/policy-editor.defaults.model";
 
 export const ServerTechnologiesPage: React.VoidFunctionComponent = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -26,7 +27,7 @@ export const ServerTechnologiesPage: React.VoidFunctionComponent = () => {
   const { titles, visitors } = serverTechnologiesVisitorFactory.getResolvers();
 
   function handleSelect(item: string) {
-    fieldFactoryVisitor.create({
+    fieldFactoryVisitor.create(defaultServerTechnologies, {
       serverTechnologyName: item,
     });
     setAnchorEl(null);

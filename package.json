@@ -48,8 +48,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:debug": "react-scripts start",
     "build": "react-scripts build",
-    "build:dev": "PUBLIC_URL='/dev/' react-scripts build",
+    "build:dev": "PUBLIC_URL='/dev/' react-scripts bui ld",
     "build:rc": "PUBLIC_URL='/rc/' react-scripts build",
     "build:prod": "PUBLIC_URL='/prod/' react-scripts build",
     "test": "react-scripts test",
