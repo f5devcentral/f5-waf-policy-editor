@@ -65,6 +65,7 @@ export class ViolationsFieldResolver
         title: "",
         errorPath: [`instance.[${this.basePath}][${this.rowIndex}].name`],
         controlInfo: new LabelFieldControl(
+          "name",
           this.resolveViolationTitle(this.json.name)
         ),
       },

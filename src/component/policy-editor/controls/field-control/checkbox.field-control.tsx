@@ -6,6 +6,7 @@ import { IControlInfo } from "../control-info.interface";
 
 export class CheckboxFieldControl implements IControlInfo {
   constructor(
+    private currentPath: string,
     private currentValue: boolean,
     private onValueChange: (value: boolean) => void
   ) {}

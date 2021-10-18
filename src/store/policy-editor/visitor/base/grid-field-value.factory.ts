@@ -35,7 +35,7 @@ export class GridFieldValueFactory<T> {
     return {
       title,
       errorPath: this.errorPath(valuePath),
-      controlInfo: new LabelFieldControl(_get(this.json, valuePath)),
+      controlInfo: new LabelFieldControl(valuePath, _get(this.json, valuePath)),
     };
   }
 
@@ -48,6 +48,7 @@ export class GridFieldValueFactory<T> {
       title,
       errorPath: this.errorPath(valuePath),
       controlInfo: new CheckboxFieldControl(
+        valuePath,
         _get(this.json, valuePath),
         (value) =>
           this.rowIndex === -1
@@ -74,6 +75,7 @@ export class GridFieldValueFactory<T> {
       title,
       errorPath: this.errorPath(valuePath),
       controlInfo: new DropListFieldControl(
+        valuePath,
         _get(this.json, valuePath),
         (value) =>
           this.rowIndex === -1
@@ -100,6 +102,7 @@ export class GridFieldValueFactory<T> {
       title,
       errorPath: this.errorPath(valuePath),
       controlInfo: new NumberEditFieldControl(
+        valuePath,
         _get(this.json, valuePath),
         (value) => {
           this.rowIndex === -1
@@ -130,6 +133,7 @@ export class GridFieldValueFactory<T> {
       title,
       errorPath: this.errorPath(valuePath),
       controlInfo: new TextEditFieldControl(
+        valuePath,
         valuePath.length === 0 ? this.json : _get(this.json, valuePath),
         (value) => {
           this.rowIndex === -1

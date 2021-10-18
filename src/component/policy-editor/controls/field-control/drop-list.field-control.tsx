@@ -8,6 +8,7 @@ import Box from "@material-ui/core/Box";
 
 export class DropListFieldControl implements IControlInfo {
   constructor(
+    private currentPath: string,
     private currentValue: string,
     private onValueChange: (value: string) => void,
     private items: string[]

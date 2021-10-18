@@ -50,7 +50,7 @@ export class GeneralSettingsVisitor
       {
         title: "Policy Type",
         errorPath: [""],
-        controlInfo: new DropListFieldControl("App Protect", () => {}, [
+        controlInfo: new DropListFieldControl("", "App Protect", () => {}, [
           "App Protect",
           "Advanced WAF",
         ]),

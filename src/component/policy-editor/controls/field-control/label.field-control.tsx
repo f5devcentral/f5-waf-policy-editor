@@ -4,7 +4,7 @@ import { TableCell } from "@material-ui/core";
 import { IControlInfo } from "../control-info.interface";
 
 export class LabelFieldControl implements IControlInfo {
-  constructor(private currentValue: string) {}
+  constructor(private currentPath: string, private currentValue: string) {}
 
   createCell(children: JSX.Element, props: any): JSX.Element {
     return (

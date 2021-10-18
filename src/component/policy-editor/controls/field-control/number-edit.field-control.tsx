@@ -5,6 +5,7 @@ import { IControlInfo } from "../control-info.interface";
 
 export class NumberEditFieldControl implements IControlInfo {
   constructor(
+    private currentPath: string,
     private currentValue: string,
     private onValueChange: (value: string) => void,
     private cellProps?: TableCellProps,

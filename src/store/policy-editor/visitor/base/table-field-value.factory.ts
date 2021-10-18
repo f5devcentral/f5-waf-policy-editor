@@ -30,7 +30,7 @@ export class TableFieldValueFactory {
     return {
       title,
       errorPath: this.errorPath(valuePath),
-      controlInfo: new LabelFieldControl(_get(this.json, valuePath)),
+      controlInfo: new LabelFieldControl(valuePath, _get(this.json, valuePath)),
     };
   }
 
@@ -43,6 +43,7 @@ export class TableFieldValueFactory {
       title,
       errorPath: this.errorPath(valuePath),
       controlInfo: new DropListFieldControl(
+        valuePath,
         _get(this.json, valuePath),
         (value) =>
           this.dispatch(
@@ -60,6 +61,7 @@ export class TableFieldValueFactory {
       title,
       errorPath: this.errorPath(valuePath),
       controlInfo: new CheckboxFieldControl(
+        valuePath,
         _get(this.json, this.policyPath(valuePath)),
         (value) =>
           this.dispatch(
@@ -80,6 +82,7 @@ export class TableFieldValueFactory {
       title,
       errorPath: this.errorPath(valuePath),
       controlInfo: new TextEditFieldControl(
+        valuePath,
         _get(this.json, this.policyPath(valuePath)),
         (value) =>
           this.dispatch(
