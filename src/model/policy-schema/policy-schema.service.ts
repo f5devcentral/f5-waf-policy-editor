@@ -62,8 +62,10 @@ export class PolicySchemaService {
 
     Object.keys(obj).forEach((k) => {
       const fullPath = `${basePath}.${k}`;
-      if (this.isFieldRequired(fullPath)) {
+
+      if (k === "name" || k === "description") {
         rValue[k] = obj[k];
+      } else if (this.isFieldRequired(fullPath)) {
       }
     });
 
