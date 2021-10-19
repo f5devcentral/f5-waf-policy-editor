@@ -44,6 +44,7 @@ export class TableFieldValueFactory {
       errorPath: this.errorPath(valuePath),
       controlInfo: new DropListFieldControl(
         valuePath,
+        "",
         _get(this.json, valuePath),
         (value) =>
           this.dispatch(
@@ -84,6 +85,7 @@ export class TableFieldValueFactory {
       controlInfo: new TextEditFieldControl(
         valuePath,
         _get(this.json, this.policyPath(valuePath)),
+        "",
         (value) =>
           this.dispatch(
             policyEditorJsonVisit((currentJson) =>

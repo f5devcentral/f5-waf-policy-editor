@@ -7,6 +7,7 @@ export class NumberEditFieldControl implements IControlInfo {
   constructor(
     private currentPath: string,
     private currentValue: string,
+    private hintValue: string,
     private onValueChange: (value: string) => void,
     private cellProps?: TableCellProps,
     private controlProps?: TextFieldProps
@@ -31,6 +32,7 @@ export class NumberEditFieldControl implements IControlInfo {
         type="number"
         fullWidth
         value={this.currentValue ?? ""}
+        placeholder={this.currentValue ? undefined : this.hintValue}
         onChange={(e) => this.onValueChange(e.target.value)}
         {...this.controlProps}
         {...props}

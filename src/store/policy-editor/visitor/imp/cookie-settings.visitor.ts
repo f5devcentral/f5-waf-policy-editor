@@ -68,4 +68,8 @@ export class CookieSettingsVisitor
       ),
     ];
   }
+
+  callDefault(order?: number, item?: CookieSettings): CookieSettings {
+    return defaultCookieSettings(order ?? 0, item);
+  }
 }

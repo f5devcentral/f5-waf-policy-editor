@@ -84,4 +84,8 @@ export class DataGuardVisitor
       })
     );
   }
+
+  callDefault(order?: number, item?: DataGuard): DataGuard {
+    return defaultDataGuard(order ?? 0, item);
+  }
 }

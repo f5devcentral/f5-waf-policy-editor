@@ -9,7 +9,6 @@ import { ExpandMore } from "@material-ui/icons";
 import { MenuSearchPopupControl } from "../../controls/menu-search-popup.control";
 import { EvasionDescription } from "../../../../model/policy-schema/policy.definitions";
 import { usePolicyEditorState } from "../../../../store/policy-editor/policy-editor.hooks";
-import { defaultEvasions } from "../../../../model/policy-editor.defaults.model";
 
 export const EvasionsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -28,7 +27,7 @@ export const EvasionsPage: React.VoidFunctionComponent = () => {
   const { showDefaultPolicy } = usePolicyEditorState();
 
   function handleSelect(item: string) {
-    evasionsFieldFactory.create(defaultEvasions, {
+    evasionsFieldFactory.create({
       description: item as EvasionDescription,
       enabled: true,
       maxDecodingPasses: 2,

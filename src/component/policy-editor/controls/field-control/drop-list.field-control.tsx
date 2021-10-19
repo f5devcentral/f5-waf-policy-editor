@@ -10,6 +10,7 @@ export class DropListFieldControl implements IControlInfo {
   constructor(
     private currentPath: string,
     private currentValue: string,
+    private hintValue: string,
     private onValueChange: (value: string) => void,
     private items: string[]
   ) {}
@@ -34,6 +35,7 @@ export class DropListFieldControl implements IControlInfo {
               {...params}
               InputProps={{ ...params.InputProps, ...props }}
               variant="outlined"
+              placeholder={this.hintValue}
             />
           )}
         />

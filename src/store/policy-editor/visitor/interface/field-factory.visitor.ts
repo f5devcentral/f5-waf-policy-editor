@@ -1,3 +1,4 @@
 export interface FieldFactoryVisitor<T> {
-  create(defaultFunc: (orderNumber: number, value?: T) => T, item?: T): void;
+  create(item?: T): void;
+  callDefault(order?: number, item?: T): T;
 }

@@ -8,7 +8,6 @@ import { SignatureSetsVisitorFactory } from "../../../../store/policy-editor/vis
 import { usePolicyEditorState } from "../../../../store/policy-editor/policy-editor.hooks";
 import { MenuSearchPopupControl } from "../../controls/menu-search-popup.control";
 import { SignatureSetsNginxConst } from "../../../../model/nginx-const/signature-sets.nginx-const";
-import { defaultSignatureSets } from "../../../../model/policy-editor.defaults.model";
 import { ExpandMore } from "@material-ui/icons";
 
 export const SignatureSetsPage: React.VoidFunctionComponent = () => {
@@ -27,7 +26,7 @@ export const SignatureSetsPage: React.VoidFunctionComponent = () => {
   const allSignatureSets = SignatureSetsNginxConst.getAllNames();
 
   function handleSelect(item: string) {
-    signatureSetsFieldFactory.create(defaultSignatureSets, {
+    signatureSetsFieldFactory.create({
       name: item,
       alarm: true,
       block: true,

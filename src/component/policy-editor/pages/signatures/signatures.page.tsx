@@ -5,7 +5,6 @@ import { useStyles } from "../../../../utils/styles.hook";
 import { useVisitor } from "../../../../store/policy-editor/visitor/interface/base.visitor";
 import { SignaturesFieldFactory } from "../../../../store/policy-editor/visitor/imp/signatures-field.factory";
 import { SignaturesVisitorFactory } from "../../../../store/policy-editor/visitor/factory/imp/signatures.visitor-factory";
-import { defaultSignatures } from "../../../../model/policy-editor.defaults.model";
 
 export const SignaturesPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -20,9 +19,7 @@ export const SignaturesPage: React.VoidFunctionComponent = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={() =>
-          signaturesFieldFactory.create(defaultSignatures, undefined)
-        }
+        onClick={() => signaturesFieldFactory.create(undefined)}
       >
         Add Signature
       </Button>

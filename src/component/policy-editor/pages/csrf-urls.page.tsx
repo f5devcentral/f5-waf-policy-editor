@@ -11,7 +11,6 @@ import { Box, Button } from "@material-ui/core";
 import { GridTableValueControl } from "../controls/grid.table-value.control";
 import { policyEditorJsonVisit } from "../../../store/policy-editor/policy-editor.actions";
 import { PolicyJsonReorderServices } from "../../../store/policy-editor/visitor/services/policy-json.reorder.services";
-import { defaultCsrfUrl } from "../../../model/policy-editor.defaults.model";
 
 export const CsrfUrlsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -34,7 +33,7 @@ export const CsrfUrlsPage: React.VoidFunctionComponent = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => csrfUrlsFieldFactory.create(defaultCsrfUrl, undefined)}
+        onClick={() => csrfUrlsFieldFactory.create(undefined)}
       >
         Add CSRF URL
       </Button>

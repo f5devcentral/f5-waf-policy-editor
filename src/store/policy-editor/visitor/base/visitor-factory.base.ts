@@ -13,12 +13,17 @@ export class VisitorFactoryBase<T>
   constructor(
     protected path: string,
     protected dispatch: PolicyEditorDispatch,
-    protected json: any
+    protected json: any,
+    protected defaultFunc: (orderNumber: number, value?: T) => T
   ) {
     super(dispatch, json);
   }
 
-  create(defaultFunc: (orderNumber: number, value?: T) => T, item?: T): void {
+  callDefault(order?: number, item?: T): T {
+    return this.defaultFunc(order ?? 0, item);
+  }
+
+  create(item?: T): void {
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
         let arr = _get(currentJson, this.path);
@@ -27,7 +32,7 @@ export class VisitorFactoryBase<T>
           arr = _get(currentJson, this.path);
         }
 
-        const value = defaultFunc(arr.length, item);
+        const value = this.defaultFunc(arr.length, item);
         if (_.isString(value) || _.isNumber(value)) {
           arr.push(value);
         } else {

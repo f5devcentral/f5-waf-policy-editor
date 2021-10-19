@@ -6,7 +6,6 @@ import { GridTableValueControl } from "../controls/grid.table-value.control";
 import * as React from "react";
 import { WhitelistIpFactory } from "../../../store/policy-editor/visitor/imp/whitelist-ip.factory";
 import { WhitelistIpVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/whitelist-ip.visitor-factory";
-import { defaultWhitelistIPs } from "../../../model/policy-editor.defaults.model";
 
 export const WhitelistIpsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -27,7 +26,7 @@ export const WhitelistIpsPage: React.VoidFunctionComponent = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => fieldFactory.create(defaultWhitelistIPs, undefined)}
+        onClick={() => fieldFactory.create(undefined)}
       >
         Add IP
       </Button>

@@ -65,4 +65,6 @@ export class BotDefenseSettingsVisitor
   }
 
   remove() {}
+
+  callDefault(order?: number, item?: void): void {}
 }

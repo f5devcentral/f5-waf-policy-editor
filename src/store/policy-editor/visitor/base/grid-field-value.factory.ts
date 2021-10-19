@@ -77,6 +77,7 @@ export class GridFieldValueFactory<T> {
       controlInfo: new DropListFieldControl(
         valuePath,
         _get(this.json, valuePath),
+        (fieldFactory.callDefault(undefined) as any)[valuePath],
         (value) =>
           this.rowIndex === -1
             ? fieldFactory.create({
@@ -104,6 +105,7 @@ export class GridFieldValueFactory<T> {
       controlInfo: new NumberEditFieldControl(
         valuePath,
         valuePath.length === 0 ? this.json : _get(this.json, valuePath),
+        (fieldFactory.callDefault(undefined) as any)[valuePath],
         (value) => {
           this.rowIndex === -1
             ? fieldFactory.create({
@@ -135,6 +137,7 @@ export class GridFieldValueFactory<T> {
       controlInfo: new TextEditFieldControl(
         valuePath,
         valuePath.length === 0 ? this.json : _get(this.json, valuePath),
+        (fieldFactory.callDefault(undefined) as any)[valuePath],
         (value) => {
           this.rowIndex === -1
             ? fieldFactory.create({

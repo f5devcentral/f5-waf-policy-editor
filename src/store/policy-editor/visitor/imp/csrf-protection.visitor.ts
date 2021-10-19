@@ -25,6 +25,10 @@ export class CsrfProtectionVisitor
     );
   }
 
+  callDefault(order?: number, item?: CSRFProtection): CSRFProtection {
+    return defaultCsrfProtection(order ?? 0, item);
+  }
+
   get rowIndex() {
     return 0;
   }

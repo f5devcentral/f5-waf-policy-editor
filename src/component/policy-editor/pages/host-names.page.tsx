@@ -6,7 +6,6 @@ import { GridTableValueControl } from "../controls/grid.table-value.control";
 import * as React from "react";
 import { HostnamesFactory } from "../../../store/policy-editor/visitor/imp/hostnames.factory";
 import { HostnamesVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/hostnames.visitor-factory";
-import { defaultHostname } from "../../../model/policy-editor.defaults.model";
 
 export const HostnamesPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -27,7 +26,7 @@ export const HostnamesPage: React.VoidFunctionComponent = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => fieldFactory.create(defaultHostname, undefined)}
+        onClick={() => fieldFactory.create(undefined)}
       >
         Add Hostname
       </Button>

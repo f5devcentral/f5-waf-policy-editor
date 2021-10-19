@@ -6,7 +6,6 @@ import { GridTableValueControl } from "../controls/grid.table-value.control";
 import * as React from "react";
 import { CustomXffHeadersFactory } from "../../../store/policy-editor/visitor/imp/custom-xff-headers.factory";
 import { CustomXffHeadersVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/custom-xff-headers.visitor-factory";
-import { defaultXffHeader } from "../../../model/policy-editor.defaults.model";
 
 export const CustomXffHeadersPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -27,7 +26,7 @@ export const CustomXffHeadersPage: React.VoidFunctionComponent = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => fieldFactory.create(defaultXffHeader, undefined)}
+        onClick={() => fieldFactory.create(undefined)}
       >
         Add XFF Header
       </Button>

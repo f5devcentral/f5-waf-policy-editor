@@ -37,7 +37,7 @@ export const GridValuesPageControl: React.FunctionComponent<GridValuesPageProps>
         <Button
           variant="contained"
           color="primary"
-          onClick={() => fieldFactory.create(defaultValueFactory, undefined)}
+          onClick={() => fieldFactory.create(undefined)}
         >
           {addButtonTitle}
         </Button>

@@ -6,7 +6,6 @@ import { MethodsFieldFactory } from "../../../store/policy-editor/visitor/imp/me
 import { MethodsVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/methods.visitor-factory";
 import { useStyles } from "../../../utils/styles.hook";
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
-import { defaultMethods } from "../../../model/policy-editor.defaults.model";
 
 export const MethodsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -27,7 +26,7 @@ export const MethodsPage: React.VoidFunctionComponent = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => methodsFieldFactory.create(defaultMethods, undefined)}
+        onClick={() => methodsFieldFactory.create(undefined)}
       >
         Add Method
       </Button>
