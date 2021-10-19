@@ -2,6 +2,13 @@
   "properties": {
     "policy": {
       "properties": {
+        "server-technologies": {
+          "items": {
+            "required": [
+              "serverTechnologyName"
+            ]
+          }
+        },
         "whitelist-ips":  {
           "items": {
             "properties": {

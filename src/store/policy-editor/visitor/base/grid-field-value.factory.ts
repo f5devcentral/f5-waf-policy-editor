@@ -103,7 +103,7 @@ export class GridFieldValueFactory<T> {
       errorPath: this.errorPath(valuePath),
       controlInfo: new NumberEditFieldControl(
         valuePath,
-        _get(this.json, valuePath),
+        valuePath.length === 0 ? this.json : _get(this.json, valuePath),
         (value) => {
           this.rowIndex === -1
             ? fieldFactory.create({

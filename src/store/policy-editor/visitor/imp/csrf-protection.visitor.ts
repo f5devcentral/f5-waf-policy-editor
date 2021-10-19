@@ -50,7 +50,11 @@ export class CsrfProtectionVisitor
   create() {
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
-        _set(currentJson, `policy.${this.basePath}`, defaultCsrfProtection());
+        _set(
+          currentJson,
+          `policy.${this.basePath}`,
+          defaultCsrfProtection(0, undefined)
+        );
       })
     );
   }

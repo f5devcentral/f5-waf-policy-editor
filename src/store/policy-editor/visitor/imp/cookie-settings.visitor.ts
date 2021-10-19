@@ -50,7 +50,11 @@ export class CookieSettingsVisitor
   create() {
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
-        _set(currentJson, `policy.${this.basePath}`, defaultCookieSettings());
+        _set(
+          currentJson,
+          `policy.${this.basePath}`,
+          defaultCookieSettings(0, undefined)
+        );
       })
     );
   }

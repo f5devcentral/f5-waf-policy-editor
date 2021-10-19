@@ -26,6 +26,10 @@ export class PolicySchemaService {
       ? keys[index].substring(0, keys[index].indexOf("["))
       : keys[index];
 
+    if (!currentRoot[currentKey]) {
+      return undefined;
+    }
+
     if (index === keys.length - 1) {
       return isArray ? currentRoot[currentKey].items : currentRoot[currentKey];
     }
@@ -37,6 +41,8 @@ export class PolicySchemaService {
   }
 
   isFieldRequired(path: string): boolean {
+    console.log(path);
+
     if (!path) return false;
     const keys = path.split(".");
 
@@ -45,6 +51,8 @@ export class PolicySchemaService {
       keys.slice(0, keys.length - 1),
       0
     );
+
+    if (!propertyInfo) return false;
 
     if (
       propertyInfo.required !== undefined &&
@@ -63,9 +71,10 @@ export class PolicySchemaService {
     Object.keys(obj).forEach((k) => {
       const fullPath = `${basePath}.${k}`;
 
-      if (k === "name" || k === "description") {
+      if (k === "name" || k === "description" || k === "wildcardOrder") {
         rValue[k] = obj[k];
       } else if (this.isFieldRequired(fullPath)) {
+        rValue[k] = obj[k];
       }
     });
 

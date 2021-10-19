@@ -11,7 +11,7 @@ export type GridValuesPageProps = {
   fieldsVisitorFactory: BaseFieldResolverVisitorFactory;
   addButtonTitle: string;
   settingsName: string;
-  defaultValueFactory: () => any;
+  defaultValueFactory: any;
 };
 
 export const GridValuesPageControl: React.FunctionComponent<GridValuesPageProps> =
@@ -37,7 +37,7 @@ export const GridValuesPageControl: React.FunctionComponent<GridValuesPageProps>
         <Button
           variant="contained"
           color="primary"
-          onClick={() => fieldFactory.create(defaultValueFactory())}
+          onClick={() => fieldFactory.create(defaultValueFactory, undefined)}
         >
           {addButtonTitle}
         </Button>

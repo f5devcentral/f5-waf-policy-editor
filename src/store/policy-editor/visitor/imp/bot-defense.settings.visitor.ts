@@ -58,7 +58,7 @@ export class BotDefenseSettingsVisitor
         _set(
           currentJson,
           "policy.bot-defense.settings",
-          defaultBotDefenceSettings()
+          defaultBotDefenceSettings(0, undefined)
         );
       })
     );

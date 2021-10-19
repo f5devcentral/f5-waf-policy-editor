@@ -14,7 +14,7 @@ export const BotDefenseMitigationsAnomaliesPage: React.VoidFunctionComponent =
       <GridValuesPageControl
         settingsName="Bot Defense Mitigations Anomaly"
         addButtonTitle="Add Anomaly"
-        defaultValueFactory={() => defaultMitigationsAnomaly()}
+        defaultValueFactory={defaultMitigationsAnomaly}
         fieldFactory={fieldFactory}
         fieldsVisitorFactory={visitorFactory}
       />

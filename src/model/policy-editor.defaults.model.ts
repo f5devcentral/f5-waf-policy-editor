@@ -220,55 +220,84 @@ export const defaultSignatures: (
   );
 };
 
-export const defaultBotDefenceSettings: () => Settings = () => {
-  return {
-    isEnabled: true,
-  };
+export const defaultBotDefenceSettings: (
+  order: number,
+  item?: Settings
+) => Settings = (order, item) => {
+  return (
+    item ?? {
+      isEnabled: true,
+    }
+  );
 };
 
-export const defaultMitigationsAnomaly: () => MitigationAnomaly = () => {
-  return {
-    name: "",
-    action: "",
-    scoreThreshold: 1,
-  };
+export const defaultMitigationsAnomaly: (
+  order: number,
+  item?: MitigationAnomaly
+) => MitigationAnomaly = (order, item) => {
+  return (
+    item ?? {
+      name: "",
+      action: "",
+      scoreThreshold: 1,
+    }
+  );
 };
 
-export const defaultMitigationsBrowser: () => MitigationBrowser = () => {
-  return {
-    action: "",
-    maxVersion: 1,
-    minVersion: 1,
-    name: "",
-  };
+export const defaultMitigationsBrowser: (
+  order: number,
+  item?: MitigationBrowser
+) => MitigationBrowser = (order, item) => {
+  return (
+    item ?? {
+      action: "",
+      maxVersion: 1,
+      minVersion: 1,
+      name: "",
+    }
+  );
 };
 
-export const defaultMitigationsClass: () => Class = () => {
+export const defaultMitigationsClass: (order: number, item?: Class) => Class = (
+  order,
+  item
+) => {
   return {
     name: "" as ClassName,
     action: "" as ClassAction,
   } as Class;
 };
 
-export const defaultMitigationsSignature: () => MitigationsSignature = () => {
-  return {
-    action: "" as ClassAction,
-    name: "",
-  };
+export const defaultMitigationsSignature: (
+  order: number,
+  item?: MitigationsSignature
+) => MitigationsSignature = (order, item) => {
+  return (
+    item ?? {
+      action: "" as ClassAction,
+      name: "",
+    }
+  );
 };
 
-export const defaultDataGuard: () => DataGuard = () => {
-  return {
-    creditCardNumbers: true,
-    enabled: true,
-    enforcementMode: DataGuardEnforcementMode.EnforceUrlsInList,
-    enforcementUrls: [],
-    maskData: true,
-    usSocialSecurityNumbers: true,
+export const defaultDataGuard: (order: number, item?: DataGuard) => DataGuard =
+  (order, item) => {
+    return (
+      item ?? {
+        creditCardNumbers: true,
+        enabled: true,
+        enforcementMode: DataGuardEnforcementMode.EnforceUrlsInList,
+        enforcementUrls: [],
+        maskData: true,
+        usSocialSecurityNumbers: true,
+      }
+    );
   };
-};
 
-export const defaultWhitelistIPs: () => WhitelistIP = () => {
+export const defaultWhitelistIPs: (
+  order: number,
+  item?: WhitelistIP
+) => WhitelistIP = (order, item) => {
   return {
     blockRequests: BlockRequests.PolicyDefault,
     description: "",
@@ -277,25 +306,40 @@ export const defaultWhitelistIPs: () => WhitelistIP = () => {
   };
 };
 
-export const defaultHostname: () => HostName = () => {
-  return {
-    includeSubdomains: true,
-    name: "",
-  };
+export const defaultHostname: (order: number, item?: HostName) => HostName = (
+  order,
+  item
+) => {
+  return (
+    item ?? {
+      includeSubdomains: true,
+      name: "",
+    }
+  );
 };
 
-export const defaultCsrfProtection: () => CSRFProtection = () => {
-  return {
-    enabled: false,
-    expirationTimeInSeconds: ExpirationTime.Disabled,
-    sslOnly: false,
-  };
+export const defaultCsrfProtection: (
+  order: number,
+  item?: CSRFProtection
+) => CSRFProtection = (order, item) => {
+  return (
+    item ?? {
+      enabled: false,
+      expirationTimeInSeconds: ExpirationTime.Disabled,
+      sslOnly: false,
+    }
+  );
 };
 
-export const defaultCookieSettings: () => CookieSettings = () => {
-  return {
-    maximumCookieHeaderLength: MaximumCookieHeaderLengthEnum.Any,
-  };
+export const defaultCookieSettings: (
+  order: number,
+  item?: CookieSettings
+) => CookieSettings = (order, item) => {
+  return (
+    item ?? {
+      maximumCookieHeaderLength: MaximumCookieHeaderLengthEnum.Any,
+    }
+  );
 };
 
 export const defaultCookie: (order: number, cookie?: Cooky) => Cooky = (

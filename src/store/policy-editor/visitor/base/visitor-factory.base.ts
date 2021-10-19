@@ -4,6 +4,7 @@ import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { get as _get, set as _set } from "lodash";
 import { PolicyEditorDispatch } from "../../policy-editor.types";
 import { PolicySchemaService } from "../../../../model/policy-schema/policy-schema.service";
+import _ from "lodash";
 
 export class VisitorFactoryBase<T>
   extends BaseVisitor
@@ -27,11 +28,18 @@ export class VisitorFactoryBase<T>
         }
 
         const value = defaultFunc(arr.length, item);
-        const schemaService = new PolicySchemaService();
-        const schemaPath = this.path.replace("policy.", "");
-        const shrunk = schemaService.shrinkToRequired(value, `${schemaPath}[]`);
+        if (_.isString(value) || _.isNumber(value)) {
+          arr.push(value);
+        } else {
+          const schemaService = new PolicySchemaService();
+          const schemaPath = this.path.replace("policy.", "");
+          const shrunk = schemaService.shrinkToRequired(
+            value,
+            `${schemaPath}[]`
+          );
 
-        arr.push(shrunk);
+          arr.push(shrunk);
+        }
       })
     );
   }

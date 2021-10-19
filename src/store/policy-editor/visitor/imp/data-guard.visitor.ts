@@ -76,7 +76,11 @@ export class DataGuardVisitor
   create() {
     this.dispatch(
       policyEditorJsonVisit((currentJson) => {
-        _set(currentJson, `policy.${this.basePath}`, defaultDataGuard());
+        _set(
+          currentJson,
+          `policy.${this.basePath}`,
+          defaultDataGuard(0, undefined)
+        );
       })
     );
   }
