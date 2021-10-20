@@ -44,8 +44,8 @@ export class TableFieldValueFactory {
       errorPath: this.errorPath(valuePath),
       controlInfo: new DropListFieldControl(
         valuePath,
-        "",
         _get(this.json, valuePath),
+        "",
         (value) =>
           this.dispatch(
             policyEditorJsonVisit((currentJson) => {
