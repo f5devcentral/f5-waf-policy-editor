@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.js": "/dev/static/js/main.43d518d9.chunk.js",
+    "main.js.map": "/dev/static/js/main.43d518d9.chunk.js.map",
+    "runtime-main.js": "/dev/static/js/runtime-main.968b2c4d.js",
+    "runtime-main.js.map": "/dev/static/js/runtime-main.968b2c4d.js.map",
+    "static/css/2.999eedfc.chunk.css": "/dev/static/css/2.999eedfc.chunk.css",
+    "static/js/2.dd30e397.chunk.js": "/dev/static/js/2.dd30e397.chunk.js",
+    "static/js/2.dd30e397.chunk.js.map": "/dev/static/js/2.dd30e397.chunk.js.map",
+    "index.html": "/dev/index.html",
+    "static/css/2.999eedfc.chunk.css.map": "/dev/static/css/2.999eedfc.chunk.css.map",
+    "static/js/2.dd30e397.chunk.js.LICENSE.txt": "/dev/static/js/2.dd30e397.chunk.js.LICENSE.txt",
+    "static/media/AWS-CloudFormation.df330cc1.svg": "/dev/static/media/AWS-CloudFormation.df330cc1.svg",
+    "static/media/icon-botdefense.5cc69900.svg": "/dev/static/media/icon-botdefense.5cc69900.svg",
+    "static/media/icon-filetypes.35d024bd.svg": "/dev/static/media/icon-filetypes.35d024bd.svg",
+    "static/media/icon-gear.0c9099e6.svg": "/dev/static/media/icon-gear.0c9099e6.svg",
+    "static/media/icon-headers.735a8881.svg": "/dev/static/media/icon-headers.735a8881.svg",
+    "static/media/icon-lock.5403f9fb.svg": "/dev/static/media/icon-lock.5403f9fb.svg",
+    "static/media/icon-methods.13022c11.svg": "/dev/static/media/icon-methods.13022c11.svg",
+    "static/media/icon-openapi.5e513818.svg": "/dev/static/media/icon-openapi.5e513818.svg",
+    "static/media/icon-parameters.3ee8234f.svg": "/dev/static/media/icon-parameters.3ee8234f.svg",
+    "static/media/icon-signatures.313f79ce.svg": "/dev/static/media/icon-signatures.313f79ce.svg",
+    "static/media/icon-url.0dcc6936.svg": "/dev/static/media/icon-url.0dcc6936.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.968b2c4d.js",
+    "static/css/2.999eedfc.chunk.css",
+    "static/js/2.dd30e397.chunk.js",
+    "static/js/main.43d518d9.chunk.js"
+  ]
+}
