@@ -1,0 +1,9 @@
+<svg fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M10 8.125V4.375" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6.25 11.875V8.125" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M13.75 11.875V8.125" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M10 15.625V11.875" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M2.5 8.125H17.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M2.5 11.875H17.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17.5 4.375H2.5V15.625H17.5V4.375Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

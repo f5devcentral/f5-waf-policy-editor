@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.js": "/rc/static/js/main.b5a6d725.chunk.js",
+    "main.js.map": "/rc/static/js/main.b5a6d725.chunk.js.map",
+    "runtime-main.js": "/rc/static/js/runtime-main.d0b50bb7.js",
+    "runtime-main.js.map": "/rc/static/js/runtime-main.d0b50bb7.js.map",
+    "static/css/2.999eedfc.chunk.css": "/rc/static/css/2.999eedfc.chunk.css",
+    "static/js/2.dd30e397.chunk.js": "/rc/static/js/2.dd30e397.chunk.js",
+    "static/js/2.dd30e397.chunk.js.map": "/rc/static/js/2.dd30e397.chunk.js.map",
+    "index.html": "/rc/index.html",
+    "static/css/2.999eedfc.chunk.css.map": "/rc/static/css/2.999eedfc.chunk.css.map",
+    "static/js/2.dd30e397.chunk.js.LICENSE.txt": "/rc/static/js/2.dd30e397.chunk.js.LICENSE.txt",
+    "static/media/AWS-CloudFormation.df330cc1.svg": "/rc/static/media/AWS-CloudFormation.df330cc1.svg",
+    "static/media/icon-botdefense.5cc69900.svg": "/rc/static/media/icon-botdefense.5cc69900.svg",
+    "static/media/icon-filetypes.35d024bd.svg": "/rc/static/media/icon-filetypes.35d024bd.svg",
+    "static/media/icon-gear.0c9099e6.svg": "/rc/static/media/icon-gear.0c9099e6.svg",
+    "static/media/icon-headers.735a8881.svg": "/rc/static/media/icon-headers.735a8881.svg",
+    "static/media/icon-lock.5403f9fb.svg": "/rc/static/media/icon-lock.5403f9fb.svg",
+    "static/media/icon-methods.13022c11.svg": "/rc/static/media/icon-methods.13022c11.svg",
+    "static/media/icon-openapi.5e513818.svg": "/rc/static/media/icon-openapi.5e513818.svg",
+    "static/media/icon-parameters.3ee8234f.svg": "/rc/static/media/icon-parameters.3ee8234f.svg",
+    "static/media/icon-signatures.313f79ce.svg": "/rc/static/media/icon-signatures.313f79ce.svg",
+    "static/media/icon-url.0dcc6936.svg": "/rc/static/media/icon-url.0dcc6936.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d0b50bb7.js",
+    "static/css/2.999eedfc.chunk.css",
+    "static/js/2.dd30e397.chunk.js",
+    "static/js/main.b5a6d725.chunk.js"
+  ]
+}
