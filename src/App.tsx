@@ -85,7 +85,7 @@ const Dashboard: React.FunctionComponent<
             dispatch(
               policyEditorJsonSrcSet(
                 qs.ref as string,
-                JSON.stringify(defaultGeneralSettings(), null, 2)
+                JSON.stringify(defaultGeneralSettings(0), null, 2)
               )
             );
           });
@@ -94,7 +94,7 @@ const Dashboard: React.FunctionComponent<
       case !qs.ref && strCurrentPolicy === "": {
         dispatch(
           policyEditorJsonTextSet(
-            JSON.stringify(defaultGeneralSettings(), null, 2)
+            JSON.stringify(defaultGeneralSettings(0), null, 2)
           )
         );
         break;

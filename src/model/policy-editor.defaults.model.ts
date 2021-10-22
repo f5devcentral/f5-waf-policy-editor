@@ -40,7 +40,10 @@ import {
   MitigationBrowser,
 } from "./policy-schema/policy.definitions.nap.custom";
 
-export const defaultGeneralSettings = () => ({
+export const defaultGeneralSettings : (
+    order: number,
+    item?: any
+) => any = (order, item)  => ({
   policy: {
     name: "policy_name",
     template: {

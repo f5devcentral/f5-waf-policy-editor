@@ -88,5 +88,7 @@ export class GeneralSettingsVisitor
 
   remove(): void {}
 
-  callDefault(order?: number, item?: void): void {}
+  callDefault(order?: number, item?: void): any {
+    return defaultGeneralSettings(order ?? 0, item);
+  }
 }
