@@ -13,7 +13,7 @@ export class DataGuardVisitor
   extends BaseVisitor
   implements FieldResolverVisitor, FieldFactoryVisitor<DataGuard>
 {
-  private tableFieldValueFactory: TableFieldValueFactory;
+  private tableFieldValueFactory: TableFieldValueFactory<DataGuard>;
 
   constructor(protected dispatch: PolicyEditorDispatch, protected json: any) {
     super(dispatch, json);
@@ -60,6 +60,7 @@ export class DataGuardVisitor
       this.tableFieldValueFactory.createDropListFieldControl(
         "Enforcement Mode",
         "enforcementMode",
+        this,
         ["enforce-urls-in-list", "ignore-urls-in-list"]
       ),
       this.tableFieldValueFactory.createCheckBoxFieldControl(

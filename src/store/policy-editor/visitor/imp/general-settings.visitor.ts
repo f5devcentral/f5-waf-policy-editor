@@ -13,7 +13,7 @@ export class GeneralSettingsVisitor
   extends BaseVisitor
   implements FieldResolverVisitor, FieldFactoryVisitor<void>
 {
-  private tableFieldValueFactory: TableFieldValueFactory;
+  private tableFieldValueFactory: TableFieldValueFactory<void>;
 
   constructor(protected dispatch: PolicyEditorDispatch, protected json: any) {
     super(dispatch, json);
@@ -57,19 +57,23 @@ export class GeneralSettingsVisitor
       },
       this.tableFieldValueFactory.createTextEditFieldControl(
         "Policy Name",
-        "name"
+        "name",
+        this
       ),
       this.tableFieldValueFactory.createTextEditFieldControl(
         "Application Language",
-        "applicationLanguage"
+        "applicationLanguage",
+        this
       ),
       this.tableFieldValueFactory.createTextEditFieldControl(
         "Enforcement Mode",
-        "enforcementMode"
+        "enforcementMode",
+        this
       ),
       this.tableFieldValueFactory.createTextEditFieldControl(
         "Template",
-        "template.name"
+        "template.name",
+        this
       ),
     ];
   }

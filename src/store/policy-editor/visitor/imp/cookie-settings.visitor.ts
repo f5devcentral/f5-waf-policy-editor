@@ -13,7 +13,7 @@ export class CookieSettingsVisitor
   extends BaseVisitor
   implements FieldResolverVisitor, FieldFactoryVisitor<CookieSettings>
 {
-  private tableFieldValueFactory: TableFieldValueFactory;
+  private tableFieldValueFactory: TableFieldValueFactory<CookieSettings>;
 
   constructor(protected dispatch: PolicyEditorDispatch, protected json: any) {
     super(dispatch, json);
@@ -64,6 +64,7 @@ export class CookieSettingsVisitor
       this.tableFieldValueFactory.createTextEditFieldControl(
         "Maximum Cookie Header Length",
         "maximumCookieHeaderLength",
+        this,
         { makeNumber: true }
       ),
     ];

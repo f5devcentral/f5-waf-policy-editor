@@ -7,12 +7,13 @@ import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { defaultBotDefenceSettings } from "../../../../model/policy-editor.defaults.model";
 import { TableFieldValueFactory } from "../base/table-field-value.factory";
 import { PolicyEditorDispatch } from "../../policy-editor.types";
+import { Settings } from "../../../../model/policy-schema/policy.definitions";
 
 export class BotDefenseSettingsVisitor
   extends BaseVisitor
-  implements FieldResolverVisitor, FieldFactoryVisitor<void>
+  implements FieldResolverVisitor, FieldFactoryVisitor<Settings>
 {
-  private tableFieldValueFactory: TableFieldValueFactory;
+  private tableFieldValueFactory: TableFieldValueFactory<Settings>;
 
   constructor(protected dispatch: PolicyEditorDispatch, protected json: any) {
     super(dispatch, json);
@@ -66,5 +67,7 @@ export class BotDefenseSettingsVisitor
 
   remove() {}
 
-  callDefault(order?: number, item?: void): void {}
+  callDefault(order?: number, item?: Settings): Settings {
+    return defaultBotDefenceSettings(order ?? 0, item);
+  }
 }

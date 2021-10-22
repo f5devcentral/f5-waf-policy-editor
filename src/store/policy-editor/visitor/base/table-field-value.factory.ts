@@ -6,8 +6,9 @@ import { PolicyEditorDispatch } from "../../policy-editor.types";
 import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
 import { TextEditFieldControl } from "../../../../component/policy-editor/controls/field-control/text-edit.field-control";
 import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
+import { FieldFactoryVisitor } from "../interface/field-factory.visitor";
 
-export class TableFieldValueFactory {
+export class TableFieldValueFactory<T> {
   constructor(
     protected dispatch: PolicyEditorDispatch,
     protected json: any,
@@ -37,6 +38,7 @@ export class TableFieldValueFactory {
   createDropListFieldControl(
     title: string,
     valuePath: string,
+    fieldFactory: FieldFactoryVisitor<T>,
     items: string[]
   ): GridFieldValue {
     return {
@@ -77,6 +79,7 @@ export class TableFieldValueFactory {
   createTextEditFieldControl(
     title: string,
     valuePath: string,
+    fieldFactory: FieldFactoryVisitor<T>,
     props?: any
   ): GridFieldValue {
     return {

@@ -13,7 +13,7 @@ export class CsrfProtectionVisitor
   extends BaseVisitor
   implements FieldResolverVisitor, FieldFactoryVisitor<CSRFProtection>
 {
-  private tableFieldValueFactory: TableFieldValueFactory;
+  private tableFieldValueFactory: TableFieldValueFactory<CSRFProtection>;
 
   constructor(protected dispatch: PolicyEditorDispatch, protected json: any) {
     super(dispatch, json);
@@ -72,6 +72,7 @@ export class CsrfProtectionVisitor
       this.tableFieldValueFactory.createTextEditFieldControl(
         "Expiration time in seconds",
         "expirationTimeInSeconds",
+        this,
         { makeNumber: true }
       ),
       this.tableFieldValueFactory.createCheckBoxFieldControl(
