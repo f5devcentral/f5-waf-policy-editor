@@ -45,16 +45,16 @@ export class TableFieldValueFactory<T> {
       title,
       errorPath: this.errorPath(valuePath),
       controlInfo: new DropListFieldControl(
-        valuePath,
-        _get(this.json, valuePath),
-        "",
-        (value) =>
-          this.dispatch(
-            policyEditorJsonVisit((currentJson) => {
-              _set(currentJson, this.policyPath(valuePath), value);
-            })
-          ),
-        items
+          valuePath,
+          _get(this.json, valuePath),
+          (fieldFactory.callDefault(undefined) as any)[valuePath],
+          (value) =>
+              this.dispatch(
+                  policyEditorJsonVisit((currentJson) => {
+                    _set(currentJson, this.policyPath(valuePath), value);
+                  })
+              ),
+          items
       ),
     };
   }
@@ -88,7 +88,7 @@ export class TableFieldValueFactory<T> {
       controlInfo: new TextEditFieldControl(
         valuePath,
         _get(this.json, this.policyPath(valuePath)),
-        "",
+        (fieldFactory.callDefault(undefined) as any)[valuePath],
         (value) =>
           this.dispatch(
             policyEditorJsonVisit((currentJson) =>
