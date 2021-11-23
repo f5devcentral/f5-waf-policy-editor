@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Popover } from "@material-ui/core";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Box from "@material-ui/core/Box";
-import TextField from "@material-ui/core/TextField";
-import RootRef from "@material-ui/core/RootRef";
+import { Popover } from "@mui/material";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 import scrollIntoView from "scroll-into-view-if-needed";
 
 export type MenuSearchPopupProps = {
@@ -116,7 +115,7 @@ export const MenuSearchPopupControl: React.FunctionComponent<MenuSearchPopupProp
             <List>
               {filteredItems.map((x, index: number) =>
                 index === selectedIndex ? (
-                  <RootRef rootRef={selectedRef}>
+                  <>
                     <ListItem
                       button
                       key={x}
@@ -125,7 +124,7 @@ export const MenuSearchPopupControl: React.FunctionComponent<MenuSearchPopupProp
                     >
                       <ListItemText primary={x} ref={selectedRef} />
                     </ListItem>
-                  </RootRef>
+                  </>
                 ) : (
                   <ListItem
                     button

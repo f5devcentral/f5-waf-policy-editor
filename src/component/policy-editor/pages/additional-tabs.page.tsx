@@ -26,7 +26,7 @@ export const AdditionalTabsPage: React.FunctionComponent<AdditionalTabsModel> =
           variant="scrollable"
           scrollButtons="auto"
           value={currentTab}
-          onChange={(e, tab) => setSubTab(tab)}
+          onChange={(e: any, tab: any) => setSubTab(tab)}
         >
           {tabs.map(({ label, id, disabled }) => {
             return (

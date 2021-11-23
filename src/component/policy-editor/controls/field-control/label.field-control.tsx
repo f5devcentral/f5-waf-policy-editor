@@ -1,6 +1,6 @@
 import * as React from "react";
-import Typography from "@material-ui/core/Typography";
-import { TableCell } from "@material-ui/core";
+import Typography from "@mui/material/Typography";
+import { TableCell } from "@mui/material";
 import { IControlInfo } from "../control-info.interface";
 
 export class LabelFieldControl implements IControlInfo {

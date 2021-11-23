@@ -1,12 +1,12 @@
 import { useStyles } from "../../../utils/styles.hook";
 import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.visitor";
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
-import { Box, Button } from "@material-ui/core";
+import { Box, Button } from "@mui/material";
 import { GridTableValueControl } from "../controls/grid.table-value.control";
 import * as React from "react";
 import { ResponseCodesFactory } from "../../../store/policy-editor/visitor/imp/response-codes.factory";
 import { ResponseCodesVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/response-codes.visitor-factory";
-import { ExpandMore } from "@material-ui/icons";
+import { ExpandMore } from "@mui/icons-material";
 import { useState } from "react";
 import { MenuSearchPopupControl } from "../controls/menu-search-popup.control";
 import { allServerResponseCodes } from "../../../model/nginx-const/response-codes.const";

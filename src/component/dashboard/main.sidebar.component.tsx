@@ -1,20 +1,20 @@
 import * as React from "react";
 import { useStyles } from "../../utils/styles.hook";
-import IconButton from "@material-ui/core/IconButton";
+import IconButton from "@mui/material/IconButton";
 
-import Divider from "@material-ui/core/Divider";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import { Apps, Assistant, ChevronLeft, Edit } from "@material-ui/icons";
-import ListItemText from "@material-ui/core/ListItemText";
+import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import { Apps, Assistant, ChevronLeft, Edit } from "@mui/icons-material";
+import ListItemText from "@mui/material/ListItemText";
 import {
   useDashboardDispatch,
   useDashboardState,
 } from "../../store/dashboard/dashboard.hooks";
 import { DashboardModuleEnum } from "../../store/dashboard/dashboard.types";
 import { dashboardModuleSet } from "../../store/dashboard/dashboard.actions";
-import GitHubIcon from "@material-ui/icons/GitHub";
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 export type MainSidebarProps = Readonly<{ onDrawerClose: any }>;
 
@@ -27,7 +27,7 @@ export const MainSidebarComponent: React.FunctionComponent<MainSidebarProps> =
     return (
       <React.Fragment>
         <div className={classes.drawerHeader}>
-          <IconButton onClick={onDrawerClose}>
+          <IconButton onClick={onDrawerClose} size="large">
             <ChevronLeft />
           </IconButton>
         </div>

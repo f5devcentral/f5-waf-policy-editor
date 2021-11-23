@@ -1,8 +1,9 @@
 import React from "react";
-import { InputAdornment, Theme, withStyles } from "@material-ui/core";
-import Tooltip from "@material-ui/core/Tooltip";
-import Box from "@material-ui/core/Box";
-import ErrorIcon from "@material-ui/icons/Error";
+import { InputAdornment, Theme } from "@mui/material";
+import withStyles from '@mui/styles/withStyles';
+import Tooltip from "@mui/material/Tooltip";
+import Box from "@mui/material/Box";
+import ErrorIcon from "@mui/icons-material/Error";
 
 const HtmlTooltip = withStyles((theme: Theme) => ({
   tooltip: {

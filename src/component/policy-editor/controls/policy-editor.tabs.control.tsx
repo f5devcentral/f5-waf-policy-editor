@@ -1,7 +1,8 @@
-import withStyles from "@material-ui/core/styles/withStyles";
-import { createStyles, Theme } from "@material-ui/core";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import withStyles from '@mui/styles/withStyles';
+import { Theme } from "@mui/material";
+import createStyles from '@mui/styles/createStyles';
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 import * as React from "react";
 
 export type EditorTabProps = {
@@ -25,7 +26,7 @@ export const EditorTabControl = withStyles((theme: Theme) =>
     root: {
       textTransform: "none",
       minWidth: 72,
-      fontWeight: theme.typography.fontWeightRegular,
+      fontWeight: (theme as any).typography.fontWeightRegular,
       marginRight: theme.spacing(4),
       "&:hover": {
         color: theme.palette.primary.main,

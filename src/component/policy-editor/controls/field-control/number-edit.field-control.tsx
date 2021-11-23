@@ -1,6 +1,6 @@
 import * as React from "react";
-import TextField, { TextFieldProps } from "@material-ui/core/TextField";
-import { TableCell, TableCellProps } from "@material-ui/core";
+import TextField, { TextFieldProps } from "@mui/material/TextField";
+import { TableCell, TableCellProps } from "@mui/material";
 import { IControlInfo } from "../control-info.interface";
 
 export class NumberEditFieldControl implements IControlInfo {

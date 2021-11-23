@@ -1,5 +1,5 @@
 import * as React from "react";
-import Box from "@material-ui/core/Box";
+import Box from "@mui/material/Box";
 import {
   EditorTabControl,
   EditorTabsControl,
@@ -16,16 +16,18 @@ import {
 } from "../../store/policy-editor/policy-editor.actions";
 import { PolicyEditorPageFactory } from "./controls/policy-editor.page.factory";
 import { CurrentPolicyControl } from "./controls/curren-policy.control";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import { createStyles, Switch, withStyles } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import GetApp from "@material-ui/icons/GetApp";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import { Switch } from "@mui/material";
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import GetApp from "@mui/icons-material/GetApp";
 import { ReactComponent as IconCloudFormation } from "../../resources/toolbar/AWS-CloudFormation.svg";
-import Share from "@material-ui/icons/Share";
+import Share from "@mui/icons-material/Share";
 import { download } from "../../utils/download.util";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 const JsonEditorContainer = withStyles((theme) =>
   createStyles({
@@ -136,7 +138,7 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
             variant="scrollable"
             scrollButtons="auto"
             value={currentTab}
-            onChange={(e, tab) =>
+            onChange={(e: any, tab: any) =>
               dispatch(policyEditorPageSet(tab, TabsTree[tab].id))
             }
           >

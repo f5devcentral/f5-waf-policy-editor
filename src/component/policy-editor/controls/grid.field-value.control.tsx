@@ -1,6 +1,6 @@
 import * as React from "react";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { GridFieldValue } from "./grid-field-value.type";
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";

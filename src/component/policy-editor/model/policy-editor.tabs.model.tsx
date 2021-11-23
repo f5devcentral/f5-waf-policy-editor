@@ -1,6 +1,6 @@
-import { ExpandMore } from "@material-ui/icons";
+import { ExpandMore } from "@mui/icons-material";
 import * as React from "react";
-import Box from "@material-ui/core/Box";
+import Box from "@mui/material/Box";
 
 import { ReactComponent as IconBotDefense } from "../../../resources/policy-editor-tab-icons/icon-botdefense.svg";
 import { ReactComponent as IconFiletypes } from "../../../resources/policy-editor-tab-icons/icon-filetypes.svg";

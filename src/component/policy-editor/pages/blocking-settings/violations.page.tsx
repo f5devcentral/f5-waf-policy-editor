@@ -1,12 +1,12 @@
 import * as React from "react";
 import { useStyles } from "../../../../utils/styles.hook";
-import Box from "@material-ui/core/Box";
+import Box from "@mui/material/Box";
 import { GridTableValueControl } from "../../controls/grid.table-value.control";
 import { useVisitor } from "../../../../store/policy-editor/visitor/interface/base.visitor";
 
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import { useState } from "react";
-import { ExpandMore } from "@material-ui/icons";
+import { ExpandMore } from "@mui/icons-material";
 import { ViolationsNginxConst } from "../../../../model/nginx-const/violations.nginx-const";
 import { ViolationsFieldFactory } from "../../../../store/policy-editor/visitor/imp/violations-field.factory";
 import { MenuSearchPopupControl } from "../../controls/menu-search-popup.control";

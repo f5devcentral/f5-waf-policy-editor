@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button } from "@material-ui/core";
+import { Box, Button } from "@mui/material";
 import { GridTableValueControl } from "../../controls/grid.table-value.control";
 import { useStyles } from "../../../../utils/styles.hook";
 import { useVisitor } from "../../../../store/policy-editor/visitor/interface/base.visitor";

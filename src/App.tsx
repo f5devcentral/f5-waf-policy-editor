@@ -17,16 +17,26 @@ import {
   usePolicyEditorDispatch,
   usePolicyEditorState,
 } from "./store/policy-editor/policy-editor.hooks";
-import { Box } from "@material-ui/core";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { Box } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 import {
   policyEditorJsonSrcSet,
   policyEditorJsonTextSet,
 } from "./store/policy-editor/policy-editor.actions";
 import { defaultGeneralSettings } from "./model/policy-editor.defaults.model";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { PolicyEditorPreprocessorServices } from "./store/policy-editor/visitor/services/policy-editor-preprocessor.services";
+import { ThemeProvider, Theme, StyledEngineProvider, createTheme } from '@mui/material/styles';
+
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
+
+const theme = createTheme();
 
 type PolicyEditorParams = {};
 
@@ -34,9 +44,7 @@ function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const Dashboard: React.FunctionComponent<
-  RouteComponentProps<PolicyEditorParams>
-> = ({ match }) => {
+const Dashboard: React.VoidFunctionComponent = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const { currentModule } = useDashboardState();
@@ -151,11 +159,19 @@ const Dashboard: React.FunctionComponent<
   );
 };
 
+const DashboardThemeContainer: React.FunctionComponent<RouteComponentProps<PolicyEditorParams>> = ({ match }) => {
+  return (
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}><Dashboard  /></ThemeProvider>
+    </StyledEngineProvider>
+  );
+}
+
 function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" component={Dashboard} />
+        <Route path="/" component={DashboardThemeContainer} />
       </Switch>
     </BrowserRouter>
   );

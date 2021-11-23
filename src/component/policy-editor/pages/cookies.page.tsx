@@ -5,7 +5,7 @@ import {
   usePolicyEditorDispatch,
   usePolicyEditorState,
 } from "../../../store/policy-editor/policy-editor.hooks";
-import { Box, Button } from "@material-ui/core";
+import { Box, Button } from "@mui/material";
 import { GridTableValueControl } from "../controls/grid.table-value.control";
 import { policyEditorJsonVisit } from "../../../store/policy-editor/policy-editor.actions";
 import { PolicyJsonReorderServices } from "../../../store/policy-editor/visitor/services/policy-json.reorder.services";

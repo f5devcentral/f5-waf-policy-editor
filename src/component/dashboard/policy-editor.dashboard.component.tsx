@@ -1,16 +1,17 @@
 import * as React from "react";
 import clsx from "clsx";
-import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
+import Drawer from "@mui/material/Drawer";
+import CssBaseline from "@mui/material/CssBaseline";
+import AppBar from "@mui/material/AppBar";
 
 import { useState } from "react";
 import { useStyles } from "../../utils/styles.hook";
 import { MainSidebarComponent } from "./main.sidebar.component";
 import { MainAppbarComponent } from "./main.appbar.component";
-import { Box, Typography, withStyles } from "@material-ui/core";
-import IconButton from "@material-ui/core/IconButton";
-import GitHubIcon from "@material-ui/icons/GitHub";
+import { Box, Typography } from "@mui/material";
+import withStyles from '@mui/styles/withStyles';
+import IconButton from "@mui/material/IconButton";
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 const CommunityVersionBox = withStyles((theme) => {
   return {
@@ -113,7 +114,7 @@ export const PolicyEditorDashboardComponent: React.FunctionComponent = ({
             href="https://github.com/464d41/f5-waf-policy-editor"
             target="_blank"
             rel="noreferrer"
-          >
+            size="large">
             <GitHubIcon />
           </IconButton>
           Project's GitHub

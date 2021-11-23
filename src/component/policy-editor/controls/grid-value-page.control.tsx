@@ -3,7 +3,7 @@ import { BaseFieldResolverVisitorFactory } from "../../../store/policy-editor/vi
 import React from "react";
 import { useStyles } from "../../../utils/styles.hook";
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
-import { Box, Button } from "@material-ui/core";
+import { Box, Button } from "@mui/material";
 import { GridTableValueControl } from "./grid.table-value.control";
 
 export type GridValuesPageProps = {

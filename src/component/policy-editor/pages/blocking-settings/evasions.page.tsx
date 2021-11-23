@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useStyles } from "../../../../utils/styles.hook";
 import { useVisitor } from "../../../../store/policy-editor/visitor/interface/base.visitor";
-import { Box, Button } from "@material-ui/core";
+import { Box, Button } from "@mui/material";
 import { GridTableValueControl } from "../../controls/grid.table-value.control";
 import { EvasionsFieldFactory } from "../../../../store/policy-editor/visitor/imp/evasions-field.factory";
 import { EvasionsVisitorFactory } from "../../../../store/policy-editor/visitor/factory/imp/evasions.visitor-factory";
-import { ExpandMore } from "@material-ui/icons";
+import { ExpandMore } from "@mui/icons-material";
 import { MenuSearchPopupControl } from "../../controls/menu-search-popup.control";
 import { EvasionDescription } from "../../../../model/policy-schema/policy.definitions";
 import { usePolicyEditorState } from "../../../../store/policy-editor/policy-editor.hooks";

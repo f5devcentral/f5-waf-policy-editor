@@ -1,10 +1,10 @@
 import * as React from "react";
 
-import { TableCell } from "@material-ui/core";
+import { TableCell } from "@mui/material";
 import { IControlInfo } from "../control-info.interface";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import TextField from "@material-ui/core/TextField";
-import Box from "@material-ui/core/Box";
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
 
 export class DropListFieldControl implements IControlInfo {
   constructor(

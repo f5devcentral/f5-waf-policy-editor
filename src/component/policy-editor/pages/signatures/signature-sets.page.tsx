@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button } from "@material-ui/core";
+import { Box, Button } from "@mui/material";
 import { GridTableValueControl } from "../../controls/grid.table-value.control";
 import { useStyles } from "../../../../utils/styles.hook";
 import { useVisitor } from "../../../../store/policy-editor/visitor/interface/base.visitor";
@@ -8,7 +8,7 @@ import { SignatureSetsVisitorFactory } from "../../../../store/policy-editor/vis
 import { usePolicyEditorState } from "../../../../store/policy-editor/policy-editor.hooks";
 import { MenuSearchPopupControl } from "../../controls/menu-search-popup.control";
 import { SignatureSetsNginxConst } from "../../../../model/nginx-const/signature-sets.nginx-const";
-import { ExpandMore } from "@material-ui/icons";
+import { ExpandMore } from "@mui/icons-material";
 
 export const SignatureSetsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();

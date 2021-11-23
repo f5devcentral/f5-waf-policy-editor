@@ -1,13 +1,15 @@
 import * as React from "react";
-import TableContainer from "@material-ui/core/TableContainer";
-import Table from "@material-ui/core/Table";
-import Box from "@material-ui/core/Box";
-import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
-import { createStyles, TableBody, withStyles } from "@material-ui/core";
-import IconButton from "@material-ui/core/IconButton";
-import GitHubIcon from "@material-ui/icons/GitHub";
-import EditIcon from "@material-ui/icons/Edit";
+import TableContainer from "@mui/material/TableContainer";
+import Table from "@mui/material/Table";
+import Box from "@mui/material/Box";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
+import { TableBody } from "@mui/material";
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
+import IconButton from "@mui/material/IconButton";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import EditIcon from "@mui/icons-material/Edit";
 
 const StyledTableRow = withStyles((theme) =>
   createStyles({
@@ -81,7 +83,7 @@ export const PolicyTemplatesComponent: React.VoidFunctionComponent = () => {
                       href={item.ghLink}
                       target="_blank"
                       rel="noreferrer"
-                    >
+                      size="large">
                       <GitHubIcon />
                     </IconButton>
                   )}
@@ -93,7 +95,7 @@ export const PolicyTemplatesComponent: React.VoidFunctionComponent = () => {
                       href={item.wafflerLink}
                       target="_blank"
                       rel="noreferrer"
-                    >
+                      size="large">
                       <EditIcon />
                     </IconButton>
                   )}

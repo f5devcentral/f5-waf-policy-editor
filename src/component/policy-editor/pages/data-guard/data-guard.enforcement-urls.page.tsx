@@ -1,12 +1,12 @@
 import * as React from "react";
 import { DataGuardEnforcementUrlsFactory } from "../../../../store/policy-editor/visitor/imp/data-guard.enforcementUrls.factory";
 import { DataGuardEnforcementUrlsVisitorFactory } from "../../../../store/policy-editor/visitor/factory/imp/data-guard.enforcementUrls.visitor-factory";
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 import { useVisitor } from "../../../../store/policy-editor/visitor/interface/base.visitor";
 import { useStyles } from "../../../../utils/styles.hook";
 import { GridTableValueControl } from "../../controls/grid.table-value.control";
 import { usePolicyEditorState } from "../../../../store/policy-editor/policy-editor.hooks";
-import Box from "@material-ui/core/Box";
+import Box from "@mui/material/Box";
 
 export const DataGuardEnforcementUrlsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();

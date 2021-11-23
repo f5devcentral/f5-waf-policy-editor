@@ -1,18 +1,20 @@
 import * as React from "react";
 import { FieldResolverVisitor } from "../../../store/policy-editor/visitor/interface/field-resolver.visitor";
-import { createStyles, TableContainer, withStyles } from "@material-ui/core";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Table from "@material-ui/core/Table";
-import TableCell from "@material-ui/core/TableCell";
-import TableBody from "@material-ui/core/TableBody";
-import Typography from "@material-ui/core/Typography";
-import Checkbox from "@material-ui/core/Checkbox";
-import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
-import IconButton from "@material-ui/core/IconButton";
-import Button from "@material-ui/core/Button";
-import Box from "@material-ui/core/Box";
-import EditIcon from "@material-ui/icons/Edit";
+import { TableContainer } from "@mui/material";
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Table from "@mui/material/Table";
+import TableCell from "@mui/material/TableCell";
+import TableBody from "@mui/material/TableBody";
+import Typography from "@mui/material/Typography";
+import Checkbox from "@mui/material/Checkbox";
+import DeleteForeverRounded from "@mui/icons-material/DeleteForeverRounded";
+import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import EditIcon from "@mui/icons-material/Edit";
 import { useEffect, useState } from "react";
 
 import { AdvancedSettingsDialog } from "../dialogs/advanced-settings.dialog";
@@ -24,10 +26,10 @@ import {
   DropResult,
   ResponderProvided,
 } from "react-beautiful-dnd";
-import { DragIndicator } from "@material-ui/icons";
+import { DragIndicator } from "@mui/icons-material";
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
 import { ErrorFieldControlAdornment } from "./field-control/error.field-control-adornment";
-import Chip from "@material-ui/core/Chip";
+import Chip from "@mui/material/Chip";
 
 const StyledTableCell = withStyles((theme) =>
   createStyles({
