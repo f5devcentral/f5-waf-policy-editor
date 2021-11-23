@@ -12,22 +12,19 @@ import {
 import {
   policyEditorJsonTextSet,
   policyEditorPageSet,
-  policyEditorShowDefaultPolicySet,
 } from "../../store/policy-editor/policy-editor.actions";
 import { PolicyEditorPageFactory } from "./controls/policy-editor.page.factory";
 import { CurrentPolicyControl } from "./controls/curren-policy.control";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import { Switch } from "@mui/material";
-import createStyles from '@mui/styles/createStyles';
-import withStyles from '@mui/styles/withStyles';
+import createStyles from "@mui/styles/createStyles";
+import withStyles from "@mui/styles/withStyles";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import GetApp from "@mui/icons-material/GetApp";
 import { ReactComponent as IconCloudFormation } from "../../resources/toolbar/AWS-CloudFormation.svg";
 import Share from "@mui/icons-material/Share";
 import { download } from "../../utils/download.util";
-import FormControlLabel from "@mui/material/FormControlLabel";
 
 const JsonEditorContainer = withStyles((theme) =>
   createStyles({
@@ -84,13 +81,8 @@ const PolicyTools = withStyles((theme) =>
 )(Box);
 
 export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
-  const {
-    currentPage,
-    strCurrentPolicy,
-    jsonParseError,
-    currentTab,
-    showDefaultPolicy,
-  } = usePolicyEditorState();
+  const { currentPage, strCurrentPolicy, jsonParseError, currentTab } =
+    usePolicyEditorState();
 
   const dispatch = usePolicyEditorDispatch();
   const pageFactory = new PolicyEditorPageFactory();
@@ -109,30 +101,7 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
           style={{
             minWidth: "168px",
           }}
-        >
-          <Box
-            style={{
-              marginTop: "10px",
-              textAlign: "center",
-            }}
-          >
-            <FormControlLabel
-              labelPlacement="start"
-              label="Default policy"
-              control={
-                <Switch
-                  checked={showDefaultPolicy}
-                  onChange={(e) => {
-                    dispatch(
-                      policyEditorShowDefaultPolicySet(e.target.checked)
-                    );
-                  }}
-                  color="default"
-                />
-              }
-            />
-          </Box>
-        </Grid>
+        ></Grid>
         <Grid xs={10}>
           <EditorTabsControl
             variant="scrollable"

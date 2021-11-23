@@ -25,18 +25,63 @@ import {
 } from "./store/policy-editor/policy-editor.actions";
 import { defaultGeneralSettings } from "./model/policy-editor.defaults.model";
 import Snackbar from "@mui/material/Snackbar";
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { PolicyEditorPreprocessorServices } from "./store/policy-editor/visitor/services/policy-editor-preprocessor.services";
-import { ThemeProvider, Theme, StyledEngineProvider, createTheme } from '@mui/material/styles';
+import {
+  ThemeProvider,
+  Theme,
+  StyledEngineProvider,
+  createTheme,
+} from "@mui/material/styles";
 
-
-declare module '@mui/styles/defaultTheme' {
+declare module "@mui/styles/defaultTheme" {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface DefaultTheme extends Theme {}
 }
 
-
-const theme = createTheme();
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#4152B4",
+    },
+  },
+  components: {
+    MuiSwitch: {
+      styleOverrides: {
+        track: {
+          borderRadius: 16 / 2,
+          boxSizing: "border-box",
+        },
+        thumb: {
+          boxShadow: "0 2px 4px 0 rgb(0 35 11 / 20%)",
+          width: 12,
+          height: 12,
+          borderRadius: 6,
+          margin: "4px",
+        },
+      },
+    },
+    MuiFormControlLabel: {
+      styleOverrides: {
+        label: {
+          fontSize: "12px",
+          lineHeight: "18px",
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        input: {
+          height: "20px",
+          padding: "6px",
+          fontsize: "12px",
+          lineHeight: "20px",
+          margin: "0px",
+        },
+      },
+    },
+  },
+});
 
 type PolicyEditorParams = {};
 
@@ -159,13 +204,17 @@ const Dashboard: React.VoidFunctionComponent = () => {
   );
 };
 
-const DashboardThemeContainer: React.FunctionComponent<RouteComponentProps<PolicyEditorParams>> = ({ match }) => {
+const DashboardThemeContainer: React.FunctionComponent<
+  RouteComponentProps<PolicyEditorParams>
+> = ({ match }) => {
   return (
     <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}><Dashboard  /></ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <Dashboard />
+      </ThemeProvider>
     </StyledEngineProvider>
   );
-}
+};
 
 function App() {
   return (
