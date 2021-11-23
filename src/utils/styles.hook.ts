@@ -1,7 +1,7 @@
 import createStyles from "@mui/styles/createStyles";
 import makeStyles from "@mui/styles/makeStyles";
 
-const drawerWidth = 235;
+const drawerWidth = 245;
 
 export const useStyles = makeStyles(
   (theme) => {
