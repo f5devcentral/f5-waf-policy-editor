@@ -9,7 +9,7 @@ import { useStyles } from "../../utils/styles.hook";
 import { MainSidebarComponent } from "./main.sidebar.component";
 import { MainAppbarComponent } from "./main.appbar.component";
 import { Box, Typography } from "@mui/material";
-import withStyles from '@mui/styles/withStyles';
+import withStyles from "@mui/styles/withStyles";
 import IconButton from "@mui/material/IconButton";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
@@ -35,7 +35,7 @@ export const PolicyEditorDashboardComponent: React.FunctionComponent = ({
   children,
 }) => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const onDrawerOpen = () => {
     setOpen(true);
@@ -114,7 +114,8 @@ export const PolicyEditorDashboardComponent: React.FunctionComponent = ({
             href="https://github.com/464d41/f5-waf-policy-editor"
             target="_blank"
             rel="noreferrer"
-            size="large">
+            size="large"
+          >
             <GitHubIcon />
           </IconButton>
           Project's GitHub
