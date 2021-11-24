@@ -169,7 +169,7 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
                 <ButtonGroup>
                   <Button
                     startIcon={<IconCloudFormation />}
-                    href="https://github.com/464d41/aws-waf-solutuon-template"
+                    href="https://github.com/f5devcentral/aws-waf-solutuon-template"
                     target="_blank"
                     rel="noreferrer"
                   >
