@@ -46,7 +46,7 @@ export const MainAppbarComponent: React.FunctionComponent<MainAppbarProps> = ({
         WAFFLER. WAF Policy Editor
         <IconButton
           color="inherit"
-          href="https://github.com/464d41/f5-waf-policy-editor"
+          href="https://github.com/f5devcentral/f5-waf-policy-editor"
           target="_blank"
           rel="noreferrer"
         >
@@ -55,7 +55,7 @@ export const MainAppbarComponent: React.FunctionComponent<MainAppbarProps> = ({
       </Typography>
       <IconButton
         color="inherit"
-        href="https://github.com/464d41/aws-waf-solutuon-template"
+        href="https://github.com/f5devcentral/aws-waf-solutuon-template"
         target="_blank"
         rel="noreferrer"
       >

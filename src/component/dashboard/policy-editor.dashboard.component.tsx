@@ -110,7 +110,7 @@ export const PolicyEditorDashboardComponent: React.FunctionComponent = ({
         <Typography variant="caption" color="textSecondary">
           <IconButton
             color="inherit"
-            href="https://github.com/464d41/f5-waf-policy-editor"
+            href="https://github.com/f5devcentral/f5-waf-policy-editor"
             target="_blank"
             rel="noreferrer"
           >
