@@ -16,7 +16,6 @@ const ListItemMenu = withStyles((theme) =>
       paddingBottom: "4px",
       "&:hover": {
         backgroundColor: "#E1E4F2",
-        borderRight: "none",
       },
     },
     selected: {
