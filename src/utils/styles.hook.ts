@@ -92,6 +92,13 @@ export const useStyles = makeStyles(
       pageContent: {
         padding: theme.spacing(1),
       },
+      menuGroup: {
+        paddingLeft: "4px",
+        color: theme.palette.primary.main,
+        fontSize: "12px",
+        lineHeight: "16px",
+        textTransform: "uppercase",
+      },
     });
   },
   { index: 1 }
