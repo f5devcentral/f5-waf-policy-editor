@@ -14,8 +14,6 @@ import { ServerTechnologiesPage } from "../pages/server-technologies.page";
 import { SignatureSetsPage } from "../pages/signatures/signature-sets.page";
 import { SignaturesPage } from "../pages/signatures/signatures.page";
 import { ViolationsPage } from "../pages/blocking-settings/violations.page";
-import { AdditionalTabsPage } from "../pages/additional-tabs.page";
-import { TabsTree } from "../model/policy-editor.tabs.model";
 import { BotDefenseMitigationsBrowsersPage } from "../pages/bot-defense/bot-defense.mitigations.browsers.page";
 import { BotDefenseSettingsPage } from "../pages/bot-defense/bot-defense.settings.page";
 import { BotDefenseMitigationsAnomaliesPage } from "../pages/bot-defense/bot-defense.mitigations.anomalies.page";
@@ -35,46 +33,6 @@ import { CookiesPage } from "../pages/cookies.page";
 export class PolicyEditorPageFactory {
   constructor(
     private pages: { [key: number]: JSX.Element } = {
-      [PolicyEditorPageEnum.BlockingSettings]: (
-        <AdditionalTabsPage
-          tree={TabsTree}
-          id={PolicyEditorPageEnum.BlockingSettings}
-        />
-      ),
-      [PolicyEditorPageEnum.Signatures]: (
-        <AdditionalTabsPage
-          tree={TabsTree}
-          id={PolicyEditorPageEnum.Signatures}
-        />
-      ),
-      [PolicyEditorPageEnum.BotDefense]: (
-        <AdditionalTabsPage
-          tree={TabsTree}
-          id={PolicyEditorPageEnum.BotDefense}
-        />
-      ),
-      [PolicyEditorPageEnum.GeneralSettings]: (
-        <AdditionalTabsPage
-          tree={TabsTree}
-          id={PolicyEditorPageEnum.GeneralSettings}
-        />
-      ),
-      [PolicyEditorPageEnum.DataGuard]: (
-        <AdditionalTabsPage
-          tree={TabsTree}
-          id={PolicyEditorPageEnum.DataGuard}
-        />
-      ),
-      [PolicyEditorPageEnum.Csrf]: (
-        <AdditionalTabsPage tree={TabsTree} id={PolicyEditorPageEnum.Csrf} />
-      ),
-      [PolicyEditorPageEnum.EnforceCookieSettings]: (
-        <AdditionalTabsPage
-          tree={TabsTree}
-          id={PolicyEditorPageEnum.EnforceCookieSettings}
-        />
-      ),
-      // -----------------------------------------------------------------
       [PolicyEditorPageEnum.Summary]: <GeneralSettingsPage />,
       [PolicyEditorPageEnum.Violations]: <ViolationsPage />,
       [PolicyEditorPageEnum.Methods]: <MethodsPage />,

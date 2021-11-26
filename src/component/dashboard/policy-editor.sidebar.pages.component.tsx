@@ -1,5 +1,5 @@
 import React from "react";
-import { List, ListItem, ListItemText, Typography } from "@mui/material";
+import { List, ListItem, ListItemText } from "@mui/material";
 import { PolicyEditorMenuPagesModel } from "../policy-editor/model/policy-editor.menu.pages.model";
 import { useStyles } from "../../utils/styles.hook";
 import { createStyles, withStyles } from "@mui/styles";
