@@ -13,6 +13,18 @@ export const useStyles = makeStyles(
       title: {
         flexGrow: 1,
       },
+      headerToolbar: {
+        minHeight: "55px",
+      },
+      headerCategory: {
+        fontSize: "12px",
+        lineHeight: "18px",
+        color: "#9EA7B8",
+      },
+      headerPage: {
+        fontSize: "18px",
+        lineHeight: "26px",
+      },
       appBar: {
         transition: theme.transitions.create(["margin", "width"], {
           easing: theme.transitions.easing.sharp,
