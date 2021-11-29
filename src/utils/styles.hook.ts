@@ -2,6 +2,7 @@ import createStyles from "@mui/styles/createStyles";
 import makeStyles from "@mui/styles/makeStyles";
 
 const drawerWidth = 245;
+const headerHeight = "120px";
 
 export const useStyles = makeStyles(
   (theme) => {
@@ -98,6 +99,10 @@ export const useStyles = makeStyles(
         fontSize: "12px",
         lineHeight: "16px",
         textTransform: "uppercase",
+      },
+      editorContainer: {
+        maxHeight: `calc(100vh - ${headerHeight})`,
+        overflow: "hidden",
       },
     });
   },

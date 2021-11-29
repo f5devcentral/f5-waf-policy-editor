@@ -23,36 +23,29 @@ export const CurrentPolicyControl: React.FunctionComponent<CurrentPolicyProps> =
     }, [jsonText]);
 
     return (
-      <div
-        style={{
-          maxHeight: "800px",
-          overflow: "scroll",
-        }}
-      >
-        <Editor
-          value={code}
-          onValueChange={(text) => {
-            if (text !== code && onTextChange) {
-              // check that this is called not because
-              // the props changed, but by the user event
-              // to avoid loops
-              onTextChange(text);
-            }
-            setCode(text);
-          }}
-          highlight={(code) =>
-            code && code.length > 0 && highlight(code, languages.json, "json")
+      <Editor
+        value={code}
+        onValueChange={(text) => {
+          if (text !== code && onTextChange) {
+            // check that this is called not because
+            // the props changed, but by the user event
+            // to avoid loops
+            onTextChange(text);
           }
-          padding={10}
-          className="container__editor"
-          style={{
-            fontFamily: "monospace",
-            fontSize: 12,
-            position: "relative",
-            backgroundColor:
-              jsonValidationErrors.length > 0 ? "#fde0dc" : "#DCF9FD",
-          }}
-        />
-      </div>
+          setCode(text);
+        }}
+        highlight={(code) =>
+          code && code.length > 0 && highlight(code, languages.json, "json")
+        }
+        padding={10}
+        className="container__editor"
+        style={{
+          fontFamily: "monospace",
+          fontSize: 12,
+          position: "relative",
+          backgroundColor:
+            jsonValidationErrors.length > 0 ? "#fde0dc" : "#DCF9FD",
+        }}
+      />
     );
   };

@@ -4,12 +4,15 @@ import {
   usePolicyEditorDispatch,
   usePolicyEditorState,
 } from "../../store/policy-editor/policy-editor.hooks";
-import { policyEditorJsonTextSet } from "../../store/policy-editor/policy-editor.actions";
 import { PolicyEditorPageFactory } from "./controls/policy-editor.page.factory";
-import { CurrentPolicyControl } from "./controls/curren-policy.control";
 import Paper from "@mui/material/Paper";
 import createStyles from "@mui/styles/createStyles";
 import withStyles from "@mui/styles/withStyles";
+import SplitPane, { Pane } from "react-split-pane";
+import { CurrentPolicyControl } from "./controls/curren-policy.control";
+import { policyEditorJsonTextSet } from "../../store/policy-editor/policy-editor.actions";
+import { useStyles } from "../../utils/styles.hook";
+import { useState } from "react";
 
 const JsonEditorContainer = withStyles((theme) =>
   createStyles({
@@ -46,35 +49,48 @@ const ParseErrorOverlay = withStyles((theme) =>
   })
 )(Box);
 
-const EditorPage = withStyles((theme) =>
-  createStyles({
-    root: {
-      width: "100%",
-    },
-  })
-)(Box);
-
 export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
   const { currentPage, strCurrentPolicy, jsonParseError } =
     usePolicyEditorState();
 
+  const styles = useStyles();
   const dispatch = usePolicyEditorDispatch();
   const pageFactory = new PolicyEditorPageFactory();
 
+  const [pageHeight, setPageHeight] = useState<number>(500);
+
   return (
     <React.Fragment>
-      <EditorPage>
-        <CurrentPageContainer>
-          {pageFactory.createPage(currentPage)}
-          {jsonParseError && <ParseErrorOverlay />}
-        </CurrentPageContainer>
-        <JsonEditorContainer>
-          <CurrentPolicyControl
-            jsonText={strCurrentPolicy}
-            onTextChange={(text) => dispatch(policyEditorJsonTextSet(text))}
-          />
-        </JsonEditorContainer>
-      </EditorPage>
+      <div className={styles.editorContainer}>
+        <SplitPane
+          defaultSize={500}
+          maxSize={800}
+          split="horizontal"
+          onChange={(newSize) => {
+            setPageHeight(newSize);
+          }}
+        >
+          <Pane style={{ overflow: "scroll" }}>
+            <CurrentPageContainer>
+              {pageFactory.createPage(currentPage)}
+              {jsonParseError && <ParseErrorOverlay />}
+            </CurrentPageContainer>
+          </Pane>
+          <Pane
+            style={{
+              height: `calc(100vh - 122px - ${pageHeight}px)`,
+              overflow: "scroll",
+            }}
+          >
+            <JsonEditorContainer>
+              <CurrentPolicyControl
+                jsonText={strCurrentPolicy}
+                onTextChange={(text) => dispatch(policyEditorJsonTextSet(text))}
+              />
+            </JsonEditorContainer>
+          </Pane>
+        </SplitPane>
+      </div>
     </React.Fragment>
   );
 };

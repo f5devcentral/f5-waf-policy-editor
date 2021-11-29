@@ -1,8 +1,8 @@
 import * as React from "react";
 import { FieldResolverVisitor } from "../../../store/policy-editor/visitor/interface/field-resolver.visitor";
 import { TableContainer } from "@mui/material";
-import createStyles from '@mui/styles/createStyles';
-import withStyles from '@mui/styles/withStyles';
+import createStyles from "@mui/styles/createStyles";
+import withStyles from "@mui/styles/withStyles";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Table from "@mui/material/Table";
@@ -152,13 +152,7 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
     if (!visitors || visitors.length === 0) return <React.Fragment />;
 
     const table = (
-      <TableContainer
-        component={Box}
-        style={{
-          maxHeight: "400px",
-          overflow: "scroll",
-        }}
-      >
+      <TableContainer component={Box}>
         <Table stickyHeader>
           <TableHead>
             <TableRow>

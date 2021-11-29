@@ -7,6 +7,8 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { createStore, Store } from "redux";
 import { ApplicationReducers, ApplicationState } from "./store";
 
+import "./resources/styles/main.scss";
+
 const sessionStorage = new SessionStorage();
 const persistedState = sessionStorage.loadState();
 
