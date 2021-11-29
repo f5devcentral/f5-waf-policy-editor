@@ -46,6 +46,7 @@ export const MainAppbarComponent: React.FunctionComponent<MainAppbarProps> = ({
           };
           return true;
         }
+        return false;
       });
     });
 
