@@ -114,7 +114,15 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
               }}
             >
               <Toolbar variant={"dense"}>
-                <Typography>JSON</Typography>
+                <Typography
+                  style={{
+                    fontSize: "18px",
+                    lineHeight: "26px",
+                    fontWeight: 600,
+                  }}
+                >
+                  JSON
+                </Typography>
                 <div style={{ textAlign: "right", width: "100%" }}>
                   <ToolbarButton startIcon={<ShareIcon />} disabled={true}>
                     Share
