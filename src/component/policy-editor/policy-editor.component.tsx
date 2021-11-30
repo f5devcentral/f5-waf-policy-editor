@@ -13,6 +13,13 @@ import { CurrentPolicyControl } from "./controls/curren-policy.control";
 import { policyEditorJsonTextSet } from "../../store/policy-editor/policy-editor.actions";
 import { useStyles } from "../../utils/styles.hook";
 import { useState } from "react";
+import { AppBar, Button, Toolbar } from "@mui/material";
+import Typography from "@mui/material/Typography";
+
+import ShareIcon from "@mui/icons-material/Share";
+import { ReactComponent as DownloadIcon } from "../../resources/toolbar/download.svg";
+import { ReactComponent as DeployIcon } from "../../resources/toolbar/deploy.svg";
+import { download } from "../../utils/download.util";
 
 const JsonEditorContainer = withStyles((theme) =>
   createStyles({
@@ -21,6 +28,16 @@ const JsonEditorContainer = withStyles((theme) =>
     },
   })
 )(Paper);
+
+const ToolbarButton = withStyles(() => ({
+  root: {
+    marginLeft: "10px",
+    height: "33px",
+    fontSize: "14px",
+    lineHeight: "20px",
+    textTransform: "capitalize",
+  },
+}))(Button);
 
 const CurrentPageContainer = withStyles((theme) =>
   createStyles({
@@ -59,6 +76,12 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
 
   const [pageHeight, setPageHeight] = useState<number>(500);
 
+  const handleDownload = () => {
+    const date = new Date();
+
+    download(`waf-${date.getTime()}.json`, strCurrentPolicy);
+  };
+
   return (
     <React.Fragment>
       <div className={styles.editorContainer}>
@@ -82,6 +105,37 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
               overflow: "scroll",
             }}
           >
+            <AppBar
+              position="sticky"
+              elevation={0}
+              sx={{
+                backgroundColor: "white",
+                color: "black",
+              }}
+            >
+              <Toolbar variant={"dense"}>
+                <Typography>JSON</Typography>
+                <div style={{ textAlign: "right", width: "100%" }}>
+                  <ToolbarButton startIcon={<ShareIcon />} disabled={true}>
+                    Share
+                  </ToolbarButton>
+                  <ToolbarButton
+                    startIcon={<DeployIcon style={{ width: "15px" }} />}
+                    variant="outlined"
+                    href="https://github.com/f5devcentral/aws-waf-solution-template"
+                  >
+                    Deploy
+                  </ToolbarButton>
+                  <ToolbarButton
+                    startIcon={<DownloadIcon style={{ width: "15px" }} />}
+                    variant="contained"
+                    onClick={handleDownload}
+                  >
+                    Download
+                  </ToolbarButton>
+                </div>
+              </Toolbar>
+            </AppBar>
             <JsonEditorContainer>
               <CurrentPolicyControl
                 jsonText={strCurrentPolicy}
