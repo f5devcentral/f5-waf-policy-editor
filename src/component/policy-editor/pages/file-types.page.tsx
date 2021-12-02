@@ -1,7 +1,7 @@
 import React from "react";
 import { useStyles } from "../../../utils/styles.hook";
 import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.visitor";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { GridTableValueControl } from "../controls/grid.table-value.control";
 import { FileTypesFieldFactory } from "../../../store/policy-editor/visitor/imp/file-types-field.factory";
 import { FileTypesVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/file-types.visitor-factory";

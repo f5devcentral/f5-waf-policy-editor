@@ -1,7 +1,7 @@
 import { useStyles } from "../../../utils/styles.hook";
 import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.visitor";
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { GridTableValueControl } from "../controls/grid.table-value.control";
 import * as React from "react";
 import { ResponseCodesFactory } from "../../../store/policy-editor/visitor/imp/response-codes.factory";
