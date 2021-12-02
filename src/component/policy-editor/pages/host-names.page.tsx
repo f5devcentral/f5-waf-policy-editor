@@ -6,6 +6,10 @@ import { GridTableValueControl } from "../controls/grid.table-value.control";
 import * as React from "react";
 import { HostnamesFactory } from "../../../store/policy-editor/visitor/imp/hostnames.factory";
 import { HostnamesVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/hostnames.visitor-factory";
+import { ContentPageControl } from "../controls/page-controls/content.page-control";
+import { ToolbarPageControl } from "../controls/page-controls/toolbar.page-control";
+import { ToolbarButtonPageControl } from "../controls/page-controls/toolbar-button.page-control";
+import AddIcon from "@mui/icons-material/Add";
 
 export const HostnamesPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -23,19 +27,24 @@ export const HostnamesPage: React.VoidFunctionComponent = () => {
 
   return (
     <Box className={classes.pageContent}>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => fieldFactory.create(undefined)}
-      >
-        Add Hostname
-      </Button>
-      <Box>
+      <ToolbarPageControl headerText="Hostnames">
+        <ToolbarButtonPageControl
+          variant="contained"
+          color="primary"
+          onClick={() => fieldFactory.create(undefined)}
+          startIcon={<AddIcon />}
+        >
+          Add Hostname
+        </ToolbarButtonPageControl>
+      </ToolbarPageControl>
+      <ContentPageControl>
         <GridTableValueControl
           titles={titles}
           visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
+          onAddItem={() => fieldFactory.create(undefined)}
+          addItemInscription="add Hostname"
         />
-      </Box>
+      </ContentPageControl>
     </Box>
   );
 };
