@@ -29,6 +29,7 @@ import { CsrfProtectionPage } from "../pages/csrf-protection.page";
 import { CsrfUrlsPage } from "../pages/csrf-urls.page";
 import { CookieSettingsPage } from "../pages/cookie-settings.page";
 import { CookiesPage } from "../pages/cookies.page";
+import { CombinedPageComponent } from "./combined-page.component";
 
 export class PolicyEditorPageFactory {
   constructor(
@@ -46,6 +47,17 @@ export class PolicyEditorPageFactory {
       [PolicyEditorPageEnum.ServerTechnologies]: <ServerTechnologiesPage />,
       [PolicyEditorPageEnum.SignaturesSets]: <SignatureSetsPage />,
       [PolicyEditorPageEnum.SignaturesPolicy]: <SignaturesPage />,
+      [PolicyEditorPageEnum.BotDefense]: (
+        <CombinedPageComponent
+          pages={[
+            PolicyEditorPageEnum.BotDefenseSettings,
+            PolicyEditorPageEnum.BotDefenseMigrationsBrowsers,
+            PolicyEditorPageEnum.BotDefenseMigrationsAnomalies,
+            PolicyEditorPageEnum.BotDefenseMigrationsClasses,
+            PolicyEditorPageEnum.BotDefenseMigrationsSignatures,
+          ]}
+        />
+      ),
       [PolicyEditorPageEnum.BotDefenseSettings]: <BotDefenseSettingsPage />,
       [PolicyEditorPageEnum.BotDefenseMigrationsBrowsers]: (
         <BotDefenseMitigationsBrowsersPage />
@@ -63,12 +75,36 @@ export class PolicyEditorPageFactory {
       [PolicyEditorPageEnum.AllowedResponseCodes]: <AllowedResponseCodesPage />,
       [PolicyEditorPageEnum.WhitelistIp]: <WhitelistIpsPage />,
       [PolicyEditorPageEnum.Hostnames]: <HostnamesPage />,
+      [PolicyEditorPageEnum.DataGuard]: (
+        <CombinedPageComponent
+          pages={[
+            PolicyEditorPageEnum.DataGuardSettings,
+            PolicyEditorPageEnum.DataGuardEnforcementUrls,
+          ]}
+        />
+      ),
       [PolicyEditorPageEnum.DataGuardEnforcementUrls]: (
         <DataGuardEnforcementUrlsPage />
       ),
       [PolicyEditorPageEnum.DataGuardSettings]: <DataGuardSettingsPage />,
+      [PolicyEditorPageEnum.Csrf]: (
+        <CombinedPageComponent
+          pages={[
+            PolicyEditorPageEnum.CsrfProtection,
+            PolicyEditorPageEnum.CsrfUrls,
+          ]}
+        />
+      ),
       [PolicyEditorPageEnum.CsrfProtection]: <CsrfProtectionPage />,
       [PolicyEditorPageEnum.CsrfUrls]: <CsrfUrlsPage />,
+      [PolicyEditorPageEnum.EnforceCookieSettings]: (
+        <CombinedPageComponent
+          pages={[
+            PolicyEditorPageEnum.CookieSettings,
+            PolicyEditorPageEnum.Cookies,
+          ]}
+        />
+      ),
       [PolicyEditorPageEnum.CookieSettings]: <CookieSettingsPage />,
       [PolicyEditorPageEnum.Cookies]: <CookiesPage />,
     }

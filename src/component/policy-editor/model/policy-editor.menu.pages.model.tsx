@@ -31,10 +31,6 @@ export const PolicyEditorMenuPagesModel: PolicyEditorMenuGroupInfo[] = [
         id: PolicyEditorPageEnum.CustomXffHeaders,
       },
       {
-        label: "Blocking Page Customization",
-        id: PolicyEditorPageEnum.BlockingSettings,
-      },
-      {
         label: "Open API References",
         id: PolicyEditorPageEnum.OpenAPI,
       },
