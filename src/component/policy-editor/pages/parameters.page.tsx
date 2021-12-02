@@ -6,6 +6,10 @@ import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.
 import { ParametersFieldFactory } from "../../../store/policy-editor/visitor/imp/parameters-field.factory";
 import { ParametersVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/parameters.visitor-factory";
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
+import AddIcon from "@mui/icons-material/Add";
+import { ToolbarPageControl } from "../controls/page-controls/toolbar.page-control";
+import { ContentPageControl } from "../controls/page-controls/content.page-control";
+import { ToolbarButtonPageControl } from "../controls/page-controls/toolbar-button.page-control";
 
 export const ParametersPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -23,20 +27,25 @@ export const ParametersPage: React.VoidFunctionComponent = () => {
 
   return (
     <Box className={classes.pageContent}>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => parametersFieldFactory.create(undefined)}
-      >
-        Add Parameter
-      </Button>
-      <Box>
+      <ToolbarPageControl headerText="Parameters">
+        <ToolbarButtonPageControl
+          variant="contained"
+          color="primary"
+          onClick={() => parametersFieldFactory.create(undefined)}
+          startIcon={<AddIcon />}
+        >
+          Add Parameter
+        </ToolbarButtonPageControl>
+      </ToolbarPageControl>
+      <ContentPageControl>
         <GridTableValueControl
           titles={titles}
           visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
           settingsName="Parameters"
+          onAddItem={() => parametersFieldFactory.create(undefined)}
+          addItemInscription="add Parameter"
         />
-      </Box>
+      </ContentPageControl>
     </Box>
   );
 };
