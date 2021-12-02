@@ -3,8 +3,6 @@ import { useStyles } from "../../../../utils/styles.hook";
 import Box from "@mui/material/Box";
 import { GridTableValueControl } from "../../controls/grid.table-value.control";
 import { useVisitor } from "../../../../store/policy-editor/visitor/interface/base.visitor";
-
-import Button from "@mui/material/Button";
 import { useRef, useState } from "react";
 import { ExpandMore } from "@mui/icons-material";
 import { ViolationsNginxConst } from "../../../../model/nginx-const/violations.nginx-const";

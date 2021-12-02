@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useStyles } from "../../../../utils/styles.hook";
 import { useVisitor } from "../../../../store/policy-editor/visitor/interface/base.visitor";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { GridTableValueControl } from "../../controls/grid.table-value.control";
 import { EvasionsFieldFactory } from "../../../../store/policy-editor/visitor/imp/evasions-field.factory";
 import { EvasionsVisitorFactory } from "../../../../store/policy-editor/visitor/factory/imp/evasions.visitor-factory";
