@@ -11,6 +11,10 @@ import {
 } from "../../../store/policy-editor/policy-editor.hooks";
 import { policyEditorJsonVisit } from "../../../store/policy-editor/policy-editor.actions";
 import { PolicyJsonReorderServices } from "../../../store/policy-editor/visitor/services/policy-json.reorder.services";
+import { ToolbarPageControl } from "../controls/page-controls/toolbar.page-control";
+import { ToolbarButtonPageControl } from "../controls/page-controls/toolbar-button.page-control";
+import { ContentPageControl } from "../controls/page-controls/content.page-control";
+import AddIcon from "@mui/icons-material/Add";
 
 export const FileTypesPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -30,19 +34,24 @@ export const FileTypesPage: React.VoidFunctionComponent = () => {
 
   return (
     <Box className={classes.pageContent}>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => filetypesFieldFactory.create(undefined)}
-      >
-        Add Filetype
-      </Button>
-      <Box>
+      <ToolbarPageControl headerText="File Types">
+        <ToolbarButtonPageControl
+          variant="contained"
+          color="primary"
+          onClick={() => filetypesFieldFactory.create(undefined)}
+          startIcon={<AddIcon />}
+        >
+          Add Filetype
+        </ToolbarButtonPageControl>
+      </ToolbarPageControl>
+      <ContentPageControl>
         <GridTableValueControl
           titles={titles}
           visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
           settingsName="Filetypes"
           dnd={true}
+          onAddItem={() => filetypesFieldFactory.create(undefined)}
+          addItemInscription="add Filetype"
           onDragEnd={(result) =>
             dispatch(
               policyEditorJsonVisit((currentJson) => {
@@ -59,7 +68,7 @@ export const FileTypesPage: React.VoidFunctionComponent = () => {
             )
           }
         />
-      </Box>
+      </ContentPageControl>
     </Box>
   );
 };

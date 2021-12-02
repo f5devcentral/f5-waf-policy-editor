@@ -6,6 +6,10 @@ import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.
 import { HeadersFieldFactory } from "../../../store/policy-editor/visitor/imp/headers-field.factory";
 import { HeadersVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/headers.visitor-factory";
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
+import AddIcon from "@mui/icons-material/Add";
+import { ToolbarPageControl } from "../controls/page-controls/toolbar.page-control";
+import { ToolbarButtonPageControl } from "../controls/page-controls/toolbar-button.page-control";
+import { ContentPageControl } from "../controls/page-controls/content.page-control";
 
 export const HeadersPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -23,20 +27,25 @@ export const HeadersPage: React.VoidFunctionComponent = () => {
 
   return (
     <Box className={classes.pageContent}>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => headersFieldFactory.create(undefined)}
-      >
-        Add Header
-      </Button>
-      <Box>
+      <ToolbarPageControl headerText="Headers">
+        <ToolbarButtonPageControl
+          variant="contained"
+          color="primary"
+          onClick={() => headersFieldFactory.create(undefined)}
+          startIcon={<AddIcon />}
+        >
+          Add Header
+        </ToolbarButtonPageControl>
+      </ToolbarPageControl>
+      <ContentPageControl>
         <GridTableValueControl
           titles={titles}
           visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
           settingsName="Headers"
+          onAddItem={() => headersFieldFactory.create(undefined)}
+          addItemInscription="add Header"
         />
-      </Box>
+      </ContentPageControl>
     </Box>
   );
 };
