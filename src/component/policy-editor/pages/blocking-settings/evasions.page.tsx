@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useStyles } from "../../../../utils/styles.hook";
 import { useVisitor } from "../../../../store/policy-editor/visitor/interface/base.visitor";
 import { Box, Button } from "@mui/material";
@@ -9,6 +9,9 @@ import { ExpandMore } from "@mui/icons-material";
 import { MenuSearchPopupControl } from "../../controls/menu-search-popup.control";
 import { EvasionDescription } from "../../../../model/policy-schema/policy.definitions";
 import { usePolicyEditorState } from "../../../../store/policy-editor/policy-editor.hooks";
+import { ToolbarPageControl } from "../../controls/page-controls/toolbar.page-control";
+import { ContentPageControl } from "../../controls/page-controls/content.page-control";
+import { ToolbarButtonPageControl } from "../../controls/page-controls/toolbar-button.page-control";
 
 export const EvasionsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -24,6 +27,8 @@ export const EvasionsPage: React.VoidFunctionComponent = () => {
   } = evasionsVisitorFactory.getResolvers();
   const allEvasions = Object.values(EvasionDescription);
 
+  const btnRef = useRef<null | HTMLDivElement>(null);
+
   const { showDefaultPolicy } = usePolicyEditorState();
 
   function handleSelect(item: string) {
@@ -37,29 +42,35 @@ export const EvasionsPage: React.VoidFunctionComponent = () => {
 
   return (
     <Box className={classes.pageContent}>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={(e) => setAnchorEl(e.currentTarget)}
-      >
-        Add Evasion
-        <ExpandMore />
-      </Button>
-      <MenuSearchPopupControl
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        items={allEvasions}
-        onClose={() => {
-          setAnchorEl(null);
-        }}
-        onSelect={(item) => handleSelect(item)}
-      />
-      <Box>
+      <ToolbarPageControl headerText="Evasions">
+        <div ref={btnRef}>
+          <ToolbarButtonPageControl
+            variant="contained"
+            color="primary"
+            onClick={(e) => setAnchorEl(e.currentTarget)}
+            endIcon={<ExpandMore />}
+          >
+            Add Evasion
+          </ToolbarButtonPageControl>
+        </div>
+        <MenuSearchPopupControl
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          items={allEvasions}
+          onClose={() => {
+            setAnchorEl(null);
+          }}
+          onSelect={(item) => handleSelect(item)}
+        />
+      </ToolbarPageControl>
+      <ContentPageControl>
         <GridTableValueControl
           titles={titles}
           visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
+          onAddItem={() => btnRef.current && setAnchorEl(btnRef.current)}
+          addItemInscription="add Evasions"
         />
-      </Box>
+      </ContentPageControl>
     </Box>
   );
 };

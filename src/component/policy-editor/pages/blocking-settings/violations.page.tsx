@@ -14,6 +14,7 @@ import { ViolationsVisitorFactory } from "../../../../store/policy-editor/visito
 import { usePolicyEditorState } from "../../../../store/policy-editor/policy-editor.hooks";
 import { ToolbarPageControl } from "../../controls/page-controls/toolbar.page-control";
 import { ContentPageControl } from "../../controls/page-controls/content.page-control";
+import { ToolbarButtonPageControl } from "../../controls/page-controls/toolbar-button.page-control";
 
 export const ViolationsPage: React.VoidFunctionComponent = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -51,14 +52,14 @@ export const ViolationsPage: React.VoidFunctionComponent = () => {
       <ToolbarPageControl headerText="Violations">
         <Box>
           <div ref={btnRef}>
-            <Button
+            <ToolbarButtonPageControl
               variant="contained"
               color="primary"
               onClick={(e) => setAnchorEl(e.currentTarget)}
+              endIcon={<ExpandMore />}
             >
               Add Violation
-              <ExpandMore />
-            </Button>
+            </ToolbarButtonPageControl>
           </div>
           <MenuSearchPopupControl
             anchorEl={anchorEl}
