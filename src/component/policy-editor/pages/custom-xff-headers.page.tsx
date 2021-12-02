@@ -6,6 +6,10 @@ import { GridTableValueControl } from "../controls/grid.table-value.control";
 import * as React from "react";
 import { CustomXffHeadersFactory } from "../../../store/policy-editor/visitor/imp/custom-xff-headers.factory";
 import { CustomXffHeadersVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/custom-xff-headers.visitor-factory";
+import AddIcon from "@mui/icons-material/Add";
+import { ToolbarPageControl } from "../controls/page-controls/toolbar.page-control";
+import { ToolbarButtonPageControl } from "../controls/page-controls/toolbar-button.page-control";
+import { ContentPageControl } from "../controls/page-controls/content.page-control";
 
 export const CustomXffHeadersPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -23,19 +27,24 @@ export const CustomXffHeadersPage: React.VoidFunctionComponent = () => {
 
   return (
     <Box className={classes.pageContent}>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => fieldFactory.create(undefined)}
-      >
-        Add XFF Header
-      </Button>
-      <Box>
+      <ToolbarPageControl headerText="Open API References URLs">
+        <ToolbarButtonPageControl
+          variant="contained"
+          color="primary"
+          onClick={() => fieldFactory.create(undefined)}
+          startIcon={<AddIcon />}
+        >
+          Add XFF Header
+        </ToolbarButtonPageControl>
+      </ToolbarPageControl>
+      <ContentPageControl>
         <GridTableValueControl
           titles={titles}
           visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
+          onAddItem={() => fieldFactory.create(undefined)}
+          addItemInscription="add XFF Header"
         />
-      </Box>
+      </ContentPageControl>
     </Box>
   );
 };
