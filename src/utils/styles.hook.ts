@@ -103,7 +103,7 @@ export const useStyles = makeStyles(
         display: "none",
       },
       pageContent: {
-        padding: theme.spacing(1),
+        height: "100%",
       },
       menuGroup: {
         paddingLeft: "4px",

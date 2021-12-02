@@ -30,6 +30,7 @@ import { DragIndicator } from "@mui/icons-material";
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
 import { ErrorFieldControlAdornment } from "./field-control/error.field-control-adornment";
 import Chip from "@mui/material/Chip";
+import { NoDataControl } from "./no-data.control";
 
 const StyledTableCell = withStyles((theme) =>
   createStyles({
@@ -56,6 +57,8 @@ export type GridTableValueProps = {
   visitors: FieldResolverVisitor[];
   dnd?: boolean;
   onDragEnd?: (result: DropResult, provided: ResponderProvided) => void;
+  addItemInscription?: string;
+  onAddItem?: () => void;
 };
 
 const getItemStyle: (
@@ -94,7 +97,15 @@ const DroppableComponent = (props: any) => {
 };
 
 export const GridTableValueControl: React.FunctionComponent<GridTableValueProps> =
-  ({ settingsName, titles, visitors, dnd, onDragEnd }) => {
+  ({
+    settingsName,
+    titles,
+    visitors,
+    dnd,
+    onDragEnd,
+    addItemInscription,
+    onAddItem,
+  }) => {
     const [selected, setSelected] = useState([] as boolean[]);
     const [advancedSettingsDialogOpen, setAdvancedSettingsDialogOpen] =
       useState(false);
@@ -149,7 +160,13 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
       );
     };
 
-    if (!visitors || visitors.length === 0) return <React.Fragment />;
+    if (!visitors || visitors.length === 0)
+      return (
+        <NoDataControl
+          addItemInscription={addItemInscription}
+          onAddItem={onAddItem}
+        />
+      );
 
     const table = (
       <TableContainer component={Box}>

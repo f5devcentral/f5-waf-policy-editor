@@ -94,7 +94,11 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
           }}
         >
           <Pane style={{ overflow: "scroll" }}>
-            <CurrentPageContainer>
+            <CurrentPageContainer
+              style={{
+                height: "100%",
+              }}
+            >
               {pageFactory.createPage(currentPage)}
               {jsonParseError && <ParseErrorOverlay />}
             </CurrentPageContainer>
