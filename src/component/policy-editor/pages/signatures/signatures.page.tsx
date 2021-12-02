@@ -1,10 +1,14 @@
 import React from "react";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { GridTableValueControl } from "../../controls/grid.table-value.control";
 import { useStyles } from "../../../../utils/styles.hook";
 import { useVisitor } from "../../../../store/policy-editor/visitor/interface/base.visitor";
 import { SignaturesFieldFactory } from "../../../../store/policy-editor/visitor/imp/signatures-field.factory";
 import { SignaturesVisitorFactory } from "../../../../store/policy-editor/visitor/factory/imp/signatures.visitor-factory";
+import { ToolbarPageControl } from "../../controls/page-controls/toolbar.page-control";
+import AddIcon from "@mui/icons-material/Add";
+import { ToolbarButtonPageControl } from "../../controls/page-controls/toolbar-button.page-control";
+import { ContentPageControl } from "../../controls/page-controls/content.page-control";
 
 export const SignaturesPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -16,16 +20,24 @@ export const SignaturesPage: React.VoidFunctionComponent = () => {
 
   return (
     <Box className={classes.pageContent}>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => signaturesFieldFactory.create(undefined)}
-      >
-        Add Signature
-      </Button>
-      <Box>
-        <GridTableValueControl titles={titles} visitors={visitors} />
-      </Box>
+      <ToolbarPageControl headerText="Signatures">
+        <ToolbarButtonPageControl
+          variant="contained"
+          color="primary"
+          onClick={() => signaturesFieldFactory.create(undefined)}
+          startIcon={<AddIcon />}
+        >
+          Add Signature
+        </ToolbarButtonPageControl>
+      </ToolbarPageControl>
+      <ContentPageControl>
+        <GridTableValueControl
+          titles={titles}
+          visitors={visitors}
+          onAddItem={() => signaturesFieldFactory.create(undefined)}
+          addItemInscription="add Signature"
+        />
+      </ContentPageControl>
     </Box>
   );
 };

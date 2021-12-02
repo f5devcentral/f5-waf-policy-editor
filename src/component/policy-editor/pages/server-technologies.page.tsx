@@ -3,13 +3,15 @@ import { useStyles } from "../../../utils/styles.hook";
 import Box from "@mui/material/Box";
 import { GridTableValueControl } from "../controls/grid.table-value.control";
 import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.visitor";
-import Button from "@mui/material/Button";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ExpandMore } from "@mui/icons-material";
 import { ViolationsNginxConst } from "../../../model/nginx-const/violations.nginx-const";
 import { ServerTechnologiesFieldFactory } from "../../../store/policy-editor/visitor/imp/server-technologies-field.factory";
 import { ServerTechnologiesVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/server-technologies.visitor-factory";
 import { MenuSearchPopupControl } from "../controls/menu-search-popup.control";
+import { ToolbarPageControl } from "../controls/page-controls/toolbar.page-control";
+import { ToolbarButtonPageControl } from "../controls/page-controls/toolbar-button.page-control";
+import { ContentPageControl } from "../controls/page-controls/content.page-control";
 
 export const ServerTechnologiesPage: React.VoidFunctionComponent = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -24,6 +26,7 @@ export const ServerTechnologiesPage: React.VoidFunctionComponent = () => {
   );
 
   const { titles, visitors } = serverTechnologiesVisitorFactory.getResolvers();
+  const btnRef = useRef<null | HTMLDivElement>(null);
 
   function handleSelect(item: string) {
     fieldFactoryVisitor.create({
@@ -34,16 +37,17 @@ export const ServerTechnologiesPage: React.VoidFunctionComponent = () => {
 
   return (
     <Box className={classes.pageContent}>
-      <Box>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={(e) => setAnchorEl(e.currentTarget)}
-        >
-          Add Server Technology
-          <ExpandMore />
-        </Button>
-
+      <ToolbarPageControl headerText="Server Technologies">
+        <div ref={btnRef}>
+          <ToolbarButtonPageControl
+            variant="contained"
+            color="primary"
+            onClick={(e) => setAnchorEl(e.currentTarget)}
+            endIcon={<ExpandMore />}
+          >
+            Add Server Technology
+          </ToolbarButtonPageControl>
+        </div>
         <MenuSearchPopupControl
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
@@ -53,10 +57,15 @@ export const ServerTechnologiesPage: React.VoidFunctionComponent = () => {
           }}
           onSelect={(item) => handleSelect(item)}
         />
-      </Box>
-      <Box>
-        <GridTableValueControl titles={titles} visitors={visitors} />
-      </Box>
+      </ToolbarPageControl>
+      <ContentPageControl>
+        <GridTableValueControl
+          titles={titles}
+          visitors={visitors}
+          onAddItem={() => btnRef.current && setAnchorEl(btnRef.current)}
+          addItemInscription="add Server Technology"
+        />
+      </ContentPageControl>
     </Box>
   );
 };

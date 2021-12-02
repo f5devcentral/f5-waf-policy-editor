@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Box, Button } from "@mui/material";
+import React, { useRef, useState } from "react";
+import { Box } from "@mui/material";
 import { GridTableValueControl } from "../../controls/grid.table-value.control";
 import { useStyles } from "../../../../utils/styles.hook";
 import { useVisitor } from "../../../../store/policy-editor/visitor/interface/base.visitor";
@@ -9,6 +9,9 @@ import { usePolicyEditorState } from "../../../../store/policy-editor/policy-edi
 import { MenuSearchPopupControl } from "../../controls/menu-search-popup.control";
 import { SignatureSetsNginxConst } from "../../../../model/nginx-const/signature-sets.nginx-const";
 import { ExpandMore } from "@mui/icons-material";
+import { ToolbarPageControl } from "../../controls/page-controls/toolbar.page-control";
+import { ToolbarButtonPageControl } from "../../controls/page-controls/toolbar-button.page-control";
+import { ContentPageControl } from "../../controls/page-controls/content.page-control";
 
 export const SignatureSetsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -24,6 +27,7 @@ export const SignatureSetsPage: React.VoidFunctionComponent = () => {
 
   const { showDefaultPolicy } = usePolicyEditorState();
   const allSignatureSets = SignatureSetsNginxConst.getAllNames();
+  const btnRef = useRef<null | HTMLDivElement>(null);
 
   function handleSelect(item: string) {
     signatureSetsFieldFactory.create({
@@ -36,29 +40,35 @@ export const SignatureSetsPage: React.VoidFunctionComponent = () => {
 
   return (
     <Box className={classes.pageContent}>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={(e) => setAnchorEl(e.currentTarget)}
-      >
-        Add Signature Set
-        <ExpandMore />
-      </Button>
-      <MenuSearchPopupControl
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        items={allSignatureSets}
-        onClose={() => {
-          setAnchorEl(null);
-        }}
-        onSelect={(item) => handleSelect(item)}
-      />
-      <Box>
+      <ToolbarPageControl headerText="Signature Sets">
+        <div ref={btnRef}>
+          <ToolbarButtonPageControl
+            variant="contained"
+            color="primary"
+            onClick={(e) => setAnchorEl(e.currentTarget)}
+            endIcon={<ExpandMore />}
+          >
+            Add Signature Set
+          </ToolbarButtonPageControl>
+        </div>
+        <MenuSearchPopupControl
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          items={allSignatureSets}
+          onClose={() => {
+            setAnchorEl(null);
+          }}
+          onSelect={(item) => handleSelect(item)}
+        />
+      </ToolbarPageControl>
+      <ContentPageControl>
         <GridTableValueControl
           titles={titles}
           visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
+          onAddItem={() => btnRef.current && setAnchorEl(btnRef.current)}
+          addItemInscription="add Signature"
         />
-      </Box>
+      </ContentPageControl>
     </Box>
   );
 };
