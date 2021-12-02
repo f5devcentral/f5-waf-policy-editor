@@ -66,7 +66,7 @@ export const SignatureSetsPage: React.VoidFunctionComponent = () => {
           titles={titles}
           visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
           onAddItem={() => btnRef.current && setAnchorEl(btnRef.current)}
-          addItemInscription="add Signature"
+          addItemInscription="add Signature Set"
         />
       </ContentPageControl>
     </Box>
