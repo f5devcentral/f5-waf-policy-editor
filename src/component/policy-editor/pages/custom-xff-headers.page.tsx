@@ -1,7 +1,7 @@
 import { useStyles } from "../../../utils/styles.hook";
 import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.visitor";
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { GridTableValueControl } from "../controls/grid.table-value.control";
 import * as React from "react";
 import { CustomXffHeadersFactory } from "../../../store/policy-editor/visitor/imp/custom-xff-headers.factory";
@@ -27,7 +27,7 @@ export const CustomXffHeadersPage: React.VoidFunctionComponent = () => {
 
   return (
     <Box className={classes.pageContent}>
-      <ToolbarPageControl headerText="Open API References URLs">
+      <ToolbarPageControl headerText="XFF Headers">
         <ToolbarButtonPageControl
           variant="contained"
           color="primary"
