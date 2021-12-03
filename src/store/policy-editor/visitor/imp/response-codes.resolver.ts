@@ -63,7 +63,7 @@ export class ResponseCodesResolver
 
     return [
       this.rowIndex === -1
-        ? this.gridFieldValueFactory.createLabelFieldControl("", this.json)
+        ? this.gridFieldValueFactory.createLabelFieldControl("", "")
         : this.gridFieldValueFactory.createNumberEditControl(
             "",
             "",

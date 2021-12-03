@@ -35,7 +35,10 @@ export class GridFieldValueFactory<T> {
     return {
       title,
       errorPath: this.errorPath(valuePath),
-      controlInfo: new LabelFieldControl(valuePath, _get(this.json, valuePath)),
+      controlInfo: new LabelFieldControl(
+        valuePath,
+        valuePath === "" ? this.json : _get(this.json, valuePath)
+      ),
     };
   }
 
