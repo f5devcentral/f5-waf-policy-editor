@@ -23,6 +23,10 @@ export const PolicyEditorMenuPagesModel: PolicyEditorMenuGroupInfo[] = [
     icon: <GeneralSettingsIcon />,
     pages: [
       {
+        label: "Summary",
+        id: PolicyEditorPageEnum.Summary,
+      },
+      {
         label: "Hostnames",
         id: PolicyEditorPageEnum.Hostnames,
       },

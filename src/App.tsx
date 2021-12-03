@@ -46,6 +46,21 @@ const theme = createTheme({
     },
   },
   components: {
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          padding: "4px",
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          marginTop: "0px",
+          marginBottom: "0px",
+        },
+      },
+    },
     MuiSwitch: {
       styleOverrides: {
         track: {

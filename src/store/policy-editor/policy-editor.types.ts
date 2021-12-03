@@ -3,7 +3,6 @@ import { ReducerHandler } from "../reducer.base";
 import { PolicyValidationError } from "../../model/json-validate/policy.validator";
 
 export enum PolicyEditorPageEnum {
-  GeneralSettings,
   Summary,
   BlockingSettings,
   Methods,

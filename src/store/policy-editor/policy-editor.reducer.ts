@@ -22,7 +22,7 @@ export function policyEditorStateInit(): PolicyEditorState {
     policySrcUrl: "",
     currentTab: 0,
     jsonParseError: false,
-    currentPage: PolicyEditorPageEnum.GeneralSettings,
+    currentPage: PolicyEditorPageEnum.Summary,
     jsonCurrentPolicy: {},
     strCurrentPolicy: "",
     jsonValidationErrors: [],

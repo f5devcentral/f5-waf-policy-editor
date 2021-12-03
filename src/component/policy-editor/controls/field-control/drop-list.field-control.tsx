@@ -2,9 +2,19 @@ import * as React from "react";
 
 import { TableCell } from "@mui/material";
 import { IControlInfo } from "../control-info.interface";
-import Autocomplete from '@mui/material/Autocomplete';
+import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
+import withStyles from "@mui/styles/withStyles";
+
+const TableAutocomplete = withStyles(() => ({
+  input: {
+    padding: "6px !important",
+  },
+  inputRoot: {
+    padding: "0px !important",
+  },
+}))(Autocomplete);
 
 export class DropListFieldControl implements IControlInfo {
   constructor(
@@ -26,7 +36,7 @@ export class DropListFieldControl implements IControlInfo {
   createControl(props: any): JSX.Element {
     return (
       <Box>
-        <Autocomplete
+        <TableAutocomplete
           value={this.currentValue}
           onChange={(e, value) => this.onValueChange(value as string)}
           options={this.items}

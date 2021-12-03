@@ -266,7 +266,13 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                         paddingRight: "0px",
                       }}
                     >
-                      {!defaultFlag && <DragIndicator />}
+                      {!defaultFlag && (
+                        <DragIndicator
+                          sx={{
+                            paddingTop: "4px",
+                          }}
+                        />
+                      )}
                     </TableCell>
                   )}
 
