@@ -104,7 +104,6 @@ export const MenuSearchPopupControl: React.FunctionComponent<MenuSearchPopupProp
               value={filter}
               onChange={(x) => setFilter(x.target.value)}
               variant="outlined"
-              label="Filter..."
               style={{
                 width: "calc(100% - 20px)",
                 margin: "10px",
