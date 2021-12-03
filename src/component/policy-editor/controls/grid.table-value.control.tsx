@@ -1,6 +1,6 @@
 import * as React from "react";
 import { FieldResolverVisitor } from "../../../store/policy-editor/visitor/interface/field-resolver.visitor";
-import { FormControlLabel, TableContainer, TableFooter } from "@mui/material";
+import { FormControlLabel, TableContainer } from "@mui/material";
 import createStyles from "@mui/styles/createStyles";
 import withStyles from "@mui/styles/withStyles";
 import TableHead from "@mui/material/TableHead";
