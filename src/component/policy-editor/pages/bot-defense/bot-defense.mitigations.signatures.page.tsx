@@ -12,7 +12,7 @@ export const BotDefenseMitigationsSignaturesPage: React.VoidFunctionComponent =
 
     return (
       <GridValuesPageControl
-        settingsName="Bot Defense Mitigations Signature"
+        settingsName="Mitigations Signature"
         addButtonTitle="Add Signature"
         defaultValueFactory={defaultMitigationsSignature}
         fieldFactory={fieldFactory}

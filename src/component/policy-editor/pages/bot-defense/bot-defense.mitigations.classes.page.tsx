@@ -12,7 +12,7 @@ export const BotDefenseMitigationsClassesPage: React.VoidFunctionComponent =
 
     return (
       <GridValuesPageControl
-        settingsName="Bot Defense Mitigations Class"
+        settingsName="Mitigations Class"
         addButtonTitle="Add Class"
         defaultValueFactory={defaultMitigationsClass}
         fieldFactory={fieldFactory}

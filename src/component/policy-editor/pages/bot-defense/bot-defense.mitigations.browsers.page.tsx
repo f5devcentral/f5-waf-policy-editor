@@ -12,7 +12,7 @@ export const BotDefenseMitigationsBrowsersPage: React.VoidFunctionComponent =
 
     return (
       <GridValuesPageControl
-        settingsName="Bot Defense Mitigations Browser"
+        settingsName="Mitigations Browser"
         addButtonTitle="Add Browser"
         defaultValueFactory={defaultMitigationsBrowser}
         fieldFactory={fieldFactory}

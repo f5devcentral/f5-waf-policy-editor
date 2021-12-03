@@ -3,8 +3,12 @@ import { BaseFieldResolverVisitorFactory } from "../../../store/policy-editor/vi
 import React from "react";
 import { useStyles } from "../../../utils/styles.hook";
 import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { GridTableValueControl } from "./grid.table-value.control";
+import AddIcon from "@mui/icons-material/Add";
+import { ToolbarPageControl } from "./page-controls/toolbar.page-control";
+import { ToolbarButtonPageControl } from "./page-controls/toolbar-button.page-control";
+import { ContentPageControl } from "./page-controls/content.page-control";
 
 export type GridValuesPageProps = {
   fieldFactory: VisitorFactoryBase<any>;
@@ -34,22 +38,28 @@ export const GridValuesPageControl: React.FunctionComponent<GridValuesPageProps>
 
     return (
       <Box className={classes.pageContent}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => fieldFactory.create(undefined)}
-        >
-          {addButtonTitle}
-        </Button>
-        <Box>
+        <ToolbarPageControl headerText={settingsName}>
+          <ToolbarButtonPageControl
+            variant="contained"
+            color="primary"
+            onClick={() => fieldFactory.create(undefined)}
+            startIcon={<AddIcon />}
+          >
+            {addButtonTitle}
+          </ToolbarButtonPageControl>
+        </ToolbarPageControl>
+
+        <ContentPageControl>
           <GridTableValueControl
+            onAddItem={() => fieldFactory.create(undefined)}
+            addItemInscription={`add ${settingsName}`}
             titles={titles}
             visitors={
               showDefaultPolicy ? [...visitors, ...defValues] : visitors
             }
             settingsName={settingsName}
           />
-        </Box>
+        </ContentPageControl>
       </Box>
     );
   };
