@@ -1,6 +1,6 @@
 import * as React from "react";
 import { FieldResolverVisitor } from "../../../store/policy-editor/visitor/interface/field-resolver.visitor";
-import { TableContainer } from "@mui/material";
+import { FormControlLabel, TableContainer, TableFooter } from "@mui/material";
 import createStyles from "@mui/styles/createStyles";
 import withStyles from "@mui/styles/withStyles";
 import TableHead from "@mui/material/TableHead";
@@ -11,7 +11,6 @@ import TableBody from "@mui/material/TableBody";
 import Typography from "@mui/material/Typography";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { useEffect, useState } from "react";
 
@@ -29,9 +28,32 @@ import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor
 import { ErrorFieldControlAdornment } from "./field-control/error.field-control-adornment";
 import Chip from "@mui/material/Chip";
 import { NoDataControl } from "./no-data.control";
-
 import { ReactComponent as EditIcon } from "../../../resources/icons/edit-icon.svg";
 import { ReactComponent as DeleteIcon } from "../../../resources/icons/delete-icon.svg";
+import Button from "@mui/material/Button";
+import ClearIcon from "@mui/icons-material/Clear";
+
+const HeaderLabel = withStyles(() => ({
+  root: {
+    color: "#4152B4",
+    fontSize: "14px",
+  },
+}))(Typography);
+
+const TableToolbarButton = withStyles(() => ({
+  root: {
+    textTransform: "none",
+    fontSize: "12px",
+    lineHeight: "18px",
+    color: "#0F1E57",
+  },
+}))(Button);
+
+const TableFormControlLabel = withStyles(() => ({
+  root: {
+    color: "#0F1E57",
+  },
+}))(FormControlLabel);
 
 const StyledTableCell = withStyles((theme) =>
   createStyles({
@@ -169,43 +191,27 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
         />
       );
 
+    const selectedQty = selected.reduce((r, v) => (v ? r + 1 : r), 0);
+    const totalQty = visitors.length;
+
     const table = (
       <TableContainer component={Box}>
         <Table stickyHeader>
           <TableHead>
             <TableRow>
-              <StyledTableCell padding={"checkbox"} size="small" align="center">
-                <Checkbox
-                  checked={allSelected}
-                  size="small"
-                  color="primary"
-                  onChange={(e) => {
-                    setSelected([
-                      ...selected.map((x) => e.currentTarget.checked),
-                    ]);
-                  }}
-                />
-              </StyledTableCell>
-
+              <StyledTableCell
+                padding={"checkbox"}
+                size="small"
+                align="center"
+              ></StyledTableCell>
               {titles.map((x, index) => (
                 <StyledTableCell key={index}>
-                  <Typography color="primary">{x}</Typography>
+                  <HeaderLabel>{x}</HeaderLabel>
                 </StyledTableCell>
               ))}
               {dnd && <StyledTableCell />}
               <StyledTableCell />
-              <StyledTableCell align="center">
-                <Typography>
-                  <Button
-                    disabled={!anySelected}
-                    color="primary"
-                    variant="contained"
-                    onClick={() => onRemoveSelected()}
-                  >
-                    Remove
-                  </Button>
-                </Typography>
-              </StyledTableCell>
+              <StyledTableCell align="center"></StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody component={dnd ? DroppableComponent : TableBody}>
@@ -331,6 +337,78 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
       </TableContainer>
     );
 
+    const content = (
+      <div
+        style={{
+          paddingLeft: "20px",
+        }}
+      >
+        <div
+          style={{
+            paddingLeft: "18px",
+          }}
+        >
+          <TableFormControlLabel
+            label="Select all"
+            control={
+              <Checkbox
+                checked={allSelected}
+                size="small"
+                color="primary"
+                onChange={(e) => {
+                  setSelected([
+                    ...selected.map((x) => e.currentTarget.checked),
+                  ]);
+                }}
+              />
+            }
+          />
+          <TableToolbarButton
+            disabled={!anySelected}
+            startIcon={<ClearIcon />}
+            onClick={() => {
+              setSelected(selected.map((s) => false));
+            }}
+          >
+            Clear selection
+          </TableToolbarButton>
+          <TableToolbarButton
+            disabled={!anySelected}
+            color="primary"
+            variant="text"
+            onClick={() => onRemoveSelected()}
+            startIcon={<DeleteIcon />}
+            sx={{
+              marginLeft: "8px",
+            }}
+          >
+            {`Delete ${selectedQty} items`}
+          </TableToolbarButton>
+        </div>
+        <div>
+          {table}
+          <div
+            style={{
+              width: "100%",
+              textAlign: "right",
+              color: "#0B1640",
+              fontSize: "12px",
+              paddingTop: "8px",
+            }}
+          >
+            <span>
+              <b>{totalQty}</b> items
+            </span>
+            {selectedQty > 0 ? (
+              <span style={{ paddingLeft: "20px" }}>
+                <b>{selectedQty}</b> selected
+              </span>
+            ) : undefined}
+          </div>
+        </div>
+      </div>
+    );
+
     return (
       <React.Fragment>
         <AdvancedSettingsDialog
@@ -347,10 +425,10 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
               onDragEnd && onDragEnd(result, provided)
             }
           >
-            {table}
+            {content}
           </DragDropContext>
         ) : (
-          table
+          content
         )}
       </React.Fragment>
     );

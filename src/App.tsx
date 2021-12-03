@@ -46,6 +46,13 @@ const theme = createTheme({
     },
   },
   components: {
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          color: "#4152B4",
+        },
+      },
+    },
     MuiTableCell: {
       styleOverrides: {
         root: {
