@@ -10,11 +10,9 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import Typography from "@mui/material/Typography";
 import Checkbox from "@mui/material/Checkbox";
-import DeleteForeverRounded from "@mui/icons-material/DeleteForeverRounded";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import EditIcon from "@mui/icons-material/Edit";
 import { useEffect, useState } from "react";
 
 import { AdvancedSettingsDialog } from "../dialogs/advanced-settings.dialog";
@@ -31,6 +29,9 @@ import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor
 import { ErrorFieldControlAdornment } from "./field-control/error.field-control-adornment";
 import Chip from "@mui/material/Chip";
 import { NoDataControl } from "./no-data.control";
+
+import { ReactComponent as EditIcon } from "../../../resources/icons/edit-icon.svg";
+import { ReactComponent as DeleteIcon } from "../../../resources/icons/delete-icon.svg";
 
 const StyledTableCell = withStyles((theme) =>
   createStyles({
@@ -269,7 +270,7 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                       {!defaultFlag && (
                         <DragIndicator
                           sx={{
-                            paddingTop: "4px",
+                            marginTop: "6px",
                           }}
                         />
                       )}
@@ -296,7 +297,7 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                           v.remove();
                         }}
                       >
-                        <DeleteForeverRounded />
+                        <DeleteIcon />
                       </IconButton>
                     )}
                   </TableCell>
