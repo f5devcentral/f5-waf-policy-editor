@@ -5,12 +5,16 @@ import {
   usePolicyEditorDispatch,
   usePolicyEditorState,
 } from "../../../store/policy-editor/policy-editor.hooks";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { GridTableValueControl } from "../controls/grid.table-value.control";
 import { policyEditorJsonVisit } from "../../../store/policy-editor/policy-editor.actions";
 import { PolicyJsonReorderServices } from "../../../store/policy-editor/visitor/services/policy-json.reorder.services";
 import { CookiesFieldFactory } from "../../../store/policy-editor/visitor/imp/cookies-field.factory";
 import { CookiesFieldVisitorFactory } from "../../../store/policy-editor/visitor/factory/imp/cookies-field.visitor-factory";
+import AddIcon from "@mui/icons-material/Add";
+import { ToolbarPageControl } from "../controls/page-controls/toolbar.page-control";
+import { ToolbarButtonPageControl } from "../controls/page-controls/toolbar-button.page-control";
+import { ContentPageControl } from "../controls/page-controls/content.page-control";
 
 export const CookiesPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -30,19 +34,24 @@ export const CookiesPage: React.VoidFunctionComponent = () => {
 
   return (
     <Box className={classes.pageContent}>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => cookiesFieldFactory.create(undefined)}
-      >
-        Add Cookie
-      </Button>
-      <Box>
+      <ToolbarPageControl headerText="Cookies">
+        <ToolbarButtonPageControl
+          variant="contained"
+          color="primary"
+          onClick={() => cookiesFieldFactory.create(undefined)}
+          startIcon={<AddIcon />}
+        >
+          Add Cookie
+        </ToolbarButtonPageControl>
+      </ToolbarPageControl>
+      <ContentPageControl>
         <GridTableValueControl
           titles={titles}
           visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
           settingsName="Cookies"
           dnd={true}
+          onAddItem={() => cookiesFieldFactory.create(undefined)}
+          addItemInscription="add Cookie"
           onDragEnd={(result) =>
             dispatch(
               policyEditorJsonVisit((currentJson) => {
@@ -59,7 +68,7 @@ export const CookiesPage: React.VoidFunctionComponent = () => {
             )
           }
         />
-      </Box>
+      </ContentPageControl>
     </Box>
   );
 };

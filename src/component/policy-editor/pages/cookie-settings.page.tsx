@@ -4,6 +4,8 @@ import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.
 import { CookieSettingsVisitor } from "../../../store/policy-editor/visitor/imp/cookie-settings.visitor";
 import Box from "@mui/material/Box";
 import { GridFieldValueControl } from "../controls/grid.field-value.control";
+import { ToolbarPageControl } from "../controls/page-controls/toolbar.page-control";
+import { ContentPageControl } from "../controls/page-controls/content.page-control";
 
 export const CookieSettingsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -12,7 +14,10 @@ export const CookieSettingsPage: React.VoidFunctionComponent = () => {
 
   return (
     <Box className={classes.pageContent}>
-      <GridFieldValueControl rows={cookieSettingsVisitor.getBasicRows()} />
+      <ToolbarPageControl headerText="Cookies Settings"></ToolbarPageControl>
+      <ContentPageControl>
+        <GridFieldValueControl rows={cookieSettingsVisitor.getBasicRows()} />
+      </ContentPageControl>
     </Box>
   );
 };
