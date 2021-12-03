@@ -5,6 +5,8 @@ import Box from "@mui/material/Box";
 import { GridFieldValueControl } from "../controls/grid.field-value.control";
 import { useVisitor } from "../../../store/policy-editor/visitor/interface/base.visitor";
 import { GeneralSettingsVisitor } from "../../../store/policy-editor/visitor/imp/general-settings.visitor";
+import { ToolbarPageControl } from "../controls/page-controls/toolbar.page-control";
+import { ContentPageControl } from "../controls/page-controls/content.page-control";
 
 export const GeneralSettingsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -12,7 +14,10 @@ export const GeneralSettingsPage: React.VoidFunctionComponent = () => {
 
   return (
     <Box className={classes.pageContent}>
-      <GridFieldValueControl rows={generalSettingsVisitor.getBasicRows()} />
+      <ToolbarPageControl headerText="Summary"></ToolbarPageControl>
+      <ContentPageControl>
+        <GridFieldValueControl rows={generalSettingsVisitor.getBasicRows()} />
+      </ContentPageControl>
     </Box>
   );
 };
