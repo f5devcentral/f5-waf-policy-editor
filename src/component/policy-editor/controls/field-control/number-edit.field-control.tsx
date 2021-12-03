@@ -34,8 +34,6 @@ export class NumberEditFieldControl implements IControlInfo {
         value={this.currentValue ?? ""}
         placeholder={this.currentValue ? undefined : this.hintValue}
         onChange={(e) => this.onValueChange(e.target.value)}
-        {...this.controlProps}
-        {...props}
       />
     );
   }
