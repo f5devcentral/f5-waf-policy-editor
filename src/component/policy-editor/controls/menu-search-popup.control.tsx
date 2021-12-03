@@ -83,12 +83,12 @@ export const MenuSearchPopupControl: React.FunctionComponent<MenuSearchPopupProp
           onClose();
         }}
         anchorOrigin={{
-          vertical: "center",
+          vertical: "bottom",
           horizontal: "right",
         }}
         transformOrigin={{
           vertical: "top",
-          horizontal: "left",
+          horizontal: "right",
         }}
         onKeyDown={handleKeyDown}
       >
