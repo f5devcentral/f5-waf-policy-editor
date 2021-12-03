@@ -7,10 +7,13 @@ import {
   usePolicyEditorDispatch,
   usePolicyEditorState,
 } from "../../../store/policy-editor/policy-editor.hooks";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { GridTableValueControl } from "../controls/grid.table-value.control";
 import { policyEditorJsonVisit } from "../../../store/policy-editor/policy-editor.actions";
 import { PolicyJsonReorderServices } from "../../../store/policy-editor/visitor/services/policy-json.reorder.services";
+import AddIcon from "@mui/icons-material/Add";
+import { ToolbarPageControl } from "../controls/page-controls/toolbar.page-control";
+import { ToolbarButtonPageControl } from "../controls/page-controls/toolbar-button.page-control";
 
 export const CsrfUrlsPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -30,18 +33,23 @@ export const CsrfUrlsPage: React.VoidFunctionComponent = () => {
 
   return (
     <Box className={classes.pageContent}>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => csrfUrlsFieldFactory.create(undefined)}
-      >
-        Add CSRF URL
-      </Button>
+      <ToolbarPageControl headerText="CSRF URLs">
+        <ToolbarButtonPageControl
+          variant="contained"
+          color="primary"
+          onClick={() => csrfUrlsFieldFactory.create(undefined)}
+          startIcon={<AddIcon />}
+        >
+          Add CSRF URL
+        </ToolbarButtonPageControl>
+      </ToolbarPageControl>
       <Box>
         <GridTableValueControl
           titles={titles}
           visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
           settingsName="CSRF URLs"
+          onAddItem={() => csrfUrlsFieldFactory.create(undefined)}
+          addItemInscription="add CSRF URL"
           dnd={true}
           onDragEnd={(result) =>
             dispatch(
