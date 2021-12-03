@@ -47,8 +47,6 @@ export class TextEditFieldControl implements IControlInfo {
             this.onValueChange(value);
           }
         }}
-        {...this.controlProps}
-        {...props}
       />
     );
   }
