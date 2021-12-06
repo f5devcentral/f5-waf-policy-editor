@@ -1,6 +1,10 @@
 import React from "react";
 import { List, ListItem, ListItemText } from "@mui/material";
-import { PolicyEditorMenuPagesModel } from "../policy-editor/model/policy-editor.menu.pages.model";
+import {
+  PolicyEditorMenuGroupInfo,
+  PolicyEditorMenuPageInfo,
+  PolicyEditorMenuPagesModel,
+} from "../policy-editor/model/policy-editor.menu.pages.model";
 import { useStyles } from "../../utils/styles.hook";
 import { createStyles, withStyles } from "@mui/styles";
 import {
@@ -44,9 +48,40 @@ const ListMenu = withStyles((theme) =>
   })
 )(List);
 
-export const PolicyEditorSidebarPagesComponent: React.VoidFunctionComponent =
-  () => {
-    const tabsTree = PolicyEditorMenuPagesModel;
+export type PolicyEditorSidebarPagesProps = {
+  filter: string;
+};
+
+export const PolicyEditorSidebarPagesComponent: React.FunctionComponent<PolicyEditorSidebarPagesProps> =
+  ({ filter }) => {
+    const tabsTree =
+      filter.trim().length === 0
+        ? PolicyEditorMenuPagesModel
+        : PolicyEditorMenuPagesModel.reduce((r, v) => {
+            const pages = v.pages.reduce(
+              (list, p) => {
+                if (
+                  p.label
+                    .toLocaleLowerCase()
+                    .indexOf(filter.toLocaleLowerCase()) >= 0
+                ) {
+                  list.push(p);
+                }
+                return list;
+              },
+
+              [] as PolicyEditorMenuPageInfo[]
+            );
+
+            if (pages.length > 0) {
+              r.push({
+                ...v,
+                pages: pages,
+              });
+            }
+
+            return r;
+          }, [] as PolicyEditorMenuGroupInfo[]);
     const styles = useStyles();
 
     const { currentPage } = usePolicyEditorState();

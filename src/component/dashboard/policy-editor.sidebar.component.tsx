@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { InputAdornment, Switch, TextField } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -12,6 +12,8 @@ import { PolicyEditorSidebarPagesComponent } from "./policy-editor.sidebar.pages
 export const PolicyEditorSidebarComponent: React.VoidFunctionComponent = () => {
   const { showDefaultPolicy } = usePolicyEditorState();
   const dispatch = usePolicyEditorDispatch();
+
+  const [filter, setFilter] = useState<string>("");
 
   return (
     <React.Fragment>
@@ -32,6 +34,7 @@ export const PolicyEditorSidebarComponent: React.VoidFunctionComponent = () => {
           }}
           placeholder="Search Menu"
           fullWidth={true}
+          onChange={(t) => setFilter(t.target.value)}
         />
         <FormControlLabel
           labelPlacement="end"
@@ -46,7 +49,7 @@ export const PolicyEditorSidebarComponent: React.VoidFunctionComponent = () => {
           }
         />
       </div>
-      <PolicyEditorSidebarPagesComponent />
+      <PolicyEditorSidebarPagesComponent filter={filter} />
     </React.Fragment>
   );
 };
