@@ -46,6 +46,8 @@ export class DropListFieldControl implements IControlInfo {
               InputProps={{ ...params.InputProps, ...props }}
               variant="outlined"
               placeholder={this.hintValue}
+              value={this.currentValue}
+              onChange={(e) => this.onValueChange(e.target.value)}
             />
           )}
         />

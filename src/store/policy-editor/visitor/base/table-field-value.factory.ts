@@ -1,6 +1,6 @@
 import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
 import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
-import { get as _get, set as _set } from "lodash";
+import { get as _get, set as _set, unset as _unset } from "lodash";
 import { policyEditorJsonVisit } from "../../policy-editor.actions";
 import { PolicyEditorDispatch } from "../../policy-editor.types";
 import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
@@ -45,16 +45,21 @@ export class TableFieldValueFactory<T> {
       title,
       errorPath: this.errorPath(valuePath),
       controlInfo: new DropListFieldControl(
-          valuePath,
-          _get(this.json, valuePath),
-          (fieldFactory.callDefault(undefined) as any)[valuePath],
-          (value) =>
-              this.dispatch(
-                  policyEditorJsonVisit((currentJson) => {
-                    _set(currentJson, this.policyPath(valuePath), value);
-                  })
-              ),
-          items
+        valuePath,
+        _get(this.json, valuePath),
+        (fieldFactory.callDefault(undefined) as any)[valuePath],
+        (value) =>
+          this.dispatch(
+            policyEditorJsonVisit((currentJson) => {
+              if (value === "" || value === null) {
+                const path = this.policyPath(valuePath);
+                _unset(currentJson, path);
+              } else {
+                _set(currentJson, this.policyPath(valuePath), value);
+              }
+            })
+          ),
+        items
       ),
     };
   }
@@ -91,9 +96,14 @@ export class TableFieldValueFactory<T> {
         (fieldFactory.callDefault(undefined) as any)[valuePath],
         (value) =>
           this.dispatch(
-            policyEditorJsonVisit((currentJson) =>
-              _set(currentJson, this.policyPath(valuePath), value)
-            )
+            policyEditorJsonVisit((currentJson) => {
+              if (value === "" || value === null) {
+                const path = this.policyPath(valuePath);
+                _unset(currentJson, path);
+              } else {
+                _set(currentJson, this.policyPath(valuePath), value);
+              }
+            })
           ),
         undefined,
         { variant: "outlined", size: "small" },

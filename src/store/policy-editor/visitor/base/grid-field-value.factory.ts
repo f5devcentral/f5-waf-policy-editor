@@ -8,6 +8,7 @@ import { NumberEditFieldControl } from "../../../../component/policy-editor/cont
 import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
 import { CheckboxFieldControl } from "../../../../component/policy-editor/controls/field-control/checkbox.field-control";
 import { LabelFieldControl } from "../../../../component/policy-editor/controls/field-control/label.field-control";
+import { unset as _unset } from "lodash";
 
 export class GridFieldValueFactory<T> {
   constructor(
@@ -89,7 +90,12 @@ export class GridFieldValueFactory<T> {
               })
             : this.dispatch(
                 policyEditorJsonVisit((currentJson) => {
-                  _set(currentJson, this.policyPath(valuePath), value);
+                  if (value === "" || value === null) {
+                    const path = this.policyPath(valuePath);
+                    _unset(currentJson, path);
+                  } else {
+                    _set(currentJson, this.policyPath(valuePath), value);
+                  }
                 })
               ),
         items
@@ -117,11 +123,16 @@ export class GridFieldValueFactory<T> {
               })
             : this.dispatch(
                 policyEditorJsonVisit((currentJson) => {
-                  _set(
-                    currentJson,
-                    this.policyPath(valuePath),
-                    parseInt(value)
-                  );
+                  if (value === "" || value === null) {
+                    const path = this.policyPath(valuePath);
+                    _unset(currentJson, path);
+                  } else {
+                    _set(
+                      currentJson,
+                      this.policyPath(valuePath),
+                      parseInt(value)
+                    );
+                  }
                 })
               );
         }
@@ -149,7 +160,12 @@ export class GridFieldValueFactory<T> {
               })
             : this.dispatch(
                 policyEditorJsonVisit((currentJson) => {
-                  _set(currentJson, this.policyPath(valuePath), value);
+                  if (value === "" || value === null) {
+                    const path = this.policyPath(valuePath);
+                    _unset(currentJson, path);
+                  } else {
+                    _set(currentJson, this.policyPath(valuePath), value);
+                  }
                 })
               );
         },
