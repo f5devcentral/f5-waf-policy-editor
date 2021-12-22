@@ -12,7 +12,7 @@ import SplitPane, { Pane } from "react-split-pane";
 import { CurrentPolicyControl } from "./controls/curren-policy.control";
 import { policyEditorJsonTextSet } from "../../store/policy-editor/policy-editor.actions";
 import { useStyles } from "../../utils/styles.hook";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AppBar, Button, Toolbar } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
@@ -75,6 +75,19 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
   const pageFactory = new PolicyEditorPageFactory();
 
   const [pageHeight, setPageHeight] = useState<number>(500);
+  const [maxSize, setMaxSize] = useState<number>(window.innerHeight * 0.7);
+
+  useEffect(() => {
+    function handleResize() {
+      setMaxSize(window.innerHeight * 0.7);
+      setPageHeight(Math.min(window.innerHeight * 0.7, pageHeight));
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  });
 
   const handleDownload = () => {
     const date = new Date();
@@ -87,7 +100,7 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
       <div className={styles.editorContainer}>
         <SplitPane
           defaultSize={500}
-          maxSize={800}
+          maxSize={maxSize}
           split="horizontal"
           onChange={(newSize) => {
             setPageHeight(newSize);
