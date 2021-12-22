@@ -75,12 +75,12 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
   const pageFactory = new PolicyEditorPageFactory();
 
   const [pageHeight, setPageHeight] = useState<number>(500);
-  const [maxSize, setMaxSize] = useState<number>(window.innerHeight * 0.7);
+  const [maxSize, setMaxSize] = useState<number>(window.innerHeight - 200);
 
   useEffect(() => {
     function handleResize() {
-      setMaxSize(window.innerHeight * 0.7);
-      setPageHeight(Math.min(window.innerHeight * 0.7, pageHeight));
+      setMaxSize(window.innerHeight - 200);
+      setPageHeight(Math.min(window.innerHeight - 200, pageHeight));
     }
 
     window.addEventListener("resize", handleResize);
