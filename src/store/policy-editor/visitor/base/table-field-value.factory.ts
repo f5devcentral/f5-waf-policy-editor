@@ -85,7 +85,7 @@ export class TableFieldValueFactory<T> {
     title: string,
     valuePath: string,
     fieldFactory: FieldFactoryVisitor<T>,
-    props?: any
+    makeNumber?: boolean
   ): GridFieldValue {
     return {
       title,
@@ -107,7 +107,7 @@ export class TableFieldValueFactory<T> {
           ),
         undefined,
         { variant: "outlined", size: "small" },
-        props ? { ...props } : undefined
+        makeNumber
       ),
     };
   }

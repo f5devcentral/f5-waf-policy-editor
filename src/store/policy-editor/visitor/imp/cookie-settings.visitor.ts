@@ -65,7 +65,7 @@ export class CookieSettingsVisitor
         "Maximum Cookie Header Length",
         "maximumCookieHeaderLength",
         this,
-        { makeNumber: true }
+        true
       ),
     ];
   }

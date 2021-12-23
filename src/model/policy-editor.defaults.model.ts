@@ -40,10 +40,10 @@ import {
   MitigationBrowser,
 } from "./policy-schema/policy.definitions.nap.custom";
 
-export const defaultGeneralSettings : (
-    order: number,
-    item?: any
-) => any = (order, item)  => ({
+export const defaultGeneralSettings: (order: number, item?: any) => any = (
+  order,
+  item
+) => ({
   policy: {
     name: "policy_name",
     template: {
@@ -242,7 +242,7 @@ export const defaultMitigationsAnomaly: (
     item ?? {
       name: "",
       action: "",
-      scoreThreshold: 1,
+      scoreThreshold: "default",
     }
   );
 };

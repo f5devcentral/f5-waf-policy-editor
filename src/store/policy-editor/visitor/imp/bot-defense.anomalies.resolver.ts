@@ -75,10 +75,11 @@ export class BotDefenseAnomaliesResolver
         fieldFactory,
         ["alarm", "block", "default", "detect", "ignore"]
       ),
-      this.visitorControlFactory.createNumberEditControl(
+      this.visitorControlFactory.createTextEditControl(
         "Score Threshold",
         "scoreThreshold",
-        fieldFactory
+        fieldFactory,
+        true
       ),
     ];
   }

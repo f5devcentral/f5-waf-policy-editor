@@ -1,7 +1,7 @@
 export interface MitigationAnomaly {
   action: string;
   name: string;
-  scoreThreshold: number;
+  scoreThreshold: string;
 }
 
 export interface MitigationBrowser {

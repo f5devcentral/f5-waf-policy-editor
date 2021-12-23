@@ -76,10 +76,11 @@ export class HeadersFieldResolver
         "htmlNormalization",
         headersFiledFactory
       ),
-      this.gridFieldValueFactory.createCheckBoxFieldControl(
-        "Decode Base64",
+      this.gridFieldValueFactory.createDropListFieldControl(
+        "Decode Value As Base64",
         "decodeValueAsBase64",
-        headersFiledFactory
+        headersFiledFactory,
+        ["disabled", "enabled", "required"]
       ),
       this.gridFieldValueFactory.createCheckBoxFieldControl(
         "Allow Repeated",

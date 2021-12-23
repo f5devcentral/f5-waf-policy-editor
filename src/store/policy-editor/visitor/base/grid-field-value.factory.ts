@@ -143,7 +143,8 @@ export class GridFieldValueFactory<T> {
   createTextEditControl(
     title: string,
     valuePath: string,
-    fieldFactory: FieldFactoryVisitor<T>
+    fieldFactory: FieldFactoryVisitor<T>,
+    makeNumber?: boolean
   ): GridFieldValue {
     return {
       title,
@@ -170,7 +171,8 @@ export class GridFieldValueFactory<T> {
               );
         },
         undefined,
-        { variant: "outlined", size: "small" }
+        { variant: "outlined", size: "small" },
+        makeNumber
       ),
     };
   }

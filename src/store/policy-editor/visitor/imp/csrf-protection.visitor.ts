@@ -73,7 +73,7 @@ export class CsrfProtectionVisitor
         "Expiration time in seconds",
         "expirationTimeInSeconds",
         this,
-        { makeNumber: true }
+        true
       ),
       this.tableFieldValueFactory.createCheckBoxFieldControl(
         "SSL Only",
