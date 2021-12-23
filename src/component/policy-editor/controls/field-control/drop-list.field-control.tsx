@@ -34,12 +34,15 @@ export class DropListFieldControl implements IControlInfo {
   }
 
   createControl(props: any): JSX.Element {
+    console.log(this.currentValue);
+
     return (
       <Box>
         <TableAutocomplete
-          value={this.currentValue}
           onChange={(e, value) => this.onValueChange(value as string)}
           options={this.items}
+          freeSolo={true}
+          value={this.currentValue}
           renderInput={(params) => (
             <TextField
               {...params}
