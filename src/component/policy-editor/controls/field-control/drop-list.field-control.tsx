@@ -34,8 +34,6 @@ export class DropListFieldControl implements IControlInfo {
   }
 
   createControl(props: any): JSX.Element {
-    console.log(this.currentValue);
-
     return (
       <Box>
         <TableAutocomplete

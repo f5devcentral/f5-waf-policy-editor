@@ -5,6 +5,7 @@ import {
 } from "../policy-editor.types";
 import { Draft } from "immer";
 import { PolicyValidator } from "../../../model/json-validate/policy.validator";
+import { objectCollapseUtil } from "../../../utils/object-collapse.util";
 
 export const policyEditorJsonVisitHandler: PolicyEditorReducerHandler = (
   currentState: Draft<PolicyEditorState>,
@@ -13,6 +14,7 @@ export const policyEditorJsonVisitHandler: PolicyEditorReducerHandler = (
   if (action.visitor === undefined) return currentState;
 
   action.visitor(currentState.jsonCurrentPolicy);
+  objectCollapseUtil(currentState.jsonCurrentPolicy);
 
   currentState.strCurrentPolicy = JSON.stringify(
     currentState.jsonCurrentPolicy,
