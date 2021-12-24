@@ -19,9 +19,6 @@ function objectCollapseDeep(
   keysToDelete: DeleteItemInfo[],
   arrayIndex?: number
 ) {
-  console.log("objectCollapseDeep: ");
-  console.log(JSON.stringify(obj), currentPath, arrayItem, arrayIndex);
-
   if (obj === null || obj === undefined) {
     keysToDelete.push({
       path: currentPath,
@@ -81,16 +78,9 @@ export function objectCollapseUtil(obj: any) {
   let iteration = 0;
   do {
     iteration++;
-    console.log(
-      "---------------------------- ",
-      iteration,
-      " --------------------------"
-    );
     keysToDelete = [] as DeleteItemInfo[];
     objectCollapseDeep(obj, "", false, keysToDelete);
     keysToDelete.reverse();
-
-    console.log(keysToDelete);
 
     keysToDelete.forEach((k) => {
       if (k.isArray) {
