@@ -7,8 +7,10 @@ import { UrlsFieldFactory } from "./urls-field.factory";
 import { policyJsonFieldRemover } from "../services/policy-json.field-remover";
 import { GridFieldValueFactory } from "../base/grid-field-value.factory";
 import {
+  AllowRenderingInFrames,
   HostNameTypeEnum,
   URLElement,
+  URLMethod,
   URLProtocol,
 } from "../../../../model/policy-schema/policy.definitions";
 
@@ -55,10 +57,11 @@ export class UrlsFieldResolver
         fieldFactory,
         Object.values(URLProtocol)
       ),
-      this.gridFieldValueFactory.createTextEditControl(
+      this.gridFieldValueFactory.createDropListFieldControl(
         "Method",
         "method",
-        fieldFactory
+        fieldFactory,
+        Object.values(URLMethod)
       ),
       this.gridFieldValueFactory.createTextEditControl(
         "Path",
@@ -79,6 +82,47 @@ export class UrlsFieldResolver
       this.gridFieldValueFactory.createCheckBoxFieldControl(
         "Check Metachars",
         "metacharsOnUrlCheck",
+        fieldFactory
+      ),
+      this.gridFieldValueFactory.createCheckBoxFieldControl(
+        "Can change domain cookie",
+        "canChangeDomainCookie",
+        fieldFactory
+      ),
+      this.gridFieldValueFactory.createCheckBoxFieldControl(
+        "Clickjacking Protection",
+        "clickjackingProtection",
+        fieldFactory
+      ),
+      this.gridFieldValueFactory.createCheckBoxFieldControl(
+        "Is Allowed",
+        "isAllowed",
+        fieldFactory
+      ),
+      this.gridFieldValueFactory.createCheckBoxFieldControl(
+        "Mandatory Body",
+        "mandatoryBody",
+        fieldFactory
+      ),
+      this.gridFieldValueFactory.createCheckBoxFieldControl(
+        "Disallow File Upload Of Executables",
+        "disallowFileUploadOfExecutables",
+        fieldFactory
+      ),
+      this.gridFieldValueFactory.createDropListFieldControl(
+        "Allow Rendering in frames",
+        "allowRenderingInFrames",
+        fieldFactory,
+        Object.values(AllowRenderingInFrames)
+      ),
+      this.gridFieldValueFactory.createTextEditControl(
+        "Allow Rendering in frames only from",
+        "allowRenderingInFramesOnlyFrom",
+        fieldFactory
+      ),
+      this.gridFieldValueFactory.createTextEditControl(
+        "Operation Id",
+        "operationId",
         fieldFactory
       ),
     ];
