@@ -46,6 +46,15 @@ function objectCollapseDeep(
     return;
   }
 
+  if (Object.keys(obj).length === 1 && obj.wildcardOrder !== undefined) {
+    keysToDelete.push({
+      path: currentPath,
+      isArray: arrayItem,
+      arrayIndex: arrayIndex,
+    });
+    return;
+  }
+
   Object.keys(obj).forEach((k) => {
     let path =
       currentPath === ""
