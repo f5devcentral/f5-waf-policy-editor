@@ -147,7 +147,11 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
       setSelected(new Array<boolean>(visitors.length).fill(false));
     }, [visitors.length]);
 
-    const allSelected = !selected.some((x) => !x);
+    const nonDefaultItems = selected.filter(
+      (_, index) => visitors[index] && visitors[index].rowIndex !== -1
+    );
+    const allSelected =
+      nonDefaultItems.length > 0 && !nonDefaultItems.some((x) => !x);
     const anySelected = selected.some((x) => x);
 
     const onRemoveSelected: () => void = () => {
@@ -360,7 +364,11 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
                 color="primary"
                 onChange={(e) => {
                   setSelected([
-                    ...selected.map((x) => e.currentTarget.checked),
+                    ...selected.map((x, index) =>
+                      visitors[index].rowIndex !== -1
+                        ? e.currentTarget.checked
+                        : false
+                    ),
                   ]);
                 }}
               />
