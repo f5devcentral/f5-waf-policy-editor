@@ -27,6 +27,7 @@ export class CheckboxFieldControl implements IControlInfo {
         color="primary"
         onChange={(e) => this.onValueChange(e.target.checked)}
         {...props}
+        id={this.currentPath}
       />
     );
   }

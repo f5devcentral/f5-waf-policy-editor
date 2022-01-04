@@ -63,6 +63,7 @@ export const SignatureSetsPage: React.VoidFunctionComponent = () => {
       </ToolbarPageControl>
       <ContentPageControl>
         <GridTableValueControl
+          settingsName="Signature Sets"
           titles={titles}
           visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
           onAddItem={() => btnRef.current && setAnchorEl(btnRef.current)}

@@ -72,6 +72,7 @@ export const ViolationsPage: React.VoidFunctionComponent = () => {
       </ToolbarPageControl>
       <ContentPageControl>
         <GridTableValueControl
+          settingsName="Violations"
           titles={titles}
           visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
           onAddItem={() => btnRef.current && setAnchorEl(btnRef.current)}

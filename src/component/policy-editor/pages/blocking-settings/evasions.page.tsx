@@ -65,6 +65,7 @@ export const EvasionsPage: React.VoidFunctionComponent = () => {
       </ToolbarPageControl>
       <ContentPageControl>
         <GridTableValueControl
+          settingsName={"Evasions"}
           titles={titles}
           visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
           onAddItem={() => btnRef.current && setAnchorEl(btnRef.current)}

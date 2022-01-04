@@ -39,6 +39,7 @@ export const HostnamesPage: React.VoidFunctionComponent = () => {
       </ToolbarPageControl>
       <ContentPageControl>
         <GridTableValueControl
+          settingsName="Host Names"
           titles={titles}
           visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
           onAddItem={() => fieldFactory.create(undefined)}

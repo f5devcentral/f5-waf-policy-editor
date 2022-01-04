@@ -60,6 +60,7 @@ export const ServerTechnologiesPage: React.VoidFunctionComponent = () => {
       </ToolbarPageControl>
       <ContentPageControl>
         <GridTableValueControl
+          settingsName="Server Technologies"
           titles={titles}
           visitors={visitors}
           onAddItem={() => btnRef.current && setAnchorEl(btnRef.current)}

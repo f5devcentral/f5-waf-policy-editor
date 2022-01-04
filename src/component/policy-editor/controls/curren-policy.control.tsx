@@ -24,6 +24,7 @@ export const CurrentPolicyControl: React.FunctionComponent<CurrentPolicyProps> =
 
     return (
       <Editor
+        id={"current-policy-json"}
         value={code}
         onValueChange={(text) => {
           if (text !== code && onTextChange) {

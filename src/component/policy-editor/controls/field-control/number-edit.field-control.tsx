@@ -29,6 +29,7 @@ export class NumberEditFieldControl implements IControlInfo {
     }
     return (
       <TextField
+        id={this.currentPath}
         type="number"
         fullWidth
         value={this.currentValue ?? ""}

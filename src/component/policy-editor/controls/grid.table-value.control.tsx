@@ -75,7 +75,7 @@ const StyledTableRow = withStyles((theme) =>
 )(TableRow);
 
 export type GridTableValueProps = {
-  settingsName?: string;
+  settingsName: string;
   titles: string[];
   visitors: FieldResolverVisitor[];
   dnd?: boolean;
@@ -179,7 +179,10 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
       if (itemIndex < 0) return undefined;
 
       return (
-        <GridFieldValueControl rows={visitors[itemIndex].getAdvancedRows()} />
+        <GridFieldValueControl
+          rows={visitors[itemIndex].getAdvancedRows()}
+          name={"advanced-settings-grid"}
+        />
       );
     };
 
@@ -195,7 +198,7 @@ export const GridTableValueControl: React.FunctionComponent<GridTableValueProps>
     const totalQty = visitors.length;
 
     const table = (
-      <TableContainer component={Box}>
+      <TableContainer component={Box} id={`${settingsName}-table`}>
         <Table stickyHeader>
           <TableHead>
             <TableRow>

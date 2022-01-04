@@ -39,6 +39,7 @@ export const CustomXffHeadersPage: React.VoidFunctionComponent = () => {
       </ToolbarPageControl>
       <ContentPageControl>
         <GridTableValueControl
+          settingsName="Custom XFF Headers"
           titles={titles}
           visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
           onAddItem={() => fieldFactory.create(undefined)}

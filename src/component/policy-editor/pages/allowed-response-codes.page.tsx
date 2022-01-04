@@ -64,6 +64,7 @@ export const AllowedResponseCodesPage: React.VoidFunctionComponent = () => {
       </ToolbarPageControl>
       <ContentPageControl>
         <GridTableValueControl
+          settingsName="Allowed Response Codes"
           titles={titles}
           visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors} //.sort((a, b) => stringCompare(a.key(), b.key()))}
           onAddItem={() => btnRef.current && setAnchorEl(btnRef.current)}

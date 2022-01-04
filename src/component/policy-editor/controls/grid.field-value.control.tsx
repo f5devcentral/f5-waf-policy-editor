@@ -7,21 +7,18 @@ import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor
 import { ErrorFieldControlAdornment } from "./field-control/error.field-control-adornment";
 
 export type GridFieldValueProps = {
+  name: string;
   rows: GridFieldValue[];
 };
 
 export const GridFieldValueControl: React.FunctionComponent<GridFieldValueProps> =
-  ({ rows }) => {
+  ({ rows, name }) => {
     const [selectedIndex, setSelectedIndex] = useState(-1);
 
     const { jsonValidationErrors } = usePolicyEditorState();
 
     return (
-      <div
-        style={{
-          paddingLeft: "24px",
-        }}
-      >
+      <div id={name}>
         <Grid container spacing={1}>
           <Grid container item spacing={1} xs={12}>
             {rows.map((row, index) => {

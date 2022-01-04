@@ -30,7 +30,7 @@ export class TextEditFieldControl implements IControlInfo {
     }
     return (
       <TextField
-        id={props.key}
+        id={this.currentPath}
         fullWidth
         value={this.currentValue ?? ""}
         placeholder={this.currentValue ? undefined : this.hintValue}

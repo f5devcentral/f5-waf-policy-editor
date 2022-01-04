@@ -32,6 +32,7 @@ export const OpenApiPage: React.VoidFunctionComponent = () => {
       </ToolbarPageControl>
       <ContentPageControl>
         <GridTableValueControl
+          settingsName="HTTP Protocols"
           titles={titles}
           visitors={visitors}
           onAddItem={() => openApiFieldFactory.create(undefined)}

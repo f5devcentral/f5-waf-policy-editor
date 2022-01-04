@@ -32,6 +32,7 @@ export const SignaturesPage: React.VoidFunctionComponent = () => {
       </ToolbarPageControl>
       <ContentPageControl>
         <GridTableValueControl
+          settingsName="Signatures"
           titles={titles}
           visitors={visitors}
           onAddItem={() => signaturesFieldFactory.create(undefined)}

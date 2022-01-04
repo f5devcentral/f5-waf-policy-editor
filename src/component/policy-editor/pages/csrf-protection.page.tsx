@@ -15,7 +15,10 @@ export const CsrfProtectionPage: React.VoidFunctionComponent = () => {
     <Box className={classes.pageContent}>
       <ToolbarPageControl headerText="CSRF Protection Settings"></ToolbarPageControl>
       <ContentPageControl>
-        <GridFieldValueControl rows={csrfProtectionVisitor.getBasicRows()} />
+        <GridFieldValueControl
+          rows={csrfProtectionVisitor.getBasicRows()}
+          name={"csrf-settings-grid"}
+        />
       </ContentPageControl>
     </Box>
   );

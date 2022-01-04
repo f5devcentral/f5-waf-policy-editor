@@ -49,6 +49,7 @@ export class DropListFieldControl implements IControlInfo {
               placeholder={this.hintValue}
               value={this.currentValue}
               onChange={(e) => this.onValueChange(e.target.value)}
+              id={this.currentPath}
             />
           )}
         />

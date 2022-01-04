@@ -37,7 +37,7 @@ export const GridValuesPageControl: React.FunctionComponent<GridValuesPageProps>
     const { showDefaultPolicy } = usePolicyEditorState();
 
     return (
-      <Box className={classes.pageContent}>
+      <Box className={classes.pageContent} id={`pane-${settingsName}`}>
         <ToolbarPageControl headerText={settingsName}>
           <ToolbarButtonPageControl
             variant="contained"

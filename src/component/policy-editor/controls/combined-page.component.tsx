@@ -13,7 +13,7 @@ export const CombinedPageComponent: React.FunctionComponent<CombinedPageComponen
 
     const pageComponents = pages.map((p, index) => {
       return (
-        <div>
+        <div key={index} id={`combined-page-${index}`}>
           {pageFactory.createPage(p)}
           {index === pages.length - 1 ? undefined : (
             <Divider sx={{ margin: "8px" }} />

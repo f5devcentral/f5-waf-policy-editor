@@ -39,6 +39,7 @@ export const DataGuardEnforcementUrlsPage: React.VoidFunctionComponent = () => {
       </ToolbarPageControl>
       <ContentPageControl>
         <GridTableValueControl
+          settingsName={"Data Guard"}
           titles={titles}
           visitors={showDefaultPolicy ? [...visitors, ...defValues] : visitors}
           onAddItem={() => fieldFactory.create(undefined)}

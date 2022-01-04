@@ -16,7 +16,10 @@ export const CookieSettingsPage: React.VoidFunctionComponent = () => {
     <Box className={classes.pageContent}>
       <ToolbarPageControl headerText="Cookies Settings"></ToolbarPageControl>
       <ContentPageControl>
-        <GridFieldValueControl rows={cookieSettingsVisitor.getBasicRows()} />
+        <GridFieldValueControl
+          rows={cookieSettingsVisitor.getBasicRows()}
+          name={"cookie-settings-grid"}
+        />
       </ContentPageControl>
     </Box>
   );

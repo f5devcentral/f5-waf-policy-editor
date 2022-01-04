@@ -16,7 +16,10 @@ export const DataGuardSettingsPage: React.VoidFunctionComponent = () => {
     <Box className={classes.pageContent}>
       <ToolbarPageControl headerText="Settings"></ToolbarPageControl>
       <ContentPageControl>
-        <GridFieldValueControl rows={dataGuardSettingsVisitor.getBasicRows()} />
+        <GridFieldValueControl
+          rows={dataGuardSettingsVisitor.getBasicRows()}
+          name={"settings-grid"}
+        />
       </ContentPageControl>
     </Box>
   );

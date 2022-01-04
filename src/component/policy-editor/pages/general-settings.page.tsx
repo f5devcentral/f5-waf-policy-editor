@@ -16,7 +16,10 @@ export const GeneralSettingsPage: React.VoidFunctionComponent = () => {
     <Box className={classes.pageContent}>
       <ToolbarPageControl headerText="Summary"></ToolbarPageControl>
       <ContentPageControl>
-        <GridFieldValueControl rows={generalSettingsVisitor.getBasicRows()} />
+        <GridFieldValueControl
+          rows={generalSettingsVisitor.getBasicRows()}
+          name={"general-settings-grid"}
+        />
       </ContentPageControl>
     </Box>
   );

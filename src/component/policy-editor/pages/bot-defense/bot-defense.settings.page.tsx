@@ -16,7 +16,10 @@ export const BotDefenseSettingsPage: React.VoidFunctionComponent = () => {
     <Box className={classes.pageContent}>
       <ToolbarPageControl headerText="Bot Defense Settings"></ToolbarPageControl>
       <ContentPageControl>
-        <GridFieldValueControl rows={botDefenseVisitor.getBasicRows()} />
+        <GridFieldValueControl
+          rows={botDefenseVisitor.getBasicRows()}
+          name={"bot-defense-grid"}
+        />
       </ContentPageControl>
     </Box>
   );

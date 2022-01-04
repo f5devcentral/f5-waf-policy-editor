@@ -16,7 +16,7 @@ export class LabelFieldControl implements IControlInfo {
 
   createControl(props: any): JSX.Element {
     return (
-      <Typography {...props} variant={"caption"}>
+      <Typography {...props} variant={"caption"} id={this.currentPath}>
         {this.currentValue}
       </Typography>
     );
