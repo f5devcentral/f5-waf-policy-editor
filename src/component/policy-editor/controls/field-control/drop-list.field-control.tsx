@@ -37,6 +37,7 @@ export class DropListFieldControl implements IControlInfo {
     return (
       <Box>
         <TableAutocomplete
+          id={this.currentPath}
           onChange={(e, value) => this.onValueChange(value as string)}
           options={this.items}
           freeSolo={true}
@@ -44,12 +45,14 @@ export class DropListFieldControl implements IControlInfo {
           renderInput={(params) => (
             <TextField
               {...params}
-              InputProps={{ ...params.InputProps, ...props }}
+              InputProps={{
+                ...params.InputProps,
+                ...props,
+              }}
               variant="outlined"
               placeholder={this.hintValue}
               value={this.currentValue}
               onChange={(e) => this.onValueChange(e.target.value)}
-              id={this.currentPath}
             />
           )}
         />
