@@ -5,15 +5,16 @@ import { languages, highlight } from "prismjs";
 
 import "prismjs/themes/prism-solarizedlight.css";
 import "prismjs/components/prism-json";
-import { usePolicyEditorState } from "../../../store/policy-editor/policy-editor.hooks";
+import { usePolicyEditorState } from "../../store/policy-editor/policy-editor.hooks";
 
 export type CurrentPolicyProps = {
+  readOnly: boolean;
   jsonText: string;
   onTextChange?: (text: string) => void;
 };
 
 export const CurrentPolicyControl: React.FunctionComponent<CurrentPolicyProps> =
-  ({ jsonText, onTextChange }) => {
+  ({ readOnly, jsonText, onTextChange }) => {
     const [code, setCode] = useState(jsonText);
 
     const { jsonValidationErrors } = usePolicyEditorState();
@@ -24,6 +25,7 @@ export const CurrentPolicyControl: React.FunctionComponent<CurrentPolicyProps> =
 
     return (
       <Editor
+        readOnly={readOnly}
         id={"current-policy-json"}
         value={code}
         onValueChange={(text) => {
@@ -44,8 +46,11 @@ export const CurrentPolicyControl: React.FunctionComponent<CurrentPolicyProps> =
           fontFamily: "monospace",
           fontSize: 12,
           position: "relative",
-          backgroundColor:
-            jsonValidationErrors.length > 0 ? "#fde0dc" : "#DCF9FD",
+          backgroundColor: readOnly
+            ? "lightgray"
+            : jsonValidationErrors.length > 0
+            ? "#fde0dc"
+            : "#DCF9FD",
         }}
       />
     );

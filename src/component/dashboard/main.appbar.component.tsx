@@ -20,6 +20,4 @@ export const MainAppbarComponent: React.FunctionComponent<MainAppbarProps> = ({
     default:
       return <DefaultAppbar open={open} onDrawerOpen={onDrawerOpen} />;
   }
-
-  return <div />;
 };

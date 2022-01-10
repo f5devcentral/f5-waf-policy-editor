@@ -6,6 +6,8 @@ import {
 import { Draft } from "immer";
 import { PolicyValidator } from "../../../model/json-validate/policy.validator";
 import { objectCollapseUtil } from "../../../utils/object-collapse.util";
+import { merge as _merge } from "lodash";
+import defaultPolicy from "../../../model/nginx-const/defaut-policy.nginx.json";
 
 export const policyEditorJsonVisitHandler: PolicyEditorReducerHandler = (
   currentState: Draft<PolicyEditorState>,
@@ -21,6 +23,8 @@ export const policyEditorJsonVisitHandler: PolicyEditorReducerHandler = (
     null,
     2
   );
+  const fullPolicy = _merge({}, currentState.jsonCurrentPolicy, defaultPolicy);
+  currentState.strFullCurrentPolicy = JSON.stringify(fullPolicy, null, 2);
 
   const policyValidator = new PolicyValidator();
   currentState.jsonValidationErrors = policyValidator.validate(

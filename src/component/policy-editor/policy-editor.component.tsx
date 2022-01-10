@@ -1,43 +1,13 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import {
-  usePolicyEditorDispatch,
-  usePolicyEditorState,
-} from "../../store/policy-editor/policy-editor.hooks";
+import { usePolicyEditorState } from "../../store/policy-editor/policy-editor.hooks";
 import { PolicyEditorPageFactory } from "./controls/policy-editor.page.factory";
-import Paper from "@mui/material/Paper";
 import createStyles from "@mui/styles/createStyles";
 import withStyles from "@mui/styles/withStyles";
 import SplitPane, { Pane } from "react-split-pane";
-import { CurrentPolicyControl } from "./controls/curren-policy.control";
-import { policyEditorJsonTextSet } from "../../store/policy-editor/policy-editor.actions";
 import { useStyles } from "../../utils/styles.hook";
 import { useEffect, useState } from "react";
-import { AppBar, Button, Toolbar } from "@mui/material";
-import Typography from "@mui/material/Typography";
-
-import ShareIcon from "@mui/icons-material/Share";
-import { ReactComponent as DownloadIcon } from "../../resources/toolbar/download.svg";
-import { ReactComponent as DeployIcon } from "../../resources/toolbar/deploy.svg";
-import { download } from "../../utils/download.util";
-
-const JsonEditorContainer = withStyles((theme) =>
-  createStyles({
-    root: {
-      width: "100%",
-    },
-  })
-)(Paper);
-
-const ToolbarButton = withStyles(() => ({
-  root: {
-    marginLeft: "10px",
-    height: "33px",
-    fontSize: "14px",
-    lineHeight: "20px",
-    textTransform: "capitalize",
-  },
-}))(Button);
+import { CurrentPolicyPaneComponent } from "../shared/current-policy-pane.component";
 
 const CurrentPageContainer = withStyles((theme) =>
   createStyles({
@@ -67,11 +37,9 @@ const ParseErrorOverlay = withStyles((theme) =>
 )(Box);
 
 export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
-  const { currentPage, strCurrentPolicy, jsonParseError } =
-    usePolicyEditorState();
+  const { currentPage, jsonParseError } = usePolicyEditorState();
 
   const styles = useStyles();
-  const dispatch = usePolicyEditorDispatch();
   const pageFactory = new PolicyEditorPageFactory();
 
   const [pageHeight, setPageHeight] = useState<number>(500);
@@ -88,12 +56,6 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
       window.removeEventListener("resize", handleResize);
     };
   });
-
-  const handleDownload = () => {
-    const date = new Date();
-
-    download(`waf-${date.getTime()}.json`, strCurrentPolicy);
-  };
 
   return (
     <React.Fragment>
@@ -122,51 +84,7 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
               overflow: "scroll",
             }}
           >
-            <AppBar
-              position="sticky"
-              elevation={0}
-              sx={{
-                backgroundColor: "white",
-                color: "black",
-              }}
-            >
-              <Toolbar variant={"dense"}>
-                <Typography
-                  style={{
-                    fontSize: "18px",
-                    lineHeight: "26px",
-                    fontWeight: 600,
-                  }}
-                >
-                  JSON
-                </Typography>
-                <div style={{ textAlign: "right", width: "100%" }}>
-                  <ToolbarButton startIcon={<ShareIcon />} disabled={true}>
-                    Share
-                  </ToolbarButton>
-                  <ToolbarButton
-                    startIcon={<DeployIcon style={{ width: "15px" }} />}
-                    variant="outlined"
-                    href="https://github.com/f5devcentral/aws-waf-solution-template"
-                  >
-                    Deploy
-                  </ToolbarButton>
-                  <ToolbarButton
-                    startIcon={<DownloadIcon style={{ width: "15px" }} />}
-                    variant="contained"
-                    onClick={handleDownload}
-                  >
-                    Download
-                  </ToolbarButton>
-                </div>
-              </Toolbar>
-            </AppBar>
-            <JsonEditorContainer>
-              <CurrentPolicyControl
-                jsonText={strCurrentPolicy}
-                onTextChange={(text) => dispatch(policyEditorJsonTextSet(text))}
-              />
-            </JsonEditorContainer>
+            <CurrentPolicyPaneComponent title="JSON" fullPolicy={false} />
           </Pane>
         </SplitPane>
       </div>

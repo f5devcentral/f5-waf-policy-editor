@@ -7,6 +7,7 @@ import { PolicyEditorSidebarComponent } from "./policy-editor.sidebar.component"
 import { DashboardModuleEnum } from "../../store/dashboard/dashboard.types";
 import { styled } from "@mui/styles";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import { PolicyConvertSidebarComponent } from "../policy-convert/policy-convert.sidebar.component";
 
 export type MainSidebarProps = Readonly<{ onDrawerClose: any }>;
 
@@ -37,6 +38,8 @@ export const MainSidebarComponent: React.FunctionComponent<MainSidebarProps> =
       switch (currentModule) {
         case DashboardModuleEnum.PolicyEditor:
           return <PolicyEditorSidebarComponent />;
+        case DashboardModuleEnum.PolicyConvert:
+          return <PolicyConvertSidebarComponent />;
       }
     })();
 
