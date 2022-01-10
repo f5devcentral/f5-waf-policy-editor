@@ -23,7 +23,7 @@ export const PolicyConvertSidebarComponent: React.VoidFunctionComponent =
         >
           <FormControlLabel
             labelPlacement="end"
-            label="Apply policy template"
+            label="View full policy"
             control={
               <Switch
                 checked={showDefaultPolicy}

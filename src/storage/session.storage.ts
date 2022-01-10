@@ -1,6 +1,6 @@
 import { ApplicationState, DefaultApplicationState } from "../store";
 
-const stateVar = "editor-state#0.1";
+const stateVar = "waffler-state#0.1-Beta";
 
 export class SessionStorage {
   loadState(): ApplicationState {
