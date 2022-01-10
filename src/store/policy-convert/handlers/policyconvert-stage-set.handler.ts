@@ -7,6 +7,7 @@ export const policyConvertStageSetHandler: PolicyConvertReducerHandler = (
   currentState,
   action
 ) => {
+  console.log("policyConvertStageSetHandler");
   currentState.convertStage =
     action.convertStage ?? PolicyConvertStageEnum.convertNotStarted;
   return currentState;

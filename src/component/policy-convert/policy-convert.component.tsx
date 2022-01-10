@@ -12,10 +12,30 @@ import { ConvertProgressPage } from "./pages/convert-progress.page";
 export const PolicyConvertComponent: React.FunctionComponent = () => {
   const styles = useStyles();
 
+  const [currentPage, setCurrentPage] = useState<any>();
   const { convertStage } = usePolicyConvertState();
   const { showDefaultPolicy } = usePolicyEditorState();
   const [pageHeight, setPageHeight] = useState<number>(500);
   const [maxSize, setMaxSize] = useState<number>(window.innerHeight - 200);
+
+  useEffect(() => {
+    const cp = (() => {
+      switch (convertStage) {
+        case PolicyConvertStageEnum.convertError:
+          return <ConvertErrorPage />;
+        case PolicyConvertStageEnum.convertNotStarted:
+          return <StartConvertPage />;
+        case PolicyConvertStageEnum.convertPending:
+          return <ConvertProgressPage />;
+        case PolicyConvertStageEnum.convertSuccess:
+          return <ConvertErrorPage />;
+        default:
+          return <StartConvertPage />;
+      }
+    })();
+
+    setCurrentPage(cp);
+  }, [convertStage]);
 
   useEffect(() => {
     function handleResize() {
@@ -28,21 +48,6 @@ export const PolicyConvertComponent: React.FunctionComponent = () => {
       window.removeEventListener("resize", handleResize);
     };
   });
-
-  const currentPage = (() => {
-    switch (convertStage) {
-      case PolicyConvertStageEnum.convertError:
-        return <ConvertErrorPage />;
-      case PolicyConvertStageEnum.convertNotStarted:
-        return <StartConvertPage />;
-      case PolicyConvertStageEnum.convertPending:
-        return <ConvertProgressPage />;
-      case PolicyConvertStageEnum.convertSuccess:
-        return <ConvertErrorPage />;
-      default:
-        return <StartConvertPage />;
-    }
-  })();
 
   return (
     <React.Fragment>
