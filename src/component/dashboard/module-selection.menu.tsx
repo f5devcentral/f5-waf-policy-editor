@@ -2,6 +2,7 @@ import React from "react";
 import { DashboardModuleEnum } from "../../store/dashboard/dashboard.types";
 import { Apps, Assistant, Edit } from "@mui/icons-material";
 import { dashboardModuleSet } from "../../store/dashboard/dashboard.actions";
+import TransformIcon from "@mui/icons-material/Transform";
 
 import {
   useDashboardDispatch,
@@ -54,6 +55,11 @@ export const ModuleSelectionMenu: React.VoidFunctionComponent = () => {
             text: "Policy Templates",
             id: DashboardModuleEnum.PolicyTemplates,
             icon: <Apps sx={{ minWidth: "32px" }} />,
+          },
+          {
+            text: "Policy Convert",
+            id: DashboardModuleEnum.PolicyConvert,
+            icon: <TransformIcon sx={{ minWidth: "32px" }} />,
           },
         ].map(({ text, id, icon }, index) => (
           <MenuItem key={index} value={id}>

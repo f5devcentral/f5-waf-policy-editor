@@ -55,7 +55,7 @@
     "start:debug": "react-scripts start",
     "build": "react-scripts build",
     "build:dev": "PUBLIC_URL='/dev/' react-scripts build",
-    "build:newui": "PUBLIC_URL='/newui/' react-scripts build",
+    "build:convert": "PUBLIC_URL='/convert/' react-scripts build",
     "build:rc": "PUBLIC_URL='/rc/' react-scripts build",
     "build:prod": "PUBLIC_URL='/prod/' react-scripts build",
     "test": "react-scripts test",

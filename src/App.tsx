@@ -33,6 +33,7 @@ import {
   StyledEngineProvider,
   createTheme,
 } from "@mui/material/styles";
+import { PolicyConvertComponent } from "./component/policy-convert/policy-convert.component";
 
 declare module "@mui/styles/defaultTheme" {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -192,6 +193,7 @@ const Dashboard: React.VoidFunctionComponent = () => {
     [DashboardModuleEnum.PolicyTemplates]: <PolicyTemplatesComponent />,
     [DashboardModuleEnum.PolicyEditor]: <PolicyEditorComponent />,
     [DashboardModuleEnum.PolicyWizard]: <PolicyWizardComponent />,
+    [DashboardModuleEnum.PolicyConvert]: <PolicyConvertComponent />,
   };
 
   return (

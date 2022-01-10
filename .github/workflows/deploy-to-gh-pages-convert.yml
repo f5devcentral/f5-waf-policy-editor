@@ -2,7 +2,7 @@ name: (Dev) Build and Deploy
 on: 
   push:
     branches:
-      - feature/new-ui-2021
+      - feature/convert
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -13,11 +13,11 @@ jobs:
       - name: Install and Build
         run: |
           npm install
-          npm run build:newui
+          npm run build:convert
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
           branch: gh-pages
           folder: build
-          target-folder: newui
+          target-folder: convert

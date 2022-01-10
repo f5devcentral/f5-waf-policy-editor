@@ -5,6 +5,7 @@ export enum DashboardModuleEnum {
   PolicyEditor,
   PolicyWizard,
   PolicyTemplates,
+  PolicyConvert,
 }
 
 export type DashboardState = {
