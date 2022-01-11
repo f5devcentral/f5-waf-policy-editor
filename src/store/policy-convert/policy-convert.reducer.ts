@@ -6,6 +6,10 @@ import {
 import { ReducerBase } from "../reducer.base";
 import { policyConvertProgressSetHandler } from "./handlers/policy-convert-progress-set.handler";
 import { policyConvertStageSetHandler } from "./handlers/policyconvert-stage-set.handler";
+import {
+  POLICY_CONVERT_SET_PROGRESS,
+  POLICY_CONVERT_STAGE_SET,
+} from "../action-types";
 
 export function policyConvertStateInit(): PolicyConvertState {
   return {
@@ -20,8 +24,8 @@ class PolicyConvertReducerHandlerFactory extends ReducerBase<
 > {
   constructor(state: PolicyConvertState) {
     super(state, {
-      POLICY_CONVERT_STAGE_SET: policyConvertStageSetHandler,
-      POLICY_CONVERT_SET_PROGRESS: policyConvertProgressSetHandler,
+      [POLICY_CONVERT_STAGE_SET]: policyConvertStageSetHandler,
+      [POLICY_CONVERT_SET_PROGRESS]: policyConvertProgressSetHandler,
     });
   }
 }
