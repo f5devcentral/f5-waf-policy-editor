@@ -8,6 +8,7 @@ import { ConvertErrorPage } from "./pages/convert-error.page";
 import { PolicyConvertStageEnum } from "../../store/policy-convert/policy-convert.types";
 import { StartConvertPage } from "./pages/start-convert.page";
 import { ConvertProgressPage } from "./pages/convert-progress.page";
+import { ConvertSuccessPage } from "./pages/convert-success.page";
 
 export const PolicyConvertComponent: React.FunctionComponent = () => {
   const styles = useStyles();
@@ -28,7 +29,7 @@ export const PolicyConvertComponent: React.FunctionComponent = () => {
         case PolicyConvertStageEnum.convertPending:
           return <ConvertProgressPage />;
         case PolicyConvertStageEnum.convertSuccess:
-          return <ConvertErrorPage />;
+          return <ConvertSuccessPage />;
         default:
           return <StartConvertPage />;
       }

@@ -16,6 +16,7 @@ export function policyConvertStrategy(): ThunkAction<
   any
 > {
   return (dispatch: PolicyConvertDispatch) => {
+    dispatch(policyConvertProgressSet(0));
     dispatch(policyConvertSetStage(PolicyConvertStageEnum.convertPending));
     let counter = 0;
     const interval = setInterval(() => {

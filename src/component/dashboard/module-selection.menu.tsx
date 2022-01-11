@@ -42,6 +42,11 @@ export const ModuleSelectionMenu: React.VoidFunctionComponent = () => {
       >
         {[
           {
+            text: "Policy Convert",
+            id: DashboardModuleEnum.PolicyConvert,
+            icon: <TransformIcon sx={{ minWidth: "32px" }} />,
+          },
+          {
             text: "Policy Editor",
             id: DashboardModuleEnum.PolicyEditor,
             icon: <Edit sx={{ minWidth: "32px" }} />,
@@ -55,11 +60,6 @@ export const ModuleSelectionMenu: React.VoidFunctionComponent = () => {
             text: "Policy Templates",
             id: DashboardModuleEnum.PolicyTemplates,
             icon: <Apps sx={{ minWidth: "32px" }} />,
-          },
-          {
-            text: "Policy Convert",
-            id: DashboardModuleEnum.PolicyConvert,
-            icon: <TransformIcon sx={{ minWidth: "32px" }} />,
           },
         ].map(({ text, id, icon }, index) => (
           <MenuItem key={index} value={id}>
