@@ -12,7 +12,7 @@ export const policyEditorJsonSrcSetHandler: PolicyEditorReducerHandler = (
   currentState.strCurrentPolicy = action.strPolicy;
   currentState.policySrcUrl = action.policySrcUrl;
 
-  const fullPolicy = _merge({}, currentState.jsonCurrentPolicy, defaultPolicy);
+  const fullPolicy = _merge({}, defaultPolicy, currentState.jsonCurrentPolicy);
   currentState.strFullCurrentPolicy = JSON.stringify(fullPolicy, null, 2);
 
   try {

@@ -28,8 +28,8 @@ export const policyEditorJsonTextSetHandler: PolicyEditorReducerHandler = (
 
     const fullPolicy = _merge(
       {},
-      currentState.jsonCurrentPolicy,
-      defaultPolicy
+      defaultPolicy,
+      currentState.jsonCurrentPolicy
     );
     currentState.strFullCurrentPolicy = JSON.stringify(fullPolicy, null, 2);
   } catch (e) {

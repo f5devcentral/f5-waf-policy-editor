@@ -23,7 +23,7 @@ export const policyEditorJsonVisitHandler: PolicyEditorReducerHandler = (
     null,
     2
   );
-  const fullPolicy = _merge({}, currentState.jsonCurrentPolicy, defaultPolicy);
+  const fullPolicy = _merge({}, defaultPolicy, currentState.jsonCurrentPolicy);
   currentState.strFullCurrentPolicy = JSON.stringify(fullPolicy, null, 2);
 
   const policyValidator = new PolicyValidator();
