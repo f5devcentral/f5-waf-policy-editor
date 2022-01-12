@@ -30,6 +30,8 @@ export class TextEditFieldControl implements IControlInfo {
     }
     return (
       <TextField
+        {...props}
+        variant={"outlined"}
         id={this.currentPath}
         fullWidth
         value={this.currentValue ?? ""}
