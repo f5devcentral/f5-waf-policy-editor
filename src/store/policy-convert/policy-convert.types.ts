@@ -1,5 +1,6 @@
 import { Action } from "redux";
 import { ReducerHandler } from "../reducer.base";
+import { StrategyLogModel } from "../../converter/model/strategy-log.model";
 
 export enum PolicyConvertStageEnum {
   convertNotStarted,
@@ -11,6 +12,7 @@ export enum PolicyConvertStageEnum {
 export type PolicyConvertState = {
   convertStage: PolicyConvertStageEnum;
   convertPercentage: number;
+  log?: StrategyLogModel;
 };
 
 export interface PolicyConvertAction
@@ -18,6 +20,7 @@ export interface PolicyConvertAction
     Partial<{
       convertStage: PolicyConvertStageEnum;
       convertPercentage: number;
+      log: StrategyLogModel;
     }> {}
 
 export type PolicyConvertDispatch = (

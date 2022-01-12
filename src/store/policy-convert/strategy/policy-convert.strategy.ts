@@ -6,8 +6,11 @@ import {
 } from "../policy-convert.types";
 import {
   policyConvertProgressSet,
+  policyConvertSetLog,
   policyConvertSetStage,
 } from "../policy-convert.actions";
+import { Nap2AthenaParserStrategy } from "../../../converter/strategy/nap-2-athena-parser.strategy";
+import { ParseContextModel } from "../../../converter/model/parse-context.model";
 
 export function policyConvertStrategy(): ThunkAction<
   any,
@@ -15,17 +18,29 @@ export function policyConvertStrategy(): ThunkAction<
   any,
   any
 > {
-  return (dispatch: PolicyConvertDispatch) => {
+  return (dispatch: PolicyConvertDispatch, getState) => {
     dispatch(policyConvertProgressSet(0));
     dispatch(policyConvertSetStage(PolicyConvertStageEnum.convertPending));
     let counter = 0;
     const interval = setInterval(() => {
       dispatch(policyConvertProgressSet(counter * 10));
       counter++;
+
       if (counter === 11) {
         clearInterval(interval);
+
+        const state = getState();
+        const fullPolicy = JSON.parse(
+          state.policyEditorState.strFullCurrentPolicy
+        );
+
+        const context = new ParseContextModel(fullPolicy);
+        const napParser = new Nap2AthenaParserStrategy(context);
+        napParser.parse(fullPolicy);
+
+        dispatch(policyConvertSetLog(context.strategyLog));
         dispatch(policyConvertSetStage(PolicyConvertStageEnum.convertSuccess));
       }
-    }, 1000);
+    }, 300);
   };
 }

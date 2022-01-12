@@ -5,10 +5,10 @@ import {
 } from "../policy-convert.types";
 import { Draft } from "immer";
 
-export const policyConvertProgressSetHandler: PolicyConvertReducerHandler = (
+export const policyConvertLogSetHandler: PolicyConvertReducerHandler = (
   currentState: Draft<PolicyConvertState>,
   action: PolicyConvertAction
 ) => {
-  currentState.convertPercentage = action.convertPercentage ?? 0;
+  currentState.log = action.log;
   return currentState;
 };

@@ -3,9 +3,11 @@ import {
   PolicyConvertStageEnum,
 } from "./policy-convert.types";
 import {
+  POLICY_CONVERT_LOG_SET,
   POLICY_CONVERT_SET_PROGRESS,
   POLICY_CONVERT_STAGE_SET,
 } from "../action-types";
+import { StrategyLogModel } from "../../converter/model/strategy-log.model";
 
 export function policyConvertProgressSet(
   progress: number
@@ -22,5 +24,14 @@ export function policyConvertSetStage(
   return {
     type: POLICY_CONVERT_STAGE_SET,
     convertStage: stage,
+  };
+}
+
+export function policyConvertSetLog(
+  log: StrategyLogModel
+): Pick<PolicyConvertAction, "type" | "log"> {
+  return {
+    type: POLICY_CONVERT_LOG_SET,
+    log,
   };
 }
