@@ -74,7 +74,7 @@ export const PolicyConvertComponent: React.FunctionComponent = () => {
           }}
         >
           <CurrentPolicyPaneComponent
-            title="Policy JSON to Convert"
+            title="Policy JSON"
             fullPolicy={showDefaultPolicy}
             toolbarComponent={
               <div style={{ textAlign: "right", width: "100%" }}>
