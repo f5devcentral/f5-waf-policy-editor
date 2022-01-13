@@ -69,7 +69,7 @@ export const ConvertSuccessPage: React.VoidFunctionComponent = () => {
   const onDownloadReport = () => {
     const link = document.createElement("a");
     link.download = `full-report.pdf`;
-    link.href = "/rsc/convert-result.pdf";
+    link.href = "/convert/rsc/convert-result.pdf";
     link.click();
   };
 
