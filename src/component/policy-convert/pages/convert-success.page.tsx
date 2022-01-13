@@ -65,6 +65,13 @@ export const ConvertSuccessPage: React.VoidFunctionComponent = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const btnRef = useRef<null | HTMLDivElement>(null);
 
+  const onDownloadReport = () => {
+    const link = document.createElement("a");
+    link.download = `full-report.pdf`;
+    link.href = "/rsc/convert-result.pdf";
+    link.click();
+  };
+
   return (
     <Box className={classes.pageContent}>
       <ToolbarPageControl
@@ -88,8 +95,15 @@ export const ConvertSuccessPage: React.VoidFunctionComponent = () => {
             setAnchorEl(null);
           }}
         >
-          <MenuItem>File</MenuItem>
-          <MenuItem>File & Full Report</MenuItem>
+          <MenuItem>Postman File</MenuItem>
+          <MenuItem
+            onClick={() => {
+              setAnchorEl(null);
+              onDownloadReport();
+            }}
+          >
+            Full Report
+          </MenuItem>
         </Menu>
       </ToolbarPageControl>
       <ContentPageControl>
