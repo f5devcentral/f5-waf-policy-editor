@@ -32,10 +32,10 @@ export const PolicyConvertAppbar: React.FunctionComponent<MainAppbarProps> = ({
         </IconButton>
         <div style={{ width: "100%" }}>
           <Typography className={classes.headerCategory}>
-            Policy Convert
+            Convert Policy
           </Typography>
           <Typography className={classes.headerPage}>
-            Policy Convert to Athena tool
+            Translate policy to F5 Distributed Cloud WAF Service
           </Typography>
         </div>
       </Toolbar>

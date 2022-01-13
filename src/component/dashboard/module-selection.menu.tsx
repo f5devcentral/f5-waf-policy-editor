@@ -42,7 +42,7 @@ export const ModuleSelectionMenu: React.VoidFunctionComponent = () => {
       >
         {[
           {
-            text: "Policy Convert",
+            text: "Convert Policy",
             id: DashboardModuleEnum.PolicyConvert,
             icon: <TransformIcon sx={{ minWidth: "32px" }} />,
           },

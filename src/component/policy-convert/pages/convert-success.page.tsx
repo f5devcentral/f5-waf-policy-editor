@@ -120,7 +120,7 @@ export const ConvertSuccessPage: React.VoidFunctionComponent = () => {
             fontWeight: "bold",
           }}
         >
-          Report
+          Conversion Report
         </Typography>
         <Paper
           elevation={3}
