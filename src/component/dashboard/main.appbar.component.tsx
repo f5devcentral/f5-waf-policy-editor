@@ -3,6 +3,7 @@ import { PolicyWizardAppbar } from "../appbar/policy-wizard.appbar";
 import { useDashboardState } from "../../store/dashboard/dashboard.hooks";
 import { DashboardModuleEnum } from "../../store/dashboard/dashboard.types";
 import { DefaultAppbar } from "../appbar/default.appbar";
+import { PolicyConvertAppbar } from "../policy-convert/appbar/policy-convert.appbar";
 
 export type MainAppbarProps = Readonly<{
   open: boolean;
@@ -17,6 +18,8 @@ export const MainAppbarComponent: React.FunctionComponent<MainAppbarProps> = ({
   switch (currentModule) {
     case DashboardModuleEnum.PolicyEditor:
       return <PolicyWizardAppbar open={open} onDrawerOpen={onDrawerOpen} />;
+    case DashboardModuleEnum.PolicyConvert:
+      return <PolicyConvertAppbar open={open} onDrawerOpen={onDrawerOpen} />;
     default:
       return <DefaultAppbar open={open} onDrawerOpen={onDrawerOpen} />;
   }

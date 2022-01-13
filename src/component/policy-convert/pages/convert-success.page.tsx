@@ -1,70 +1,182 @@
-import Typography from "@mui/material/Typography";
-import React from "react";
-import Button from "@mui/material/Button";
-import { policyConvertStrategy } from "../../../store/policy-convert/strategy/policy-convert.strategy";
-import { useDispatch } from "react-redux";
-import Link from "@mui/material/Link";
+import React, { useRef, useState } from "react";
 import { usePolicyConvertState } from "../../../store/policy-convert/policy-convert.hooks";
+import { ToolbarPageControl } from "../../policy-editor/controls/page-controls/toolbar.page-control";
+import { ToolbarButtonPageControl } from "../../policy-editor/controls/page-controls/toolbar-button.page-control";
+import { ExpandMore } from "@mui/icons-material";
+import { Box, Menu, MenuItem, TableCell, TableRow } from "@mui/material";
+import { useStyles } from "../../../utils/styles.hook";
+import { ContentPageControl } from "../../policy-editor/controls/page-controls/content.page-control";
+import {
+  OperationResultBoxControl,
+  OperationResultBoxIcon,
+} from "../../controls/operation-result-box.control";
+import Typography from "@mui/material/Typography";
+import Table from "@mui/material/Table";
+import TableHead from "@mui/material/TableHead";
+import TableBody from "@mui/material/TableBody";
+import Paper from "@mui/material/Paper";
+import { withStyles } from "@mui/styles";
+import { styled } from "@mui/system";
+
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import ErrorIcon from "@mui/icons-material/Error";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import UpcomingIcon from "@mui/icons-material/Upcoming";
+import { KeyParsingResultEnum } from "../../../converter/model/key-parsing-result.enum";
+
+const TableHeadCell = withStyles({
+  root: {
+    backgroundColor: "#F7F8FA",
+    height: "48px",
+    padding: "8px",
+    fontSize: "12px",
+    lineHeight: "18px",
+  },
+})(TableCell);
+
+const TableBodyCell = withStyles({
+  root: {
+    paddingLeft: "8px",
+    paddingRight: "8px",
+  },
+})(TableCell);
+
+const TableExportedCell = withStyles({
+  root: {
+    textAlign: "center",
+    paddingTop: "8px",
+  },
+})(TableCell);
+
+const ItemTitle = styled("div")({
+  fontSize: "12px",
+  lineHeight: "20px",
+});
+const ItemText = styled("div")({
+  textTransform: "capitalize",
+  fontSize: "12px",
+  color: "#6C778C",
+});
 
 export const ConvertSuccessPage: React.VoidFunctionComponent = () => {
-  const thunkDispatch = useDispatch();
   const { log } = usePolicyConvertState();
 
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const btnRef = useRef<null | HTMLDivElement>(null);
+
   return (
-    <div>
-      <div>
-        <Button
-          variant={"contained"}
-          onClick={() => {
-            thunkDispatch(policyConvertStrategy());
+    <Box className={classes.pageContent}>
+      <ToolbarPageControl
+        headerText="Policy Convert"
+        headerHelp="To start, copy paste policy into the JSON section below"
+      >
+        <div ref={btnRef}>
+          <ToolbarButtonPageControl
+            variant="contained"
+            color="primary"
+            onClick={(e) => setAnchorEl(e.currentTarget)}
+            endIcon={<ExpandMore />}
+          >
+            Download
+          </ToolbarButtonPageControl>
+        </div>
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={() => {
+            setAnchorEl(null);
           }}
         >
-          Restart Convert
-        </Button>
-      </div>
-      <div
-        style={{
-          marginTop: "14px",
-        }}
-      >
-        <Typography>Export is successfully completed</Typography>
-      </div>
-      <div
-        style={{
-          marginTop: "14px",
-        }}
-      >
-        <div>
-          To download the conversion result click <Link>here</Link>
-        </div>
-        <div>
-          To get the the conversion report click <Link>here</Link>
-        </div>
-      </div>
-      <div>
-        <table>
-          <thead>
-            <td>index</td>
-            <td>time</td>
-            <td>result</td>
-            <td>path</td>
-            <td>data</td>
-          </thead>
-          {!log?.data
-            ? undefined
-            : log?.data().map((x, index) => {
-                return (
-                  <tr>
-                    <td>{index}</td>
-                    <td>{x.timestamp ? x.timestamp.toLocaleString() : ""}</td>
-                    <td>{x.keyParsingResultEnum.toString()}</td>
-                    <td>{x.policyKeyPath}</td>
-                    <td>{x.data}</td>
-                  </tr>
-                );
-              })}
-        </table>
-      </div>
-    </div>
+          <MenuItem>File</MenuItem>
+          <MenuItem>File & Full Report</MenuItem>
+        </Menu>
+      </ToolbarPageControl>
+      <ContentPageControl>
+        <OperationResultBoxControl
+          icon={OperationResultBoxIcon.success}
+          header="Export is successfully completed!"
+          text="The conversion file and full report is available for download"
+        />
+        <Typography
+          sx={{
+            marginLeft: "24px",
+            marginTop: "12px",
+            fontSize: "18px",
+            lineHeight: "26px",
+            fontWeight: "bold",
+          }}
+        >
+          Report
+        </Typography>
+        <Paper
+          elevation={3}
+          style={{
+            marginLeft: "24px",
+            marginTop: "12px",
+            marginRight: "4px",
+            height: "calc(100% - 150px)",
+            overflow: "scroll",
+          }}
+        >
+          <Table stickyHeader>
+            <TableHead>
+              <TableHeadCell>Exported</TableHeadCell>
+              <TableHeadCell>Item</TableHeadCell>
+              <TableHeadCell>Description</TableHeadCell>
+              <TableHeadCell>Date & Time</TableHeadCell>
+            </TableHead>
+            <TableBody>
+              {!log?.data
+                ? undefined
+                : log?.data().map((x) => (
+                    <TableRow>
+                      <TableExportedCell>
+                        {(() => {
+                          switch (true) {
+                            case x.keyParsingResultEnum ===
+                              KeyParsingResultEnum.success:
+                              return (
+                                <CheckCircleIcon sx={{ color: "#35D068" }} />
+                              );
+                            case x.keyParsingResultEnum ===
+                              KeyParsingResultEnum.partially:
+                              return (
+                                <RemoveCircleIcon sx={{ color: "#FFBE5C" }} />
+                              );
+                            case x.keyParsingResultEnum ===
+                              KeyParsingResultEnum.error:
+                            case x.keyParsingResultEnum ===
+                              KeyParsingResultEnum.notSupported:
+                              return <ErrorIcon sx={{ color: "#F94627" }} />;
+                            case x.keyParsingResultEnum ===
+                              KeyParsingResultEnum.comingSoon:
+                              return <UpcomingIcon sx={{ color: "#4152B4" }} />;
+                            default:
+                              return undefined;
+                          }
+                        })()}
+                      </TableExportedCell>
+                      <TableBodyCell>
+                        <ItemTitle>{x.policyKeyPath}</ItemTitle>
+                        <ItemText>{x.keyParsingResultEnum}</ItemText>
+                      </TableBodyCell>
+                      <TableBodyCell>
+                        <ItemTitle>{x.data}</ItemTitle>
+                        <ItemText>&nbsp;</ItemText>
+                      </TableBodyCell>
+                      <TableBodyCell>
+                        <ItemTitle>
+                          {x.timestamp.toLocaleDateString()}
+                        </ItemTitle>
+                        <ItemText>{x.timestamp.toLocaleTimeString()}</ItemText>
+                      </TableBodyCell>
+                    </TableRow>
+                  ))}
+            </TableBody>
+          </Table>
+        </Paper>
+      </ContentPageControl>
+    </Box>
   );
 };

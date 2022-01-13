@@ -66,7 +66,7 @@ export const useStyles = makeStyles(
         justifyContent: "flex-end",
       },
       content: {
-        overflow: "scroll",
+        overflow: "hidden",
         flexGrow: 1,
         padding: theme.spacing(3),
         transition: theme.transitions.create("margin", {
