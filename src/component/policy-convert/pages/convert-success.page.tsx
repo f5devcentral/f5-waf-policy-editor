@@ -75,7 +75,7 @@ export const ConvertSuccessPage: React.VoidFunctionComponent = () => {
 
   return (
     <Box className={classes.pageContent}>
-      <ToolbarPageControl headerText="Policy Convert">
+      <ToolbarPageControl headerText="Convert Policy">
         <div ref={btnRef}>
           <ToolbarButtonPageControl
             variant="contained"

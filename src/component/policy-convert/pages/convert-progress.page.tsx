@@ -20,7 +20,7 @@ export const ConvertProgressPage: React.VoidFunctionComponent = () => {
   return (
     <React.Fragment>
       <Box className={classes.pageContent}>
-        <ToolbarPageControl headerText="Policy Convert">
+        <ToolbarPageControl headerText="Convert Policy">
           <ToolbarButtonPageControl
             disabled
             variant="contained"

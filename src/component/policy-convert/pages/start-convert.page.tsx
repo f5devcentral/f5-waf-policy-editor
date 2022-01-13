@@ -15,7 +15,7 @@ export const StartConvertPage: React.VoidFunctionComponent = () => {
 
   return (
     <Box className={classes.pageContent}>
-      <ToolbarPageControl headerText="Policy Convert">
+      <ToolbarPageControl headerText="Convert Policy">
         <ToolbarButtonPageControl
           disabled
           variant="contained"
