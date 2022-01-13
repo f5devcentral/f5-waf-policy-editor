@@ -2,10 +2,12 @@ import React from "react";
 import { styled } from "@mui/system";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorIcon from "@mui/icons-material/Error";
+import { CircularProgress } from "@mui/material";
 
 export enum OperationResultBoxIcon {
   success,
   failed,
+  pending,
 }
 
 export type OperationResultBoxProps = {
@@ -20,7 +22,7 @@ type FrameProps = {
 
 const Container = styled("div")({
   marginLeft: "24px",
-  marginTop: "24px",
+  marginRight: "24px",
   borderRadius: "8px",
   borderTop: "1px solid #F7F8FA",
   borderRight: "1px solid #F7F8FA",
@@ -36,7 +38,9 @@ const Frame = styled("div")<FrameProps>(({ icon }) => ({
   borderLeft:
     icon === OperationResultBoxIcon.success
       ? "11px solid #25BD57"
-      : "11px solid #F94627",
+      : icon === OperationResultBoxIcon.failed
+      ? "11px solid #F94627"
+      : "11px solid #4152B4;",
 }));
 
 const Header = styled("div")({
@@ -62,6 +66,9 @@ export const OperationResultBoxControl: React.FunctionComponent<OperationResultB
             )}
             {icon === OperationResultBoxIcon.failed && (
               <ErrorIcon sx={{ color: "#F94627" }} />
+            )}
+            {icon === OperationResultBoxIcon.pending && (
+              <CircularProgress size={24} />
             )}
           </div>
           <div>

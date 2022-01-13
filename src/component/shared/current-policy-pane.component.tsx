@@ -1,15 +1,11 @@
-import React from "react";
-import { AppBar, Button, Toolbar } from "@mui/material";
+import React, { ReactElement } from "react";
+import { AppBar, Toolbar } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import ShareIcon from "@mui/icons-material/Share";
-import { ReactComponent as DeployIcon } from "../../resources/toolbar/deploy.svg";
-import { ReactComponent as DownloadIcon } from "../../resources/toolbar/download.svg";
 import { CurrentPolicyControl } from "./curren-policy.control";
 import { policyEditorJsonTextSet } from "../../store/policy-editor/policy-editor.actions";
 import withStyles from "@mui/styles/withStyles";
 import createStyles from "@mui/styles/createStyles";
 import Paper from "@mui/material/Paper";
-import { download } from "../../utils/download.util";
 import {
   usePolicyEditorDispatch,
   usePolicyEditorState,
@@ -23,31 +19,16 @@ const JsonEditorContainer = withStyles((theme) =>
   })
 )(Paper);
 
-const ToolbarButton = withStyles(() => ({
-  root: {
-    marginLeft: "10px",
-    height: "33px",
-    fontSize: "14px",
-    lineHeight: "20px",
-    textTransform: "capitalize",
-  },
-}))(Button);
-
 export type CurrentPolicyPaneProps = {
   title: string;
   fullPolicy: boolean;
+  toolbarComponent: ReactElement;
 };
 
 export const CurrentPolicyPaneComponent: React.FunctionComponent<CurrentPolicyPaneProps> =
-  ({ title, fullPolicy }) => {
+  ({ title, fullPolicy, toolbarComponent }) => {
     const { strCurrentPolicy, strFullCurrentPolicy } = usePolicyEditorState();
     const dispatch = usePolicyEditorDispatch();
-
-    const handleDownload = () => {
-      const date = new Date();
-
-      download(`waf-${date.getTime()}.json`, strCurrentPolicy);
-    };
 
     return (
       <React.Fragment>
@@ -70,25 +51,7 @@ export const CurrentPolicyPaneComponent: React.FunctionComponent<CurrentPolicyPa
             >
               {title}
             </Typography>
-            <div style={{ textAlign: "right", width: "100%" }}>
-              <ToolbarButton startIcon={<ShareIcon />} disabled={true}>
-                Share
-              </ToolbarButton>
-              <ToolbarButton
-                startIcon={<DeployIcon style={{ width: "15px" }} />}
-                variant="outlined"
-                href="https://github.com/f5devcentral/aws-waf-solution-template"
-              >
-                Deploy
-              </ToolbarButton>
-              <ToolbarButton
-                startIcon={<DownloadIcon style={{ width: "15px" }} />}
-                variant="contained"
-                onClick={handleDownload}
-              >
-                Download
-              </ToolbarButton>
-            </div>
+            {toolbarComponent}
           </Toolbar>
         </AppBar>
         <JsonEditorContainer>

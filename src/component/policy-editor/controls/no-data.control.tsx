@@ -5,11 +5,13 @@ import { ReactComponent as NoDataImg } from "../../../resources/img/no-data.svg"
 import { Link } from "@mui/material";
 
 export type NoDataControlProps = {
+  text?: string;
   addItemInscription?: string;
   onAddItem?: () => void;
 };
 
 export const NoDataControl: React.FunctionComponent<NoDataControlProps> = ({
+  text,
   addItemInscription,
   onAddItem,
 }) => {
@@ -47,24 +49,35 @@ export const NoDataControl: React.FunctionComponent<NoDataControlProps> = ({
           >
             No Data
           </div>
-          <div
-            style={{
-              paddingLeft: "58px",
-              color: "#485665",
-            }}
-          >
-            To start,{" "}
-            <Link
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                if (onAddItem) {
-                  onAddItem();
-                }
+          {text ? (
+            <div
+              style={{
+                paddingLeft: "58px",
+                color: "#485665",
               }}
             >
-              {addItemInscription}
-            </Link>
-          </div>
+              {text}
+            </div>
+          ) : (
+            <div
+              style={{
+                paddingLeft: "58px",
+                color: "#485665",
+              }}
+            >
+              To start,{" "}
+              <Link
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  if (onAddItem) {
+                    onAddItem();
+                  }
+                }}
+              >
+                {addItemInscription}
+              </Link>
+            </div>
+          )}
         </Box>
         <Box
           style={{

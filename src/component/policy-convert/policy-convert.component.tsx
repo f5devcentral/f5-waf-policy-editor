@@ -9,9 +9,14 @@ import { PolicyConvertStageEnum } from "../../store/policy-convert/policy-conver
 import { StartConvertPage } from "./pages/start-convert.page";
 import { ConvertProgressPage } from "./pages/convert-progress.page";
 import { ConvertSuccessPage } from "./pages/convert-success.page";
+import { ToolbarButtonControl } from "../controls/toobar-button.component";
+import { policyConvertStrategy } from "../../store/policy-convert/strategy/policy-convert.strategy";
+import { useDispatch } from "react-redux";
+import TransformIcon from "@mui/icons-material/Transform";
 
 export const PolicyConvertComponent: React.FunctionComponent = () => {
   const styles = useStyles();
+  const thunkDispatch = useDispatch();
 
   const [currentPage, setCurrentPage] = useState<any>();
   const { convertStage } = usePolicyConvertState();
@@ -71,6 +76,19 @@ export const PolicyConvertComponent: React.FunctionComponent = () => {
           <CurrentPolicyPaneComponent
             title="JSON to Convert"
             fullPolicy={showDefaultPolicy}
+            toolbarComponent={
+              <div style={{ textAlign: "right", width: "100%" }}>
+                <ToolbarButtonControl
+                  startIcon={<TransformIcon sx={{ minWidth: "15px" }} />}
+                  variant="contained"
+                  onClick={() => {
+                    thunkDispatch(policyConvertStrategy());
+                  }}
+                >
+                  Convert
+                </ToolbarButtonControl>
+              </div>
+            }
           />
         </Pane>
       </SplitPane>

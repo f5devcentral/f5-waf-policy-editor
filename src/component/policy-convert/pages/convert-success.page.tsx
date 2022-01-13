@@ -23,6 +23,7 @@ import ErrorIcon from "@mui/icons-material/Error";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import UpcomingIcon from "@mui/icons-material/Upcoming";
 import { KeyParsingResultEnum } from "../../../converter/model/key-parsing-result.enum";
+import { ReactComponent as DownloadIcon } from "../../../resources/toolbar/download.svg";
 
 const TableHeadCell = withStyles({
   root: {
@@ -74,15 +75,13 @@ export const ConvertSuccessPage: React.VoidFunctionComponent = () => {
 
   return (
     <Box className={classes.pageContent}>
-      <ToolbarPageControl
-        headerText="Policy Convert"
-        headerHelp="To start, copy paste policy into the JSON section below"
-      >
+      <ToolbarPageControl headerText="Policy Convert">
         <div ref={btnRef}>
           <ToolbarButtonPageControl
             variant="contained"
             color="primary"
             onClick={(e) => setAnchorEl(e.currentTarget)}
+            startIcon={<DownloadIcon style={{ width: "15px" }} />}
             endIcon={<ExpandMore />}
           >
             Download

@@ -8,6 +8,11 @@ import SplitPane, { Pane } from "react-split-pane";
 import { useStyles } from "../../utils/styles.hook";
 import { useEffect, useState } from "react";
 import { CurrentPolicyPaneComponent } from "../shared/current-policy-pane.component";
+import ShareIcon from "@mui/icons-material/Share";
+import { ReactComponent as DeployIcon } from "../../resources/toolbar/deploy.svg";
+import { ReactComponent as DownloadIcon } from "../../resources/toolbar/download.svg";
+import { ToolbarButtonControl } from "../controls/toobar-button.component";
+import { download } from "../../utils/download.util";
 
 const CurrentPageContainer = withStyles((theme) =>
   createStyles({
@@ -44,6 +49,7 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
 
   const [pageHeight, setPageHeight] = useState<number>(500);
   const [maxSize, setMaxSize] = useState<number>(window.innerHeight - 200);
+  const { strCurrentPolicy } = usePolicyEditorState();
 
   useEffect(() => {
     function handleResize() {
@@ -56,6 +62,12 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
       window.removeEventListener("resize", handleResize);
     };
   });
+
+  const handleDownload = () => {
+    const date = new Date();
+
+    download(`waf-${date.getTime()}.json`, strCurrentPolicy);
+  };
 
   return (
     <React.Fragment>
@@ -84,7 +96,34 @@ export const PolicyEditorComponent: React.VoidFunctionComponent = () => {
               overflow: "scroll",
             }}
           >
-            <CurrentPolicyPaneComponent title="JSON" fullPolicy={false} />
+            <CurrentPolicyPaneComponent
+              title="JSON"
+              fullPolicy={false}
+              toolbarComponent={
+                <div style={{ textAlign: "right", width: "100%" }}>
+                  <ToolbarButtonControl
+                    startIcon={<ShareIcon />}
+                    disabled={true}
+                  >
+                    Share
+                  </ToolbarButtonControl>
+                  <ToolbarButtonControl
+                    startIcon={<DeployIcon style={{ width: "15px" }} />}
+                    variant="outlined"
+                    href="https://github.com/f5devcentral/aws-waf-solution-template"
+                  >
+                    Deploy
+                  </ToolbarButtonControl>
+                  <ToolbarButtonControl
+                    startIcon={<DownloadIcon style={{ width: "15px" }} />}
+                    variant="contained"
+                    onClick={handleDownload}
+                  >
+                    Download
+                  </ToolbarButtonControl>
+                </div>
+              }
+            />
           </Pane>
         </SplitPane>
       </div>
