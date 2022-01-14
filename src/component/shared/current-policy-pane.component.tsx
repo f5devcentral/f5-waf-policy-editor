@@ -27,7 +27,7 @@ export type CurrentPolicyPaneProps = {
 
 export const CurrentPolicyPaneComponent: React.FunctionComponent<CurrentPolicyPaneProps> =
   ({ title, fullPolicy, toolbarComponent }) => {
-    const { strCurrentPolicy, strFullCurrentPolicy } = usePolicyEditorState();
+    const { strCurrentPolicy } = usePolicyEditorState();
     const dispatch = usePolicyEditorDispatch();
 
     return (
@@ -56,8 +56,8 @@ export const CurrentPolicyPaneComponent: React.FunctionComponent<CurrentPolicyPa
         </AppBar>
         <JsonEditorContainer>
           <CurrentPolicyControl
-            readOnly={fullPolicy}
-            jsonText={fullPolicy ? strFullCurrentPolicy : strCurrentPolicy}
+            readOnly={false}
+            jsonText={strCurrentPolicy}
             onTextChange={(text) => dispatch(policyEditorJsonTextSet(text))}
           />
         </JsonEditorContainer>

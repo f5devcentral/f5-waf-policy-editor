@@ -30,9 +30,7 @@ export function policyConvertStrategy(): ThunkAction<
         clearInterval(interval);
 
         const state = getState();
-        const fullPolicy = JSON.parse(
-          state.policyEditorState.strFullCurrentPolicy
-        );
+        const fullPolicy = JSON.parse(state.policyEditorState.strCurrentPolicy);
 
         const context = new ParseContextModel(fullPolicy);
         const napParser = new Nap2AthenaParserStrategy(context);

@@ -25,7 +25,6 @@ export function policyEditorStateInit(): PolicyEditorState {
     currentPage: PolicyEditorPageEnum.Summary,
     jsonCurrentPolicy: {},
     strCurrentPolicy: "",
-    strFullCurrentPolicy: "",
     jsonValidationErrors: [],
     showDefaultPolicy: false,
   };

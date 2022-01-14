@@ -44,7 +44,7 @@ export type PolicyEditorState = {
   currentPage: PolicyEditorPageEnum;
   jsonCurrentPolicy: any;
   strCurrentPolicy: string;
-  strFullCurrentPolicy: string;
+  // strFullCurrentPolicy: string;
   jsonParseError: boolean;
   jsonValidationErrors: PolicyValidationError[];
   policySrcUrl: string;
