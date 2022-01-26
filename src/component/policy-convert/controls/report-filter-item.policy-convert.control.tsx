@@ -5,6 +5,8 @@ export type ReportFilterItemPolicyConvertProps = {
   value?: number;
   text: string;
   color?: string;
+  active: boolean;
+  onClick: () => void;
 };
 
 const ItemContainer = styled("div")(({ color }) => {
@@ -21,6 +23,7 @@ const ItemContainer = styled("div")(({ color }) => {
     paddingTop: "7px",
     marginLeft: "24px",
     marginTop: "8px",
+    cursor: "pointer",
   };
 });
 
@@ -44,12 +47,14 @@ const TextSpan = styled("span")({
 });
 
 export const ReportFilterItemPolicyConvertControl: React.FunctionComponent<ReportFilterItemPolicyConvertProps> =
-  ({ value, text, color }) => {
+  ({ value, text, color, active, onClick }) => {
+    const hasValue = value !== undefined && value > 0;
+
     return (
-      <ItemContainer>
-        <NumberSpan color={value !== undefined ? color : undefined}>
-          {value ?? "--"}
-        </NumberSpan>{" "}
+      <ItemContainer onClick={() => onClick()}>
+        <NumberSpan color={active ? (hasValue ? color : undefined) : "#C4C4C4"}>
+          {hasValue ? value : "--"}
+        </NumberSpan>
         <br /> <TextSpan>{text}</TextSpan>
       </ItemContainer>
     );

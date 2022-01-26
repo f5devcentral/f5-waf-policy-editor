@@ -67,12 +67,22 @@ export const ConvertSuccessPage: React.VoidFunctionComponent = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const btnRef = useRef<null | HTMLDivElement>(null);
 
+  const [filterState, setFilterState] = useState<{ [key: string]: boolean }>({
+    [KeyParsingResultEnum.notSupported]: true,
+    [KeyParsingResultEnum.success]: true,
+    [KeyParsingResultEnum.partially]: true,
+  });
+
   const onDownloadReport = () => {
     const link = document.createElement("a");
     link.download = `full-report.pdf`;
     link.href = "/convert/rsc/convert-result.pdf";
     link.click();
   };
+
+  const filteredLogData = !log?.data
+    ? undefined
+    : log?.data().filter((s) => filterState[s.keyParsingResultEnum]);
 
   return (
     <Box className={classes.pageContent}>
@@ -121,9 +131,23 @@ export const ConvertSuccessPage: React.VoidFunctionComponent = () => {
             fontWeight: "bold",
           }}
         >
-          Conversion Report
+          Report Summary
         </Typography>
-        <ReportFilterPolicyConvertControl />
+        <Typography
+          sx={{
+            marginLeft: "24px",
+            fontSize: "14px",
+            lineHeight: "26px",
+          }}
+        >
+          A full report is available for download
+        </Typography>
+        <ReportFilterPolicyConvertControl
+          filterToggle={(f, v) => {
+            filterState[f] = v;
+            setFilterState({ ...filterState });
+          }}
+        />
         <Paper
           elevation={3}
           style={{
@@ -143,9 +167,9 @@ export const ConvertSuccessPage: React.VoidFunctionComponent = () => {
               <TableHeadCell>Date & Time</TableHeadCell>
             </TableHead>
             <TableBody>
-              {!log?.data
+              {!filteredLogData
                 ? undefined
-                : log?.data().map((x) => (
+                : filteredLogData.map((x) => (
                     <TableRow>
                       <TableExportedCell>
                         {(() => {
