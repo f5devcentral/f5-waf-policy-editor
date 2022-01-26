@@ -24,6 +24,7 @@ import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import UpcomingIcon from "@mui/icons-material/Upcoming";
 import { KeyParsingResultEnum } from "../../../converter/model/key-parsing-result.enum";
 import { ReactComponent as DownloadIcon } from "../../../resources/toolbar/download.svg";
+import { ReportFilterPolicyConvertControl } from "../controls/report-filter.policy-convert.control";
 
 const TableHeadCell = withStyles({
   root: {
@@ -122,14 +123,16 @@ export const ConvertSuccessPage: React.VoidFunctionComponent = () => {
         >
           Conversion Report
         </Typography>
+        <ReportFilterPolicyConvertControl />
         <Paper
           elevation={3}
           style={{
             marginLeft: "24px",
             marginTop: "12px",
             marginRight: "4px",
-            height: "calc(100% - 150px)",
-            overflow: "scroll",
+            height: "calc(100% - 200px)",
+            overflowY: "scroll",
+            minHeight: "180px",
           }}
         >
           <Table stickyHeader>

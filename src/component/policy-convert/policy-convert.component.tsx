@@ -66,11 +66,11 @@ export const PolicyConvertComponent: React.FunctionComponent = () => {
           setPageHeight(newSize);
         }}
       >
-        <Pane style={{ overflow: "scroll" }}>{currentPage}</Pane>
+        <Pane style={{ overflowY: "scroll" }}>{currentPage}</Pane>
         <Pane
           style={{
             height: `calc(100vh - 122px - ${pageHeight}px)`,
-            overflow: "scroll",
+            overflowY: "scroll",
           }}
         >
           <CurrentPolicyPaneComponent

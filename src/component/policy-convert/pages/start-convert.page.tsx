@@ -9,6 +9,7 @@ import { ExpandMore } from "@mui/icons-material";
 import { ReactComponent as DownloadIcon } from "../../../resources/toolbar/download.svg";
 import { NoDataControl } from "../../policy-editor/controls/no-data.control";
 import Paper from "@mui/material/Paper";
+import { ReportFilterPolicyConvertControl } from "../controls/report-filter.policy-convert.control";
 
 export const StartConvertPage: React.VoidFunctionComponent = () => {
   const classes = useStyles();
@@ -41,11 +42,16 @@ export const StartConvertPage: React.VoidFunctionComponent = () => {
             fontWeight: "bold",
           }}
         >
-          Conversion Report
+          Report Summary
         </Typography>
+        <ReportFilterPolicyConvertControl />
         <Paper
           elevation={3}
-          style={{ margin: "24px", height: "calc(100% - 150px)" }}
+          style={{
+            margin: "24px",
+            height: "calc(100% - 200px)",
+            minHeight: "180px",
+          }}
         >
           <NoDataControl text="To start, copy/paste your policy into the JSON section below and convert your policy" />
         </Paper>
