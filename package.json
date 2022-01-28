@@ -21,6 +21,7 @@
     "jsonschema": "^1.4.0",
     "lodash": "^4.17.21",
     "lodash-move": "^1.1.1",
+    "postman-collection": "^4.1.1",
     "prismjs": "^1.25.0",
     "query-string": "^7.0.1",
     "react": "^17.0.2",
