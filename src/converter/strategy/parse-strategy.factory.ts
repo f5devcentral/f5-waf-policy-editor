@@ -14,6 +14,8 @@ import { SignatureSetsParseStrategy } from "./imp-nap/signature-sets.parse-strat
 import { ViolationsParseStrategy } from "./imp-nap/violations.parse-strategy";
 import { HttpProtocolsParseStrategy } from "./imp-nap/http-protocols.parse-strategy";
 import { EvasionsParseStrategy } from "./imp-nap/evasions.parse-strategy";
+import { FileTypesFieldFactory } from "../../store/policy-editor/visitor/imp/file-types-field.factory";
+import { FiletypesParseStrategy } from "./imp-nap/filetypes.parse-strategy";
 
 type TFactory = (context: ParseContextModel) => ParseStrategyBase;
 
@@ -24,7 +26,7 @@ export class ParseStrategyFactory {
     this.factory = {
       ".policy": (c) => new PassOverParseStrategy(c),
       ".policy.whitelist-ips": (c) => new WhitelistIpsParseStrategy(c),
-      ".policy.filetypes": (c) => new WhitelistIpsParseStrategy(c),
+      ".policy.filetypes": (c) => new FiletypesParseStrategy(c),
       ".policy.response-pages": (c) => new ResponsePagesParseStrategy(c),
       ".policy.enforcementMode": (c) => new EnforcementModeParseStrategy(c),
       ".policy.parameters": (c) => new ParametersParseStrategy(c),
