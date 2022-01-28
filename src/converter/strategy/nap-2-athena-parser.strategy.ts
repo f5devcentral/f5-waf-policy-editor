@@ -1,11 +1,20 @@
-import { Policy } from "../../model/policy-schema/policy.definitions";
 import { PassOverParseStrategy } from "./pass-over.parse-strategy";
 import { ParseContextModel } from "../model/parse-context.model";
+import { WaitEventEnum } from "./imp-nap/wait-event.enum";
+import { WaitEventUtil } from "../../utils/wait-event.util";
+import { PolicyContainerType } from "../model/policy-container.type";
 
 export class Nap2AthenaParserStrategy {
   constructor(private context: ParseContextModel) {}
-  parse(policy: Policy) {
+  async parse(policy: PolicyContainerType) {
+    this.context.waitEvents[WaitEventEnum.enforcementMode] =
+      new WaitEventUtil();
+
     const passOverStrategy = new PassOverParseStrategy(this.context);
-    passOverStrategy.parse(policy, "");
+    await passOverStrategy.parse(policy, "");
+
+    await Promise.all(
+      Object.values(this.context.waitEvents).map((x) => x.waitEvent())
+    );
   }
 }

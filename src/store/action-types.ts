@@ -9,4 +9,5 @@ export const POLICY_EDITOR_UI_SHOW_DEFAULT_POLICY_SET =
 
 export const POLICY_CONVERT_STAGE_SET = "policy-convert::stage::set";
 export const POLICY_CONVERT_LOG_SET = "policy-convert::log::set";
+export const POLICY_CONVERT_COLLECTION_SET = "policy-convert::collection::set";
 export const POLICY_CONVERT_SET_PROGRESS = "policy-convert::progress::set";

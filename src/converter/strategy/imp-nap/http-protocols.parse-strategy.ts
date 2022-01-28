@@ -11,7 +11,7 @@ const supportedHttpProtocols: string[] = [
 ];
 
 export class HttpProtocolsParseStrategy extends ParseStrategyBase {
-  parse(policyObj: any, fullPath: string): void {
+  parse(policyObj: any, fullPath: string) {
     let anyNotSupportedFlag = false;
     policyObj.forEach((x: HTTPProtocol) => {
       if (supportedHttpProtocols.includes(x.description ?? "")) {
@@ -42,5 +42,7 @@ export class HttpProtocolsParseStrategy extends ParseStrategyBase {
           : KeyParsingResultEnum.success
       )
     );
+
+    return Promise.resolve();
   }
 }

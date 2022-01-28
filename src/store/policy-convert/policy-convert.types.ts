@@ -13,6 +13,7 @@ export type PolicyConvertState = {
   convertStage: PolicyConvertStageEnum;
   convertPercentage: number;
   log?: StrategyLogModel;
+  collection?: string;
 };
 
 export interface PolicyConvertAction
@@ -21,6 +22,7 @@ export interface PolicyConvertAction
       convertStage: PolicyConvertStageEnum;
       convertPercentage: number;
       log: StrategyLogModel;
+      collection: string;
     }> {}
 
 export type PolicyConvertDispatch = (

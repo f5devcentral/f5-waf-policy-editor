@@ -1,10 +1,7 @@
-import {ParseContextModel} from "../model/parse-context.model";
+import { ParseContextModel } from "../model/parse-context.model";
 
 export abstract class ParseStrategyBase {
-    public constructor(
-        protected context: ParseContextModel
-    ) {
-    }
+  public constructor(protected context: ParseContextModel) {}
 
-    abstract parse(policyObj: any, fullPath: string): void;
+  abstract parse(policyObj: any, fullPath: string): Promise<void>;
 }

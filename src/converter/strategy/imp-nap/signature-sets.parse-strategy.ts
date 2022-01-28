@@ -26,7 +26,7 @@ const supportedSignatureSets: string[] = [
 ];
 
 export class SignatureSetsParseStrategy extends ParseStrategyBase {
-  parse(policyObj: any, fullPath: string): void {
+  parse(policyObj: any, fullPath: string) {
     let anyNotSupportedFlag = false;
     policyObj.forEach((x: BlockingSettingsViolation) => {
       if (supportedSignatureSets.includes(x.name ?? "")) {
@@ -57,5 +57,7 @@ export class SignatureSetsParseStrategy extends ParseStrategyBase {
           : KeyParsingResultEnum.success
       )
     );
+
+    return Promise.resolve();
   }
 }

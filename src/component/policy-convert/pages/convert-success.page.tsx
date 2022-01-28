@@ -25,6 +25,7 @@ import UpcomingIcon from "@mui/icons-material/Upcoming";
 import { KeyParsingResultEnum } from "../../../converter/model/key-parsing-result.enum";
 import { ReactComponent as DownloadIcon } from "../../../resources/toolbar/download.svg";
 import { ReportFilterPolicyConvertControl } from "../controls/report-filter.policy-convert.control";
+import { download } from "../../../utils/download.util";
 
 const TableHeadCell = withStyles({
   root: {
@@ -61,7 +62,7 @@ const ItemText = styled("div")({
 });
 
 export const ConvertSuccessPage: React.VoidFunctionComponent = () => {
-  const { log } = usePolicyConvertState();
+  const { log, collection } = usePolicyConvertState();
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -78,6 +79,11 @@ export const ConvertSuccessPage: React.VoidFunctionComponent = () => {
     link.download = `full-report.pdf`;
     link.href = "/convert/rsc/convert-result.pdf";
     link.click();
+  };
+
+  const onDownloadPostman = () => {
+    const date = new Date();
+    download(`postman-collection-${date.getTime()}.json`, collection ?? "");
   };
 
   const filteredLogData = !log?.data
@@ -105,7 +111,14 @@ export const ConvertSuccessPage: React.VoidFunctionComponent = () => {
             setAnchorEl(null);
           }}
         >
-          <MenuItem>Postman File</MenuItem>
+          <MenuItem
+            onClick={() => {
+              setAnchorEl(null);
+              onDownloadPostman();
+            }}
+          >
+            Postman File
+          </MenuItem>
           <MenuItem
             onClick={() => {
               setAnchorEl(null);

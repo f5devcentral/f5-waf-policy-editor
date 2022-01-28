@@ -2,6 +2,10 @@ import { ParseStrategyBase } from "../parse-strategy.base";
 import { KeyParsingResultEnum } from "../../model/key-parsing-result.enum";
 import { StrategyLogItemModel } from "../../model/strategy-log-item.model";
 import { BlockingSettingsViolation } from "../../../model/policy-schema/policy.definitions";
+import { WaitEventEnum } from "./wait-event.enum";
+import { WaitEventUtil } from "../../../utils/wait-event.util";
+import { blockAlarmUtil } from "./block-alarm.util";
+import { AllowedResponseCodesParseStrategy } from "./allowed-response-codes.parse-strategy";
 
 const supportedViolations: string[] = [
   "VIOL_FILETYPE",
@@ -19,28 +23,64 @@ const supportedViolations: string[] = [
 ];
 
 export class ViolationsParseStrategy extends ParseStrategyBase {
-  parse(policyObj: any, fullPath: string): void {
+  private defaultProcessing(
+    policyObj: any,
+    fullPath: string,
+    x: BlockingSettingsViolation
+  ) {
+    if (supportedViolations.includes(x.name ?? "")) {
+      this.context.strategyLog.add(
+        new StrategyLogItemModel(fullPath, KeyParsingResultEnum.success, x.name)
+      );
+
+      return true;
+    } else {
+      this.context.strategyLog.add(
+        new StrategyLogItemModel(
+          fullPath,
+          KeyParsingResultEnum.notSupported,
+          x.name
+        )
+      );
+
+      return false;
+    }
+  }
+
+  async parse(policyObj: any, fullPath: string) {
+    this.context.waitEvents[WaitEventEnum.violations] = new WaitEventUtil();
+    await this.context.waitEvents[WaitEventEnum.enforcementMode].waitEvent();
+
     let anyNotSupportedFlag = false;
-    policyObj.forEach((x: BlockingSettingsViolation) => {
-      if (supportedViolations.includes(x.name ?? "")) {
-        this.context.strategyLog.add(
-          new StrategyLogItemModel(
-            fullPath,
-            KeyParsingResultEnum.success,
-            x.name
-          )
-        );
-      } else {
-        anyNotSupportedFlag = true;
-        this.context.strategyLog.add(
-          new StrategyLogItemModel(
-            fullPath,
-            KeyParsingResultEnum.notSupported,
-            x.name
-          )
-        );
+    for await (const x of policyObj) {
+      switch (x.name) {
+        case "VIOL_HTTP_RESPONSE_STATUS": {
+          if (blockAlarmUtil(x, !!this.context.athenaFirewallDto.blocking)) {
+            const strategy = new AllowedResponseCodesParseStrategy(
+              this.context
+            );
+
+            await strategy.parse(
+              this.context.policyContainer.policy.general?.allowedResponseCodes,
+              "policy.general.allowedResponseCodes"
+            );
+          }
+
+          this.context.strategyLog.add(
+            new StrategyLogItemModel(
+              fullPath,
+              KeyParsingResultEnum.success,
+              x.name
+            )
+          );
+          break;
+        }
+        default:
+          anyNotSupportedFlag =
+            anyNotSupportedFlag ||
+            this.defaultProcessing(policyObj, fullPath, x);
       }
-    });
+    }
 
     this.context.strategyLog.add(
       new StrategyLogItemModel(
@@ -50,5 +90,7 @@ export class ViolationsParseStrategy extends ParseStrategyBase {
           : KeyParsingResultEnum.success
       )
     );
+
+    this.context.waitEvents[WaitEventEnum.violations].releaseEvent();
   }
 }

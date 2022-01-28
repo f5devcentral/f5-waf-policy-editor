@@ -6,7 +6,7 @@ import { HTTPProtocol } from "../../../model/policy-schema/policy.definitions";
 const supportedEvasions: string[] = ["Directory traversals"];
 
 export class EvasionsParseStrategy extends ParseStrategyBase {
-  parse(policyObj: any, fullPath: string): void {
+  parse(policyObj: any, fullPath: string): Promise<void> {
     let anyNotSupportedFlag = false;
     policyObj.forEach((x: HTTPProtocol) => {
       if (supportedEvasions.includes(x.description ?? "")) {
@@ -37,5 +37,7 @@ export class EvasionsParseStrategy extends ParseStrategyBase {
           : KeyParsingResultEnum.success
       )
     );
+
+    return Promise.resolve();
   }
 }

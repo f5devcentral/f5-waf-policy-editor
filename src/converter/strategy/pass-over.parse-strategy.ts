@@ -4,7 +4,7 @@ import { KeyParsingResultEnum } from "../model/key-parsing-result.enum";
 import { StrategyLogItemModel } from "../model/strategy-log-item.model";
 
 export class PassOverParseStrategy extends ParseStrategyBase {
-  parse(policyObj: any, fullPath: string): void {
+  parse(policyObj: any, fullPath: string) {
     const parserFactory = new ParseStrategyFactory();
 
     Object.keys(policyObj).forEach((k) => {
@@ -21,5 +21,7 @@ export class PassOverParseStrategy extends ParseStrategyBase {
         );
       }
     });
+
+    return Promise.resolve();
   }
 }

@@ -3,6 +3,7 @@ import {
   PolicyConvertStageEnum,
 } from "./policy-convert.types";
 import {
+  POLICY_CONVERT_COLLECTION_SET,
   POLICY_CONVERT_LOG_SET,
   POLICY_CONVERT_SET_PROGRESS,
   POLICY_CONVERT_STAGE_SET,
@@ -33,5 +34,14 @@ export function policyConvertSetLog(
   return {
     type: POLICY_CONVERT_LOG_SET,
     log,
+  };
+}
+
+export function policyConvertSetPostman(
+  collection: string
+): Pick<PolicyConvertAction, "type" | "collection"> {
+  return {
+    type: POLICY_CONVERT_COLLECTION_SET,
+    collection,
   };
 }

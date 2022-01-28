@@ -4,7 +4,6 @@ import { StrategyLogItemModel } from "../model/strategy-log-item.model";
 import { KeyParsingResultEnum } from "../model/key-parsing-result.enum";
 import { WhitelistIpsParseStrategy } from "./imp-nap/whitelist-ips.parse-strategy";
 import { PassOverParseStrategy } from "./pass-over.parse-strategy";
-import { AllowedResponseCodesParseStrategy } from "./imp-nap/allowed-response-codes.parse-strategy";
 import { ResponsePagesParseStrategy } from "./imp-nap/response-pages.parse-strategy";
 import { EnforcementModeParseStrategy } from "./imp-nap/enforcement-mode.parse-strategy";
 import { ParametersParseStrategy } from "./imp-nap/parameters.parse-strategy";
@@ -14,8 +13,8 @@ import { SignatureSetsParseStrategy } from "./imp-nap/signature-sets.parse-strat
 import { ViolationsParseStrategy } from "./imp-nap/violations.parse-strategy";
 import { HttpProtocolsParseStrategy } from "./imp-nap/http-protocols.parse-strategy";
 import { EvasionsParseStrategy } from "./imp-nap/evasions.parse-strategy";
-import { FileTypesFieldFactory } from "../../store/policy-editor/visitor/imp/file-types-field.factory";
 import { FiletypesParseStrategy } from "./imp-nap/filetypes.parse-strategy";
+import { IgnoreParseStrategy } from "./ignore.parse-strategy";
 
 type TFactory = (context: ParseContextModel) => ParseStrategyBase;
 
@@ -36,8 +35,7 @@ export class ParseStrategyFactory {
       ".policy.signature-sets": (c) => new SignatureSetsParseStrategy(c),
       //--------------------------------------------
       ".policy.general": (c) => new PassOverParseStrategy(c),
-      ".policy.general.allowedResponseCodes": (c) =>
-        new AllowedResponseCodesParseStrategy(c),
+      ".policy.general.allowedResponseCodes": (c) => new IgnoreParseStrategy(c),
       //--------------------------------------------
       ".policy.blocking-settings": (c) => new PassOverParseStrategy(c),
       ".policy.blocking-settings.violations": (c) =>

@@ -7,5 +7,7 @@ export class FiletypesParseStrategy extends ParseStrategyBase {
     this.context.strategyLog.add(
       new StrategyLogItemModel(fullPath, KeyParsingResultEnum.comingSoon)
     );
+
+    return Promise.resolve();
   }
 }
