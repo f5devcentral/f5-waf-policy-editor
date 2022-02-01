@@ -4,8 +4,9 @@ import { StrategyLogItemModel } from "../../model/strategy-log-item.model";
 import { BlockingSettingsViolation } from "../../../model/policy-schema/policy.definitions";
 import { WaitEventEnum } from "./wait-event.enum";
 import { WaitEventUtil } from "../../../utils/wait-event.util";
-import { blockAlarmUtil } from "./block-alarm.util";
-import { AllowedResponseCodesParseStrategy } from "./allowed-response-codes.parse-strategy";
+import { ParseContextModel } from "../../model/parse-context.model";
+import { HttpResponseStatusViolationParseStrategy } from "./violations.parse-strategy/http-response-status.violation.parse-strategy";
+import { ThreatCampaignViolationParseStrategy } from "./violations.parse-strategy/threat-campaign.violation.parse-strategy";
 
 const supportedViolations: string[] = [
   "VIOL_FILETYPE",
@@ -23,6 +24,18 @@ const supportedViolations: string[] = [
 ];
 
 export class ViolationsParseStrategy extends ParseStrategyBase {
+  private readonly violationParsers: { [key: string]: () => ParseStrategyBase };
+
+  constructor(protected context: ParseContextModel) {
+    super(context);
+
+    this.violationParsers = {};
+    this.violationParsers["VIOL_HTTP_RESPONSE_STATUS"] = () =>
+      new HttpResponseStatusViolationParseStrategy(context);
+    this.violationParsers["VIOL_THREAT_CAMPAIGN"] = () =>
+      new ThreatCampaignViolationParseStrategy(context);
+  }
+
   private defaultProcessing(
     policyObj: any,
     fullPath: string,
@@ -53,32 +66,12 @@ export class ViolationsParseStrategy extends ParseStrategyBase {
 
     let anyNotSupportedFlag = false;
     for await (const x of policyObj) {
-      switch (x.name) {
-        case "VIOL_HTTP_RESPONSE_STATUS": {
-          if (blockAlarmUtil(x, !!this.context.athenaFirewallDto.blocking)) {
-            const strategy = new AllowedResponseCodesParseStrategy(
-              this.context
-            );
-
-            await strategy.parse(
-              this.context.policyContainer.policy.general?.allowedResponseCodes,
-              "policy.general.allowedResponseCodes"
-            );
-          }
-
-          this.context.strategyLog.add(
-            new StrategyLogItemModel(
-              fullPath,
-              KeyParsingResultEnum.success,
-              x.name
-            )
-          );
-          break;
-        }
-        default:
-          anyNotSupportedFlag =
-            anyNotSupportedFlag ||
-            this.defaultProcessing(policyObj, fullPath, x);
+      if (this.violationParsers[x.name]) {
+        const parser = this.violationParsers[x.name]();
+        await parser.parse(x, fullPath);
+      } else {
+        anyNotSupportedFlag =
+          anyNotSupportedFlag || this.defaultProcessing(policyObj, fullPath, x);
       }
     }
 

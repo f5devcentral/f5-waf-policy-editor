@@ -8,7 +8,6 @@ import { ResponsePagesParseStrategy } from "./imp-nap/response-pages.parse-strat
 import { EnforcementModeParseStrategy } from "./imp-nap/enforcement-mode.parse-strategy";
 import { ParametersParseStrategy } from "./imp-nap/parameters.parse-strategy";
 import { SensitiveParametersParseStrategy } from "./imp-nap/sensitive-parameters.parse-strategy";
-import { ThreadCampaignsParseStrategy } from "./imp-nap/thread-campaigns.parse-strategy";
 import { SignatureSetsParseStrategy } from "./imp-nap/signature-sets.parse-strategy";
 import { ViolationsParseStrategy } from "./imp-nap/violations.parse-strategy";
 import { HttpProtocolsParseStrategy } from "./imp-nap/http-protocols.parse-strategy";
@@ -31,7 +30,7 @@ export class ParseStrategyFactory {
       ".policy.parameters": (c) => new ParametersParseStrategy(c),
       ".policy.sensitive-parameters": (c) =>
         new SensitiveParametersParseStrategy(c),
-      ".policy.thread-campaigns": (c) => new ThreadCampaignsParseStrategy(c),
+      ".policy.thread-campaigns": (c) => new IgnoreParseStrategy(c),
       ".policy.signature-sets": (c) => new SignatureSetsParseStrategy(c),
       //--------------------------------------------
       ".policy.general": (c) => new PassOverParseStrategy(c),

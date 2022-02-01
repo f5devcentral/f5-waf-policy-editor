@@ -12,7 +12,7 @@ import {
 } from "../policy-convert.actions";
 import { Nap2AthenaParserStrategy } from "../../../converter/strategy/nap-2-athena-parser.strategy";
 import { ParseContextModel } from "../../../converter/model/parse-context.model";
-import { PostmanCollectionBuilder } from "../../../converter/strategy/postman-collection/postman-collection.builder";
+import { PostmanCollectionBuilder } from "../../../converter/builder/postman-collection.builder";
 
 export function policyConvertStrategy(): ThunkAction<
   any,

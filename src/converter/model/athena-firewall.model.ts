@@ -4,8 +4,14 @@ export type AllowedResponseCodes = {
   response_code: string[];
 };
 
+export type DetectionSettings = {
+  disable_threat_campaigns?: EmptyObject;
+  enable_threat_campaigns?: EmptyObject;
+};
+
 export type AthenaFirewallModel = {
   blocking?: EmptyObject;
   monitoring?: EmptyObject;
   allowed_response_codes?: AllowedResponseCodes;
+  detection_settings?: DetectionSettings;
 };

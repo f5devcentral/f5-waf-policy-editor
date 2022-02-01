@@ -1,4 +1,4 @@
-import { AthenaFirewallModel } from "../../model/athena-firewall.model";
+import { AthenaFirewallModel } from "../model/athena-firewall.model";
 
 export class PostmanCollectionBuilder {
   constructor(private collection: any) {}
