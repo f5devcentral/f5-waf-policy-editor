@@ -44,11 +44,11 @@ export type PolicyEditorState = {
   currentPage: PolicyEditorPageEnum;
   jsonCurrentPolicy: any;
   strCurrentPolicy: string;
-  // strFullCurrentPolicy: string;
   jsonParseError: boolean;
   jsonValidationErrors: PolicyValidationError[];
   policySrcUrl: string;
   showDefaultPolicy: boolean;
+  policyType: string;
 };
 
 export interface PolicyEditorAction
@@ -60,6 +60,7 @@ export interface PolicyEditorAction
       visitor: (currentJson: any) => void;
       policySrcUrl: string;
       showDefaultPolicy: boolean;
+      policyType: string;
     }> {}
 
 export type PolicyEditorDispatch = (

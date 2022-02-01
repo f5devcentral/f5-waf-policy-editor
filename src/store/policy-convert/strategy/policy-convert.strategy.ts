@@ -13,6 +13,7 @@ import {
 import { Nap2AthenaParserStrategy } from "../../../converter/strategy/nap-2-athena-parser.strategy";
 import { ParseContextModel } from "../../../converter/model/parse-context.model";
 import { PostmanCollectionBuilder } from "../../../converter/builder/postman-collection.builder";
+import { Awaf2AthenaParserStrategy } from "../../../converter/strategy/awaf-2-athena-parser.strategy";
 
 export function policyConvertStrategy(): ThunkAction<
   any,
@@ -33,11 +34,15 @@ export function policyConvertStrategy(): ThunkAction<
 
         const state = getState();
         const fullPolicy = JSON.parse(state.policyEditorState.strCurrentPolicy);
+        const policyType = state.policyEditorState.policyType;
 
         const context = new ParseContextModel(fullPolicy);
-        const napParser = new Nap2AthenaParserStrategy(context);
+        const parser =
+          policyType === "App Protect"
+            ? new Nap2AthenaParserStrategy(context)
+            : new Awaf2AthenaParserStrategy(context);
 
-        napParser.parse(fullPolicy).then(() => {
+        parser.parse(fullPolicy).then(() => {
           const collection: any = {};
           const collectionBuilder = new PostmanCollectionBuilder(collection);
 

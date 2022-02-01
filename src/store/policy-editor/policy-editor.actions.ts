@@ -7,6 +7,7 @@ import {
   POLICY_EDITOR_JSON_TEXT_SET,
   POLICY_EDITOR_JSON_VISIT,
   POLICY_EDITOR_PAGE_SET,
+  POLICY_EDITOR_POLICY_TYPE_SET,
   POLICY_EDITOR_UI_SHOW_DEFAULT_POLICY_SET,
 } from "../action-types";
 
@@ -56,5 +57,14 @@ export function policyEditorShowDefaultPolicySet(
   return {
     type: POLICY_EDITOR_UI_SHOW_DEFAULT_POLICY_SET,
     showDefaultPolicy: show,
+  };
+}
+
+export function policyEditorSetPolicyType(
+  policyType: string
+): Pick<PolicyEditorAction, "type" | "policyType"> {
+  return {
+    type: POLICY_EDITOR_POLICY_TYPE_SET,
+    policyType,
   };
 }

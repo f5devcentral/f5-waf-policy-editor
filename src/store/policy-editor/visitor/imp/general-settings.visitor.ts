@@ -2,7 +2,10 @@ import { set as _set } from "lodash";
 import { BaseVisitor } from "../interface/base.visitor";
 import { FieldResolverVisitor } from "../interface/field-resolver.visitor";
 import { FieldFactoryVisitor } from "../interface/field-factory.visitor";
-import { policyEditorJsonVisit } from "../../policy-editor.actions";
+import {
+  policyEditorJsonVisit,
+  policyEditorSetPolicyType,
+} from "../../policy-editor.actions";
 import { defaultGeneralSettings } from "../../../../model/policy-editor.defaults.model";
 import { GridFieldValue } from "../../../../component/policy-editor/controls/grid-field-value.type";
 import { DropListFieldControl } from "../../../../component/policy-editor/controls/field-control/drop-list.field-control";
@@ -50,10 +53,15 @@ export class GeneralSettingsVisitor
       {
         title: "Policy Type",
         errorPath: [""],
-        controlInfo: new DropListFieldControl("", "App Protect", "", () => {}, [
+        controlInfo: new DropListFieldControl(
+          "",
           "App Protect",
-          "Advanced WAF",
-        ]),
+          "",
+          (value) => {
+            this.dispatch(policyEditorSetPolicyType(value));
+          },
+          ["App Protect", "Advanced WAF"]
+        ),
       },
       this.tableFieldValueFactory.createTextEditFieldControl(
         "Policy Name",
