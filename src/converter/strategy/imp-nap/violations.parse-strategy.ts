@@ -131,11 +131,10 @@ export class ViolationsParseStrategy extends ParseStrategyBase {
       if (this.violationParsers[x.name]) {
         const parser = this.violationParsers[x.name]();
         await parser.parse(x, fullPath);
+      } else {
+        anyNotSupportedFlag =
+          anyNotSupportedFlag || (await this.defaultProcessing(x, fullPath, x));
       }
-
-      anyNotSupportedFlag =
-        anyNotSupportedFlag ||
-        (await this.defaultProcessing(policyObj, fullPath, x));
     }
 
     this.context.strategyLog.add(

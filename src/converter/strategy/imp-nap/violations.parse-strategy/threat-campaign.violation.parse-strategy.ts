@@ -7,6 +7,8 @@ import { ThreatCampaignsParseStrategy } from "../threat-campaigns.parse-strategy
 export class ThreatCampaignViolationParseStrategy extends ParseStrategyBase {
   async parse(policyObj: any, fullPath: string): Promise<void> {
     if (blockAlarmUtil(policyObj, !!this.context.athenaFirewallDto.blocking)) {
+      this.context.markSupportedViolation("VIOL_THREAT_CAMPAIGN");
+
       const strategy = new ThreatCampaignsParseStrategy(this.context);
       await strategy.parse(
         this.context.policyContainer.policy["threat-campaigns"],

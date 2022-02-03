@@ -6,7 +6,9 @@ import { ThreatCampaign } from "../../../model/policy-schema/policy.definitions"
 
 export class ThreatCampaignsParseStrategy extends ParseStrategyBase {
   parse(policyObj: any, fullPath: string) {
-    const isEnabled = policyObj.some((x: ThreatCampaign) => x.isEnabled);
+    const isEnabled = policyObj
+      ? policyObj.some((x: ThreatCampaign) => x.isEnabled)
+      : true;
 
     if (isEnabled) {
       _set(

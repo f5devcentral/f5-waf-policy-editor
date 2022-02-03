@@ -7,6 +7,8 @@ import { ParseStrategyBase } from "../../parse-strategy.base";
 export class HttpResponseStatusViolationParseStrategy extends ParseStrategyBase {
   async parse(policyObj: any, fullPath: string) {
     if (blockAlarmUtil(policyObj, !!this.context.athenaFirewallDto.blocking)) {
+      this.context.markSupportedViolation("VIOL_HTTP_RESPONSE_STATUS");
+
       const strategy = new AllowedResponseCodesParseStrategy(this.context);
 
       await strategy.parse(

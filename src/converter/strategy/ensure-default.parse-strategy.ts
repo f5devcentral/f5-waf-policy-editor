@@ -19,7 +19,7 @@ export class EnsureDefaultParseStrategy extends ParseStrategyBase {
       }
     }
 
-    if (!this.context.athenaFirewallDto.allowed_response_codes) {
+    if (this.context.athenaFirewallDto.allowed_response_codes) {
       this.context.athenaFirewallDto.allow_all_response_codes = {};
     }
 
