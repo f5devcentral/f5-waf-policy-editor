@@ -28,11 +28,10 @@ export class ParseContextModel {
       namespace: "{{NAMESPACE}}",
     };
 
-    this.athenaFirewallDto.violation_settings = {
-      disabled_violation_types: JSON.parse(JSON.stringify(athenaViolations)),
-    };
-
     this.athenaFirewallDto.detection_settings = {
+      violation_settings: {
+        disabled_violation_types: JSON.parse(JSON.stringify(athenaViolations)),
+      },
       signature_selection_setting: {
         attack_type_settings: {
           disabled_attack_types: JSON.parse(
@@ -44,11 +43,14 @@ export class ParseContextModel {
   }
 
   markSupportedViolation(violation: string) {
-    if (!this.athenaFirewallDto.violation_settings?.disabled_violation_types)
+    if (
+      !this.athenaFirewallDto.detection_settings?.violation_settings
+        ?.disabled_violation_types
+    )
       return;
 
-    this.athenaFirewallDto.violation_settings.disabled_violation_types =
-      this.athenaFirewallDto.violation_settings.disabled_violation_types.filter(
+    this.athenaFirewallDto.detection_settings.violation_settings.disabled_violation_types =
+      this.athenaFirewallDto.detection_settings.violation_settings.disabled_violation_types.filter(
         (x: string) => x !== violation
       );
   }

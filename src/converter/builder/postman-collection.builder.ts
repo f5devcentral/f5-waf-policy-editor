@@ -20,18 +20,13 @@ export class PostmanCollectionBuilder {
         type: "default",
       },
       {
-        id: "FIREWALL_NAME",
-        value: "demo-fw",
-        type: "default",
-      },
-      {
         id: "API_TOKEN",
         value: "",
         type: "default",
       },
       {
         id: "HOST",
-        value: "console.ves.volterra.io",
+        value: "playground.staging.volterra.us",
         type: "default",
       },
     ];

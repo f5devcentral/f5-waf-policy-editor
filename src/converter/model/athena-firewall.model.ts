@@ -16,23 +16,38 @@ export type SignatureSelectionSettings = {
 };
 
 export type DetectionSettings = {
+  enable_suppression?: EmptyObject;
   disable_threat_campaigns?: EmptyObject;
   enable_threat_campaigns?: EmptyObject;
   signature_selection_setting?: SignatureSelectionSettings;
+  violation_settings?: ViolationsSettings;
 };
 
 export type ViolationsSettings = {
   disabled_violation_types: string[];
 };
 
+export type BotProtectionSettings = {
+  malicious_bot_action: string;
+  suspicious_bot_action: string;
+  good_bot_action: string;
+};
+
 export type AthenaFirewallModel = {
   blocking?: EmptyObject;
   monitoring?: EmptyObject;
+  allow_all_response_codes?: EmptyObject;
   allowed_response_codes?: AllowedResponseCodes;
   default_detection_settings?: EmptyObject;
   detection_settings?: DetectionSettings;
   default_bot_setting?: EmptyObject;
-  violation_settings?: ViolationsSettings;
+  bot_protection_setting?: BotProtectionSettings;
+  disable_anonymization?: EmptyObject;
+  use_default_blocking_page?: EmptyObject;
+
+  // TODO
+  custom_anonymization?: EmptyObject;
+  blocking_page?: EmptyObject;
 };
 
 export type AthenaFirewallMetadataModel = {
