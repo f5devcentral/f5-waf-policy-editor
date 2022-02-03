@@ -1,12 +1,19 @@
 import { StrategyLogModel } from "./strategy-log.model";
-import { AthenaFirewallModel } from "./athena-firewall.model";
+import {
+  AthenaFirewallMetadataModel,
+  AthenaFirewallModel,
+} from "./athena-firewall.model";
 import { WaitEventUtil } from "../../utils/wait-event.util";
 import { PolicyContainerType } from "./policy-container.type";
-import { athenaViolations } from "../strategy/athena.const";
+import {
+  athenaAttackSignatures,
+  athenaViolations,
+} from "../strategy/athena.const";
 
 export class ParseContextModel {
   public strategyLog: StrategyLogModel;
   public athenaFirewallDto: AthenaFirewallModel;
+  public athenaFirewallMetadataDto: AthenaFirewallMetadataModel;
   public conversionFailed: boolean;
   public waitEvents: { [key: string]: WaitEventUtil };
 
@@ -16,8 +23,23 @@ export class ParseContextModel {
     this.conversionFailed = false;
     this.waitEvents = {};
 
+    this.athenaFirewallMetadataDto = {
+      name: "",
+      namespace: "{{NAMESPACE}}",
+    };
+
     this.athenaFirewallDto.violation_settings = {
       disabled_violation_types: JSON.parse(JSON.stringify(athenaViolations)),
+    };
+
+    this.athenaFirewallDto.detection_settings = {
+      signature_selection_setting: {
+        attack_type_settings: {
+          disabled_attack_types: JSON.parse(
+            JSON.stringify(athenaAttackSignatures)
+          ),
+        },
+      },
     };
   }
 
@@ -28,6 +50,19 @@ export class ParseContextModel {
     this.athenaFirewallDto.violation_settings.disabled_violation_types =
       this.athenaFirewallDto.violation_settings.disabled_violation_types.filter(
         (x: string) => x !== violation
+      );
+  }
+
+  markSupportedAttackSignature(signature: string) {
+    if (
+      !this.athenaFirewallDto.detection_settings?.signature_selection_setting
+        ?.attack_type_settings?.disabled_attack_types
+    )
+      return;
+
+    this.athenaFirewallDto.detection_settings.signature_selection_setting.attack_type_settings.disabled_attack_types =
+      this.athenaFirewallDto.detection_settings.signature_selection_setting.attack_type_settings.disabled_attack_types.filter(
+        (x) => x !== signature
       );
   }
 }

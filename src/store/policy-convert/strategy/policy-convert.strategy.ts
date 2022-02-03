@@ -47,7 +47,10 @@ export function policyConvertStrategy(): ThunkAction<
           const collectionBuilder = new PostmanCollectionBuilder(collection);
 
           collectionBuilder.initCollection();
-          collectionBuilder.callFirewallCreate(context.athenaFirewallDto);
+          collectionBuilder.callFirewallCreate(
+            context.athenaFirewallDto,
+            context.athenaFirewallMetadataDto
+          );
 
           dispatch(policyConvertSetLog(context.strategyLog));
           dispatch(

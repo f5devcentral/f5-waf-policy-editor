@@ -8,10 +8,10 @@ import { ResponsePagesParseStrategy } from "./imp-nap/response-pages.parse-strat
 import { EnforcementModeParseStrategy } from "./imp-nap/enforcement-mode.parse-strategy";
 import { ParametersParseStrategy } from "./imp-nap/parameters.parse-strategy";
 import { SensitiveParametersParseStrategy } from "./imp-nap/sensitive-parameters.parse-strategy";
-import { SignatureSetsParseStrategy } from "./imp-nap/signature-sets.parse-strategy";
 import { ViolationsParseStrategy } from "./imp-nap/violations.parse-strategy";
 import { FiletypesParseStrategy } from "./imp-nap/filetypes.parse-strategy";
 import { IgnoreParseStrategy } from "./ignore.parse-strategy";
+import { PolicyNameParseStrategy } from "./imp-nap/policy-name.parse-strategy";
 
 type TFactory = (context: ParseContextModel) => ParseStrategyBase;
 
@@ -21,6 +21,7 @@ export class ParseStrategyFactory {
   constructor() {
     this.factory = {
       ".policy": (c) => new PassOverParseStrategy(c),
+      ".policy.name": (c) => new PolicyNameParseStrategy(c),
       ".policy.whitelist-ips": (c) => new WhitelistIpsParseStrategy(c),
       ".policy.filetypes": (c) => new FiletypesParseStrategy(c),
       ".policy.response-pages": (c) => new ResponsePagesParseStrategy(c),
@@ -29,7 +30,7 @@ export class ParseStrategyFactory {
       ".policy.sensitive-parameters": (c) =>
         new SensitiveParametersParseStrategy(c),
       ".policy.thread-campaigns": (c) => new IgnoreParseStrategy(c),
-      ".policy.signature-sets": (c) => new SignatureSetsParseStrategy(c),
+      ".policy.signature-sets": (c) => new IgnoreParseStrategy(c),
       //--------------------------------------------
       ".policy.general": (c) => new PassOverParseStrategy(c),
       ".policy.general.allowedResponseCodes": (c) => new IgnoreParseStrategy(c),

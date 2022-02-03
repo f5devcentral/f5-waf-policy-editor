@@ -1,4 +1,7 @@
-import { AthenaFirewallModel } from "../model/athena-firewall.model";
+import {
+  AthenaFirewallMetadataModel,
+  AthenaFirewallModel,
+} from "../model/athena-firewall.model";
 
 export class PostmanCollectionBuilder {
   constructor(private collection: any) {}
@@ -34,7 +37,10 @@ export class PostmanCollectionBuilder {
     ];
   }
 
-  callFirewallCreate(createObject: AthenaFirewallModel) {
+  callFirewallCreate(
+    createObject: AthenaFirewallModel,
+    metadata: AthenaFirewallMetadataModel
+  ) {
     if (!this.collection.items) this.collection.items = [];
 
     this.collection.items.push({
@@ -56,7 +62,14 @@ export class PostmanCollectionBuilder {
         method: "POST",
         body: {
           mode: "raw",
-          raw: JSON.stringify(createObject, null, 2),
+          raw: JSON.stringify(
+            {
+              metadata: metadata,
+              spec: createObject,
+            },
+            null,
+            2
+          ),
           options: {
             raw: {
               language: "json",
