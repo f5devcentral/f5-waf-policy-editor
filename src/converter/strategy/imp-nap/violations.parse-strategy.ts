@@ -7,25 +7,12 @@ import { WaitEventUtil } from "../../../utils/wait-event.util";
 import { ParseContextModel } from "../../model/parse-context.model";
 import { HttpResponseStatusViolationParseStrategy } from "./violations.parse-strategy/http-response-status.violation.parse-strategy";
 import { ThreatCampaignViolationParseStrategy } from "./violations.parse-strategy/threat-campaign.violation.parse-strategy";
-
-const supportedViolations: string[] = [
-  "VIOL_FILETYPE",
-  "VIOL_METHOD",
-  "VIOL_MANDATORY_HEADER",
-  "VIOL_HTTP_RESPONSE_STATUS",
-  "VIOL_REQUEST_MAX_LENGTH",
-  "VIOL_FILE_UPLOAD",
-  "VIOL_FILE_UPLOAD_IN_BODY",
-  "VIOL_XML_MALFORMED",
-  "VIOL_JSON_MALFORMED",
-  "VIOL_ASM_COOKIE_MODIFIED",
-  "VIOL_HTTP_PROTOCOL",
-  "VIOL_EVASION",
-];
+import { blockAlarmUtil } from "./block-alarm.util";
+import { HttpProtocolsParseStrategy } from "./http-protocols.parse-strategy";
+import { EvasionsParseStrategy } from "./evasions.parse-strategy";
 
 export class ViolationsParseStrategy extends ParseStrategyBase {
   private readonly violationParsers: { [key: string]: () => ParseStrategyBase };
-
   constructor(protected context: ParseContextModel) {
     super(context);
 
@@ -36,27 +23,87 @@ export class ViolationsParseStrategy extends ParseStrategyBase {
       new ThreatCampaignViolationParseStrategy(context);
   }
 
-  private defaultProcessing(
+  private async defaultProcessing(
     policyObj: any,
     fullPath: string,
     x: BlockingSettingsViolation
-  ) {
-    if (supportedViolations.includes(x.name ?? "")) {
-      this.context.strategyLog.add(
-        new StrategyLogItemModel(fullPath, KeyParsingResultEnum.success, x.name)
-      );
+  ): Promise<boolean> {
+    switch (policyObj.name) {
+      case "VIOL_FILETYPE":
+      case "VIOL_METHOD":
+      case "VIOL_MANDATORY_HEADER":
+      case "VIOL_HTTP_RESPONSE_STATUS":
+      case "VIOL_REQUEST_MAX_LENGTH":
+      case "VIOL_FILE_UPLOAD":
+      case "VIOL_FILE_UPLOAD_IN_BODY":
+      case "VIOL_XML_MALFORMED":
+      case "VIOL_JSON_MALFORMED":
+      case "VIOL_ASM_COOKIE_MODIFIED": {
+        if (
+          blockAlarmUtil(policyObj, !!this.context.athenaFirewallDto.blocking)
+        ) {
+          this.context.markSupportedViolation(policyObj.name);
+        }
+        this.context.strategyLog.add(
+          new StrategyLogItemModel(
+            fullPath,
+            KeyParsingResultEnum.success,
+            policyObj.name
+          )
+        );
+        return true;
+      }
+      case "VIOL_HTTP_PROTOCOL": {
+        if (
+          blockAlarmUtil(policyObj, !!this.context.athenaFirewallDto.blocking)
+        ) {
+          const parser = new HttpProtocolsParseStrategy(this.context);
+          if (
+            this.context.policyContainer.policy["blocking-settings"] &&
+            this.context.policyContainer.policy["blocking-settings"][
+              "http-protocols"
+            ]
+          ) {
+            await parser.parse(
+              this.context.policyContainer.policy["blocking-settings"][
+                "http-protocols"
+              ],
+              "policy.blocking-settings.http-protocols"
+            );
+          }
+        }
+        return true;
+      }
+      case "VIOL_EVASION": {
+        if (
+          blockAlarmUtil(policyObj, !!this.context.athenaFirewallDto.blocking)
+        ) {
+          const parser = new EvasionsParseStrategy(this.context);
+          if (
+            this.context.policyContainer.policy["blocking-settings"] &&
+            this.context.policyContainer.policy["blocking-settings"]["evasions"]
+          ) {
+            await parser.parse(
+              this.context.policyContainer.policy["blocking-settings"][
+                "evasions"
+              ],
+              "policy.blocking-settings.http-evasions"
+            );
+          }
+        }
+        return true;
+      }
+      default: {
+        this.context.strategyLog.add(
+          new StrategyLogItemModel(
+            fullPath,
+            KeyParsingResultEnum.notSupported,
+            x.name
+          )
+        );
 
-      return true;
-    } else {
-      this.context.strategyLog.add(
-        new StrategyLogItemModel(
-          fullPath,
-          KeyParsingResultEnum.notSupported,
-          x.name
-        )
-      );
-
-      return false;
+        return false;
+      }
     }
   }
 
@@ -69,10 +116,11 @@ export class ViolationsParseStrategy extends ParseStrategyBase {
       if (this.violationParsers[x.name]) {
         const parser = this.violationParsers[x.name]();
         await parser.parse(x, fullPath);
-      } else {
-        anyNotSupportedFlag =
-          anyNotSupportedFlag || this.defaultProcessing(policyObj, fullPath, x);
       }
+
+      anyNotSupportedFlag =
+        anyNotSupportedFlag ||
+        (await this.defaultProcessing(policyObj, fullPath, x));
     }
 
     this.context.strategyLog.add(

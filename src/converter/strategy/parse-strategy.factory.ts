@@ -10,8 +10,6 @@ import { ParametersParseStrategy } from "./imp-nap/parameters.parse-strategy";
 import { SensitiveParametersParseStrategy } from "./imp-nap/sensitive-parameters.parse-strategy";
 import { SignatureSetsParseStrategy } from "./imp-nap/signature-sets.parse-strategy";
 import { ViolationsParseStrategy } from "./imp-nap/violations.parse-strategy";
-import { HttpProtocolsParseStrategy } from "./imp-nap/http-protocols.parse-strategy";
-import { EvasionsParseStrategy } from "./imp-nap/evasions.parse-strategy";
 import { FiletypesParseStrategy } from "./imp-nap/filetypes.parse-strategy";
 import { IgnoreParseStrategy } from "./ignore.parse-strategy";
 
@@ -40,8 +38,8 @@ export class ParseStrategyFactory {
       ".policy.blocking-settings.violations": (c) =>
         new ViolationsParseStrategy(c),
       ".policy.blocking-settings.http-protocols": (c) =>
-        new HttpProtocolsParseStrategy(c),
-      ".policy.blocking-settings.evasions": (c) => new EvasionsParseStrategy(c),
+        new IgnoreParseStrategy(c),
+      ".policy.blocking-settings.evasions": (c) => new IgnoreParseStrategy(c),
     };
   }
 

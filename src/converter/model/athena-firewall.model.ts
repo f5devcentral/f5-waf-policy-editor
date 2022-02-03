@@ -9,6 +9,10 @@ export type DetectionSettings = {
   enable_threat_campaigns?: EmptyObject;
 };
 
+export type ViolationsSettings = {
+  disabled_violation_types: string[];
+};
+
 export type AthenaFirewallModel = {
   blocking?: EmptyObject;
   monitoring?: EmptyObject;
@@ -16,4 +20,5 @@ export type AthenaFirewallModel = {
   default_detection_settings?: EmptyObject;
   detection_settings?: DetectionSettings;
   default_bot_setting?: EmptyObject;
+  violation_settings?: ViolationsSettings;
 };

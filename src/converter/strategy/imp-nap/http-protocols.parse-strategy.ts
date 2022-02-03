@@ -1,47 +1,32 @@
 import { ParseStrategyBase } from "../parse-strategy.base";
 import { KeyParsingResultEnum } from "../../model/key-parsing-result.enum";
 import { StrategyLogItemModel } from "../../model/strategy-log-item.model";
-import { HTTPProtocol } from "../../../model/policy-schema/policy.definitions";
-
-const supportedHttpProtocols: string[] = [
-  "Multiple host headers",
-  "Header name with no header value",
-  "Null in request",
-  "Retrieving data. Wait a few seconds and try to cut or copy again.",
-];
+import { supportedHttpProtocols } from "../athena.const";
 
 export class HttpProtocolsParseStrategy extends ParseStrategyBase {
   parse(policyObj: any, fullPath: string) {
-    let anyNotSupportedFlag = false;
-    policyObj.forEach((x: HTTPProtocol) => {
-      if (supportedHttpProtocols.includes(x.description ?? "")) {
+    for (const protocol of policyObj) {
+      if (supportedHttpProtocols[protocol.description]) {
+        this.context.markSupportedViolation(
+          supportedHttpProtocols[protocol.description]
+        );
         this.context.strategyLog.add(
           new StrategyLogItemModel(
             fullPath,
             KeyParsingResultEnum.success,
-            x.description
+            policyObj.description
           )
         );
       } else {
-        anyNotSupportedFlag = true;
         this.context.strategyLog.add(
           new StrategyLogItemModel(
             fullPath,
             KeyParsingResultEnum.notSupported,
-            x.description
+            policyObj.description
           )
         );
       }
-    });
-
-    this.context.strategyLog.add(
-      new StrategyLogItemModel(
-        fullPath,
-        anyNotSupportedFlag
-          ? KeyParsingResultEnum.partially
-          : KeyParsingResultEnum.success
-      )
-    );
+    }
 
     return Promise.resolve();
   }

@@ -56,7 +56,7 @@ export class PostmanCollectionBuilder {
         method: "POST",
         body: {
           mode: "raw",
-          raw: JSON.stringify(createObject),
+          raw: JSON.stringify(createObject, null, 2),
           options: {
             raw: {
               language: "json",

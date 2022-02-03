@@ -50,7 +50,9 @@ export function policyConvertStrategy(): ThunkAction<
           collectionBuilder.callFirewallCreate(context.athenaFirewallDto);
 
           dispatch(policyConvertSetLog(context.strategyLog));
-          dispatch(policyConvertSetPostman(JSON.stringify(collection)));
+          dispatch(
+            policyConvertSetPostman(JSON.stringify(collection, null, 2))
+          );
 
           dispatch(
             policyConvertSetStage(PolicyConvertStageEnum.convertSuccess)
