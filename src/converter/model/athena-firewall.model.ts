@@ -53,4 +53,5 @@ export type AthenaFirewallModel = {
 export type AthenaFirewallMetadataModel = {
   name: string;
   namespace: string;
+  description: string;
 };

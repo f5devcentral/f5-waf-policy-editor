@@ -12,6 +12,7 @@ import { ViolationsParseStrategy } from "./imp-nap/violations.parse-strategy";
 import { FiletypesParseStrategy } from "./imp-nap/filetypes.parse-strategy";
 import { IgnoreParseStrategy } from "./ignore.parse-strategy";
 import { PolicyNameParseStrategy } from "./imp-nap/policy-name.parse-strategy";
+import { PolicyDescriptionParseStrategy } from "./imp-nap/policy-description.parse-strategy";
 
 type TFactory = (context: ParseContextModel) => ParseStrategyBase;
 
@@ -22,6 +23,14 @@ export class ParseStrategyFactory {
     this.factory = {
       ".policy": (c) => new PassOverParseStrategy(c),
       ".policy.name": (c) => new PolicyNameParseStrategy(c),
+      ".policy.description": (c) => new PolicyDescriptionParseStrategy(c),
+      ".policy.applicationLanguage": (c) => new IgnoreParseStrategy(c),
+      ".policy.template": (c) => new IgnoreParseStrategy(c),
+      ".policy.caseInsensitive": (c) => new IgnoreParseStrategy(c),
+      ".policy.enablePassiveMode": (c) => new IgnoreParseStrategy(c),
+      ".policy.softwareVersion": (c) => new IgnoreParseStrategy(c),
+      ".policy.protocolIndependent": (c) => new IgnoreParseStrategy(c),
+      ".policy.type": (c) => new IgnoreParseStrategy(c),
       ".policy.whitelist-ips": (c) => new WhitelistIpsParseStrategy(c),
       ".policy.filetypes": (c) => new FiletypesParseStrategy(c),
       ".policy.response-pages": (c) => new ResponsePagesParseStrategy(c),

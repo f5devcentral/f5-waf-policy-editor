@@ -5,7 +5,7 @@ import { StrategyLogItemModel } from "../../model/strategy-log-item.model";
 export class FiletypesParseStrategy extends ParseStrategyBase {
   parse(policyObj: any, fullPath: string) {
     this.context.strategyLog.add(
-      new StrategyLogItemModel(fullPath, KeyParsingResultEnum.comingSoon)
+      new StrategyLogItemModel(fullPath, KeyParsingResultEnum.notSupported)
     );
 
     return Promise.resolve();

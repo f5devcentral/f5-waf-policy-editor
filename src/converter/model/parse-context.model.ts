@@ -26,6 +26,7 @@ export class ParseContextModel {
     this.athenaFirewallMetadataDto = {
       name: "",
       namespace: "{{NAMESPACE}}",
+      description: "",
     };
 
     this.athenaFirewallDto.detection_settings = {
