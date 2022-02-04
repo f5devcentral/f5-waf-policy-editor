@@ -133,7 +133,7 @@ export class ViolationsParseStrategy extends ParseStrategyBase {
         await parser.parse(x, fullPath);
       } else {
         anyNotSupportedFlag =
-          anyNotSupportedFlag || (await this.defaultProcessing(x, fullPath, x));
+          (await this.defaultProcessing(x, fullPath, x)) || anyNotSupportedFlag;
       }
     }
 
