@@ -33,6 +33,24 @@ export type BotProtectionSettings = {
   good_bot_action: string;
 };
 
+export type AnonymizationHttpHeader = {
+  header_name: string;
+};
+
+export type AnonymizationQueryParameter = {
+  query_param_name: string;
+};
+
+export type AnonymizationCookie = {
+  cookie_name: string;
+};
+
+export type AnonymizationConfig = {
+  http_header?: AnonymizationHttpHeader;
+  query_parameter?: AnonymizationQueryParameter;
+  cookie?: AnonymizationCookie;
+};
+
 export type AthenaFirewallModel = {
   blocking?: EmptyObject;
   monitoring?: EmptyObject;
@@ -44,9 +62,9 @@ export type AthenaFirewallModel = {
   bot_protection_setting?: BotProtectionSettings;
   disable_anonymization?: EmptyObject;
   use_default_blocking_page?: EmptyObject;
+  custom_anonymization?: AnonymizationConfig[];
 
   // TODO
-  custom_anonymization?: EmptyObject;
   blocking_page?: EmptyObject;
 };
 
