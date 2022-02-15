@@ -51,6 +51,10 @@ export type AnonymizationConfig = {
   cookie?: AnonymizationCookie;
 };
 
+export type BlockingPage = {
+  blocking_page?: string;
+};
+
 export type AthenaFirewallModel = {
   blocking?: EmptyObject;
   monitoring?: EmptyObject;
@@ -63,9 +67,7 @@ export type AthenaFirewallModel = {
   disable_anonymization?: EmptyObject;
   use_default_blocking_page?: EmptyObject;
   custom_anonymization?: AnonymizationConfig[];
-
-  // TODO
-  blocking_page?: EmptyObject;
+  blocking_page?: BlockingPage;
 };
 
 export type AthenaFirewallMetadataModel = {
