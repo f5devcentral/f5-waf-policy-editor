@@ -1,0 +1,19 @@
+export type EmptyObject = {};
+
+export enum AthenaAction {
+  DENY = "DENY",
+  ALLOW = "ALLOW",
+}
+
+export enum AthenaTransformers {
+  TRANSFORMER_NONE = "TRANSFORMER_NONE",
+  LOWER_CASE = "LOWER_CASE",
+  UPPER_CASE = "UPPER_CASE",
+  BASE64_DECODE = "BASE64_DECODE",
+  NORMALIZE_PATH = "NORMALIZE_PATH",
+  REMOVE_WHITESPACE = "REMOVE_WHITESPACE",
+  URL_DECODE = "URL_DECODE",
+  TRIM_LEFT = "TRIM_LEFT",
+  TRIM_RIGHT = "TRIM_RIGHT",
+  TRIM = "TRIM",
+}

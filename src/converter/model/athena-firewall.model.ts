@@ -1,4 +1,4 @@
-export type EmptyObject = {};
+import { EmptyObject } from "./athena-common.model";
 
 export type AllowedResponseCodes = {
   response_code: string[];
