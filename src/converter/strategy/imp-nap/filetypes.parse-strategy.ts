@@ -6,7 +6,7 @@ import { AthenaServicePolicyModel } from "../../model/athena-service-policy.mode
 import { AthenaAction } from "../../model/athena-common.model";
 
 export class FiletypesParseStrategy extends ParseStrategyBase {
-  parse(policyObj: any, fullPath: string) {
+  parse(policyObj: Filetype[], fullPath: string) {
     if (!this.context.athenaServicePolicy["filetypes"])
       this.context.athenaServicePolicy["filetypes"] = {
         metadata: {
@@ -31,7 +31,13 @@ export class FiletypesParseStrategy extends ParseStrategyBase {
         },
       } as AthenaServicePolicyModel;
 
-    policyObj.forEach((x: Filetype) => {
+    policyObj.sort((a: Filetype, b: Filetype) => {
+      if (a.wildcardOrder !== undefined && b.wildcardOrder !== undefined) {
+        return a.wildcardOrder - b.wildcardOrder;
+      }
+
+      return 0;
+    }).forEach((x: Filetype) => {
       if (this.context.athenaServicePolicy["filetypes"].spec.rule_list?.rules) {
         this.context.athenaServicePolicy["filetypes"].spec.rule_list.rules.push(
           {
@@ -39,7 +45,7 @@ export class FiletypesParseStrategy extends ParseStrategyBase {
               name: x.name,
             },
             spec: {
-              action: AthenaAction.DENY,
+              action: x.allowed ? AthenaAction.ALLOW : AthenaAction.DENY,
               path: {
                 suffix_values: [x.name],
               },
@@ -50,7 +56,7 @@ export class FiletypesParseStrategy extends ParseStrategyBase {
     });
 
     this.context.strategyLog.add(
-      new StrategyLogItemModel(fullPath, KeyParsingResultEnum.notSupported)
+      new StrategyLogItemModel(fullPath, KeyParsingResultEnum.success)
     );
 
     return Promise.resolve();
