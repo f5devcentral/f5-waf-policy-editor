@@ -9,11 +9,13 @@ import {
   athenaAttackSignatures,
   athenaViolations,
 } from "../strategy/athena.const";
+import { AthenaServicePolicyModel } from "./athena-service-policy.model";
 
 export class ParseContextModel {
   public strategyLog: StrategyLogModel;
   public athenaFirewallDto: AthenaFirewallModel;
   public athenaFirewallMetadataDto: AthenaFirewallMetadataModel;
+  public athenaServicePolicy: { [key: string]: AthenaServicePolicyModel };
   public conversionFailed: boolean;
   public waitEvents: { [key: string]: WaitEventUtil };
 
@@ -22,6 +24,7 @@ export class ParseContextModel {
     this.athenaFirewallDto = {} as AthenaFirewallModel;
     this.conversionFailed = false;
     this.waitEvents = {};
+    this.athenaServicePolicy = {};
 
     this.athenaFirewallMetadataDto = {
       name: "",

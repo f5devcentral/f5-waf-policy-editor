@@ -9,7 +9,6 @@ import { EnforcementModeParseStrategy } from "./imp-nap/enforcement-mode.parse-s
 import { ParametersParseStrategy } from "./imp-nap/parameters.parse-strategy";
 import { SensitiveParametersParseStrategy } from "./imp-nap/sensitive-parameters.parse-strategy";
 import { ViolationsParseStrategy } from "./imp-nap/violations.parse-strategy";
-import { FiletypesParseStrategy } from "./imp-nap/filetypes.parse-strategy";
 import { IgnoreParseStrategy } from "./ignore.parse-strategy";
 import { PolicyNameParseStrategy } from "./imp-nap/policy-name.parse-strategy";
 import { PolicyDescriptionParseStrategy } from "./imp-nap/policy-description.parse-strategy";
@@ -32,7 +31,7 @@ export class ParseStrategyFactory {
       ".policy.protocolIndependent": (c) => new IgnoreParseStrategy(c),
       ".policy.type": (c) => new IgnoreParseStrategy(c),
       ".policy.whitelist-ips": (c) => new WhitelistIpsParseStrategy(c),
-      ".policy.filetypes": (c) => new FiletypesParseStrategy(c),
+      ".policy.filetypes": (c) => new IgnoreParseStrategy(c),
       ".policy.response-pages": (c) => new ResponsePagesParseStrategy(c),
       ".policy.enforcementMode": (c) => new EnforcementModeParseStrategy(c),
       ".policy.parameters": (c) => new ParametersParseStrategy(c),

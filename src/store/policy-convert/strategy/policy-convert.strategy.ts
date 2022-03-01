@@ -51,6 +51,11 @@ export function policyConvertStrategy(): ThunkAction<
             context.athenaFirewallDto,
             context.athenaFirewallMetadataDto
           );
+          if (context.athenaServicePolicy && Object.keys(context.athenaServicePolicy)) {
+            Object.keys(context.athenaServicePolicy).forEach((k) => {
+              collectionBuilder.callServicePolicyCreate(context.athenaServicePolicy[k]);
+            });
+          }
 
           dispatch(policyConvertSetLog(context.strategyLog));
           dispatch(

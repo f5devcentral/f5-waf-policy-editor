@@ -2,6 +2,7 @@ import {
   AthenaFirewallMetadataModel,
   AthenaFirewallModel,
 } from "../model/athena-firewall.model";
+import { AthenaServicePolicyModel } from "../model/athena-service-policy.model";
 
 export class PostmanCollectionBuilder {
   constructor(private collection: any) {}
@@ -30,6 +31,47 @@ export class PostmanCollectionBuilder {
         type: "default",
       },
     ];
+  }
+
+  callServicePolicyCreate(servicePolicyObject: AthenaServicePolicyModel) {
+    if (!this.collection.items) this.collection.items = [];
+    this.collection.items.push({
+      id: `service-policy-${servicePolicyObject.metadata.name}`,
+      name: `Create Service Policy [${servicePolicyObject.metadata.name}]`,
+      request: {
+        url: {
+          raw: "https://{{HOST}}/api/config/namespaces/{{NAMESPACE}}/service_policys",
+          protocol: "https",
+          host: ["{{HOST}}"],
+          path: [
+            "api",
+            "config",
+            "namespaces",
+            "{{NAMESPACE}}",
+            "service_policys",
+          ]
+        },
+        method: "POST",
+        body: {
+          mode: "raw",
+          raw: JSON.stringify(
+            servicePolicyObject
+          ),
+          options: {
+            raw: {
+              language: "json",
+            },
+          },
+          header: [
+            {
+              key: "Authorization",
+              value: "APIToken {{API_TOKEN}}",
+              type: "default",
+            },
+          ],
+        }
+      }
+    });
   }
 
   callFirewallCreate(
