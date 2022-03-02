@@ -35,6 +35,7 @@ export class ParseStrategyFactory {
       ".policy.response-pages": (c) => new ResponsePagesParseStrategy(c),
       ".policy.enforcementMode": (c) => new EnforcementModeParseStrategy(c),
       ".policy.parameters": (c) => new ParametersParseStrategy(c),
+      ".policy.methods": (c) => new IgnoreParseStrategy(c),
       ".policy.sensitive-parameters": (c) =>
         new SensitiveParametersParseStrategy(c),
       ".policy.thread-campaigns": (c) => new IgnoreParseStrategy(c),

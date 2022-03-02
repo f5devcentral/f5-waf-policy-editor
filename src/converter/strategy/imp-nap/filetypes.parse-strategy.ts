@@ -20,14 +20,7 @@ export class FiletypesParseStrategy extends ParseStrategyBase {
           rule_list: {
             rules: [],
           },
-          deny_list: {
-            ip_prefix_set: [],
-            asn_set: [],
-            country_list: [],
-            tls_fingerprint_classes: [],
-            tls_fingerprint_values: [],
-            default_action_next_policy: {},
-          },
+
         },
       } as AthenaServicePolicyModel;
 
@@ -42,12 +35,15 @@ export class FiletypesParseStrategy extends ParseStrategyBase {
         this.context.athenaServicePolicy["filetypes"].spec.rule_list.rules.push(
           {
             metadata: {
-              name: x.name,
+              name: x.name === "*" ? "any" : (x.name as string).toLowerCase(),
             },
             spec: {
               action: x.allowed ? AthenaAction.ALLOW : AthenaAction.DENY,
               path: {
-                suffix_values: [x.name],
+                suffix_values: [x.name === "*" ? "any" : x.name],
+              },
+              waf_action: {
+                none: {}
               },
             },
           }

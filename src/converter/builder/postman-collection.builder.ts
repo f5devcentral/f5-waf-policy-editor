@@ -61,15 +61,15 @@ export class PostmanCollectionBuilder {
             raw: {
               language: "json",
             },
+          }
+        },
+        header: [
+          {
+            key: "Authorization",
+            value: "APIToken {{API_TOKEN}}",
+            type: "default",
           },
-          header: [
-            {
-              key: "Authorization",
-              value: "APIToken {{API_TOKEN}}",
-              type: "default",
-            },
-          ],
-        }
+        ],
       }
     });
   }

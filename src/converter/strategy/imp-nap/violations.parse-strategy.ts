@@ -12,6 +12,7 @@ import { HttpProtocolsParseStrategy } from "./http-protocols.parse-strategy";
 import { EvasionsParseStrategy } from "./evasions.parse-strategy";
 import { SignatureSetsParseStrategy } from "./signature-sets.parse-strategy";
 import { FiletypesParseStrategy } from "./filetypes.parse-strategy";
+import { MethodsParseStrategy } from "./methods.parse-strategy";
 
 export class ViolationsParseStrategy extends ParseStrategyBase {
   private readonly violationParsers: { [key: string]: () => ParseStrategyBase };
@@ -45,7 +46,20 @@ export class ViolationsParseStrategy extends ParseStrategyBase {
         }
         return true;
       }
-      case "VIOL_METHOD":
+      case "VIOL_METHOD": {
+        if (
+          blockAlarmUtil(policyObj, !!this.context.athenaFirewallDto.blocking)
+        ) {
+          const parser = new MethodsParseStrategy(this.context);
+          if (this.context.policyContainer.policy.methods) {
+            await parser.parse(
+              this.context.policyContainer.policy.methods,
+              "policy.methods"
+            );
+          }
+        }
+        return true;
+      }
       case "VIOL_MANDATORY_HEADER":
       case "VIOL_HTTP_RESPONSE_STATUS":
       case "VIOL_REQUEST_MAX_LENGTH":

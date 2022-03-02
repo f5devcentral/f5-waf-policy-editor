@@ -16,12 +16,23 @@ export type PathMatcher = {
   transformers?: AthenaTransformers[];
 };
 
+export type HttpMethod = {
+  methods?: string[]
+}
+
+export type WafAction = {
+  none: EmptyObject;
+}
+
 export type ServicePolicyRuleSpec = {
   action: AthenaAction;
   any_asn?: EmptyObject;
   any_client?: EmptyObject;
   any_ip?: EmptyObject;
   path?: PathMatcher;
+  http_method?: HttpMethod;
+  waf_action?: WafAction;
+  challenge_action?: string;
 };
 
 export type AthenaServicePolicyRuleModel = {
