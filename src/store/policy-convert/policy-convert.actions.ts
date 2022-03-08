@@ -20,11 +20,13 @@ export function policyConvertProgressSet(
 }
 
 export function policyConvertSetStage(
-  stage: PolicyConvertStageEnum
-): Pick<PolicyConvertAction, "type" | "convertStage"> {
+  stage: PolicyConvertStageEnum,
+  message?: string
+): Pick<PolicyConvertAction, "type" | "convertStage" | "convertMessage"> {
   return {
     type: POLICY_CONVERT_STAGE_SET,
     convertStage: stage,
+    convertMessage: message,
   };
 }
 

@@ -8,6 +8,7 @@ export class PolicyNameParseStrategy extends ParseStrategyBase {
       .split("_")
       .join("-")
       .toLowerCase();
+
     this.context.strategyLog.add(
       new StrategyLogItemModel(fullPath, KeyParsingResultEnum.success, "")
     );

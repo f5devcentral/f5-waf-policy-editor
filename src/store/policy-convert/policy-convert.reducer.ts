@@ -19,6 +19,7 @@ export function policyConvertStateInit(): PolicyConvertState {
   return {
     convertStage: PolicyConvertStageEnum.convertNotStarted,
     convertPercentage: 0,
+    convertMessage: ""
   };
 }
 

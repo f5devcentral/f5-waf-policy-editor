@@ -12,18 +12,20 @@ export enum PolicyConvertStageEnum {
 export type PolicyConvertState = {
   convertStage: PolicyConvertStageEnum;
   convertPercentage: number;
+  convertMessage?: string;
   log?: StrategyLogModel;
   collection?: string;
 };
 
 export interface PolicyConvertAction
   extends Action,
-    Partial<{
-      convertStage: PolicyConvertStageEnum;
-      convertPercentage: number;
-      log: StrategyLogModel;
-      collection: string;
-    }> {}
+  Partial<{
+    convertStage: PolicyConvertStageEnum;
+    convertMessage: string;
+    convertPercentage: number;
+    log: StrategyLogModel;
+    collection: string;
+  }> { }
 
 export type PolicyConvertDispatch = (
   args: PolicyConvertAction

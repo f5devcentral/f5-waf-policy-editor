@@ -22,54 +22,54 @@ export function policyConvertStrategy(): ThunkAction<
   any
 > {
   return (dispatch: PolicyConvertDispatch, getState) => {
-    dispatch(policyConvertProgressSet(0));
-    dispatch(policyConvertSetStage(PolicyConvertStageEnum.convertPending));
-    let counter = 0;
-    const interval = setInterval(() => {
-      dispatch(policyConvertProgressSet(counter * 10));
-      counter++;
+    try {
+      dispatch(policyConvertProgressSet(0));
+      dispatch(policyConvertSetStage(PolicyConvertStageEnum.convertPending));
 
-      if (counter === 11) {
-        clearInterval(interval);
+      const state = getState();
+      const fullPolicy = JSON.parse(state.policyEditorState.strCurrentPolicy);
 
-        const state = getState();
-        const fullPolicy = JSON.parse(state.policyEditorState.strCurrentPolicy);
-        const policyType = state.policyEditorState.policyType;
+      const policyType = state.policyEditorState.policyType;
 
-        const context = new ParseContextModel(fullPolicy);
-        const parser =
-          policyType === "App Protect"
-            ? new Nap2AthenaParserStrategy(context)
-            : new Awaf2AthenaParserStrategy(context);
+      const context = new ParseContextModel(fullPolicy);
+      const parser =
+        policyType === "App Protect"
+          ? new Nap2AthenaParserStrategy(context)
+          : new Awaf2AthenaParserStrategy(context);
 
-        parser.parse(fullPolicy).then(() => {
-          const collection: any = {};
-          const collectionBuilder = new PostmanCollectionBuilder(collection);
+      parser.parse(fullPolicy).then(() => {
+        const collection: any = {};
+        const collectionBuilder = new PostmanCollectionBuilder(collection);
 
-          collectionBuilder.initCollection();
-          collectionBuilder.callFirewallCreate(
-            context.athenaFirewallDto,
-            context.athenaFirewallMetadataDto
-          );
+        collectionBuilder.initCollection();
+        collectionBuilder.callFirewallCreate(
+          context.athenaFirewallDto,
+          context.athenaFirewallMetadataDto
+        );
 
-          console.log(context.athenaServicePolicy);
+        console.log(context.athenaServicePolicy);
 
-          if (context.athenaServicePolicy && Object.keys(context.athenaServicePolicy)) {
-            Object.keys(context.athenaServicePolicy).forEach((k) => {
-              collectionBuilder.callServicePolicyCreate(context.athenaServicePolicy[k]);
-            });
-          }
+        if (context.athenaServicePolicy && Object.keys(context.athenaServicePolicy)) {
+          Object.keys(context.athenaServicePolicy).forEach((k) => {
+            collectionBuilder.callServicePolicyCreate(context.athenaServicePolicy[k]);
+          });
+        }
 
-          dispatch(policyConvertSetLog(context.strategyLog));
-          dispatch(
-            policyConvertSetPostman(JSON.stringify(collection, null, 2))
-          );
+        dispatch(policyConvertSetLog(context.strategyLog));
+        dispatch(
+          policyConvertSetPostman(JSON.stringify(collection, null, 2))
+        );
 
-          dispatch(
-            policyConvertSetStage(PolicyConvertStageEnum.convertSuccess)
-          );
-        });
-      }
-    }, 300);
-  };
+        dispatch(
+          policyConvertSetStage(PolicyConvertStageEnum.convertSuccess)
+        );
+      });
+
+    }
+    catch (e: any) {
+      dispatch(
+        policyConvertSetStage(PolicyConvertStageEnum.convertError, e.toString())
+      );
+    }
+  }
 }

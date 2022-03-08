@@ -74,12 +74,12 @@ export const ConvertSuccessPage: React.VoidFunctionComponent = () => {
     [KeyParsingResultEnum.partially]: true,
   });
 
-  const onDownloadReport = () => {
-    const link = document.createElement("a");
-    link.download = `full-report.pdf`;
-    link.href = "/convert/rsc/convert-result.pdf";
-    link.click();
-  };
+  // const onDownloadReport = () => {
+  //   const link = document.createElement("a");
+  //   link.download = `full-report.pdf`;
+  //   link.href = "/convert/rsc/convert-result.pdf";
+  //   link.click();
+  // };
 
   const onDownloadPostman = () => {
     const date = new Date();
@@ -118,14 +118,6 @@ export const ConvertSuccessPage: React.VoidFunctionComponent = () => {
             }}
           >
             Postman File
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              setAnchorEl(null);
-              onDownloadReport();
-            }}
-          >
-            Full Report
           </MenuItem>
         </Menu>
       </ToolbarPageControl>
