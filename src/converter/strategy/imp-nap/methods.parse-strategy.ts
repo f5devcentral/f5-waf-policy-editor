@@ -1,10 +1,10 @@
 import { AthenaAction } from "../../model/athena-common.model";
+import { KeyParsingResultEnum } from "../../model/key-parsing-result.enum";
+import { StrategyLogItemModel } from "../../model/strategy-log-item.model";
 import { ParseStrategyBase } from "../parse-strategy.base";
 
 export class MethodsParseStrategy extends ParseStrategyBase {
     parse(policyObj: any, fullPath: string): Promise<void> {
-        console.log(policyObj);
-
         if (!this.context.athenaServicePolicy["methods"]) {
             this.context.athenaServicePolicy["methods"] = {
                 metadata: {
@@ -38,6 +38,10 @@ export class MethodsParseStrategy extends ParseStrategyBase {
                 }
             })
         });
+
+        this.context.strategyLog.add(
+            new StrategyLogItemModel(fullPath, KeyParsingResultEnum.success)
+        );
 
         return Promise.resolve();
     }

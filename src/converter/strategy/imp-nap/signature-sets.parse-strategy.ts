@@ -7,8 +7,7 @@ import { set as _set } from "lodash";
 
 export class SignatureSetsParseStrategy extends ParseStrategyBase {
   parse(policyObj: any, fullPath: string) {
-
-    console.log(policyObj);
+    let partially = false;
 
     for (const signatureSet of policyObj) {
       if (
@@ -74,6 +73,7 @@ export class SignatureSetsParseStrategy extends ParseStrategyBase {
               break;
             }
             default: {
+              partially = true;
               this.context.strategyLog.add(
                 new StrategyLogItemModel(
                   fullPath,
@@ -85,6 +85,15 @@ export class SignatureSetsParseStrategy extends ParseStrategyBase {
           }
         }
       }
+    }
+
+    if (partially) {
+      this.context.strategyLog.add(
+        new StrategyLogItemModel(
+          fullPath,
+          KeyParsingResultEnum.partially
+        )
+      );
     }
 
     return Promise.resolve();
