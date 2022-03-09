@@ -7,6 +7,9 @@ import { set as _set } from "lodash";
 
 export class SignatureSetsParseStrategy extends ParseStrategyBase {
   parse(policyObj: any, fullPath: string) {
+
+    console.log(policyObj);
+
     for (const signatureSet of policyObj) {
       if (
         blockAlarmUtil(signatureSet, !!this.context.athenaFirewallDto.blocking)
@@ -19,7 +22,7 @@ export class SignatureSetsParseStrategy extends ParseStrategyBase {
             new StrategyLogItemModel(
               fullPath,
               KeyParsingResultEnum.success,
-              policyObj.name
+              signatureSet.name
             )
           );
         } else {
@@ -34,7 +37,7 @@ export class SignatureSetsParseStrategy extends ParseStrategyBase {
                 new StrategyLogItemModel(
                   fullPath,
                   KeyParsingResultEnum.success,
-                  policyObj.name
+                  signatureSet.name
                 )
               );
               break;
@@ -50,7 +53,7 @@ export class SignatureSetsParseStrategy extends ParseStrategyBase {
                 new StrategyLogItemModel(
                   fullPath,
                   KeyParsingResultEnum.success,
-                  policyObj.name
+                  signatureSet.name
                 )
               );
               break;
@@ -65,7 +68,7 @@ export class SignatureSetsParseStrategy extends ParseStrategyBase {
                 new StrategyLogItemModel(
                   fullPath,
                   KeyParsingResultEnum.success,
-                  policyObj.name
+                  signatureSet.name
                 )
               );
               break;
@@ -75,7 +78,7 @@ export class SignatureSetsParseStrategy extends ParseStrategyBase {
                 new StrategyLogItemModel(
                   fullPath,
                   KeyParsingResultEnum.notSupported,
-                  policyObj.name
+                  signatureSet.name
                 )
               );
             }
