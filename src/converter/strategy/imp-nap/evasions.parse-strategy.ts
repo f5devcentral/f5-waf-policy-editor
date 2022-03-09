@@ -14,7 +14,7 @@ export class EvasionsParseStrategy extends ParseStrategyBase {
           new StrategyLogItemModel(
             fullPath,
             KeyParsingResultEnum.success,
-            policyObj.description
+            evasion.description
           )
         );
       } else {
@@ -22,7 +22,7 @@ export class EvasionsParseStrategy extends ParseStrategyBase {
           new StrategyLogItemModel(
             fullPath,
             KeyParsingResultEnum.notSupported,
-            policyObj.description
+            evasion.description
           )
         );
       }

@@ -14,7 +14,7 @@ export class HttpProtocolsParseStrategy extends ParseStrategyBase {
           new StrategyLogItemModel(
             fullPath,
             KeyParsingResultEnum.success,
-            policyObj.description
+            protocol.description
           )
         );
       } else {
@@ -22,7 +22,7 @@ export class HttpProtocolsParseStrategy extends ParseStrategyBase {
           new StrategyLogItemModel(
             fullPath,
             KeyParsingResultEnum.notSupported,
-            policyObj.description
+            protocol.description
           )
         );
       }
