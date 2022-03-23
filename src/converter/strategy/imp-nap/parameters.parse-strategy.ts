@@ -9,13 +9,15 @@ import {
 export class ParametersParseStrategy extends ParseStrategyBase {
   parse(policyObj: any, fullPath: string) {
     if (!this.context.athenaFirewallDto.custom_anonymization) {
-      this.context.athenaFirewallDto.custom_anonymization = [];
+      this.context.athenaFirewallDto.custom_anonymization = {
+        anonymization_config: []
+      };
     }
     let anyNotSensitiveFound = false;
 
     const addCookie = (name: string) => {
       if (!this.context.athenaFirewallDto.custom_anonymization) return;
-      this.context.athenaFirewallDto.custom_anonymization.push({
+      this.context.athenaFirewallDto.custom_anonymization.anonymization_config.push({
         cookie: {
           cookie_name: name,
         },
@@ -24,7 +26,7 @@ export class ParametersParseStrategy extends ParseStrategyBase {
     const addHeader = (name: string) => {
       if (!this.context.athenaFirewallDto.custom_anonymization) return;
 
-      this.context.athenaFirewallDto.custom_anonymization.push({
+      this.context.athenaFirewallDto.custom_anonymization.anonymization_config.push({
         http_header: {
           header_name: name,
         },
@@ -33,7 +35,7 @@ export class ParametersParseStrategy extends ParseStrategyBase {
     const addQuery = (name: string) => {
       if (!this.context.athenaFirewallDto.custom_anonymization) return;
 
-      this.context.athenaFirewallDto.custom_anonymization.push({
+      this.context.athenaFirewallDto.custom_anonymization.anonymization_config.push({
         query_parameter: {
           query_param_name: name,
         },
@@ -44,26 +46,26 @@ export class ParametersParseStrategy extends ParseStrategyBase {
       switch (true) {
         case p.sensitiveParameter &&
           p.parameterLocation === ParameterLocation.Any: {
-          addQuery(p.name);
-          addHeader(p.name);
-          addCookie(p.name);
-          break;
-        }
+            addQuery(p.name);
+            addHeader(p.name);
+            addCookie(p.name);
+            break;
+          }
         case p.sensitiveParameter &&
           p.parameterLocation === ParameterLocation.Query: {
-          addQuery(p.name);
-          break;
-        }
+            addQuery(p.name);
+            break;
+          }
         case p.sensitiveParameter &&
           (p.parameterLocation === ParameterLocation.Cookie || p.isCookie): {
-          addQuery(p.name);
-          break;
-        }
+            addQuery(p.name);
+            break;
+          }
         case p.sensitiveParameter &&
           (p.parameterLocation === ParameterLocation.Header || p.isHeader): {
-          addHeader(p.name);
-          break;
-        }
+            addHeader(p.name);
+            break;
+          }
         default:
           anyNotSensitiveFound = true;
           break;

@@ -45,11 +45,15 @@ export type AnonymizationCookie = {
   cookie_name: string;
 };
 
-export type AnonymizationConfig = {
+export type AnonymizationConfigItem = {
   http_header?: AnonymizationHttpHeader;
   query_parameter?: AnonymizationQueryParameter;
   cookie?: AnonymizationCookie;
 };
+
+export type AnonymizationConfig = {
+  anonymization_config: AnonymizationConfigItem[]
+}
 
 export type BlockingPage = {
   blocking_page?: string;
@@ -66,7 +70,7 @@ export type AthenaFirewallModel = {
   bot_protection_setting?: BotProtectionSettings;
   disable_anonymization?: EmptyObject;
   use_default_blocking_page?: EmptyObject;
-  custom_anonymization?: AnonymizationConfig[];
+  custom_anonymization?: AnonymizationConfig;
   blocking_page?: BlockingPage;
 };
 
