@@ -27,7 +27,11 @@ export class MethodsParseStrategy extends ParseStrategyBase {
                     name: (m.name as string).toLowerCase(),
                 },
                 spec: {
-                    action: (m.allowed === undefined || m.allowed) ? AthenaAction.ALLOW : AthenaAction.DENY,
+                    action: m.allowed !== undefined
+                        ? (m.allowed ? AthenaAction.ALLOW : AthenaAction.DENY)
+                        : this.context.athenaFirewallDto.blocking
+                            ? AthenaAction.DENY
+                            : AthenaAction.ALLOW,
                     http_method: {
                         methods: [m.name]
                     },

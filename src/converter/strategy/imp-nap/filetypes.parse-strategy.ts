@@ -38,7 +38,11 @@ export class FiletypesParseStrategy extends ParseStrategyBase {
               name: x.name === "*" ? "any" : (x.name as string).toLowerCase(),
             },
             spec: {
-              action: x.allowed ? AthenaAction.ALLOW : AthenaAction.DENY,
+              action: x.allowed !== undefined
+                ? (x.allowed ? AthenaAction.ALLOW : AthenaAction.DENY)
+                : this.context.athenaFirewallDto.blocking
+                  ? AthenaAction.DENY
+                  : AthenaAction.ALLOW,
               path: {
                 suffix_values: [x.name === "*" ? "any" : x.name],
               },
