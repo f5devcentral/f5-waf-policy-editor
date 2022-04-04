@@ -53,11 +53,11 @@
     "redux-devtools-extension": "^2.13.9"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "REACT_APP_COVERTER_PASSWORD=F5Rox! react-scripts start",
     "start:debug": "react-scripts start",
     "build": "react-scripts build",
     "build:dev": "PUBLIC_URL='/dev/' react-scripts build",
-    "build:convert": "PUBLIC_URL='/convert/' react-scripts build",
+    "build:convert": "PUBLIC_URL='/convert/' REACT_APP_COVERTER_PASSWORD=F5Rox! react-scripts build",
     "build:rc": "PUBLIC_URL='/rc/' react-scripts build",
     "build:prod": "PUBLIC_URL='/prod/' react-scripts build",
     "test": "react-scripts test",

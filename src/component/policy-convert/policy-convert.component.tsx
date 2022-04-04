@@ -13,6 +13,7 @@ import { ToolbarButtonControl } from "../controls/toobar-button.component";
 import { policyConvertStrategy } from "../../store/policy-convert/strategy/policy-convert.strategy";
 import { useDispatch } from "react-redux";
 import TransformIcon from "@mui/icons-material/Transform";
+import { ConvertGatedPage } from "./pages/convert-gated.page";
 
 export const PolicyConvertComponent: React.FunctionComponent = () => {
   const styles = useStyles();
@@ -27,6 +28,8 @@ export const PolicyConvertComponent: React.FunctionComponent = () => {
   useEffect(() => {
     const cp = (() => {
       switch (convertStage) {
+        case PolicyConvertStageEnum.convertGated:
+          return <ConvertGatedPage />;
         case PolicyConvertStageEnum.convertError:
           return <ConvertErrorPage />;
         case PolicyConvertStageEnum.convertNotStarted:
@@ -79,6 +82,9 @@ export const PolicyConvertComponent: React.FunctionComponent = () => {
             toolbarComponent={
               <div style={{ textAlign: "right", width: "100%" }}>
                 <ToolbarButtonControl
+                  disabled={
+                    convertStage === PolicyConvertStageEnum.convertGated
+                  }
                   startIcon={<TransformIcon sx={{ minWidth: "15px" }} />}
                   variant="contained"
                   onClick={() => {

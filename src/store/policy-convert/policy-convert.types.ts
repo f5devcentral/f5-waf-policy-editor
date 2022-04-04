@@ -3,6 +3,7 @@ import { ReducerHandler } from "../reducer.base";
 import { StrategyLogModel } from "../../converter/model/strategy-log.model";
 
 export enum PolicyConvertStageEnum {
+  convertGated,
   convertNotStarted,
   convertPending,
   convertSuccess,

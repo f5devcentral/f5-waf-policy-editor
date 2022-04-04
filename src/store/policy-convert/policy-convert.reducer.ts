@@ -17,7 +17,7 @@ import { policyConvertPostmanSetHandler } from "./handlers/policy-convert-postma
 
 export function policyConvertStateInit(): PolicyConvertState {
   return {
-    convertStage: PolicyConvertStageEnum.convertNotStarted,
+    convertStage: process.env.REACT_APP_COVERTER_PASSWORD ? PolicyConvertStageEnum.convertGated : PolicyConvertStageEnum.convertNotStarted,
     convertPercentage: 0,
     convertMessage: ""
   };

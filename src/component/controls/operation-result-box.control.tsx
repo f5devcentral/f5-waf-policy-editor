@@ -3,11 +3,13 @@ import { styled } from "@mui/system";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorIcon from "@mui/icons-material/Error";
 import { CircularProgress } from "@mui/material";
+import LockIcon from "@mui/icons-material/Lock";
 
 export enum OperationResultBoxIcon {
   success,
   failed,
   pending,
+  password,
 }
 
 export type OperationResultBoxProps = {
@@ -70,6 +72,7 @@ export const OperationResultBoxControl: React.FunctionComponent<OperationResultB
             {icon === OperationResultBoxIcon.pending && (
               <CircularProgress size={24} />
             )}
+            {icon === OperationResultBoxIcon.password && <LockIcon />}
           </div>
           <div>
             <Header>{header}</Header>
