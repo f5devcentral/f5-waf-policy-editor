@@ -48,7 +48,7 @@ export const ConvertGatedPage: React.VoidFunctionComponent = () => {
               transform: "translateY(-50%)",
             }}
           >
-            <Typography>Unlock password:</Typography>
+            <Typography>Enter password:</Typography>
 
             <p>
               <TextField
