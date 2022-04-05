@@ -3,7 +3,7 @@ import { KeyParsingResultEnum } from "../../model/key-parsing-result.enum";
 import { StrategyLogItemModel } from "../../model/strategy-log-item.model";
 import { Filetype } from "../../../model/policy-schema/policy.definitions";
 import { AthenaServicePolicyModel } from "../../model/athena-service-policy.model";
-import { AthenaAction } from "../../model/athena-common.model";
+import { transparentBlockUtil } from "./transparent-block.util";
 
 export class FiletypesParseStrategy extends ParseStrategyBase {
   parse(policyObj: Filetype[], fullPath: string) {
@@ -38,11 +38,7 @@ export class FiletypesParseStrategy extends ParseStrategyBase {
               name: x.name === "*" ? "any" : (x.name as string).toLowerCase(),
             },
             spec: {
-              action: x.allowed !== undefined
-                ? (x.allowed ? AthenaAction.ALLOW : AthenaAction.DENY)
-                : this.context.athenaFirewallDto.blocking
-                  ? AthenaAction.DENY
-                  : AthenaAction.ALLOW,
+              action: transparentBlockUtil(x, !!this.context.athenaFirewallDto.blocking),
               path: {
                 suffix_values: [x.name === "*" ? "any" : x.name],
               },
