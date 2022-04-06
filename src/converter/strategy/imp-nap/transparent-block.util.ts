@@ -6,5 +6,5 @@ export function transparentBlockUtil(obj: any, isBlockingEnforcementMode: boolea
     if (obj.allowed) return AthenaAction.ALLOW;
     if (obj.disallowed) return AthenaAction.DENY;
 
-    return isBlockingEnforcementMode ? AthenaAction.DENY : AthenaAction.ALLOW;
+    return AthenaAction.ALLOW;
 }
