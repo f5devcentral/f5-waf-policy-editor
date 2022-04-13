@@ -3,6 +3,7 @@ export type EmptyObject = {};
 export enum AthenaAction {
   DENY = "DENY",
   ALLOW = "ALLOW",
+  NEXT_POLICY = "NEXT_POLICY",
 }
 
 export enum AthenaTransformers {

@@ -26,7 +26,7 @@ export class FiletypesParseStrategy extends ParseStrategyBase {
     }
 
     let hasWildcard = false;
-    let wildcardBlocking: AthenaAction = AthenaAction.ALLOW;
+    let wildcardBlocking: AthenaAction = AthenaAction.NEXT_POLICY;
 
     policyObj
       .sort((a: Filetype, b: Filetype) => {
