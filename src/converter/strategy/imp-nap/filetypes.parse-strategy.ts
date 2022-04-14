@@ -44,7 +44,8 @@ export class FiletypesParseStrategy extends ParseStrategyBase {
             hasWildcard = true;
             wildcardBlocking = transparentBlockUtil(
               x,
-              !!this.context.athenaFirewallDto.blocking
+              !!this.context.athenaFirewallDto.blocking,
+              AthenaAction.NEXT_POLICY
             );
           } else {
             this.context.athenaServicePolicy[
@@ -56,7 +57,8 @@ export class FiletypesParseStrategy extends ParseStrategyBase {
               spec: {
                 action: transparentBlockUtil(
                   x,
-                  !!this.context.athenaFirewallDto.blocking
+                  !!this.context.athenaFirewallDto.blocking,
+                  AthenaAction.NEXT_POLICY
                 ),
                 path: {
                   suffix_values: [x.name],
