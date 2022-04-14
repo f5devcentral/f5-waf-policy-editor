@@ -6,7 +6,10 @@ import { supportedHttpProtocols } from "../athena.const";
 export class HttpProtocolsParseStrategy extends ParseStrategyBase {
   parse(policyObj: any, fullPath: string) {
     for (const protocol of policyObj) {
-      if (supportedHttpProtocols[protocol.description]) {
+      if (
+        supportedHttpProtocols[protocol.description] &&
+        (protocol.enabled === undefined || protocol.enabled)
+      ) {
         this.context.markSupportedViolation(
           supportedHttpProtocols[protocol.description]
         );
