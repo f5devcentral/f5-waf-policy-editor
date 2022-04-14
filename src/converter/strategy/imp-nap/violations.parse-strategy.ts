@@ -36,6 +36,7 @@ export class ViolationsParseStrategy extends ParseStrategyBase {
         if (
           blockAlarmUtil(policyObj, !!this.context.athenaFirewallDto.blocking)
         ) {
+          this.context.markSupportedViolation(policyObj.name);
           const parser = new FiletypesParseStrategy(this.context);
           if (this.context.policyContainer.policy.filetypes) {
             await parser.parse(
@@ -50,6 +51,7 @@ export class ViolationsParseStrategy extends ParseStrategyBase {
         if (
           blockAlarmUtil(policyObj, !!this.context.athenaFirewallDto.blocking)
         ) {
+          this.context.markSupportedViolation(policyObj.name);
           const parser = new MethodsParseStrategy(this.context);
           if (this.context.policyContainer.policy.methods) {
             await parser.parse(
