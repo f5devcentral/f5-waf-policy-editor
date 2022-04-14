@@ -10,7 +10,6 @@ import { ThreatCampaignViolationParseStrategy } from "./violations.parse-strateg
 import { blockAlarmUtil } from "./block-alarm.util";
 import { HttpProtocolsParseStrategy } from "./http-protocols.parse-strategy";
 import { EvasionsParseStrategy } from "./evasions.parse-strategy";
-import { SignatureSetsParseStrategy } from "./signature-sets.parse-strategy";
 import { FiletypesParseStrategy } from "./filetypes.parse-strategy";
 import { MethodsParseStrategy } from "./methods.parse-strategy";
 
@@ -125,17 +124,6 @@ export class ViolationsParseStrategy extends ParseStrategyBase {
         return true;
       }
       case "VIOL_ATTACK_SIGNATURE": {
-        if (
-          blockAlarmUtil(policyObj, !!this.context.athenaFirewallDto.blocking)
-        ) {
-          const parser = new SignatureSetsParseStrategy(this.context);
-          if (this.context.policyContainer.policy["signature-sets"]) {
-            await parser.parse(
-              this.context.policyContainer.policy["signature-sets"],
-              "policy.signature-sets"
-            );
-          }
-        }
         return true;
       }
       default: {

@@ -12,6 +12,7 @@ import { ViolationsParseStrategy } from "./imp-nap/violations.parse-strategy";
 import { IgnoreParseStrategy } from "./ignore.parse-strategy";
 import { PolicyNameParseStrategy } from "./imp-nap/policy-name.parse-strategy";
 import { PolicyDescriptionParseStrategy } from "./imp-nap/policy-description.parse-strategy";
+import { SignatureSetsParseStrategy } from "./imp-nap/signature-sets.parse-strategy";
 
 type TFactory = (context: ParseContextModel) => ParseStrategyBase;
 
@@ -39,7 +40,7 @@ export class ParseStrategyFactory {
       ".policy.sensitive-parameters": (c) =>
         new SensitiveParametersParseStrategy(c),
       ".policy.thread-campaigns": (c) => new IgnoreParseStrategy(c),
-      ".policy.signature-sets": (c) => new IgnoreParseStrategy(c),
+      ".policy.signature-sets": (c) => new SignatureSetsParseStrategy(c),
       //--------------------------------------------
       ".policy.general": (c) => new PassOverParseStrategy(c),
       ".policy.general.allowedResponseCodes": (c) => new IgnoreParseStrategy(c),

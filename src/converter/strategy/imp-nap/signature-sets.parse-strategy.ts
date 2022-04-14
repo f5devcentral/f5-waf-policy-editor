@@ -10,6 +10,7 @@ export class SignatureSetsParseStrategy extends ParseStrategyBase {
     let partially = false;
 
     for (const signatureSet of policyObj) {
+      console.log(signatureSet);
       if (
         blockAlarmUtil(signatureSet, !!this.context.athenaFirewallDto.blocking)
       ) {
@@ -26,7 +27,8 @@ export class SignatureSetsParseStrategy extends ParseStrategyBase {
           );
         } else {
           switch (signatureSet.name) {
-            case "Generic Detection Signatures": {
+            case "Generic Detection Signatures":
+            case "Low Accuracy Signatures": {
               _set(
                 this.context.athenaFirewallDto,
                 "detection_settings.signature_selection_setting.high_medium_low_accuracy_signatures",
@@ -57,7 +59,8 @@ export class SignatureSetsParseStrategy extends ParseStrategyBase {
               );
               break;
             }
-            case "Generic Detection Signatures (High/Medium Accuracy)": {
+            case "Generic Detection Signatures (High/Medium Accuracy)":
+            case "Medium Accuracy Signatures": {
               _set(
                 this.context.athenaFirewallDto,
                 "detection_settings.signature_selection_setting.high_medium_accuracy_signatures",
