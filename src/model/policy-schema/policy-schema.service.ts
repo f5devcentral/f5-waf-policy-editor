@@ -41,8 +41,6 @@ export class PolicySchemaService {
   }
 
   isFieldRequired(path: string): boolean {
-    console.log(path);
-
     if (!path) return false;
     const keys = path.split(".");
 

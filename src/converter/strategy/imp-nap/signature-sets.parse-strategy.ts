@@ -89,10 +89,7 @@ export class SignatureSetsParseStrategy extends ParseStrategyBase {
 
     if (partially) {
       this.context.strategyLog.add(
-        new StrategyLogItemModel(
-          fullPath,
-          KeyParsingResultEnum.partially
-        )
+        new StrategyLogItemModel(fullPath, KeyParsingResultEnum.partially)
       );
     }
 
