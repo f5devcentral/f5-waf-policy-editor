@@ -53,7 +53,7 @@ export class FiletypesParseStrategy extends ParseStrategyBase {
               "filetypes"
             ].spec.rule_list.rules.push({
               metadata: {
-                name: dotName.toLowerCase(),
+                name: x.name.toLowerCase(),
               },
               spec: {
                 action: transparentBlockUtil(
