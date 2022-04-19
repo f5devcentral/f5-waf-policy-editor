@@ -48,11 +48,12 @@ export class FiletypesParseStrategy extends ParseStrategyBase {
               AthenaAction.NEXT_POLICY
             );
           } else {
+            const dotName = x.name.startsWith(".") ? x.name : `.${x.name}`;
             this.context.athenaServicePolicy[
               "filetypes"
             ].spec.rule_list.rules.push({
               metadata: {
-                name: (x.name as string).toLowerCase(),
+                name: dotName.toLowerCase(),
               },
               spec: {
                 action: transparentBlockUtil(
@@ -61,7 +62,7 @@ export class FiletypesParseStrategy extends ParseStrategyBase {
                   AthenaAction.NEXT_POLICY
                 ),
                 path: {
-                  suffix_values: [x.name],
+                  suffix_values: [dotName],
                 },
                 waf_action: {
                   none: {},
