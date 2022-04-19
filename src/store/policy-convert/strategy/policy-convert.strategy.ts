@@ -14,6 +14,7 @@ import { Nap2AthenaParserStrategy } from "../../../converter/strategy/nap-2-athe
 import { ParseContextModel } from "../../../converter/model/parse-context.model";
 import { PostmanCollectionBuilder } from "../../../converter/builder/postman-collection.builder";
 import { Awaf2AthenaParserStrategy } from "../../../converter/strategy/awaf-2-athena-parser.strategy";
+import { AthenaAction } from "../../../converter/model/athena-common.model";
 
 export function policyConvertStrategy(): ThunkAction<
   any,
@@ -47,27 +48,51 @@ export function policyConvertStrategy(): ThunkAction<
           context.athenaFirewallMetadataDto
         );
 
-        if (context.athenaServicePolicy && Object.keys(context.athenaServicePolicy)) {
+        if (
+          context.athenaServicePolicy &&
+          Object.keys(context.athenaServicePolicy)
+        ) {
           Object.keys(context.athenaServicePolicy).forEach((k) => {
-            collectionBuilder.callServicePolicyCreate(context.athenaServicePolicy[k]);
+            collectionBuilder.callServicePolicyCreate(
+              context.athenaServicePolicy[k]
+            );
+          });
+        }
+
+        if (Object.keys(context.athenaServicePolicy).length > 0) {
+          collectionBuilder.callServicePolicyCreate({
+            metadata: {
+              name: "converter-default-deny-all",
+              namespace: "{{NAMESPACE}}",
+            },
+            spec: {
+              algo: "FIRST_MATCH",
+              any_server: {},
+              deny_all_requests: {},
+              simple_rules: [
+                {
+                  name: "ves-io-service-policy-default-deny-all",
+                  metric_name_label: "",
+                  action: AthenaAction.DENY,
+                  headers: [],
+                  expiration_timestamp: null,
+                  scheme: [],
+                  description: "",
+                },
+              ],
+            },
           });
         }
 
         dispatch(policyConvertSetLog(context.strategyLog));
-        dispatch(
-          policyConvertSetPostman(JSON.stringify(collection, null, 2))
-        );
+        dispatch(policyConvertSetPostman(JSON.stringify(collection, null, 2)));
 
-        dispatch(
-          policyConvertSetStage(PolicyConvertStageEnum.convertSuccess)
-        );
+        dispatch(policyConvertSetStage(PolicyConvertStageEnum.convertSuccess));
       });
-
-    }
-    catch (e: any) {
+    } catch (e: any) {
       dispatch(
         policyConvertSetStage(PolicyConvertStageEnum.convertError, e.toString())
       );
     }
-  }
+  };
 }

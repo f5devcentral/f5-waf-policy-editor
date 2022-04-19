@@ -1,4 +1,4 @@
-import { EmptyObject } from "./athena-common.model";
+import { AthenaAction, EmptyObject } from "./athena-common.model";
 import { AthenaServicePolicyRuleModel } from "./athena-service-policy-rule.model";
 
 export type ServicePolicyMetadata = {
@@ -21,12 +21,24 @@ export type RuleList = {
   rules: AthenaServicePolicyRuleModel[];
 };
 
+export type SimpleRule = {
+  name: string;
+  metric_name_label: string;
+  action: AthenaAction;
+  headers: string[];
+  expiration_timestamp: string | null;
+  scheme: string[];
+  description: string;
+};
+
 export type ServicePolicySpec = {
   algo: string;
   any_server: EmptyObject;
   port_matcher?: EmptyObject;
   deny_list?: DenyList;
   rule_list?: RuleList;
+  deny_all_requests?: EmptyObject;
+  simple_rules?: SimpleRule[];
 };
 
 export type AthenaServicePolicyModel = {
