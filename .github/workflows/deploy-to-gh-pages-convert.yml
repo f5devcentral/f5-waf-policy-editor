@@ -1,5 +1,5 @@
 name: (Dev) Build and Deploy
-on: 
+on:
   push:
     branches:
       - feature/convert
@@ -14,6 +14,8 @@ jobs:
         run: |
           npm install
           npm run build:convert
+        env:
+          REACT_APP_COVERTER_PASSWORD: ${{ secrets.REACT_APP_COVERTER_PASSWORD }}
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.0
