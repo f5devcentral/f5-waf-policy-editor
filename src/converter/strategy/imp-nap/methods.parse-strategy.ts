@@ -44,6 +44,21 @@ export class MethodsParseStrategy extends ParseStrategyBase {
       });
     });
 
+    this.context.athenaServicePolicy["methods"].spec.rule_list?.rules.push({
+      metadata: {
+        name: "any",
+      },
+      spec: {
+        action: !!this.context.athenaFirewallDto.blocking
+          ? AthenaAction.ALLOW
+          : AthenaAction.DENY,
+        challenge_action: "DEFAULT_CHALLENGE",
+        waf_action: {
+          none: {},
+        },
+      },
+    });
+
     this.context.strategyLog.add(
       new StrategyLogItemModel(fullPath, KeyParsingResultEnum.success)
     );
