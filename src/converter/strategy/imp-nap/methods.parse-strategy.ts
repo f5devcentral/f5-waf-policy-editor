@@ -2,7 +2,6 @@ import { AthenaAction } from "../../model/athena-common.model";
 import { KeyParsingResultEnum } from "../../model/key-parsing-result.enum";
 import { StrategyLogItemModel } from "../../model/strategy-log-item.model";
 import { ParseStrategyBase } from "../parse-strategy.base";
-import { transparentBlockUtil } from "./transparent-block.util";
 
 export class MethodsParseStrategy extends ParseStrategyBase {
   parse(policyObj: any, fullPath: string): Promise<void> {
@@ -28,11 +27,7 @@ export class MethodsParseStrategy extends ParseStrategyBase {
           name: (m.name as string).toLowerCase(),
         },
         spec: {
-          action: transparentBlockUtil(
-            m,
-            !!this.context.athenaFirewallDto.blocking,
-            AthenaAction.ALLOW
-          ),
+          action: AthenaAction.NEXT_POLICY,
           http_method: {
             methods: [m.name],
           },
@@ -50,8 +45,8 @@ export class MethodsParseStrategy extends ParseStrategyBase {
       },
       spec: {
         action: !!this.context.athenaFirewallDto.blocking
-          ? AthenaAction.ALLOW
-          : AthenaAction.DENY,
+          ? AthenaAction.DENY
+          : AthenaAction.NEXT_POLICY,
         challenge_action: "DEFAULT_CHALLENGE",
         waf_action: {
           none: {},
