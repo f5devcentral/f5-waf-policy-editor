@@ -8,6 +8,8 @@ import { AthenaAction } from "../../model/athena-common.model";
 
 export class FiletypesParseStrategy extends ParseStrategyBase {
   parse(policyObj: Filetype[], fullPath: string) {
+    if (!policyObj) return Promise.resolve();
+
     if (!this.context.athenaServicePolicy["filetypes"]) {
       this.context.athenaServicePolicy["filetypes"] = {
         metadata: {
@@ -42,11 +44,13 @@ export class FiletypesParseStrategy extends ParseStrategyBase {
         ) {
           if (x.name === "*") {
             hasWildcard = true;
-            wildcardBlocking = transparentBlockUtil(
-              x,
-              !!this.context.athenaFirewallDto.blocking,
-              AthenaAction.NEXT_POLICY
-            );
+            wildcardBlocking =
+              this.overrideAction ??
+              transparentBlockUtil(
+                x,
+                !!this.context.athenaFirewallDto.blocking,
+                AthenaAction.NEXT_POLICY
+              );
           } else {
             const dotName = x.name.startsWith(".") ? x.name : `.${x.name}`;
             this.context.athenaServicePolicy[
@@ -56,11 +60,13 @@ export class FiletypesParseStrategy extends ParseStrategyBase {
                 name: x.name.toLowerCase(),
               },
               spec: {
-                action: transparentBlockUtil(
-                  x,
-                  !!this.context.athenaFirewallDto.blocking,
-                  AthenaAction.NEXT_POLICY
-                ),
+                action:
+                  this.overrideAction ??
+                  transparentBlockUtil(
+                    x,
+                    !!this.context.athenaFirewallDto.blocking,
+                    AthenaAction.NEXT_POLICY
+                  ),
                 path: {
                   suffix_values: [dotName],
                 },
@@ -83,6 +89,9 @@ export class FiletypesParseStrategy extends ParseStrategyBase {
         },
         spec: {
           action: wildcardBlocking,
+          path: {
+            regex_values: ["^.[w]+$"],
+          },
           waf_action: {
             none: {},
           },

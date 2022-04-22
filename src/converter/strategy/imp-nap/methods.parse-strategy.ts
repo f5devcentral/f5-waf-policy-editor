@@ -5,6 +5,8 @@ import { ParseStrategyBase } from "../parse-strategy.base";
 
 export class MethodsParseStrategy extends ParseStrategyBase {
   parse(policyObj: any, fullPath: string): Promise<void> {
+    if (!policyObj) return Promise.resolve();
+
     if (!this.context.athenaServicePolicy["methods"]) {
       this.context.athenaServicePolicy["methods"] = {
         metadata: {
@@ -44,9 +46,11 @@ export class MethodsParseStrategy extends ParseStrategyBase {
         name: "any",
       },
       spec: {
-        action: !!this.context.athenaFirewallDto.blocking
-          ? AthenaAction.DENY
-          : AthenaAction.NEXT_POLICY,
+        action:
+          this.overrideAction ??
+          (!!this.context.athenaFirewallDto.blocking
+            ? AthenaAction.DENY
+            : AthenaAction.NEXT_POLICY),
         challenge_action: "DEFAULT_CHALLENGE",
         waf_action: {
           none: {},

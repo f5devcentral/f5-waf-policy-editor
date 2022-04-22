@@ -10,7 +10,6 @@ export class SignatureSetsParseStrategy extends ParseStrategyBase {
     let partially = false;
 
     for (const signatureSet of policyObj) {
-      console.log(signatureSet);
       if (
         blockAlarmUtil(signatureSet, !!this.context.athenaFirewallDto.blocking)
       ) {

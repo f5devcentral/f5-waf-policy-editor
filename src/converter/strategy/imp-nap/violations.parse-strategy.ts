@@ -12,9 +12,13 @@ import { HttpProtocolsParseStrategy } from "./http-protocols.parse-strategy";
 import { EvasionsParseStrategy } from "./evasions.parse-strategy";
 import { FiletypesParseStrategy } from "./filetypes.parse-strategy";
 import { MethodsParseStrategy } from "./methods.parse-strategy";
+import { get as _get } from "lodash";
+import { AthenaAction } from "../../model/athena-common.model";
 
 export class ViolationsParseStrategy extends ParseStrategyBase {
   private readonly violationParsers: { [key: string]: () => ParseStrategyBase };
+  private readonly processedServicePolocyViolations: { [key: string]: boolean };
+
   constructor(protected context: ParseContextModel) {
     super(context);
 
@@ -23,6 +27,7 @@ export class ViolationsParseStrategy extends ParseStrategyBase {
       new HttpResponseStatusViolationParseStrategy(context);
     this.violationParsers["VIOL_THREAT_CAMPAIGN"] = () =>
       new ThreatCampaignViolationParseStrategy(context);
+    this.processedServicePolocyViolations = {};
   }
 
   private async defaultProcessing(
@@ -30,6 +35,10 @@ export class ViolationsParseStrategy extends ParseStrategyBase {
     fullPath: string,
     x: BlockingSettingsViolation
   ): Promise<boolean> {
+    if (blockAlarmUtil(policyObj, !!this.context.athenaFirewallDto.blocking)) {
+      this.processedServicePolocyViolations[policyObj.name] = true;
+    }
+
     switch (policyObj.name) {
       case "VIOL_FILETYPE": {
         if (
@@ -140,6 +149,34 @@ export class ViolationsParseStrategy extends ParseStrategyBase {
     }
   }
 
+  async addMissedServicePolicies(): Promise<void> {
+    const servicePolicyViolations: {
+      [key: string]: { factory: () => ParseStrategyBase; path: string };
+    } = {
+      VIOL_FILETYPE: {
+        factory: () =>
+          new FiletypesParseStrategy(this.context, AthenaAction.NEXT_POLICY),
+        path: "policy.filetypes",
+      },
+      VIOL_METHOD: {
+        factory: () =>
+          new MethodsParseStrategy(this.context, AthenaAction.NEXT_POLICY),
+        path: "policy.methods",
+      },
+    };
+
+    const keys = Object.keys(servicePolicyViolations);
+    for await (const x of keys) {
+      if (!this.processedServicePolocyViolations[x]) {
+        const parser = servicePolicyViolations[x].factory();
+        await parser.parse(
+          _get(this.context.policyContainer, servicePolicyViolations[x].path),
+          servicePolicyViolations[x].path
+        );
+      }
+    }
+  }
+
   async parse(policyObj: any, fullPath: string) {
     this.context.waitEvents[WaitEventEnum.violations] = new WaitEventUtil();
     await this.context.waitEvents[WaitEventEnum.enforcementMode].waitEvent();
@@ -164,6 +201,7 @@ export class ViolationsParseStrategy extends ParseStrategyBase {
       )
     );
 
+    this.addMissedServicePolicies();
     this.context.waitEvents[WaitEventEnum.violations].releaseEvent();
   }
 }
