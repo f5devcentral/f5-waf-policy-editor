@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  waffler:
+    networks:
+      - net
+    image: 'interestingstorage/waffler:0.1.0'
+    ports:
+      - 3001:8080
+
+networks:
+  net:
+    driver: bridge
