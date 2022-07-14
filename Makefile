@@ -46,6 +46,7 @@ $(info ============================================)
 
 
 docker:	
+	docker login -u $(DOCKER_USER) -p $(DOCKER_PASS)
 	DOCKER_BUILDKIT=1 docker build --no-cache \
 		--build-arg SEMVER=$(SEMVER) \
 		--build-arg CI_COMMIT_SHORT_SHA=$(CI_COMMIT_SHORT_SHA) \
@@ -56,14 +57,15 @@ docker:
 		.
 
 docker-push:	
+	docker login -u $(DOCKER_USER) -p $(DOCKER_PASS)
 	docker tag $(CI_PROJECT_PATH):$(CI_COMMIT_SHORT_SHA) $(DOCKER_REPOSITORY_URI):$(CI_COMMIT_SHORT_SHA)
 	docker tag $(CI_PROJECT_PATH):$(CI_COMMIT_SHORT_SHA) $(DOCKER_REPOSITORY_URI):$(VERSION)
 	docker tag $(CI_PROJECT_PATH):$(CI_COMMIT_SHORT_SHA) $(DOCKER_REPOSITORY_URI):$(SEMVER)
 	docker tag $(CI_PROJECT_PATH):$(CI_COMMIT_SHORT_SHA) $(DOCKER_REPOSITORY_URI):latest
-	# docker push $(DOCKER_REPOSITORY_URI):$(CI_COMMIT_SHORT_SHA)
-	# docker push $(DOCKER_REPOSITORY_URI):$(VERSION)
-	# docker push $(DOCKER_REPOSITORY_URI):$(SEMVER)
-	# docker push $(DOCKER_REPOSITORY_URI):latest
+	docker push $(DOCKER_REPOSITORY_URI):$(CI_COMMIT_SHORT_SHA)
+	docker push $(DOCKER_REPOSITORY_URI):$(VERSION)
+	docker push $(DOCKER_REPOSITORY_URI):$(SEMVER)
+	docker push $(DOCKER_REPOSITORY_URI):latest
 
 
 helm-i:
