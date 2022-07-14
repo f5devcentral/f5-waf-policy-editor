@@ -14,7 +14,7 @@ COPY . .
 RUN npm install
 RUN npm run build
 
-FROM nginxinc/nginx-unprivileged:alpine as portal
+FROM nginxinc/nginx-unprivileged:alpine
 
 # Set working directory to nginx asset directory
 WORKDIR /usr/share/nginx/html
