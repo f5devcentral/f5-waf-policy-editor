@@ -4,7 +4,7 @@ services:
   waffler:
     networks:
       - net
-    image: 'interestingstorage/waffler:0.1.0'
+    image: 'interestingstorage/waffler:latest'
     ports:
       - 3001:8080
 

@@ -1,6 +1,6 @@
-.PHONY: all docker-ps docker-ps-push helm-i helm-u
+.PHONY: all docker docker-push helm-i helm-u
 
-all: docker-ps docker-push-ps
+all: docker docker-push
 
 ifeq ($(CI),true)
 $(info == Running in CI environment ===============)
