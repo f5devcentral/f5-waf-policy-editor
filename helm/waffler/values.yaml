@@ -23,7 +23,7 @@ securityContext:
   runAsNonRoot: true
 
 service:
-  type: NodePort
+  type: LoadBalancer
   port: 9090
   targetPort: 8080
 
