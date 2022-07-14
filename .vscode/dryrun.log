@@ -1,0 +1,54 @@
+make --dry-run --always-make --keep-going --print-directory
+== Running in local environment ============
+ 
+cat: RROJECT: No such file or directory
+
+== BUILD VARS ==============================
+PRERELEASE=
+BUILD_META=
+ 
+VERSION=0.1.0
+ 
+SEMVER=0.1.0-feature_convert
+ 
+CI_COMMIT_SHA=be451d8cfa2cdc7edc85a85220430e2527dc0d79
+ 
+CI_COMMIT_SHORT_SHA=be451d8
+
+ 
+CI_PROJECT_PATH=waffler
+ 
+DOCKER_REGISTRY=interestingstorage
+DOCKER_BUILD_LABELS="com.f5aas.version=0.1.0-feature_convert" "com.f5aas.package=" "com.f5aas.commit_sha=be451d8cfa2cdc7edc85a85220430e2527dc0d79" "com.f5aas.commit_sha_short=be451d8"
+ 
+DOCKER_REPOSITORY_URI=interestingstorage/waffler
+
+GOLDFLAGS=
+GOGOPATH=
+GO111MODULE=
+GOFLAGS=
+============================================
+ 
+make: Entering directory `/Users/se.levin/Work/f5-waf-policy-editor'
+docker login -u  -p 
+ 
+DOCKER_BUILDKIT=1 docker build --no-cache \
+		--build-arg SEMVER=0.1.0-feature_convert \
+		--build-arg CI_COMMIT_SHORT_SHA=be451d8 \
+		--build-arg CI_COMMIT_SHA=be451d8cfa2cdc7edc85a85220430e2527dc0d79 \
+		--label "com.f5aas.version=0.1.0-feature_convert" --label "com.f5aas.package=" --label "com.f5aas.commit_sha=be451d8cfa2cdc7edc85a85220430e2527dc0d79" --label "com.f5aas.commit_sha_short=be451d8" \
+		-t waffler:be451d8 \
+		-f ./Dockerfile \
+		.
+ 
+docker login -u  -p 
+docker tag waffler:be451d8 interestingstorage/waffler:be451d8
+docker tag waffler:be451d8 interestingstorage/waffler:0.1.0
+docker tag waffler:be451d8 interestingstorage/waffler:0.1.0-feature_convert
+docker tag waffler:be451d8 interestingstorage/waffler:latest
+docker push interestingstorage/waffler:be451d8
+docker push interestingstorage/waffler:0.1.0
+docker push interestingstorage/waffler:0.1.0-feature_convert
+docker push interestingstorage/waffler:latest
+make: Leaving directory `/Users/se.levin/Work/f5-waf-policy-editor'
+ 

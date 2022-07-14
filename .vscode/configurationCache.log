@@ -1,0 +1,1 @@
+{"buildTargets":["all","docker","docker-push","helm-i","helm-u","xc-delete","xc-deploy"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}

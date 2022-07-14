@@ -1,11 +1,13 @@
 replicaCount: 1
 
 image:
-  repository: interestingstorage/waffler
+  repository: docker.io/interestingstorage/waffler  
   pullPolicy: IfNotPresent
   tag: "latest"
 
-imagePullSecrets: []
+imagePullSecrets:
+  name: interestingstorage
+
 nameOverride: ""
 fullnameOverride: ""
 
@@ -23,8 +25,8 @@ securityContext:
   runAsNonRoot: true
 
 service:
-  type: LoadBalancer
-  port: 9090
+  type: ClusterIP
+  port: 8080
   targetPort: 8080
 
 

@@ -1,4 +1,4 @@
-.PHONY: all docker docker-push helm-i helm-u
+.PHONY: all docker docker-push helm-i helm-u xc-deploy xc-delete
 
 all: docker docker-push
 
@@ -73,3 +73,9 @@ helm-i:
 
 helm-u:
 	helm uninstall waffler
+
+xc-deploy:
+	KUBECONFIG=./ves_waffler_waffler.yml helm upgrade --install waffler ./helm/waffler --values=./helm/waffler/values.yaml
+
+xc-delete:
+	KUBECONFIG=./ves_waffler_waffler.yml helm uninstall waffler	
