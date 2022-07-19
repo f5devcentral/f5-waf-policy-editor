@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: docker.io/interestingstorage/waffler  
   pullPolicy: IfNotPresent
-  tag: "latest"
+  tag: "0.2.0"
 
 imagePullSecrets:
   name: interestingstorage
