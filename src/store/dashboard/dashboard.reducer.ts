@@ -9,7 +9,7 @@ import { dashboardModuleSetHandler } from "./handler/dashboard-module-set.handle
 
 export function dashboardStateInit(): DashboardState {
   return {
-    currentModule: DashboardModuleEnum.PolicyConvert,
+    currentModule: DashboardModuleEnum.PolicyEditor,
   };
 }
 

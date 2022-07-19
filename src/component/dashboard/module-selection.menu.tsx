@@ -42,14 +42,14 @@ export const ModuleSelectionMenu: React.VoidFunctionComponent = () => {
       >
         {[
           {
-            text: "Convert Policy",
-            id: DashboardModuleEnum.PolicyConvert,
-            icon: <TransformIcon sx={{ minWidth: "32px" }} />,
-          },
-          {
             text: "Policy Editor",
             id: DashboardModuleEnum.PolicyEditor,
             icon: <Edit sx={{ minWidth: "32px" }} />,
+          },
+          {
+            text: "Convert Policy",
+            id: DashboardModuleEnum.PolicyConvert,
+            icon: <TransformIcon sx={{ minWidth: "32px" }} />,
           },
           {
             text: "Policy Wizard",
